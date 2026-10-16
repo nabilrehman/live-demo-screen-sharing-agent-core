@@ -10,6 +10,8 @@ A LiveKit Agents project (Python, `uv`). See README.md for what it does.
   the screen feed), hands.py (one step on the page), engines.py (Jev), planner.py (multi-step tasks), nudges.py,
   floor.py / voicebridge.py / demolistener.py (in-browser test calls), avatar.py, browser.py, sesslog.py, cleanup.py.
 - `knowledge/`: the product. Product-specific text belongs here, not in code.
+- `src/shop_agent.py` + `src/inpage/`: a separate agent, Kai inside a store page (page_context text stream up, RPC
+  actions down; no browser). Its prompt and catalog are in `knowledge/shop/`; deploy it from `shop.Dockerfile`.
 
 ## Run and test
 

@@ -1,0 +1,96 @@
+"""The page note and "which product" resolution for Kai in the store page (src/inpage)."""
+
+import time
+
+from inpage.catalog import PRODUCTS, mentioned, model_name, prompt
+from inpage.page import PageState
+
+RESULTS = {
+    "seq": 3,
+    "route": "#/search?q=noise+cancelling+headphones&pmax=300",
+    "page": "results",
+    "visible": [
+        {
+            "pos": 1,
+            "id": "pulsewave-quietmax",
+            "name": "Pulsewave QuietMax",
+            "price": 229.99,
+            "rating": 4.3,
+            "deal": True,
+        },
+        {
+            "pos": 2,
+            "id": "pulsewave-airbuds-2",
+            "name": "Pulsewave AirBuds 2",
+            "price": 129.99,
+            "rating": 4.4,
+            "deal": True,
+        },
+        {"pos": 3, "id": "auralis-pro-anc", "name": "Auralis Pro ANC", "price": 279.99, "rating": 4.7, "deal": True},
+    ],
+    "filters": {"q": "noise cancelling headphones", "pmax": "300"},
+    "sort": "best",
+    "cart": {"count": 0, "subtotal": 0, "total": 0, "lines": []},
+}
+
+
+def page(**extra) -> PageState:
+    p = PageState()
+    p.update({**RESULTS, **extra})
+    return p
+
+
+def test_positions_and_names():
+    p = page()
+    assert p.resolve("the second one") == ("pulsewave-airbuds-2", "")
+    assert p.resolve("number 3")[0] == "auralis-pro-anc"
+    assert p.resolve("the last one")[0] == "auralis-pro-anc"
+    assert p.resolve("the QuietMax")[0] == "pulsewave-quietmax"
+    assert p.resolve("auralis-pro-anc")[0] == "auralis-pro-anc"
+    assert p.resolve("the fifth one")[0] is None
+
+
+def test_attributes():
+    p = page()
+    assert p.resolve("the lilac one")[0] == "pulsewave-airbuds-2"
+    assert p.resolve("the earbuds")[0] == "pulsewave-airbuds-2"
+    assert p.resolve("the cheapest one")[0] == "pulsewave-airbuds-2"
+    assert p.resolve("the black one")[0] is None  # all three come in black: ask
+
+
+def test_this_one_order():
+    p = page()
+    assert p.resolve("this one")[0] is None
+    p.last_mentioned = "auralis-pro-anc"
+    assert p.resolve("that one")[0] == "auralis-pro-anc"
+    p.update({**RESULTS, "seq": 4, "last_interaction": {"id": "pulsewave-quietmax", "type": "hover", "ms_ago": 500}})
+    assert p.resolve("this one")[0] == "pulsewave-quietmax"
+    p.at = time.monotonic() - 30  # an old touch no longer counts
+    assert p.resolve("this one")[0] == "auralis-pro-anc"
+    p.update({**RESULTS, "seq": 5, "page": "product", "product": {"id": "sonique-studio-q8"}})
+    assert p.resolve("it")[0] == "sonique-studio-q8"
+
+
+def test_stale_snapshot_ignored():
+    p = page()
+    assert not p.update({**RESULTS, "seq": 1, "page": "home"})
+    assert p.ctx["page"] == "results"
+
+
+def test_note_and_signature():
+    p = page()
+    note = p.note()
+    assert "2. Pulsewave AirBuds 2 [pulsewave-airbuds-2] $129.99" in note and "Cart: empty." in note
+    sig = p.signature()
+    p.update({**RESULTS, "seq": 9})
+    assert p.signature() == sig  # a new sequence number alone is no news
+
+
+def test_catalog_prompt_and_mentions():
+    assert len(PRODUCTS) > 40 and "{catalog}" not in prompt()
+    assert model_name(PRODUCTS["sonique-studio-q8"]) == "Studio Q8"
+    assert mentioned("The Halo 9 Pro beats the Sonique Studio Q8 and the QuietMax.") == [
+        "halo-9-pro",
+        "sonique-studio-q8",
+        "pulsewave-quietmax",
+    ]

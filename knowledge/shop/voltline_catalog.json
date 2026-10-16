@@ -1,0 +1,2141 @@
+{
+ "categories": [
+  {
+   "id": "tvs",
+   "name": "TVs"
+  },
+  {
+   "id": "laptops",
+   "name": "Laptops"
+  },
+  {
+   "id": "headphones",
+   "name": "Headphones"
+  },
+  {
+   "id": "phones",
+   "name": "Phones"
+  },
+  {
+   "id": "smart-home",
+   "name": "Smart Home"
+  },
+  {
+   "id": "gaming",
+   "name": "Gaming"
+  },
+  {
+   "id": "accessories",
+   "name": "Accessories"
+  }
+ ],
+ "features": {
+  "noise-cancelling": "Noise cancelling",
+  "wireless": "Wireless",
+  "wired": "Wired",
+  "water-resistant": "Water resistant",
+  "over-ear": "Over-ear",
+  "earbuds": "Earbuds",
+  "4k": "4K",
+  "8k": "8K",
+  "120hz": "120Hz",
+  "oled": "OLED",
+  "hdr": "HDR",
+  "smart-tv": "Smart TV",
+  "touchscreen": "Touchscreen",
+  "2-in-1": "2-in-1",
+  "gaming": "Gaming",
+  "lightweight": "Lightweight",
+  "5g": "5G",
+  "wireless-charging": "Wireless charging",
+  "unlocked": "Unlocked",
+  "voice-assistant": "Voice assistant",
+  "works-with-hub": "Works with Domio Hub",
+  "wifi-6e": "Wi-Fi 6E",
+  "usb-c": "USB-C"
+ },
+ "products": [
+  {
+   "id": "auralis-pro-anc",
+   "name": "Auralis Pro ANC Wireless Over-Ear Headphones",
+   "brand": "Auralis",
+   "cat": "headphones",
+   "price": 279.99,
+   "was": 349.99,
+   "deal": true,
+   "rating": 4.7,
+   "reviews": 2841,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Glacier White",
+    "Desert Sand"
+   ],
+   "options": null,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "over-ear",
+    "usb-c"
+   ],
+   "highlights": [
+    "Adaptive noise cancelling with 8 microphones",
+    "Up to 40 hours of battery life",
+    "Multipoint Bluetooth for two devices"
+   ],
+   "specs": {
+    "Form factor": "Over-ear",
+    "Noise cancelling": "Adaptive ANC",
+    "Battery life": "40 hours",
+    "Charging": "USB-C, 5 min = 4 hrs",
+    "Bluetooth": "5.4, multipoint",
+    "Weight": "254 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "sonique-studio-q8",
+   "name": "Sonique Studio Q8 Noise Cancelling Headphones",
+   "brand": "Sonique",
+   "cat": "headphones",
+   "price": 349.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.8,
+   "reviews": 1932,
+   "stock": "low",
+   "left": 2,
+   "colors": [
+    "Graphite",
+    "Silver",
+    "Deep Navy"
+   ],
+   "options": null,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "over-ear",
+    "usb-c"
+   ],
+   "highlights": [
+    "Dual-processor noise cancelling",
+    "Spatial audio with head tracking",
+    "Plush memory-foam ear cushions"
+   ],
+   "specs": {
+    "Form factor": "Over-ear",
+    "Noise cancelling": "Dual-processor ANC",
+    "Battery life": "30 hours",
+    "Charging": "USB-C",
+    "Bluetooth": "5.3, multipoint",
+    "Weight": "250 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "pulsewave-airbuds-2",
+   "name": "Pulsewave AirBuds 2 Noise Cancelling Earbuds",
+   "brand": "Pulsewave",
+   "cat": "headphones",
+   "price": 129.99,
+   "was": 179.99,
+   "deal": true,
+   "rating": 4.4,
+   "reviews": 3120,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Glacier White",
+    "Midnight Black",
+    "Lilac"
+   ],
+   "options": null,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "earbuds",
+    "water-resistant",
+    "wireless-charging"
+   ],
+   "highlights": [
+    "Hybrid ANC with transparency mode",
+    "IPX5 sweat and water resistant",
+    "Wireless charging case"
+   ],
+   "specs": {
+    "Form factor": "True wireless earbuds",
+    "Noise cancelling": "Hybrid ANC",
+    "Battery life": "8 hrs (32 hrs with case)",
+    "Charging": "USB-C, Qi wireless",
+    "Bluetooth": "5.3",
+    "Weight": "5.1 g per bud",
+    "Water resistance": "IPX5"
+   }
+  },
+  {
+   "id": "kestrel-trail-sport",
+   "name": "Kestrel Trail Sport Wireless Earbuds",
+   "brand": "Kestrel",
+   "cat": "headphones",
+   "price": 79.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.2,
+   "reviews": 860,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Coral",
+    "Sage Green"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "earbuds",
+    "water-resistant"
+   ],
+   "highlights": [
+    "Secure ear-hook fit for running",
+    "IP67 dust and water proof",
+    "Ambient sound mode"
+   ],
+   "specs": {
+    "Form factor": "Sport earbuds with ear hooks",
+    "Noise cancelling": "None (passive isolation)",
+    "Battery life": "10 hrs (30 hrs with case)",
+    "Charging": "USB-C",
+    "Bluetooth": "5.3",
+    "Weight": "7.4 g per bud",
+    "Water resistance": "IP67"
+   }
+  },
+  {
+   "id": "auralis-lite-on-ear",
+   "name": "Auralis Lite On-Ear Wireless Headphones",
+   "brand": "Auralis",
+   "cat": "headphones",
+   "price": 59.99,
+   "was": 79.99,
+   "deal": false,
+   "rating": 3.9,
+   "reviews": 1204,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Cobalt Blue",
+    "Coral"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "usb-c"
+   ],
+   "highlights": [
+    "Foldable lightweight design",
+    "50 hours of playback",
+    "Built-in mic for calls"
+   ],
+   "specs": {
+    "Form factor": "On-ear",
+    "Noise cancelling": "None",
+    "Battery life": "50 hours",
+    "Charging": "USB-C",
+    "Bluetooth": "5.3",
+    "Weight": "180 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "sonique-buds-pro",
+   "name": "Sonique Buds Pro ANC Earbuds",
+   "brand": "Sonique",
+   "cat": "headphones",
+   "price": 199.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.6,
+   "reviews": 2210,
+   "stock": "out",
+   "left": null,
+   "colors": [
+    "Graphite",
+    "Silver"
+   ],
+   "options": null,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "earbuds",
+    "water-resistant",
+    "wireless-charging"
+   ],
+   "highlights": [
+    "Industry-leading call clarity",
+    "Personalized ear-tip fit test",
+    "IPX4 splash resistant"
+   ],
+   "specs": {
+    "Form factor": "True wireless earbuds",
+    "Noise cancelling": "Adaptive ANC",
+    "Battery life": "8 hrs (24 hrs with case)",
+    "Charging": "USB-C, Qi wireless",
+    "Bluetooth": "5.3, multipoint",
+    "Weight": "5.9 g per bud",
+    "Water resistance": "IPX4"
+   }
+  },
+  {
+   "id": "kestrel-monitor-x",
+   "name": "Kestrel Monitor X Wired Studio Headphones",
+   "brand": "Kestrel",
+   "cat": "headphones",
+   "price": 149.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.5,
+   "reviews": 512,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black"
+   ],
+   "options": null,
+   "features": [
+    "wired",
+    "over-ear"
+   ],
+   "highlights": [
+    "Flat studio reference tuning",
+    "Detachable coiled and straight cables",
+    "45 mm neodymium drivers"
+   ],
+   "specs": {
+    "Form factor": "Over-ear, closed back",
+    "Noise cancelling": "None (passive isolation)",
+    "Battery life": "Not applicable",
+    "Charging": "Not applicable",
+    "Bluetooth": "None (3.5 mm wired)",
+    "Weight": "285 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "pulsewave-quietmax",
+   "name": "Pulsewave QuietMax Over-Ear Noise Cancelling Headphones",
+   "brand": "Pulsewave",
+   "cat": "headphones",
+   "price": 229.99,
+   "was": 299.99,
+   "deal": true,
+   "rating": 4.3,
+   "reviews": 978,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Deep Navy",
+    "Midnight Black",
+    "Desert Sand"
+   ],
+   "options": null,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "over-ear",
+    "usb-c"
+   ],
+   "highlights": [
+    "Six-level noise cancelling",
+    "60 hours with ANC off",
+    "Low-latency game mode"
+   ],
+   "specs": {
+    "Form factor": "Over-ear",
+    "Noise cancelling": "6-level ANC",
+    "Battery life": "45 hrs ANC on / 60 hrs off",
+    "Charging": "USB-C",
+    "Bluetooth": "5.3",
+    "Weight": "268 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "lumora-c5-oled",
+   "name": "Lumora C5 4K OLED 120Hz Smart TV",
+   "brand": "Lumora",
+   "cat": "tvs",
+   "price": 1799.99,
+   "was": 2199.99,
+   "deal": true,
+   "rating": 4.8,
+   "reviews": 1543,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": {
+    "label": "Screen size",
+    "choices": [
+     {
+      "name": "55 inch",
+      "price": 1299.99
+     },
+     {
+      "name": "65 inch",
+      "price": 1799.99
+     },
+     {
+      "name": "77 inch",
+      "price": 2799.99
+     }
+    ]
+   },
+   "features": [
+    "4k",
+    "120hz",
+    "oled",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Self-lit OLED pixels with perfect black",
+    "120Hz with VRR for gaming",
+    "Dolby-style HDR and spatial audio"
+   ],
+   "specs": {
+    "Display type": "OLED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "120Hz native",
+    "HDR": "HDR10, HLG, Dynamic HDR",
+    "HDMI ports": "4 (HDMI 2.1)",
+    "Smart platform": "LumaOS",
+    "Speakers": "40 W, 2.2 channel"
+   }
+  },
+  {
+   "id": "vistaline-q7-qled",
+   "name": "Vistaline Q7 4K QLED 120Hz Smart TV",
+   "brand": "Vistaline",
+   "cat": "tvs",
+   "price": 699.99,
+   "was": 899.99,
+   "deal": true,
+   "rating": 4.5,
+   "reviews": 2210,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": {
+    "label": "Screen size",
+    "choices": [
+     {
+      "name": "55 inch",
+      "price": 699.99
+     },
+     {
+      "name": "65 inch",
+      "price": 899.99
+     },
+     {
+      "name": "75 inch",
+      "price": 1199.99
+     }
+    ]
+   },
+   "features": [
+    "4k",
+    "120hz",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Quantum-dot color",
+    "120Hz motion rate with game bar",
+    "Hands-free voice control"
+   ],
+   "specs": {
+    "Display type": "QLED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "120Hz native",
+    "HDR": "HDR10+",
+    "HDMI ports": "4 (2 x HDMI 2.1)",
+    "Smart platform": "Vista Home",
+    "Speakers": "20 W, 2 channel"
+   }
+  },
+  {
+   "id": "orbix-u50-led",
+   "name": "Orbix U50 50\" 4K LED Smart TV",
+   "brand": "Orbix",
+   "cat": "tvs",
+   "price": 299.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.2,
+   "reviews": 4120,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "4k",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Great value 4K picture",
+    "Built-in streaming apps",
+    "Slim bezel design"
+   ],
+   "specs": {
+    "Display type": "LED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "60Hz",
+    "HDR": "HDR10",
+    "HDMI ports": "3",
+    "Smart platform": "Orbix TV",
+    "Speakers": "16 W, 2 channel"
+   }
+  },
+  {
+   "id": "lumora-g5-oled-77",
+   "name": "Lumora G5 77\" Gallery 4K OLED 144Hz Smart TV",
+   "brand": "Lumora",
+   "cat": "tvs",
+   "price": 3499.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.9,
+   "reviews": 388,
+   "stock": "low",
+   "left": 2,
+   "colors": [],
+   "options": null,
+   "features": [
+    "4k",
+    "120hz",
+    "oled",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Brightest Lumora OLED panel",
+    "Flush gallery wall-mount design",
+    "144Hz for PC gaming"
+   ],
+   "specs": {
+    "Display type": "OLED (brightness booster)",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "144Hz native",
+    "HDR": "HDR10, HLG, Dynamic HDR",
+    "HDMI ports": "4 (HDMI 2.1)",
+    "Smart platform": "LumaOS",
+    "Speakers": "60 W, 4.2 channel"
+   }
+  },
+  {
+   "id": "vistaline-m9-miniled",
+   "name": "Vistaline M9 75\" Mini-LED 4K 120Hz Smart TV",
+   "brand": "Vistaline",
+   "cat": "tvs",
+   "price": 1299.99,
+   "was": 1699.99,
+   "deal": true,
+   "rating": 4.6,
+   "reviews": 702,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "4k",
+    "120hz",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Over 1,000 local dimming zones",
+    "Peak brightness for bright rooms",
+    "Anti-glare matte screen"
+   ],
+   "specs": {
+    "Display type": "Mini-LED QLED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "120Hz native",
+    "HDR": "HDR10+, HLG",
+    "HDMI ports": "4 (2 x HDMI 2.1)",
+    "Smart platform": "Vista Home",
+    "Speakers": "40 W, 2.1 channel"
+   }
+  },
+  {
+   "id": "orbix-f43-fhd",
+   "name": "Orbix F43 43\" Full HD LED Smart TV",
+   "brand": "Orbix",
+   "cat": "tvs",
+   "price": 179.99,
+   "was": 219.99,
+   "deal": false,
+   "rating": 4,
+   "reviews": 1876,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "smart-tv"
+   ],
+   "highlights": [
+    "Ideal for bedrooms and dorms",
+    "Built-in streaming apps",
+    "Lightweight and easy to mount"
+   ],
+   "specs": {
+    "Display type": "LED",
+    "Resolution": "Full HD (1920 x 1080)",
+    "Refresh rate": "60Hz",
+    "HDR": "None",
+    "HDMI ports": "2",
+    "Smart platform": "Orbix TV",
+    "Speakers": "10 W, 2 channel"
+   }
+  },
+  {
+   "id": "vistaline-h32",
+   "name": "Vistaline H32 32\" HD Smart TV",
+   "brand": "Vistaline",
+   "cat": "tvs",
+   "price": 129.99,
+   "was": null,
+   "deal": false,
+   "rating": 3.8,
+   "reviews": 954,
+   "stock": "out",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "smart-tv"
+   ],
+   "highlights": [
+    "Compact size for kitchens",
+    "Voice remote included",
+    "Energy efficient"
+   ],
+   "specs": {
+    "Display type": "LED",
+    "Resolution": "HD (1366 x 768)",
+    "Refresh rate": "60Hz",
+    "HDR": "None",
+    "HDMI ports": "2",
+    "Smart platform": "Vista Home",
+    "Speakers": "8 W, 2 channel"
+   }
+  },
+  {
+   "id": "lumora-q85-qled",
+   "name": "Lumora Q85 85\" 4K QLED 120Hz Smart TV",
+   "brand": "Lumora",
+   "cat": "tvs",
+   "price": 1999.99,
+   "was": 2499.99,
+   "deal": false,
+   "rating": 4.4,
+   "reviews": 431,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "4k",
+    "120hz",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Huge 85-inch screen",
+    "120Hz with motion smoothing",
+    "Object-tracking sound"
+   ],
+   "specs": {
+    "Display type": "QLED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "120Hz native",
+    "HDR": "HDR10+",
+    "HDMI ports": "4 (HDMI 2.1)",
+    "Smart platform": "LumaOS",
+    "Speakers": "40 W, 2.2 channel"
+   }
+  },
+  {
+   "id": "nimbus-air-14",
+   "name": "Nimbus Air 14\" Ultralight Laptop",
+   "brand": "Nimbus",
+   "cat": "laptops",
+   "price": 999.99,
+   "was": 1199.99,
+   "deal": true,
+   "rating": 4.7,
+   "reviews": 1650,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Silver",
+    "Graphite",
+    "Sage Green"
+   ],
+   "options": {
+    "label": "Memory / storage",
+    "choices": [
+     {
+      "name": "16GB / 512GB",
+      "price": 999.99
+     },
+     {
+      "name": "24GB / 1TB",
+      "price": 1299.99
+     }
+    ]
+   },
+   "features": [
+    "lightweight",
+    "usb-c"
+   ],
+   "highlights": [
+    "Just 1.1 kg (2.4 lb)",
+    "Up to 20 hours of battery",
+    "Fanless, silent design"
+   ],
+   "specs": {
+    "Processor": "Nimbus N3 8-core",
+    "Memory": "16GB unified",
+    "Storage": "512GB SSD",
+    "Display": "14.2\" 2560 x 1664, 500 nits",
+    "Graphics": "Integrated 10-core",
+    "Battery life": "Up to 20 hours",
+    "Weight": "1.1 kg (2.4 lb)",
+    "Operating system": "NimbusOS"
+   }
+  },
+  {
+   "id": "corvid-blade-16",
+   "name": "Corvid Blade 16\" Gaming Laptop",
+   "brand": "Corvid",
+   "cat": "laptops",
+   "price": 1899.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.6,
+   "reviews": 742,
+   "stock": "low",
+   "left": 2,
+   "colors": [
+    "Midnight Black"
+   ],
+   "options": {
+    "label": "Memory / storage",
+    "choices": [
+     {
+      "name": "32GB / 1TB",
+      "price": 1899.99
+     },
+     {
+      "name": "32GB / 2TB",
+      "price": 2099.99
+     }
+    ]
+   },
+   "features": [
+    "gaming",
+    "120hz"
+   ],
+   "highlights": [
+    "240Hz QHD+ display",
+    "12GB dedicated graphics",
+    "Per-key RGB keyboard"
+   ],
+   "specs": {
+    "Processor": "Stratus X9 16-core",
+    "Memory": "32GB DDR5",
+    "Storage": "1TB SSD",
+    "Display": "16\" 2560 x 1600, 240Hz",
+    "Graphics": "Vortek GX 12GB",
+    "Battery life": "Up to 6 hours",
+    "Weight": "2.4 kg (5.3 lb)",
+    "Operating system": "Windows 11 Home"
+   }
+  },
+  {
+   "id": "stratus-flip-14",
+   "name": "Stratus Flip 14\" 2-in-1 Touchscreen Laptop",
+   "brand": "Stratus",
+   "cat": "laptops",
+   "price": 749.99,
+   "was": 899.99,
+   "deal": true,
+   "rating": 4.3,
+   "reviews": 1120,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Silver",
+    "Cobalt Blue"
+   ],
+   "options": null,
+   "features": [
+    "touchscreen",
+    "2-in-1",
+    "lightweight",
+    "usb-c"
+   ],
+   "highlights": [
+    "360-degree hinge, tablet mode",
+    "Active pen included",
+    "Fast charge 50% in 30 minutes"
+   ],
+   "specs": {
+    "Processor": "Stratus X5 10-core",
+    "Memory": "16GB LPDDR5",
+    "Storage": "512GB SSD",
+    "Display": "14\" 1920 x 1200 touch",
+    "Graphics": "Integrated",
+    "Battery life": "Up to 13 hours",
+    "Weight": "1.4 kg (3.1 lb)",
+    "Operating system": "Windows 11 Home"
+   }
+  },
+  {
+   "id": "nimbus-pro-16",
+   "name": "Nimbus Pro 16\" Creator Laptop",
+   "brand": "Nimbus",
+   "cat": "laptops",
+   "price": 2499.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.9,
+   "reviews": 610,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Silver",
+    "Graphite"
+   ],
+   "options": {
+    "label": "Memory / storage",
+    "choices": [
+     {
+      "name": "36GB / 1TB",
+      "price": 2499.99
+     },
+     {
+      "name": "48GB / 2TB",
+      "price": 3099.99
+     }
+    ]
+   },
+   "features": [
+    "120hz",
+    "usb-c"
+   ],
+   "highlights": [
+    "Mini-LED XDR-class display",
+    "Pro N3 Max chip",
+    "Six-speaker sound system"
+   ],
+   "specs": {
+    "Processor": "Nimbus N3 Max 14-core",
+    "Memory": "36GB unified",
+    "Storage": "1TB SSD",
+    "Display": "16.2\" 3456 x 2234, 120Hz Mini-LED",
+    "Graphics": "Integrated 30-core",
+    "Battery life": "Up to 22 hours",
+    "Weight": "2.1 kg (4.7 lb)",
+    "Operating system": "NimbusOS"
+   }
+  },
+  {
+   "id": "corvid-swift-15",
+   "name": "Corvid Swift 15.6\" Everyday Laptop",
+   "brand": "Corvid",
+   "cat": "laptops",
+   "price": 449.99,
+   "was": 549.99,
+   "deal": false,
+   "rating": 4.1,
+   "reviews": 2380,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Silver"
+   ],
+   "options": null,
+   "features": [
+    "usb-c"
+   ],
+   "highlights": [
+    "Full-size keyboard with number pad",
+    "Fast SSD storage",
+    "Webcam privacy shutter"
+   ],
+   "specs": {
+    "Processor": "Stratus X3 8-core",
+    "Memory": "8GB DDR4",
+    "Storage": "512GB SSD",
+    "Display": "15.6\" 1920 x 1080",
+    "Graphics": "Integrated",
+    "Battery life": "Up to 9 hours",
+    "Weight": "1.7 kg (3.7 lb)",
+    "Operating system": "Windows 11 Home"
+   }
+  },
+  {
+   "id": "stratus-chromo-11",
+   "name": "Stratus Chromo 11.6\" Student Laptop",
+   "brand": "Stratus",
+   "cat": "laptops",
+   "price": 199.99,
+   "was": null,
+   "deal": false,
+   "rating": 3.9,
+   "reviews": 1430,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Graphite",
+    "Cobalt Blue"
+   ],
+   "options": null,
+   "features": [
+    "lightweight"
+   ],
+   "highlights": [
+    "Spill-resistant keyboard",
+    "Durable rubberized edges",
+    "12-hour battery"
+   ],
+   "specs": {
+    "Processor": "Stratus E2 4-core",
+    "Memory": "4GB",
+    "Storage": "64GB eMMC",
+    "Display": "11.6\" 1366 x 768",
+    "Graphics": "Integrated",
+    "Battery life": "Up to 12 hours",
+    "Weight": "1.1 kg (2.5 lb)",
+    "Operating system": "CloudOS"
+   }
+  },
+  {
+   "id": "corvid-zen-oled-13",
+   "name": "Corvid Zen 13.3\" OLED Laptop",
+   "brand": "Corvid",
+   "cat": "laptops",
+   "price": 1149.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.5,
+   "reviews": 389,
+   "stock": "out",
+   "left": null,
+   "colors": [
+    "Deep Navy",
+    "Glacier White"
+   ],
+   "options": null,
+   "features": [
+    "oled",
+    "lightweight",
+    "touchscreen",
+    "usb-c"
+   ],
+   "highlights": [
+    "2.8K OLED touch display",
+    "Under 1 kg",
+    "Thunderbolt-class USB-C ports"
+   ],
+   "specs": {
+    "Processor": "Stratus X7 12-core",
+    "Memory": "16GB LPDDR5X",
+    "Storage": "1TB SSD",
+    "Display": "13.3\" 2880 x 1800 OLED touch",
+    "Graphics": "Integrated",
+    "Battery life": "Up to 14 hours",
+    "Weight": "0.99 kg (2.2 lb)",
+    "Operating system": "Windows 11 Home"
+   }
+  },
+  {
+   "id": "nimbus-studio-book-15",
+   "name": "Nimbus StudioBook 15\" Laptop",
+   "brand": "Nimbus",
+   "cat": "laptops",
+   "price": 1299.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.6,
+   "reviews": 905,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Silver",
+    "Champagne Gold",
+    "Graphite"
+   ],
+   "options": null,
+   "features": [
+    "lightweight",
+    "usb-c"
+   ],
+   "highlights": [
+    "Large 15.3\" Liquid display",
+    "Six-speaker sound",
+    "18-hour battery"
+   ],
+   "specs": {
+    "Processor": "Nimbus N3 8-core",
+    "Memory": "16GB unified",
+    "Storage": "512GB SSD",
+    "Display": "15.3\" 2880 x 1864",
+    "Graphics": "Integrated 10-core",
+    "Battery life": "Up to 18 hours",
+    "Weight": "1.5 kg (3.3 lb)",
+    "Operating system": "NimbusOS"
+   }
+  },
+  {
+   "id": "halo-9-pro",
+   "name": "Halo 9 Pro 5G Unlocked Phone",
+   "brand": "Halo",
+   "cat": "phones",
+   "price": 999.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.7,
+   "reviews": 3410,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Graphite",
+    "Silver",
+    "Sage Green"
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "128GB",
+      "price": 999.99
+     },
+     {
+      "name": "256GB",
+      "price": 1099.99
+     },
+     {
+      "name": "512GB",
+      "price": 1299.99
+     }
+    ]
+   },
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "highlights": [
+    "Triple 50 MP camera with 5x zoom",
+    "6.3\" 120Hz LTPO display",
+    "Titanium frame"
+   ],
+   "specs": {
+    "Display": "6.3\" OLED, 120Hz",
+    "Processor": "Halo H9 Pro",
+    "Rear camera": "50 MP + 48 MP + 50 MP (5x)",
+    "Battery": "4,800 mAh",
+    "Charging": "45 W wired, 25 W wireless",
+    "Water resistance": "IP68",
+    "Network": "5G (sub-6 and mmWave)"
+   }
+  },
+  {
+   "id": "halo-9",
+   "name": "Halo 9 5G Unlocked Phone",
+   "brand": "Halo",
+   "cat": "phones",
+   "price": 699.99,
+   "was": 799.99,
+   "deal": true,
+   "rating": 4.5,
+   "reviews": 2620,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Coral",
+    "Cobalt Blue"
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "128GB",
+      "price": 699.99
+     },
+     {
+      "name": "256GB",
+      "price": 799.99
+     }
+    ]
+   },
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "highlights": [
+    "Dual 50 MP camera",
+    "6.2\" 120Hz display",
+    "All-day battery"
+   ],
+   "specs": {
+    "Display": "6.2\" OLED, 120Hz",
+    "Processor": "Halo H9",
+    "Rear camera": "50 MP + 12 MP ultrawide",
+    "Battery": "4,500 mAh",
+    "Charging": "30 W wired, 15 W wireless",
+    "Water resistance": "IP68",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "vexa-nova-s",
+   "name": "Vexa Nova S 5G Unlocked Phone",
+   "brand": "Vexa",
+   "cat": "phones",
+   "price": 899.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.6,
+   "reviews": 1980,
+   "stock": "low",
+   "left": 2,
+   "colors": [
+    "Lilac",
+    "Midnight Black",
+    "Glacier White"
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "256GB",
+      "price": 899.99
+     },
+     {
+      "name": "512GB",
+      "price": 1019.99
+     }
+    ]
+   },
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "highlights": [
+    "200 MP main camera",
+    "Built-in on-device AI assistant",
+    "7 years of updates"
+   ],
+   "specs": {
+    "Display": "6.7\" AMOLED, 120Hz",
+    "Processor": "Vexa Nova Gen 4",
+    "Rear camera": "200 MP + 12 MP + 10 MP (3x)",
+    "Battery": "5,000 mAh",
+    "Charging": "45 W wired, 15 W wireless",
+    "Water resistance": "IP68",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "vexa-nova-lite",
+   "name": "Vexa Nova Lite 5G Unlocked Phone",
+   "brand": "Vexa",
+   "cat": "phones",
+   "price": 349.99,
+   "was": 399.99,
+   "deal": false,
+   "rating": 4.3,
+   "reviews": 2870,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Cobalt Blue",
+    "Midnight Black"
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "128GB",
+      "price": 349.99
+     },
+     {
+      "name": "256GB",
+      "price": 409.99
+     }
+    ]
+   },
+   "features": [
+    "5g",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "highlights": [
+    "Two-day battery life",
+    "6.6\" 120Hz display",
+    "Expandable storage"
+   ],
+   "specs": {
+    "Display": "6.6\" AMOLED, 120Hz",
+    "Processor": "Vexa Core 6",
+    "Rear camera": "50 MP + 8 MP",
+    "Battery": "5,000 mAh",
+    "Charging": "25 W wired",
+    "Water resistance": "IP67",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "orbix-one-5g",
+   "name": "Orbix One 5G Unlocked Phone",
+   "brand": "Orbix",
+   "cat": "phones",
+   "price": 549.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.2,
+   "reviews": 744,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Sage Green",
+    "Midnight Black"
+   ],
+   "options": null,
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "usb-c"
+   ],
+   "highlights": [
+    "Clean, ad-free software",
+    "Wireless charging",
+    "Headphone jack"
+   ],
+   "specs": {
+    "Display": "6.4\" OLED, 90Hz",
+    "Processor": "Orbix S1",
+    "Rear camera": "64 MP + 13 MP",
+    "Battery": "4,600 mAh",
+    "Charging": "33 W wired, 15 W wireless",
+    "Water resistance": "IP54",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "halo-fold-2",
+   "name": "Halo Fold 2 5G Foldable Phone",
+   "brand": "Halo",
+   "cat": "phones",
+   "price": 1799.99,
+   "was": 1999.99,
+   "deal": true,
+   "rating": 4.4,
+   "reviews": 512,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Graphite",
+    "Champagne Gold"
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "256GB",
+      "price": 1799.99
+     },
+     {
+      "name": "512GB",
+      "price": 1919.99
+     }
+    ]
+   },
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "highlights": [
+    "7.6\" folding inner display",
+    "Hands-free Flex mode",
+    "Slimmest Halo fold yet"
+   ],
+   "specs": {
+    "Display": "7.6\" foldable OLED + 6.3\" cover, 120Hz",
+    "Processor": "Halo H9 Pro",
+    "Rear camera": "50 MP + 12 MP + 10 MP (3x)",
+    "Battery": "4,400 mAh",
+    "Charging": "25 W wired, 15 W wireless",
+    "Water resistance": "IPX8",
+    "Network": "5G (sub-6 and mmWave)"
+   }
+  },
+  {
+   "id": "vexa-flip-5",
+   "name": "Vexa Flip 5 5G Flip Phone",
+   "brand": "Vexa",
+   "cat": "phones",
+   "price": 999.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.1,
+   "reviews": 980,
+   "stock": "out",
+   "left": null,
+   "colors": [
+    "Lilac",
+    "Sage Green",
+    "Midnight Black"
+   ],
+   "options": null,
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "highlights": [
+    "3.4\" cover screen",
+    "Pocket-sized flip design",
+    "Hands-free selfies"
+   ],
+   "specs": {
+    "Display": "6.7\" foldable AMOLED, 120Hz",
+    "Processor": "Vexa Nova Gen 4",
+    "Rear camera": "50 MP + 12 MP",
+    "Battery": "3,700 mAh",
+    "Charging": "25 W wired, 15 W wireless",
+    "Water resistance": "IPX8",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "orbix-a3",
+   "name": "Orbix A3 Unlocked Phone",
+   "brand": "Orbix",
+   "cat": "phones",
+   "price": 179.99,
+   "was": null,
+   "deal": false,
+   "rating": 3.9,
+   "reviews": 1650,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Cobalt Blue",
+    "Midnight Black"
+   ],
+   "options": null,
+   "features": [
+    "unlocked",
+    "usb-c"
+   ],
+   "highlights": [
+    "Big 6.5\" display",
+    "3-day battery saver",
+    "Dual SIM"
+   ],
+   "specs": {
+    "Display": "6.5\" LCD, 90Hz",
+    "Processor": "Orbix Lite 2",
+    "Rear camera": "50 MP",
+    "Battery": "5,000 mAh",
+    "Charging": "18 W wired",
+    "Water resistance": "IP52",
+    "Network": "4G LTE"
+   }
+  },
+  {
+   "id": "domio-hub-speaker",
+   "name": "Domio Hub Smart Speaker with Voice Assistant",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "price": 79.99,
+   "was": 99.99,
+   "deal": true,
+   "rating": 4.6,
+   "reviews": 5210,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Graphite",
+    "Glacier White",
+    "Sage Green"
+   ],
+   "options": null,
+   "features": [
+    "voice-assistant",
+    "wireless",
+    "works-with-hub"
+   ],
+   "highlights": [
+    "Room-filling 360 degree sound",
+    "Built-in smart home hub",
+    "Mic-off privacy switch"
+   ],
+   "specs": {
+    "Device type": "Smart speaker",
+    "Connectivity": "Wi-Fi 6, Bluetooth 5.2, Thread",
+    "Power": "AC adapter",
+    "Voice assistant": "Domio Voice",
+    "Dimensions": "10 x 10 x 14 cm"
+   }
+  },
+  {
+   "id": "domio-doorbell-2k",
+   "name": "Domio Video Doorbell 2K",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "price": 129.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.4,
+   "reviews": 3020,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Silver"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "water-resistant"
+   ],
+   "highlights": [
+    "2K HDR head-to-toe video",
+    "Package detection",
+    "Battery or wired install"
+   ],
+   "specs": {
+    "Device type": "Video doorbell",
+    "Connectivity": "Wi-Fi 6 (2.4/5 GHz)",
+    "Power": "Rechargeable battery or wired",
+    "Video": "2K HDR, 160 degree field of view",
+    "Dimensions": "13 x 4.5 x 2.5 cm"
+   }
+  },
+  {
+   "id": "lumora-glow-bulbs-4",
+   "name": "Lumora Glow Smart Color Bulbs (4-Pack)",
+   "brand": "Lumora",
+   "cat": "smart-home",
+   "price": 49.99,
+   "was": 69.99,
+   "deal": false,
+   "rating": 4.3,
+   "reviews": 2760,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "voice-assistant"
+   ],
+   "highlights": [
+    "16 million colors",
+    "No hub required",
+    "Schedules and scenes"
+   ],
+   "specs": {
+    "Device type": "Smart bulb (A19)",
+    "Connectivity": "Wi-Fi, Bluetooth",
+    "Power": "9 W (60 W equivalent)",
+    "Brightness": "800 lumens",
+    "Pack size": "4 bulbs"
+   }
+  },
+  {
+   "id": "hearth-smart-thermostat",
+   "name": "Hearth Smart Thermostat",
+   "brand": "Hearth",
+   "cat": "smart-home",
+   "price": 179.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.5,
+   "reviews": 1890,
+   "stock": "low",
+   "left": 2,
+   "colors": [
+    "Silver",
+    "Midnight Black",
+    "Champagne Gold"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "voice-assistant"
+   ],
+   "highlights": [
+    "Learns your schedule",
+    "Energy savings reports",
+    "Works with most HVAC systems"
+   ],
+   "specs": {
+    "Device type": "Smart thermostat",
+    "Connectivity": "Wi-Fi, Thread",
+    "Power": "C-wire or power adapter",
+    "Display": "2.5\" color",
+    "Dimensions": "8.4 cm diameter"
+   }
+  },
+  {
+   "id": "domio-indoor-cam",
+   "name": "Domio Indoor Cam 2K Pan/Tilt",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "price": 39.99,
+   "was": 59.99,
+   "deal": true,
+   "rating": 4.2,
+   "reviews": 4410,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Glacier White",
+    "Midnight Black"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "works-with-hub"
+   ],
+   "highlights": [
+    "360 degree pan, 180 degree tilt",
+    "Pet and person detection",
+    "Two-way talk"
+   ],
+   "specs": {
+    "Device type": "Indoor security camera",
+    "Connectivity": "Wi-Fi (2.4 GHz)",
+    "Power": "USB-C adapter",
+    "Video": "2K, night vision",
+    "Dimensions": "7 x 7 x 11 cm"
+   }
+  },
+  {
+   "id": "domio-mesh-6e-3",
+   "name": "Domio Mesh Wi-Fi 6E System (3-Pack)",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "price": 299.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.6,
+   "reviews": 1320,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "wifi-6e",
+    "works-with-hub"
+   ],
+   "highlights": [
+    "Covers up to 6,000 sq ft",
+    "Tri-band with 6 GHz",
+    "Parental controls"
+   ],
+   "specs": {
+    "Device type": "Mesh Wi-Fi router",
+    "Connectivity": "Wi-Fi 6E tri-band, 2 x 2.5 GbE",
+    "Power": "AC adapter",
+    "Coverage": "Up to 6,000 sq ft",
+    "Pack size": "3 units"
+   }
+  },
+  {
+   "id": "hearth-smart-plug-4",
+   "name": "Hearth Mini Smart Plug (4-Pack)",
+   "brand": "Hearth",
+   "cat": "smart-home",
+   "price": 24.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.4,
+   "reviews": 6830,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "voice-assistant"
+   ],
+   "highlights": [
+    "Control lamps and fans by voice",
+    "Energy monitoring",
+    "Compact, will not block outlets"
+   ],
+   "specs": {
+    "Device type": "Smart plug",
+    "Connectivity": "Wi-Fi (2.4 GHz), Matter",
+    "Power": "15 A max",
+    "Dimensions": "5 x 3.8 x 3.3 cm",
+    "Pack size": "4 plugs"
+   }
+  },
+  {
+   "id": "domio-robovac-s7",
+   "name": "Domio RoboVac S7 Self-Emptying Robot Vacuum",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "price": 449.99,
+   "was": 599.99,
+   "deal": false,
+   "rating": 4.3,
+   "reviews": 870,
+   "stock": "out",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Glacier White"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "voice-assistant"
+   ],
+   "highlights": [
+    "Self-empties for 60 days",
+    "Lidar room mapping",
+    "Vacuum and mop in one pass"
+   ],
+   "specs": {
+    "Device type": "Robot vacuum and mop",
+    "Connectivity": "Wi-Fi",
+    "Power": "Rechargeable, 180 min runtime",
+    "Suction": "6,000 Pa",
+    "Dimensions": "35 x 35 x 9.7 cm"
+   }
+  },
+  {
+   "id": "arcadia-nexus",
+   "name": "Arcadia Nexus Console – 1TB",
+   "brand": "Arcadia",
+   "cat": "gaming",
+   "price": 499.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.8,
+   "reviews": 6120,
+   "stock": "low",
+   "left": 2,
+   "colors": [
+    "Glacier White",
+    "Midnight Black"
+   ],
+   "options": null,
+   "features": [
+    "4k",
+    "120hz",
+    "gaming",
+    "hdr"
+   ],
+   "highlights": [
+    "4K gaming at up to 120 fps",
+    "Ultra-fast 1TB SSD",
+    "Haptic wireless controller included"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus",
+    "Storage": "1TB SSD",
+    "Max resolution": "4K (8K capable)",
+    "Max frame rate": "120 fps",
+    "Disc drive": "Ultra HD Blu-ray",
+    "Included": "1 wireless controller, HDMI 2.1 cable"
+   }
+  },
+  {
+   "id": "arcadia-nexus-digital",
+   "name": "Arcadia Nexus Digital Edition Console",
+   "brand": "Arcadia",
+   "cat": "gaming",
+   "price": 399.99,
+   "was": 449.99,
+   "deal": true,
+   "rating": 4.7,
+   "reviews": 3240,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Glacier White"
+   ],
+   "options": null,
+   "features": [
+    "4k",
+    "120hz",
+    "gaming",
+    "hdr"
+   ],
+   "highlights": [
+    "Same power, no disc drive",
+    "825GB SSD",
+    "Download games instantly"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus",
+    "Storage": "825GB SSD",
+    "Max resolution": "4K",
+    "Max frame rate": "120 fps",
+    "Disc drive": "None (digital only)",
+    "Included": "1 wireless controller, HDMI 2.1 cable"
+   }
+  },
+  {
+   "id": "vortek-pro-controller",
+   "name": "Vortek Pro Wireless Controller",
+   "brand": "Vortek",
+   "cat": "gaming",
+   "price": 69.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.5,
+   "reviews": 2890,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Glacier White",
+    "Volt Red",
+    "Cobalt Blue"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "gaming",
+    "usb-c"
+   ],
+   "highlights": [
+    "Hall-effect sticks, no drift",
+    "Remappable back paddles",
+    "40-hour battery"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus, PC, mobile",
+    "Connectivity": "2.4 GHz, Bluetooth, USB-C",
+    "Battery life": "40 hours",
+    "Weight": "265 g",
+    "Included": "USB-C cable"
+   }
+  },
+  {
+   "id": "vortek-gx-handheld",
+   "name": "Vortek GX Handheld Gaming PC – 512GB",
+   "brand": "Vortek",
+   "cat": "gaming",
+   "price": 549.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.4,
+   "reviews": 1120,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Glacier White"
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "512GB",
+      "price": 549.99
+     },
+     {
+      "name": "1TB",
+      "price": 649.99
+     }
+    ]
+   },
+   "features": [
+    "gaming",
+    "120hz",
+    "touchscreen",
+    "usb-c"
+   ],
+   "highlights": [
+    "7.4\" 120Hz OLED touchscreen",
+    "Plays your PC game library",
+    "Docks to your TV"
+   ],
+   "specs": {
+    "Platform": "PC handheld",
+    "Storage": "512GB SSD",
+    "Max resolution": "1920 x 1200 (handheld)",
+    "Max frame rate": "120 fps",
+    "Disc drive": "None",
+    "Included": "Charger, carrying case"
+   }
+  },
+  {
+   "id": "pulsewave-h7-headset",
+   "name": "Pulsewave H7 Wireless Gaming Headset",
+   "brand": "Pulsewave",
+   "cat": "gaming",
+   "price": 129.99,
+   "was": 159.99,
+   "deal": false,
+   "rating": 4.3,
+   "reviews": 1460,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Glacier White"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "gaming",
+    "noise-cancelling",
+    "over-ear",
+    "usb-c"
+   ],
+   "highlights": [
+    "Low-latency 2.4 GHz wireless",
+    "Noise cancelling boom mic",
+    "3D spatial audio"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus, PC, mobile",
+    "Connectivity": "2.4 GHz dongle, Bluetooth",
+    "Battery life": "50 hours",
+    "Weight": "310 g",
+    "Included": "USB-C dongle, cable"
+   }
+  },
+  {
+   "id": "vortek-27-qhd-monitor",
+   "name": "Vortek 27\" QHD 165Hz Gaming Monitor",
+   "brand": "Vortek",
+   "cat": "gaming",
+   "price": 329.99,
+   "was": 399.99,
+   "deal": true,
+   "rating": 4.6,
+   "reviews": 980,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "gaming",
+    "hdr",
+    "120hz"
+   ],
+   "highlights": [
+    "165Hz IPS panel, 1 ms response",
+    "Adaptive sync",
+    "Height-adjustable stand"
+   ],
+   "specs": {
+    "Platform": "PC and consoles",
+    "Max resolution": "2560 x 1440 (QHD)",
+    "Max frame rate": "165 Hz",
+    "Connectivity": "2 x HDMI 2.1, DisplayPort 1.4",
+    "Included": "DisplayPort cable, stand"
+   }
+  },
+  {
+   "id": "arcadia-apex-racing-wheel",
+   "name": "Arcadia Apex Direct-Drive Racing Wheel",
+   "brand": "Arcadia",
+   "cat": "gaming",
+   "price": 249.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.5,
+   "reviews": 340,
+   "stock": "out",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "gaming",
+    "wired"
+   ],
+   "highlights": [
+    "Direct-drive force feedback",
+    "Magnetic paddle shifters",
+    "Three-pedal set included"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus, PC",
+    "Connectivity": "USB",
+    "Force feedback": "5 Nm direct drive",
+    "Weight": "4.2 kg",
+    "Included": "Wheel, base, pedals"
+   }
+  },
+  {
+   "id": "vortek-k75-keyboard",
+   "name": "Vortek K75 Wireless Mechanical Gaming Keyboard",
+   "brand": "Vortek",
+   "cat": "gaming",
+   "price": 99.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.4,
+   "reviews": 1210,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Glacier White"
+   ],
+   "options": null,
+   "features": [
+    "wireless",
+    "gaming",
+    "usb-c"
+   ],
+   "highlights": [
+    "Hot-swappable linear switches",
+    "75% compact layout",
+    "RGB per-key lighting"
+   ],
+   "specs": {
+    "Platform": "PC, Mac",
+    "Connectivity": "2.4 GHz, Bluetooth, USB-C",
+    "Battery life": "200 hours (RGB off)",
+    "Weight": "820 g",
+    "Included": "USB-C cable, keycap puller"
+   }
+  },
+  {
+   "id": "ess-hdmi-21-6ft",
+   "name": "Voltline Essentials 8K HDMI 2.1 Cable (6 ft)",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "price": 24.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.7,
+   "reviews": 2140,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [],
+   "highlights": [
+    "48 Gbps for 4K 120Hz and 8K",
+    "Braided jacket",
+    "Lifetime warranty"
+   ],
+   "specs": {
+    "Type": "HDMI 2.1 Ultra High Speed",
+    "Length": "6 ft (1.8 m)",
+    "Bandwidth": "48 Gbps"
+   }
+  },
+  {
+   "id": "ess-tilt-wall-mount",
+   "name": "Voltline Essentials Tilting TV Wall Mount (32\"-85\")",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "price": 69.99,
+   "was": 89.99,
+   "deal": false,
+   "rating": 4.6,
+   "reviews": 1830,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [],
+   "highlights": [
+    "Fits most 32\" to 85\" TVs",
+    "Holds up to 150 lb",
+    "12-degree tilt"
+   ],
+   "specs": {
+    "Type": "Tilting wall mount",
+    "TV size": "32\" to 85\"",
+    "Max weight": "150 lb (68 kg)"
+   }
+  },
+  {
+   "id": "ess-headphone-case",
+   "name": "Voltline Essentials Hardshell Headphone Case",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "price": 19.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.5,
+   "reviews": 690,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Midnight Black",
+    "Deep Navy"
+   ],
+   "options": null,
+   "features": [],
+   "highlights": [
+    "Fits most over-ear headphones",
+    "Cable pocket",
+    "Carabiner loop"
+   ],
+   "specs": {
+    "Type": "Hardshell case",
+    "Compatibility": "Over-ear headphones",
+    "Material": "EVA with nylon shell"
+   }
+  },
+  {
+   "id": "ess-65w-gan-charger",
+   "name": "Voltline Essentials 65W USB-C GaN Charger",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "price": 39.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.6,
+   "reviews": 1520,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Glacier White",
+    "Midnight Black"
+   ],
+   "options": null,
+   "features": [
+    "usb-c"
+   ],
+   "highlights": [
+    "Charges a laptop, phone and earbuds",
+    "2 x USB-C, 1 x USB-A",
+    "Folding prongs"
+   ],
+   "specs": {
+    "Type": "Wall charger",
+    "Output": "65 W max",
+    "Ports": "2 x USB-C, 1 x USB-A"
+   }
+  },
+  {
+   "id": "ess-clear-phone-case",
+   "name": "Voltline Essentials Clear MagSnap Phone Case",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "price": 24.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.3,
+   "reviews": 980,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [
+    "wireless-charging"
+   ],
+   "highlights": [
+    "Built-in magnet ring",
+    "Anti-yellowing",
+    "10 ft drop tested"
+   ],
+   "specs": {
+    "Type": "Phone case",
+    "Compatibility": "Halo, Vexa and Orbix 6.1\"-6.7\" phones",
+    "Drop protection": "10 ft (3 m)"
+   }
+  },
+  {
+   "id": "ess-screen-protector",
+   "name": "Voltline Essentials Tempered Glass Screen Protector (2-Pack)",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "price": 19.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.2,
+   "reviews": 1270,
+   "stock": "in",
+   "left": null,
+   "colors": [],
+   "options": null,
+   "features": [],
+   "highlights": [
+    "9H hardness glass",
+    "Bubble-free install frame",
+    "Case friendly"
+   ],
+   "specs": {
+    "Type": "Screen protector",
+    "Compatibility": "Most 6.1\"-6.7\" phones",
+    "Pack size": "2"
+   }
+  },
+  {
+   "id": "ess-laptop-sleeve-14",
+   "name": "Voltline Essentials 14\" Laptop Sleeve",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "price": 29.99,
+   "was": null,
+   "deal": false,
+   "rating": 4.4,
+   "reviews": 540,
+   "stock": "in",
+   "left": null,
+   "colors": [
+    "Graphite",
+    "Sage Green"
+   ],
+   "options": null,
+   "features": [],
+   "highlights": [
+    "Water-repellent shell",
+    "Front accessory pocket",
+    "Fits 13\" to 14\" laptops"
+   ],
+   "specs": {
+    "Type": "Laptop sleeve",
+    "Compatibility": "13\" to 14\" laptops",
+    "Material": "Recycled polyester"
+   }
+  }
+ ]
+}

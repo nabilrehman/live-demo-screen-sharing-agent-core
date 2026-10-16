@@ -19,7 +19,7 @@ from livekit import rtc
 from livekit.agents import Agent, AgentServer, JobContext, ToolError, cli, function_tool
 
 from demo_agent.brain import BRAIN, IS_GEMINI, MODEL, make_session
-from inpage.catalog import PRODUCTS, mentioned, prompt
+from inpage.catalog import PRODUCTS, prompt
 from inpage.page import DEICTIC, PageState
 
 log = logging.getLogger("shop")
@@ -107,7 +107,13 @@ class ShopKai(Agent):
                 log.warning("page note: %s", e)
 
     def pick(self, product: str) -> str:
+        """The product the shopper means. When they just named a position ("open the second one"), their words win
+        over the model's choice: models tend to count on screen, not in the order Kai said the products."""
         pid, why = self.page.resolve(product)
+        heard = self.page.position_heard()
+        if heard and heard != pid:
+            log.info("position from the shopper's words: %s -> %s", product, heard)
+            pid = heard
         if pid is None:
             raise ToolError(why)
         return pid
@@ -319,7 +325,13 @@ class ShopKai(Agent):
         Args:
             products: Product ids, or the shopper's words for them ("the first two" -> ["first", "second"]).
         """
-        ids = list(dict.fromkeys(self.pick(x) for x in products))
+        ids = []
+        for x in products:  # several positions at once: the model's list as given
+            pid, why = self.page.resolve(x)
+            if pid is None:
+                raise ToolError(why)
+            ids.append(pid)
+        ids = list(dict.fromkeys(ids))
         return "Done; the comparison is open.\n" + await self.rpc("compare", ids=ids)
 
     @function_tool
@@ -357,8 +369,11 @@ async def entrypoint(ctx: JobContext):
 
     @session.on("conversation_item_added")
     def _said(ev):
-        if getattr(ev.item, "role", None) == "assistant" and (names := mentioned(ev.item.text_content or "")):
-            page.last_mentioned = names[-1]
+        role, text = getattr(ev.item, "role", None), getattr(ev.item, "text_content", None)
+        if text and role == "assistant":
+            page.kai_said(text)
+        elif text and role == "user":
+            page.shopper_said(text)
 
     await ctx.connect()
     await ctx.wait_for_participant()

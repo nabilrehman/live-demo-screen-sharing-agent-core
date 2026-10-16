@@ -94,3 +94,46 @@ def test_catalog_prompt_and_mentions():
         "sonique-studio-q8",
         "pulsewave-quietmax",
     ]
+
+
+def test_positions_follow_what_kai_just_named():
+    p = page()
+    p.kai_said("I found five, including the Pulsewave QuietMax at two thirty and the Auralis Pro at two eighty.")
+    assert p.resolve("the second one") == ("auralis-pro-anc", "")  # not AirBuds 2, number 2 on screen
+    assert p.resolve("the first one")[0] == "pulsewave-quietmax"
+    assert p.resolve("the last one you mentioned")[0] == "auralis-pro-anc"
+    assert p.resolve("the third one")[0] is None  # he named two
+    assert p.resolve("the blue one")[0] is None  # attributes still use the page
+
+
+def test_spoken_order_expires():
+    p = page()
+    p.kai_said("The QuietMax or the Auralis Pro are both great.")
+    p.spoken_at -= 31  # too long ago
+    assert p.resolve("the second one")[0] == "pulsewave-airbuds-2"
+    p.kai_said("The QuietMax or the Auralis Pro are both great.")
+    p.update({**RESULTS, "seq": 7, "route": "#/search?cat=tvs"})  # the shopper went to another page
+    assert p.resolve("the second one")[0] == "pulsewave-airbuds-2"
+    p.update({**RESULTS, "seq": 8})
+    p.kai_said("The Auralis Pro has the best noise cancelling.")  # a newer reply naming one product
+    assert p.resolve("the second one")[0] == "pulsewave-airbuds-2"
+
+
+def test_the_other_one():
+    p = page()
+    p.kai_said("The QuietMax or the Auralis Pro are both great.")
+    p.update({**RESULTS, "seq": 6, "last_interaction": {"id": "auralis-pro-anc", "type": "click", "ms_ago": 200}})
+    assert p.resolve("the other one")[0] == "pulsewave-quietmax"
+    assert p.resolve("other one")[0] == "pulsewave-quietmax"
+
+
+def test_shopper_position_words_win():
+    p = page()
+    p.kai_said("I'd recommend the Auralis Pro, or the Pulsewave QuietMax.")
+    p.shopper_said("Open the second one.")
+    assert p.position_heard() == "pulsewave-quietmax"  # whatever id the model picked
+    p.shopper_said("What's the difference between the first two?")
+    assert p.position_heard() is None
+    p.shopper_said("Open the second one.")
+    p.heard_at -= 16
+    assert p.position_heard() is None

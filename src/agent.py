@@ -6,6 +6,7 @@ This file is the LiveKit worker: it wires the browser, the screen share, the ses
 
   BRAIN       gemini-live (default) | grok        AGENT_NAME, WORKER_PORT: worker registration
   DEMO_START_URL (or TOUR_START_URL): the page the demo opens on
+  KNOWLEDGE_DIR (default knowledge/): the folder with the product's knowledge files
 """
 
 import asyncio
@@ -175,13 +176,14 @@ class Kai(Agent):
                 f"Queued: your assistant starts it as soon as the current task ({self.planner.status}) is done. Say that in a "
                 "few words; don't call do_task again."
             )
-        # a new agent's name gets a random 3-digit suffix (names of earlier, even deleted, agents can't be reused)
-        request = re.sub(
-            r"\b(named|called)\s+['\"]?([A-Za-z0-9][\w-]*)['\"]?",
-            lambda m: f"{m.group(1)} {agent_slug(re.sub(r'-?\d{1,3}$', '', m.group(2)))}",
-            request,
-            count=1,
-        )
+        # a new item's name gets a random 3-digit suffix (names of earlier, even deleted, items can't be reused)
+        if PRODUCT.get("unique_names"):
+            request = re.sub(
+                r"\b(named|called)\s+['\"]?([A-Za-z0-9][\w-]*)['\"]?",
+                lambda m: f"{m.group(1)} {agent_slug(re.sub(r'-?\d{1,3}$', '', m.group(2)))}",
+                request,
+                count=1,
+            )
         self.planner.start(request)
         return "Started. Say one sentence about why this fits them while it runs; don't click anything yourself."
 

@@ -6,6 +6,7 @@ import random
 import re
 import time
 
+from demo_agent.prompts import PRODUCT
 from demo_agent.screen import (
     FORM_ERRORS_JS,
     SIGNATURE_JS,
@@ -14,6 +15,7 @@ from demo_agent.screen import (
     TOP_LAYER,
     describe_change,
     layer_ids,
+    quiet_network,
     until_changed,
 )
 
@@ -33,7 +35,11 @@ def parse_typing(goal: str):
     q = re.search(r"[\"“‘']([^\"”’]{1,2000})[\"”’]", goal)
     END = r"(?:\s+(?:field|editor|box|textbox|input|text area)\b|\s*[:,.]|\s+(?:to|with|and|so|replacing)\b|$)"
     f = (
-        re.search(r"\binto\s+the\s+(?:open\s+)?(.+?)" + END, goal, re.I)  # "into the X field" wins
+        # "into the X field" wins; a field noun after it ends the name, so a name may contain "to" ("Where to?")
+        re.search(
+            r"\binto\s+the\s+(?:open\s+)?['\"]?(.+?)['\"]?\s+(?:field|editor|box|textbox|input|text area)\b", goal, re.I
+        )
+        or re.search(r"\binto\s+the\s+(?:open\s+)?(.+?)" + END, goal, re.I)
         or re.search(r"\b(?:set|change|replace|clear|update)\s+the\s+(?:current\s+)?(.+?)" + END, goal, re.I)
         or (list(re.finditer(r"\b(?:in|to)\s+the\s+(?!open\b)(.+?)" + END, goal, re.I)) or [None])[-1]
     )
@@ -84,13 +90,26 @@ FIELD_TEXT_JS = r"""(e) => { if (e.matches('input,textarea') && !e.closest('.mon
   const ed = e.closest('.monaco-editor,.cm-editor,.ProseMirror') || e;
   return (ed.querySelector('.view-lines,.cm-content') || ed).innerText || ''; }"""
 
+# The text of the focused input, or null when the focus isn't in one.
+FOCUSED_TEXT_JS = (
+    "() => { const a = document.activeElement; return a && a.matches('input,textarea') ? a.value : null; }"
+)
+
+# Blur the focused text input (not a search box, which waits for Enter, nor an autocomplete, whose list it would close).
+BLUR_INPUT_JS = """() => { const a = document.activeElement;
+  if (a && a.matches('input:not([type=search]):not([role=combobox]):not([aria-autocomplete])')) a.blur(); }"""
+# The focused element is an autocomplete (its suggestions come a moment after typing).
+FOCUSED_COMBO_JS = "() => !!document.activeElement?.matches('[role=combobox],[aria-autocomplete]')"
+
 
 async def find_field(page, field: str):
     """The input or editor for a field name, in the top layer: by label, placeholder, textbox name, or the heading above it."""
     layer = page.locator(TOP_LAYER)
     n = await layer.count()
     scope = layer.nth(n - 1) if n else page
-    for cand in (
+    for cand in (  # an exact name first: "Where" must not pick "Where from?" when "Where to?" was meant
+        scope.get_by_label(field, exact=True),
+        scope.get_by_placeholder(field, exact=True),
         scope.get_by_label(field, exact=False),
         scope.get_by_placeholder(field, exact=False),
         scope.get_by_role("textbox", name=re.compile(re.escape(field), re.I)),
@@ -131,7 +150,12 @@ async def type_into(page, loc, text: str, append: bool = False) -> tuple[str, st
     except Exception:
         shown = ""
     # an editor renders only the lines in view (the end, after typing), wrapped: compare the end, ignoring whitespace
-    return how, (None if _squash(text)[-40:] in _squash(shown) else shown)
+    if _squash(text)[-40:] in _squash(shown):
+        return how, None
+    # a combobox can hand the focus to a search input in its own pop-up, and the text lands there
+    if _squash(text) in _squash(await page.evaluate(FOCUSED_TEXT_JS) or ""):
+        return how + "-popup", None
+    return how, shown
 
 
 async def _type_once(page, loc, text: str, append: bool):
@@ -161,6 +185,39 @@ async def _type_once(page, loc, text: str, append: bool):
     await page.keyboard.press("Backspace")
     await page.keyboard.insert_text(text)
     return "editor", box
+
+
+# "set the Maximum price slider to 400", "move the volume slider to 30"
+SLIDER_RE = r"\b(?:set|move|drag|slide|change)\s+the\s+['\"]?(.+?)['\"]?\s+(?:slider\s+)?to\s+\$?(-?[\d.,]+)"
+SLIDER_VALUE_JS = "e => parseFloat(e.matches('input') ? e.value : e.getAttribute('aria-valuenow'))"
+
+
+async def set_slider(page, name: str, target: float) -> str | None:
+    """Move a slider (a range input or an ARIA slider) with the arrow keys, as a person would, until it reaches the
+    target or the end of its range. Returns what it shows then, or None when no slider has that name."""
+    layer = page.locator(TOP_LAYER)
+    n = await layer.count()
+    scope = layer.nth(n - 1) if n else page
+    s = scope.get_by_role("slider", name=re.compile(re.escape(re.sub(r"\s+slider$", "", name, flags=re.I)), re.I))
+    if not await s.count():
+        return None
+    s = s.first
+    await s.focus()
+    now = await s.evaluate(SLIDER_VALUE_JS)
+    for _ in range(200):
+        if now == target:
+            break
+        down = now > target
+        await page.keyboard.press("ArrowLeft" if down else "ArrowRight")
+        new = await s.evaluate(SLIDER_VALUE_JS)
+        if new == now or (new <= target if down else new >= target):  # the end of its range, or there
+            break
+        now = new
+    await quiet_network(page, 1.5)
+    shown = await s.evaluate(
+        "e => e.getAttribute('aria-valuetext') || (e.matches('input') ? e.value : e.getAttribute('aria-valuenow'))"
+    )
+    return shown or str(now)
 
 
 async def _escape(kai) -> str:
@@ -213,10 +270,18 @@ async def fast_hands(kai, goal: str, _retry: bool = True):
         await kai.bc.go_back()
         return "back"
 
+    if (m := re.search(SLIDER_RE, goal, re.I)) and (
+        shown := await set_slider(page, m.group(1), float(m.group(2).replace(",", "")))
+    ):
+        kai.chooser = "exact-name"
+        kai.last_change = f"Moved the '{m.group(1)}' slider; it now shows: {shown}."
+        kai.changes.append(f"set {m.group(1)}: {shown}")
+        return "jev-click"
+
     # typing: the text goes into the field the step names, never into another box
     if tgt := parse_typing(goal):
         text, field = tgt
-        if re.search(r"\bagent name\b|^name$", field, re.I):
+        if PRODUCT.get("unique_names") and re.search(r"\bagent name\b|^name$", field, re.I):
             text = agent_slug(text)
         kai.chooser = "exact-name"
         cand = await wait_for_field(page, field)
@@ -234,6 +299,17 @@ async def fast_hands(kai, goal: str, _retry: bool = True):
             kai.typed_note += f", but the field shows '{shown[:80]}', not the full text"
         else:
             kai.changes.append(f"{'added to' if add else 'set'} {field}: {text[:200]}")
+        suggestions = page.locator("[role=listbox]:visible")
+        if await page.evaluate(FOCUSED_COMBO_JS):
+            try:
+                await suggestions.first.wait_for(timeout=1500)
+            except Exception:
+                pass
+        if await suggestions.count():  # an autocomplete: the value counts once one is picked
+            kai.typed_note += ". A list of suggestions opened: pick the one that fits"
+        else:  # many inputs (dates, numbers) only take a typed value on blur, as when a person moves on to the next one
+            await page.evaluate(BLUR_INPUT_JS)
+            await quiet_network(page, 1.5)  # the app may check or apply the value with a request first
         return "type-" + how
 
     # Jev picks; if it says the target is off-screen, scroll and ask again
@@ -261,29 +337,38 @@ async def fast_hands(kai, goal: str, _retry: bool = True):
         await kai.bc.scroll(600 if act == "scroll_down" else -600)
         snap = await _snapshot(kai, words)
 
-    # a dialog or menu is open and Jev didn't pick a control: click the one option the step names exactly
-    if not act.startswith(("click_", "type_")) and (ids := await layer_ids(page)) is not None:
-        layer = [e for e in snap["elements"] if e["id"] in ids]
-        quoted = re.findall(r"['\"“‘]([^'\"”’]{3,60})['\"”’]", goal)
+    # Jev didn't pick a control: click the one element the step names exactly. In an open dialog or menu, a quoted or
+    # spelled-out option name; on the page, a quoted label of something not already selected (e.g. a tab).
+    quoted = re.findall(r"['\"“‘]([^'\"”’]{3,60})['\"”’]", goal)
+    ids = None if act.startswith(("click_", "type_")) else await layer_ids(page)
+    if not act.startswith(("click_", "type_")) and (ids is not None or quoted):
+        pool = [e for e in snap["elements"] if e["id"] in ids] if ids is not None else snap["elements"]
 
         def named(e):
             return e["label"].split(" - ")[0].strip().lower()  # option cards read "Name - description"
 
-        hit = [e for e in layer if any(e["label"].lower().startswith(q.lower().strip()) for q in quoted)] or [
-            e for e in layer if len(named(e)) >= 6 and re.search(r"\b" + re.escape(named(e)) + r"\b", goal.lower())
+        hit = [
+            e
+            for e in pool
+            if any(e["label"].lower().startswith(q.lower().strip()) for q in quoted)
+            and (ids is not None or "selected" not in e["extra"])
         ]
+        if not hit and ids is not None:
+            hit = [
+                e for e in pool if len(named(e)) >= 6 and re.search(r"\b" + re.escape(named(e)) + r"\b", goal.lower())
+            ]
         if len(hit) == 1:
             act = "click_" + hit[0]["id"]
             kai.chooser = "exact-name"
-            kai.slog.event("pick", goal=goal, decision=act, by="layer-label", layer=len(layer))
+            kai.slog.event("pick", goal=goal, decision=act, by="layer-label" if ids is not None else "page-label")
         else:
             kai.slog.event(
                 "pick_miss",
                 goal=goal,
                 decision=act,
-                layer=len(layer),
+                layer=len(pool) if ids is not None else None,
                 elements=len(snap["elements"]),
-                labels=[e["label"][:30] for e in layer][:12],
+                labels=[e["label"][:30] for e in pool][:12],
             )
 
     def loc(jid):

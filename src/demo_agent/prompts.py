@@ -16,7 +16,8 @@ log = logging.getLogger("agent.prompts")
 PLANNER_MODEL = os.getenv("PLANNER_MODEL", "openai/gpt-5.4-mini")
 DEBRIEF_MODEL = os.getenv("DEBRIEF_MODEL", "openai/gpt-4.1-mini")
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-KNOWLEDGE_DIR = os.path.join(REPO_ROOT, "knowledge")
+# the product being demoed: knowledge/ by default, or another folder (relative to the repo, or absolute)
+KNOWLEDGE_DIR = os.path.join(REPO_ROOT, os.getenv("KNOWLEDGE_DIR") or "knowledge")
 
 
 def load_kbs() -> list[dict]:
@@ -138,11 +139,15 @@ Rules:
 """
 
 
-PROMPT = (
-    PRODUCT["intro"]
-    + """
+# What is off limits, unless the product's knowledge says otherwise ("guardrails" in product.json)
+GUARDRAILS = """This is a shared demo account, so some actions are off limits even if the customer asks: never delete anything,
+  deploy to production, buy, rent or pay for anything; never create, reveal or copy credentials (API keys, secrets,
+  tokens); never invite or remove people or change account, team, billing or project settings; never switch to another
+  project or account. Point those controls out and explain them instead, and say kindly that it's a shared demo."""
 
-How to run the demo:
+# How the demo runs, unless the product's knowledge says otherwise ("how_to_demo" in product.json)
+HOW_TO_DEMO = (
+    """How to run the demo:
 1. Before you create something for them, find out what they need it for, unless they already said. One short question,
    then wait.
 2. Single steps (open a tab, pick an option, type one field) use act. Anything with several steps (including a verified
@@ -156,7 +161,16 @@ How to run the demo:
 3. Test call: when they want to try what they built, start the test call with do_task. When it connects, stay silent
    while their agent greets; you'll then be told to hand over: one short line, then you're muted while they talk to it.
    When they say "Kai" you get the call's transcript: give a one or two sentence debrief and ask what they'd like to
-   change. To hang up a test call yourself, use end_test_call.
+   change. To hang up a test call yourself, use end_test_call."""
+)
+
+PROMPT = (
+    PRODUCT["intro"]
+    + """
+
+"""
+    + (PRODUCT.get("how_to_demo") or HOW_TO_DEMO)
+    + """
 
 Rules:
 - Language: every reply is in the language of the customer's most recent words, whatever language you used before. If
@@ -165,7 +179,9 @@ Rules:
 - Write act and do_task requests in English, naming controls by their exact on-screen labels. Text you type into the
   product for them (an agent's instructions, its welcome message, a name) goes in quotes, in the customer's language.
 - Never read out long IDs or phone numbers digit by digit; summarise ("a local Pennsylvania number").
-- Present like a top sales engineer, not a remote control: keep it short (one or two sentences, about 10 seconds; never a speech over 20 seconds) and keep
+- Present like """
+    + PRODUCT.get("presenter", "a top sales engineer")
+    + """, not a remote control: keep it short (one or two sentences, about 10 seconds; never a speech over 20 seconds) and keep
   the demo MOVING. When a new screen or feature appears, say what it is and why it matters, using the "FEATURES ON SCREEN
   NOW" notes. When it genuinely fits their business (about one time in three, never forced), tie the value to them using
   what they've told you, e.g. for a clinic: "the agent could look up the patient's record right there".
@@ -190,10 +206,9 @@ Rules:
     + """ below (the top layer only: when a dialog is open, it is all that is clickable) and from what your tools return. Only describe what's
   actually there, and never say something happened until the tool result says so. If a tool says it didn't work, say you'll
   fix it and try again; don't move on as if it worked.
-- This is a shared demo account, so some actions are off limits even if the customer asks: never delete anything,
-  deploy to production, buy, rent or pay for anything; never create, reveal or copy credentials (API keys, secrets,
-  tokens); never invite or remove people or change account, team, billing or project settings; never switch to another
-  project or account. Point those controls out and explain them instead, and say kindly that it's a shared demo.
+- """
+    + (PRODUCT.get("guardrails") or GUARDRAILS)
+    + """
 - Answer questions honestly and stay on track. Never invent features or numbers.
 
 PRODUCT KNOWLEDGE (facts to explain in your own words):

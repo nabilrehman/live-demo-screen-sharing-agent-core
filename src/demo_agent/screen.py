@@ -2,6 +2,7 @@
 model up to date (ScreenText)."""
 
 import asyncio
+import datetime
 import logging
 import os
 import re
@@ -10,7 +11,7 @@ from urllib.parse import urlparse
 
 from demo_agent.brain import IS_GEMINI
 from demo_agent.pagetext import page_text
-from demo_agent.prompts import PROMPT, feature_cards, storyline
+from demo_agent.prompts import PRODUCT, PROMPT, feature_cards, storyline
 
 log = logging.getLogger("agent.screen")
 
@@ -21,7 +22,8 @@ SETTLE_S = float(os.getenv("SETTLE_S", 2.0))  # after a click opens a new page: 
 TOP_LAYER = "[role=dialog]:visible, [aria-modal=true]:visible, [role=menu]:visible, [role=listbox]:visible"
 
 # "url|open layers|main text length|name of the top layer": changes whenever a click visibly does something.
-SIGNATURE_JS = """() => { const L = [...document.querySelectorAll('[role=dialog],[role=menu],[role=listbox],[aria-modal=true]')];
+SIGNATURE_JS = """() => { const L = [...document.querySelectorAll('[role=dialog],[role=menu],[role=listbox],[aria-modal=true]')]
+    .filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; });  // pages keep closed ones in the DOM
   const top = L.length ? L[L.length - 1] : null;
   const name = top ? (top.getAttribute('role') === 'menu' ? 'menu' : top.getAttribute('role') === 'listbox' ? 'list' : 'dialog') + ' "'
     + ((top.getAttribute('aria-label') || (top.querySelector('h1,h2,h3') || {}).innerText || '').trim().slice(0, 40)) + '"' : '';
@@ -164,6 +166,12 @@ async def quiet_network(page, limit: float = SETTLE_S, quiet: float = 0.4):
         await asyncio.sleep(0.05)
 
 
+def today_line() -> str:
+    """Today's date, for products where dates matter ("needs_today" in product.json); else empty."""
+    d = datetime.date.today()
+    return f"TODAY IS {d:%A, %B} {d.day}, {d.year}." if PRODUCT.get("needs_today") else ""
+
+
 def no_effect(what: str) -> bool:
     return "no visible change" in what or "already looks done" in what or "still open" in what
 
@@ -198,7 +206,7 @@ class ScreenText:
         self.user_turns = 0
         self.area = None  # demo area of the features on screen
         self.cards = feature_cards()
-        self._posted_area = self._posted_profile = None
+        self._posted_area = self._posted_profile = self._posted_today = None
         self._posted_task = ""
 
     def kick(self):
@@ -222,6 +230,9 @@ class ScreenText:
         """Gemini: add the update as one short context item. (Updating the instructions would re-send the whole prompt
         as a new turn every time.) Only parts that changed are sent again."""
         parts = []
+        if (today := today_line()) and today != self._posted_today:
+            parts.append(today)
+            self._posted_today = today
         if self.profile_line and self.profile_line != self._posted_profile:
             parts.append(f"WHAT YOU KNOW ABOUT THEM: {self.profile_line}")
             self._posted_profile = self.profile_line
@@ -248,6 +259,7 @@ class ScreenText:
         """Inference realtime: the instructions are the base prompt plus the current state of the screen."""
         await self.agent.update_instructions(
             PROMPT
+            + (f"\n\n{today_line()}" if today_line() else "")
             + (f"\n\nWHAT YOU KNOW ABOUT THEM: {self.profile_line}" if self.profile_line else "")
             + (f"\n\n{self.task_line}" if self.task_line else "")
             + (f"\n\nFEATURES ON SCREEN NOW (talk about these specifically):\n{cards}" if cards else "")

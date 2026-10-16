@@ -16,6 +16,7 @@
     // addition to jev-guide: radios/checkboxes without aria-label take the text of their wrapping <label>/card
     function wrapText(e) {
       if (e.tagName !== "INPUT" || !/^(radio|checkbox)$/.test(e.type)) return "";
+      if (e.labels && e.labels[0] && e.labels[0].innerText.trim()) return e.labels[0].innerText.trim();
       let p = e.closest("label") || e.parentElement;
       for (let i = 0; p && i < 4; i++, p = p.parentElement) { const t = (p.innerText || "").trim(); if (t) return t.split("\n").slice(0, 2).join(" - "); }
       return "";
@@ -31,10 +32,12 @@
   function visible(el) {
     if (!el.isConnected) return false;
     const cs = getComputedStyle(el);
-    if (cs.display === "none" || cs.visibility === "hidden" || cs.opacity === "0") return false;
+    // a custom-styled radio/checkbox keeps its native input on top at opacity 0: it is still what takes the click
+    const seeThrough = el.tagName === "INPUT" && /^(radio|checkbox)$/.test(el.type);
+    if (cs.display === "none" || cs.visibility === "hidden" || (cs.opacity === "0" && !seeThrough)) return false;
     const r = el.getBoundingClientRect();
     if (r.width < 2 || r.height < 2) return false;
-    if (el.checkVisibility && !el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) return false;
+    if (el.checkVisibility && !el.checkVisibility({ checkOpacity: !seeThrough, checkVisibilityCSS: true })) return false;
     return true;
   }
   function kindOf(el) {
@@ -67,8 +70,10 @@
       if (!visible(el)) continue;
       if (el.disabled || el.getAttribute("aria-disabled") === "true") continue;
       // Skip wrappers whose only purpose is to contain another interactive element.
+      // A control with its own role (a tab, an option) stays even when it holds a small button (e.g. an info icon).
       const inner = el.querySelector?.(SEL);
-      if (inner && el.tagName !== "A" && el.tagName !== "BUTTON" && inner.getBoundingClientRect().width > 0) continue;
+      const ownRole = /^(tab|option|menuitem|menuitemradio|menuitemcheckbox|treeitem)$/.test(el.getAttribute("role") || "");
+      if (inner && el.tagName !== "A" && el.tagName !== "BUTTON" && !ownRole && inner.getBoundingClientRect().width > 0) continue;
       const label = labelOf(el);
       if (!label && !["text field", "search box", "select", "dropdown"].includes(kindOf(el))) continue;
       const r = el.getBoundingClientRect();

@@ -1,0 +1,153 @@
+{
+ "area": "flight_results",
+ "clickmap": {
+  "screens": [
+   {
+    "id": "results",
+    "name": "Search results",
+    "url_hint": "/travel/flights/search",
+    "parent": "flights_home",
+    "how_to_reach": ["Run a search"],
+    "layout": {
+     "top": "The search box again (Where from?, Where to?, Departure, Return), then the filter buttons: 'All filters', 'Stops', 'Airlines', 'Bags', 'Price', 'Times', 'Emissions', 'Connecting airports', 'Duration' (each reads e.g. 'Stops, Not selected' until set)",
+     "left": null,
+     "main": "'N results returned.'; tabs 'Best' and 'Cheapest from $...'; 'Top departing flights' list. Each flight is one row (a link like 'From 589 US dollars round trip total. Nonstop flight with United. Leaves ... at 6:00 AM ... Select flight') with times, airline, duration, stops, emissions, bags, the round-trip price and a 'Flight details' button",
+     "right": null
+    },
+    "controls": [
+     {"label": "Stops", "kind": "button", "position": "filter row", "needs_scroll": false, "leads_to": "dialog_stops", "opens": "dialog"},
+     {"label": "Price", "kind": "button", "position": "filter row", "needs_scroll": false, "leads_to": "dialog_price", "opens": "dialog"},
+     {"label": "Times", "kind": "button", "position": "filter row", "needs_scroll": false, "leads_to": null, "opens": "dialog"},
+     {"label": "Airlines", "kind": "button", "position": "filter row", "needs_scroll": false, "leads_to": null, "opens": "dialog"},
+     {"label": "Cheapest", "kind": "tab", "position": "above the list", "needs_scroll": false, "leads_to": "results", "opens": null},
+     {"label": "Flight details", "kind": "button", "position": "right end of each flight row", "needs_scroll": false, "leads_to": "results", "opens": null}
+    ]
+   },
+   {
+    "id": "dialog_stops",
+    "name": "Stops filter",
+    "url_hint": "/travel/flights/search",
+    "parent": "results",
+    "how_to_reach": ["click 'Stops'"],
+    "layout": {"top": "'Stops', 'Close dialog'", "left": null, "main": "Radio buttons 'Any number of stops', 'Nonstop only', '1 stop or fewer', '2 stops or fewer'; 'Clear'", "right": null},
+    "controls": [
+     {"label": "Nonstop only", "kind": "radio", "position": "second option", "needs_scroll": false, "leads_to": null, "opens": null},
+     {"label": "Close dialog", "kind": "button", "position": "top right", "needs_scroll": false, "leads_to": "results", "opens": null}
+    ]
+   },
+   {
+    "id": "dialog_price",
+    "name": "Price filter",
+    "url_hint": "/travel/flights/search",
+    "parent": "results",
+    "how_to_reach": ["click 'Price'"],
+    "layout": {"top": "'Price', 'Close dialog'", "left": null, "main": "'All prices' and a slider 'Maximum price' that goes from the cheapest price on the page up, in steps of 100 dollars; 'Clear'", "right": null},
+    "controls": [
+     {"label": "Maximum price", "kind": "slider", "position": "dialog middle", "needs_scroll": false, "leads_to": null, "opens": null},
+     {"label": "Close dialog", "kind": "button", "position": "top right", "needs_scroll": false, "leads_to": "results", "opens": null}
+    ]
+   },
+   {
+    "id": "returning",
+    "name": "Choose return flight",
+    "url_hint": "/travel/flights/search",
+    "parent": "results",
+    "how_to_reach": ["click a departing flight row"],
+    "layout": {"top": "'Trip summary': the chosen departing flight with 'Change departing flight'", "left": null, "main": "'Top returning flights' and 'Other returning flights', rows like the departing list (price is the round-trip total)", "right": null},
+    "controls": [
+     {"label": "Change departing flight", "kind": "button", "position": "trip summary", "needs_scroll": false, "leads_to": "results", "opens": null}
+    ]
+   },
+   {
+    "id": "booking",
+    "name": "Booking options (the end of the demo)",
+    "url_hint": "/travel/flights/booking",
+    "parent": "returning",
+    "how_to_reach": ["choose a departing flight, then a returning flight"],
+    "layout": {"top": "'Itinerary summary': route, 'Round trip', class, '1 passenger', 'Lowest total price'", "left": null, "main": "'Selected flights' (both legs with times, duration, stops), 'Track prices' switch, 'Booking options': 'Book with <airline>' with fares (e.g. Basic Economy, Economy, Economy Fully Refundable), each with its price, what is included (seat selection, boarding, changes, refunds, bags) and a 'Continue' button", "right": null},
+    "controls": [
+     {"label": "Continue", "kind": "button", "position": "each fare (NEVER click: it leaves for the airline's site to book and pay)", "needs_scroll": false, "leads_to": null, "opens": "page"}
+    ]
+   }
+  ],
+  "flows": [
+   {
+    "id": "nonstop_only",
+    "goal": "Show only nonstop flights",
+    "steps": [
+     {"screen": "results", "do": "click", "click": "Stops", "position": "filter row", "expected_result": "The Stops dialog opens", "if_not_visible": null},
+     {"screen": "dialog_stops", "do": "click", "click": "Nonstop only", "position": "second option", "expected_result": "'Nonstop only' is selected; the list updates", "if_not_visible": null},
+     {"screen": "dialog_stops", "do": "close the Stops dialog", "position": "top right", "expected_result": "The results show only nonstop flights", "if_not_visible": null}
+    ]
+   },
+   {
+    "id": "max_price",
+    "goal": "Set a maximum price",
+    "steps": [
+     {"screen": "results", "do": "click", "click": "Price", "position": "filter row", "expected_result": "The Price dialog opens with the 'Maximum price' slider", "if_not_visible": null},
+     {"screen": "dialog_price", "do": "set the Maximum price slider to <amount>", "position": "dialog middle", "expected_result": "The dialog reads 'up to $<amount>'; the slider can't go below the cheapest price", "if_not_visible": null},
+     {"screen": "dialog_price", "do": "close the Price dialog", "position": "top right", "expected_result": "The Price filter reads 'up to $<amount>'", "if_not_visible": null}
+    ]
+   },
+   {
+    "id": "cheapest_first",
+    "goal": "Sort by cheapest",
+    "steps": [
+     {"screen": "results", "do": "click", "click": "Cheapest", "position": "tab above the list", "expected_result": "'Cheapest' is selected; the list starts with the lowest price", "if_not_visible": null}
+    ]
+   },
+   {
+    "id": "flight_details",
+    "goal": "Show one flight's details",
+    "steps": [
+     {"screen": "results", "do": "click the Flight details button of the <time> <airline> flight", "position": "right end of that row", "expected_result": "The row expands: airports, aircraft, flight number, legroom, Wi-Fi, power, emissions, and a 'Select flight' button", "if_not_visible": null}
+    ]
+   },
+   {
+    "id": "to_booking_options",
+    "goal": "Choose a departing and a returning flight and show the booking options (then stop)",
+    "steps": [
+     {"screen": "results", "do": "click the <time> <airline> departing flight", "position": "its row", "expected_result": "'Choose return to <origin>' with the returning flights", "if_not_visible": null},
+     {"screen": "returning", "do": "click the <time> <airline> returning flight (or the first one)", "position": "its row", "expected_result": "The Booking options page opens. STOP here: never click 'Continue'", "if_not_visible": null}
+    ]
+   }
+  ]
+ },
+ "features": [
+  {
+   "name": "Filters",
+   "screen": "results",
+   "labels": ["All filters", "Stops", "Airlines", "Bags", "Price", "Times"],
+   "does": "Narrow the flights by stops, airlines, bags, price, times of day, emissions, connecting airports and duration.",
+   "value": "Cuts a long list down to the few flights that fit how they like to travel.",
+   "say": "Let's narrow this down to what you care about.",
+   "ask": "Do you prefer mornings or evenings?",
+   "use_cases": ["Nonstop only", "A budget", "A favourite airline"],
+   "limits": "The price slider starts at the cheapest price on the page."
+  },
+  {
+   "name": "Best and Cheapest",
+   "screen": "results",
+   "labels": ["Top departing flights", "Best", "Cheapest", "results returned"],
+   "does": "'Best' ranks by price and convenience (duration, stops); 'Cheapest' lists the lowest prices first. Prices are round-trip totals for all passengers, with taxes and fees.",
+   "value": "The best trade-off is on top; the cheapest is one click away.",
+   "say": "These are ranked by price and convenience; the price shown is the whole round trip.",
+   "ask": "Is the lowest price what matters most, or a good time of day?",
+   "use_cases": ["Comparing options"],
+   "limits": "Basic Economy fares may not include a carry-on."
+  },
+  {
+   "name": "Booking options",
+   "screen": "booking",
+   "labels": ["Itinerary summary", "Selected flights", "Booking options", "Basic Economy"],
+   "does": "Shows the chosen flights and where to book them, with each fare's price and what it includes (seat selection, boarding, changes, refunds, bags).",
+   "value": "They see exactly what each fare includes before they pay anything.",
+   "say": "Here are your fares; Basic Economy is cheapest but has no carry-on and no changes.",
+   "ask": "Do you need a carry-on, or might your plans change?",
+   "use_cases": ["Choosing a fare"],
+   "limits": "This is where the demo stops: booking happens on the airline's site, by the customer."
+  }
+ ],
+ "demo_instructions": "1. Give the top two or three flights: price, airline, times, nonstop or not. 2. Apply what they asked for: 'nonstop' is the Stops filter, a budget the Price filter, 'cheapest' the Cheapest tab. 3. To look closer at one flight, open its Flight details. 4. If they like it, choose it and its return to reach Booking options, explain the fares, and stop: they book themselves.",
+ "presenter_notes": "Name a flight by airline, departure time and price ('the 6:00 AM United flight for $589'). Results can take a moment to fill in ('Fetching results'). Never click 'Continue' on Booking options."
+}

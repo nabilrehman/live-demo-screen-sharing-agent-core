@@ -1,0 +1,103 @@
+{
+ "area": "flight_search",
+ "clickmap": {
+  "screens": [
+   {
+    "id": "flights_home",
+    "name": "Google Flights - search",
+    "url_hint": "/travel/flights",
+    "parent": null,
+    "how_to_reach": ["The demo opens here"],
+    "layout": {
+     "top": "Google bar: Explore, Flights, Hotels, Vacation rentals; Sign in (never used)",
+     "left": null,
+     "main": "Search box: 'Change ticket type. Round trip', '1 passenger' button, 'Change seating class. Economy', 'Where from?' (often pre-filled with a nearby city), 'Swap origin and destination.', 'Where to?', 'Departure', 'Return', and the 'Search' button (it reads 'Explore' until a destination and dates are set). Below: deals from nearby cities and tips.",
+     "right": null
+    },
+    "controls": [
+     {"label": "Where from?", "kind": "combobox", "position": "search box, left", "needs_scroll": false, "leads_to": null, "opens": "listbox"},
+     {"label": "Where to?", "kind": "combobox", "position": "search box, middle", "needs_scroll": false, "leads_to": null, "opens": "listbox"},
+     {"label": "Departure", "kind": "text field", "position": "search box, right", "needs_scroll": false, "leads_to": null, "opens": "dialog"},
+     {"label": "Return", "kind": "text field", "position": "search box, far right", "needs_scroll": false, "leads_to": null, "opens": "dialog"},
+     {"label": "1 passenger", "kind": "button", "position": "above the fields", "needs_scroll": false, "leads_to": "dialog_passengers", "opens": "dialog"},
+     {"label": "Search", "kind": "button", "position": "below the search box, centre", "needs_scroll": false, "leads_to": "results", "opens": "page"}
+    ]
+   },
+   {
+    "id": "listbox_places",
+    "name": "Place suggestions",
+    "url_hint": "/travel/flights",
+    "parent": "flights_home",
+    "how_to_reach": ["type a city into 'Where from?' or 'Where to?'"],
+    "layout": {"top": null, "left": null, "main": "A list of options: the city first (e.g. 'Austin, Texas', 'New York'), then its airports (e.g. 'Austin-Bergstrom International Airport (AUS)', 'John F. Kennedy International Airport (JFK)'), then other places with similar names", "right": null},
+    "controls": [
+     {"label": "<city or airport option>", "kind": "option", "position": "list under the field", "needs_scroll": false, "leads_to": "flights_home", "opens": null}
+    ]
+   },
+   {
+    "id": "dialog_dates",
+    "name": "Date picker",
+    "url_hint": "/travel/flights",
+    "parent": "flights_home",
+    "how_to_reach": ["click 'Departure' or 'Return'"],
+    "layout": {"top": "'Round trip', 'Reset', 'Departure' and 'Return' fields", "left": null, "main": "Two months of days, each a button like 'Friday, October 23, 2026 , 551 US dollars' (the price of a trip starting that day)", "right": "'Done' (bottom right)"},
+    "controls": [
+     {"label": "Done", "kind": "button", "position": "bottom right", "needs_scroll": false, "leads_to": "flights_home", "opens": null}
+    ]
+   },
+   {
+    "id": "dialog_passengers",
+    "name": "Number of passengers",
+    "url_hint": "/travel/flights",
+    "parent": "flights_home",
+    "how_to_reach": ["click '1 passenger'"],
+    "layout": {"top": null, "left": null, "main": "Adults, Children Aged 2 to 11, Infants In seat, Infants On lap, each with 'Add ...' and 'Remove ...' buttons", "right": "'Done', 'Cancel'"},
+    "controls": [
+     {"label": "Add adult", "kind": "button", "position": "Adults row", "needs_scroll": false, "leads_to": null, "opens": null},
+     {"label": "Done", "kind": "button", "position": "dialog bottom", "needs_scroll": false, "leads_to": "flights_home", "opens": null}
+    ]
+   }
+  ],
+  "flows": [
+   {
+    "id": "search_round_trip",
+    "goal": "Search a round trip (from, to, departure date, return date)",
+    "steps": [
+     {"screen": "flights_home", "do": "type <origin city> into the 'Where from?' field", "position": "search box, left", "expected_result": "A list of suggestions opens", "if_not_visible": null},
+     {"screen": "listbox_places", "do": "click", "click": "<the city or airport option that fits>", "position": "first options are the city, then its airports", "expected_result": "'Where from?' shows the place", "if_not_visible": null},
+     {"screen": "flights_home", "do": "type <destination city> into the 'Where to?' field", "position": "search box, middle", "expected_result": "A list of suggestions opens", "if_not_visible": null},
+     {"screen": "listbox_places", "do": "click", "click": "<the city or airport option that fits>", "position": "list under the field", "expected_result": "'Where to?' shows the place; the button reads 'Search' once dates are set", "if_not_visible": null},
+     {"screen": "flights_home", "do": "type <date as 'Fri, Oct 23'> into the 'Departure' field", "position": "search box, right", "expected_result": "Departure shows the date", "if_not_visible": null},
+     {"screen": "flights_home", "do": "type <date as 'Sun, Oct 25'> into the 'Return' field", "position": "search box, far right", "expected_result": "Return shows the date", "if_not_visible": null},
+     {"screen": "flights_home", "do": "click", "click": "Search", "position": "below the search box", "expected_result": "The results page opens (title '<From> to <To> | Google Flights')", "if_not_visible": "If the date picker opened instead, click 'Done' and then 'Search'"}
+    ]
+   }
+  ]
+ },
+ "features": [
+  {
+   "name": "Flight search",
+   "screen": "flights_home",
+   "labels": ["Where from?", "Where to?", "Departure", "Return"],
+   "does": "Searches flights between two places for chosen dates; a city covers all its airports (New York means JFK, LaGuardia and Newark).",
+   "value": "One search compares every airline at once, with prices that include taxes and fees.",
+   "say": "I'll put in where you're flying from and to, and your dates.",
+   "ask": "Are your dates fixed, or could you shift a day to save money?",
+   "use_cases": ["Weekend trips", "Business travel"],
+   "limits": "Prices change all the time and depend on availability."
+  },
+  {
+   "name": "Date picker with prices",
+   "screen": "dialog_dates",
+   "labels": ["Reset", "Done"],
+   "does": "Shows two months of days with the trip price under each day.",
+   "value": "You can spot a cheaper day to leave at a glance.",
+   "say": "Each day shows what the trip costs if you leave then.",
+   "ask": "Would leaving a day earlier or later work for you?",
+   "use_cases": ["Flexible dates"],
+   "limits": null
+  }
+ ],
+ "demo_instructions": "1. Get from, to and dates; ask for whatever is missing in one short question. 2. Run the search with one do_task carrying every detail (dates as 'Fri, Oct 23'). 3. When the results open, give the top two or three flights in one or two sentences and ask what matters most: price, time of day or nonstop.",
+ "presenter_notes": "'Where from?' is often pre-filled with a city near the browser; replace it when the customer names another one."
+}

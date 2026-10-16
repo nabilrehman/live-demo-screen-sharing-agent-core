@@ -9,7 +9,8 @@ A LiveKit Agents project (Python, `uv`). See README.md for what it does.
 - `src/demo_agent/`: brain.py (realtime model), prompts.py (prompts from `knowledge/`), screen.py (screen summary and
   the screen feed), hands.py (one step on the page), engines.py (Jev), planner.py (multi-step tasks), nudges.py,
   floor.py / voicebridge.py / demolistener.py (in-browser test calls), avatar.py, browser.py, sesslog.py, cleanup.py.
-- `knowledge/`: the product. Product-specific text belongs here, not in code.
+- `knowledge/`: the product. Product-specific text belongs here, not in code. `KNOWLEDGE_DIR` picks another product's
+  folder (e.g. `knowledge/flights/`, a Google Flights travel agent).
 
 ## Run and test
 

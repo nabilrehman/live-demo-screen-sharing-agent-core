@@ -1,0 +1,742 @@
+{
+ "area": "simulations",
+ "clickmap": {
+  "screens": [
+   {
+    "id": "simulations_runs",
+    "name": "Simulations (runs list)",
+    "url_hint": "/simulations/runs",
+    "parent": null,
+    "how_to_reach": [
+     "Click 'Simulations' in the left sidebar (third item, under Sessions)"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'demo-tour / Simulations'; time range button 'Past 30 days' (top right)",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "With runs: a list of simulation runs (run ID SR_..., status, pass/fail counts). In demo-tour today: empty state 'No simulations yet' - 'Run automated conversations against an agent using auto-generated or pre-defined scenario tests.', a 'Learn more' link, the command 'lk agent simulate -n 5' with 'Copy to clipboard', and 'Simulates 5 sessions with scenario tests unique to your agent'",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Simulations",
+      "kind": "nav_link",
+      "position": "left sidebar, third item",
+      "needs_scroll": false,
+      "leads_to": "simulations_runs",
+      "opens": "page"
+     },
+     {
+      "label": "Past 30 days",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": "simulations_runs",
+      "opens": "menu"
+     },
+     {
+      "label": "Past 60 days",
+      "kind": "button",
+      "position": "time range popover, Quick ranges list",
+      "needs_scroll": false,
+      "leads_to": "simulations_runs",
+      "opens": null
+     },
+     {
+      "label": "Copy to clipboard",
+      "kind": "button",
+      "position": "main, right of 'lk agent simulate -n 5'",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Learn more",
+      "kind": "link",
+      "position": "main, under 'No simulations yet'",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "simulation_run_scenarios",
+    "name": "Simulation Run - Simulated scenarios tab",
+    "url_hint": "/simulations/runs/SR_<id>",
+    "parent": "simulations_runs",
+    "how_to_reach": [
+     "Simulations",
+     "click a run row (SR_...)"
+    ],
+    "layout": {
+     "top": "Breadcrumb '<project> > Simulations', run ID SR_..., status badge 'COMPLETED', button 'Add to CI' (top right); tabs 'Summary' and 'Simulated scenarios'",
+     "left": "Scenario list with filter pills 'All', 'Passed', 'Failed'; each scenario with a green check or red cross",
+     "main": "Verdict banner 'WHY THIS SCENARIO TEST PASSED/FAILED' with 'Turn into a test' button; 'Scenario: <label>'; cards 'USER BEHAVIOR' (PERSONA, OPENING LINE, DO, IN ORDER) and 'AGENT EXPECTATION'; 'Show all details' (conversation turns); 'Quality' scores (OVERALL SCORE, TASK COMPLETION, CONCISENESS, CONVERSATION FLOW; audio runs add TURN-TAKING, TRANSCRIPT ACCURACY); audio runs embed the Agent insights player (Play, Turns, Interruptions, Backchannels, Latency breakdown)",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Simulated scenarios",
+      "kind": "tab",
+      "position": "under run header",
+      "needs_scroll": false,
+      "leads_to": "simulation_run_scenarios",
+      "opens": null
+     },
+     {
+      "label": "Summary",
+      "kind": "tab",
+      "position": "under run header",
+      "needs_scroll": false,
+      "leads_to": "simulation_run_summary",
+      "opens": null
+     },
+     {
+      "label": "Failed",
+      "kind": "filter",
+      "position": "scenario list top",
+      "needs_scroll": false,
+      "leads_to": "simulation_run_scenarios",
+      "opens": null
+     },
+     {
+      "label": "Show all details",
+      "kind": "link",
+      "position": "main, under expectation cards",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "panel"
+     },
+     {
+      "label": "Turn into a test",
+      "kind": "button",
+      "position": "verdict banner, top right",
+      "needs_scroll": false,
+      "leads_to": "dialog_turn_into_test",
+      "opens": "dialog"
+     },
+     {
+      "label": "Play",
+      "kind": "button",
+      "position": "audio runs: player bar",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Add to CI",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "simulation_run_summary",
+    "name": "Simulation Run - Summary tab",
+    "url_hint": "/simulations/runs/SR_<id>",
+    "parent": "simulation_run_scenarios",
+    "how_to_reach": [
+     "Simulations",
+     "a run",
+     "Summary"
+    ],
+    "layout": {
+     "top": "Run header and tabs",
+     "left": null,
+     "main": "Cards NUMBER OF SIMULATED SCENARIOS, SCENARIO GROUP, SIMULATION MODE (Text or Voice); IMPROVEMENTS and GOING WELL cards; 'Quality' bars; 'Issues detected' table (ISSUE, SUMMARY) with 'View details' and 'Copy fix prompt' per issue; 'View details' opens a drawer with RECOMMENDED ACTION, 'GIVE THIS TO YOUR CODING AGENT' + 'Copy prompt', and CONVERSATIONS THIS ISSUE CITES",
+     "right": "Issue drawer (after 'View details')"
+    },
+    "controls": [
+     {
+      "label": "View details",
+      "kind": "button",
+      "position": "Issues detected row",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "drawer"
+     },
+     {
+      "label": "Copy fix prompt",
+      "kind": "button",
+      "position": "Issues detected row",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Copy prompt",
+      "kind": "button",
+      "position": "issue drawer, 'GIVE THIS TO YOUR CODING AGENT' block",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "sessions_list",
+    "name": "Sessions",
+    "url_hint": "/sessions",
+    "parent": null,
+    "how_to_reach": [
+     "Click 'Sessions' in the left sidebar"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'demo-tour / Sessions'; 'Auto-refresh off' combobox; time range button 'Past 24 hours'",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Cards 'Unique participants', 'Total rooms'; Sessions table (Session ID, Room name, Started at, Ended at, Duration, Participants, Features, Status) with Filters, Search, Column visibility. The agent session RM_SDfdxKCCwvzq (room nimbus-support-582de, Oct 14) shows 'View agent insights' in Features",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Past 24 hours",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": "sessions_list",
+      "opens": "menu"
+     },
+     {
+      "label": "Past 7 days",
+      "kind": "button",
+      "position": "time range popover, Quick ranges",
+      "needs_scroll": false,
+      "leads_to": "sessions_list",
+      "opens": null
+     },
+     {
+      "label": "RM_SDfdxKCCwvzq",
+      "kind": "link",
+      "position": "sessions table, Session ID column",
+      "needs_scroll": false,
+      "leads_to": "session_analytics",
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "session_analytics",
+    "name": "Session detail - Session analytics",
+    "url_hint": "/sessions/RM_SDfdxKCCwvzq",
+    "parent": "sessions_list",
+    "how_to_reach": [
+     "Sessions",
+     "Past 7 days",
+     "RM_SDfdxKCCwvzq"
+    ],
+    "layout": {
+     "top": "Breadcrumb; view links 'Session analytics', 'Session events', 'Agent insights'",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Room name, Room session ID, Unique participants, Duration, Session timeline, Publishers table",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Agent insights",
+      "kind": "link",
+      "position": "view links under the heading (third)",
+      "needs_scroll": false,
+      "leads_to": "agent_insights",
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "agent_insights",
+    "name": "Session detail - Agent insights",
+    "url_hint": "/sessions/RM_SDfdxKCCwvzq/observability?mode=metrics",
+    "parent": "session_analytics",
+    "how_to_reach": [
+     "Sessions",
+     "RM_SDfdxKCCwvzq",
+     "Agent insights"
+    ],
+    "layout": {
+     "top": "Buttons 'Turn into a test' (top right, teal), 'Share', 'Download data'; player bar (Play, 1.0x, Jump to previous/next turn, 00:01.70/01:57.70)",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Waveform timeline (User / Agent); sub-views 'Metrics', 'Transcript', 'Traces', 'Session logs'; Turns 6, Interruptions 0, Latency breakdown (STT delay 309 ms, EOT 268 ms, LLM TTFT 589 ms, TTS TTFB 314 ms, average reply ~1,480 ms)",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Turn into a test",
+      "kind": "button",
+      "position": "top right, teal, left of Share",
+      "needs_scroll": false,
+      "leads_to": "dialog_turn_into_test",
+      "opens": "dialog"
+     },
+     {
+      "label": "Transcript",
+      "kind": "button",
+      "position": "sub-view bar right of the waveform legend",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "dialog_turn_into_test",
+    "name": "Turn into a test dialog",
+    "url_hint": null,
+    "parent": "agent_insights",
+    "how_to_reach": [
+     "Sessions",
+     "RM_SDfdxKCCwvzq",
+     "Agent insights",
+     "Turn into a test (wait ~10-20 s while it derives the scenario)"
+    ],
+    "layout": {
+     "top": "'Turn into a test' - 'Turn this session into a regression test you can re-run against your agent.'",
+     "left": null,
+     "main": "'Test name' (prefilled, e.g. 'Warranty-covered Zigbee issue with advance replacement request'); 'Simulated user' (persona bullets, '+9 more'); 'Pass criteria' (e.g. 'Confirm warranty coverage based on the customer's device history, not just the general policy.', '+3 more'); link 'Show me how to run it'",
+     "right": "Footer: 'Cancel', 'Download'; 'Close' (X)"
+    },
+    "controls": [
+     {
+      "label": "+9 more",
+      "kind": "button",
+      "position": "Simulated user section",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "+3 more",
+      "kind": "button",
+      "position": "Pass criteria section",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Show me how to run it",
+      "kind": "link",
+      "position": "dialog bottom left",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "page"
+     },
+     {
+      "label": "Cancel",
+      "kind": "button",
+      "position": "dialog footer",
+      "needs_scroll": false,
+      "leads_to": "agent_insights",
+      "opens": null
+     },
+     {
+      "label": "Download",
+      "kind": "button",
+      "position": "dialog footer right",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   }
+  ],
+  "flows": [
+   {
+    "id": "open_simulations",
+    "goal": "Open the Simulations page and explain how a run is started (CLI or CI) and where results land",
+    "steps": [
+     {
+      "screen": "simulations_runs",
+      "do": "click",
+      "click": "Simulations",
+      "position": "left sidebar, third item under Sessions",
+      "expected_result": "Simulations page opens. In demo-tour it shows 'No simulations yet' with the command 'lk agent simulate -n 5'",
+      "if_not_visible": "Expand the sidebar ('Hide sidebar' toggles it) or use Search (Cmd K) and type Simulations"
+     },
+     {
+      "screen": "simulations_runs",
+      "do": "click",
+      "click": "Past 30 days",
+      "position": "top right time range button",
+      "expected_result": "Quick ranges popover opens (Past hour ... Past 60 days, Custom range)",
+      "if_not_visible": null
+     },
+     {
+      "screen": "simulations_runs",
+      "do": "click",
+      "click": "Past 60 days",
+      "position": "Quick ranges list",
+      "expected_result": "Range widens; runs older than 30 days appear if any exist (demo-tour stays empty)",
+      "if_not_visible": "Press Escape to close the popover"
+     },
+     {
+      "screen": "simulations_runs",
+      "do": "click",
+      "click": "Copy to clipboard",
+      "position": "right of 'lk agent simulate -n 5'",
+      "expected_result": "Command copied. Explain: one command generates 5 scenarios from the agent's own code and runs them in parallel",
+      "if_not_visible": "Point at the command instead; it is plain text on the page"
+     }
+    ]
+   },
+   {
+    "id": "session_to_test",
+    "goal": "Turn a real customer call into a regression test (live in demo-tour)",
+    "steps": [
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "Sessions",
+      "position": "left sidebar, second item",
+      "expected_result": "Sessions table opens (default Past 24 hours)",
+      "if_not_visible": null
+     },
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "Past 24 hours",
+      "position": "top right time range button",
+      "expected_result": "Quick ranges popover opens",
+      "if_not_visible": "The time-range button keeps the last range chosen anywhere in the dashboard (e.g. it may already read 'Past 7 days' or 'Past 60 days'); click it whatever it says, or skip if it already covers Oct 14"
+     },
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "Past 7 days",
+      "position": "Quick ranges list",
+      "expected_result": "Table shows RM_SDfdxKCCwvzq (room nimbus-support-582de) with 'View agent insights' in Features",
+      "if_not_visible": "Use 'Past 60 days' if the Oct 14 session has aged out of 7 days"
+     },
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "RM_SDfdxKCCwvzq",
+      "position": "sessions table, Session ID column",
+      "expected_result": "Session analytics opens for the Nimbus support call",
+      "if_not_visible": null
+     },
+     {
+      "screen": "session_analytics",
+      "do": "click",
+      "click": "Agent insights",
+      "position": "view links under the session heading (third link)",
+      "expected_result": "Agent insights opens on Metrics with the waveform, Turns 6, Latency breakdown",
+      "if_not_visible": null
+     },
+     {
+      "screen": "agent_insights",
+      "do": "click",
+      "click": "Turn into a test",
+      "position": "top right, teal button left of Share",
+      "expected_result": "Button shows a spinner for ~10-20 s, then the 'Turn into a test' dialog opens with Test name, Simulated user and Pass criteria derived from the call (each list has a '+N more' button to expand)",
+      "if_not_visible": "Wait; it is generating the scenario. If insights expired (30-day retention), say so and describe the dialog"
+     },
+     {
+      "screen": "dialog_turn_into_test",
+      "do": "click",
+      "click": "Cancel",
+      "position": "dialog footer",
+      "expected_result": "Dialog closes; nothing downloaded or created",
+      "if_not_visible": "Click 'Close' (X) or press Escape"
+     }
+    ]
+   },
+   {
+    "id": "review_run_results",
+    "goal": "Walk a finished simulation run: scenario verdicts, judge reasoning, quality scores, issues and fix prompts (needs a project that has runs)",
+    "steps": [
+     {
+      "screen": "simulations_runs",
+      "do": "click",
+      "click": "Simulations",
+      "position": "left sidebar",
+      "expected_result": "Runs list opens",
+      "if_not_visible": "demo-tour has no simulation runs yet ('No simulations yet'). Do not hunt for it: say 'here is where a run lands' and describe it, or switch to the session-to-test flow, which is live."
+     },
+     {
+      "screen": "simulation_run_scenarios",
+      "do": "click",
+      "click": "Simulated scenarios",
+      "position": "tab under the run header",
+      "expected_result": "Scenario list with All / Passed / Failed pills and a verdict banner with the judge's reason",
+      "if_not_visible": "demo-tour has no simulation runs yet ('No simulations yet'). Do not hunt for it: say 'here is where a run lands' and describe it, or switch to the session-to-test flow, which is live."
+     },
+     {
+      "screen": "simulation_run_scenarios",
+      "do": "click",
+      "click": "Failed",
+      "position": "scenario list filter pill",
+      "expected_result": "Only failing scenarios remain; select one to read 'WHY THIS SCENARIO TEST FAILED'",
+      "if_not_visible": "demo-tour has no simulation runs yet ('No simulations yet'). Do not hunt for it: say 'here is where a run lands' and describe it, or switch to the session-to-test flow, which is live."
+     },
+     {
+      "screen": "simulation_run_scenarios",
+      "do": "click",
+      "click": "Show all details",
+      "position": "under USER BEHAVIOR / AGENT EXPECTATION cards",
+      "expected_result": "Full simulated conversation turns expand",
+      "if_not_visible": "demo-tour has no simulation runs yet ('No simulations yet'). Do not hunt for it: say 'here is where a run lands' and describe it, or switch to the session-to-test flow, which is live."
+     },
+     {
+      "screen": "simulation_run_summary",
+      "do": "click",
+      "click": "Summary",
+      "position": "tab under the run header",
+      "expected_result": "Run summary: scenario count, SIMULATION MODE, GOING WELL / IMPROVEMENTS, Quality bars, Issues detected",
+      "if_not_visible": "demo-tour has no simulation runs yet ('No simulations yet'). Do not hunt for it: say 'here is where a run lands' and describe it, or switch to the session-to-test flow, which is live."
+     },
+     {
+      "screen": "simulation_run_summary",
+      "do": "click",
+      "click": "View details",
+      "position": "Issues detected row",
+      "expected_result": "Drawer with RECOMMENDED ACTION and 'GIVE THIS TO YOUR CODING AGENT' prompt plus cited conversations",
+      "if_not_visible": "demo-tour has no simulation runs yet ('No simulations yet'). Do not hunt for it: say 'here is where a run lands' and describe it, or switch to the session-to-test flow, which is live."
+     }
+    ]
+   }
+  ]
+ },
+ "features": [
+  {
+   "name": "Simulations Page",
+   "screen": "simulations_runs",
+   "labels": [
+    "Simulations",
+    "No simulations yet",
+    "lk agent simulate -n 5",
+    "Past 30 days"
+   ],
+   "does": "Lists every simulation run for the project. Runs start from the LiveKit CLI or CI and their results, transcripts and traces land here.",
+   "value": "One place where product, QA and engineering see whether the agent still does its job after every change.",
+   "say": "This is where every test run of your agent lands, whether someone ran it from a laptop or your CI pipeline ran it on a pull request.",
+   "ask": "Today, how do you find out that a prompt change broke something your agent used to handle well?",
+   "use_cases": [
+    "Pre-release regression check",
+    "Nightly quality run",
+    "Comparing a rewrite against the old agent"
+   ],
+   "limits": "Runs are started from the CLI ('lk agent simulate'), not from a button in the dashboard. demo-tour currently has no runs.",
+   "source": "live dashboard + docs /testing/simulations",
+   "ask_technical": "Where would simulations run for you: on every PR in CI, nightly, or by hand before a release?"
+  },
+  {
+   "name": "Auto-generated Scenarios",
+   "screen": "simulations_runs",
+   "labels": [
+    "lk agent simulate -n 5",
+    "Copy to clipboard",
+    "Simulates 5 sessions with scenario tests unique to your agent"
+   ],
+   "does": "Reads the agent's prompts, tools and logic and generates realistic caller scenarios, including edge cases nobody wrote down, then runs them.",
+   "value": "A pass rate on paths you never explored within minutes, without writing a single test or making a single call.",
+   "say": "You don't have to write tests from scratch: one command reads your agent and invents the tricky callers for you, then tells you which ones it failed.",
+   "ask": "What are the calls that worry you most, the ones you'd never think to test by hand?",
+   "use_cases": [
+    "Bootstrapping a test suite for a new agent",
+    "Finding hallucinated capabilities",
+    "Probing guardrails"
+   ],
+   "limits": "Uploads agent source to LiveKit Cloud for generation (CLI asks to confirm). Generated scenarios are a starting point to curate.",
+   "source": "docs + video ycSxhQTKX7Y 03:33",
+   "ask_technical": "Would you seed scenarios from source with '-n', or check in a curated scenarios.yaml?"
+  },
+  {
+   "name": "Scenarios (simulated user + judge)",
+   "screen": "simulation_run_scenarios",
+   "labels": [
+    "Scenario:",
+    "USER BEHAVIOR",
+    "AGENT EXPECTATION",
+    "PERSONA",
+    "OPENING LINE"
+   ],
+   "does": "Each scenario gives an LLM-driven simulated caller a persona and a goal; an LLM judge grades the whole conversation against freeform expectations and gives pass/fail with a reason.",
+   "value": "Tests the outcome of the whole call, the way a real customer experiences it, not just single replies.",
+   "say": "Each test is a pretend caller with a goal, like 'book a room then change the name', and a judge that checks whether your agent actually got them there.",
+   "ask": "If you had to write down what a perfect call looks like for your top use case, what would the must-haves be?",
+   "use_cases": [
+    "Booking or rescheduling flows",
+    "Identity verification steps",
+    "Refusing harmful or off-policy requests"
+   ],
+   "limits": "Judge verdicts depend on clearly written, outcome-shaped expectations; vague expectations grade inconsistently.",
+   "source": "docs /testing/simulations + video ycSxhQTKX7Y 01:35",
+   "ask_technical": "Do you need to grade final state too (e.g. the DB booking), via an on_simulation_end check?"
+  },
+  {
+   "name": "Pass/Fail Verdicts with Reasons",
+   "screen": "simulation_run_scenarios",
+   "labels": [
+    "All",
+    "Passed",
+    "Failed",
+    "WHY THIS SCENARIO TEST PASSED",
+    "Show all details"
+   ],
+   "does": "Shows each scenario's verdict with the judge's explanation and the full simulated conversation.",
+   "value": "Anyone can see what broke and why, in plain language, without listening to recordings.",
+   "say": "Every test says pass or fail and explains why in plain English, and you can read the whole conversation behind it.",
+   "ask": "Who on your side would review these results: engineers, QA, or the business owner of the call flow?",
+   "use_cases": [
+    "Release go/no-go",
+    "Triaging regressions",
+    "Sharing quality with stakeholders"
+   ],
+   "limits": "Verdicts are LLM-judged; pair with final-state checks for hard guarantees.",
+   "source": "video ycSxhQTKX7Y 02:48",
+   "ask_technical": "Would a non-zero exit code from the CLI gating your merge be enough, or do you need a report artifact too?"
+  },
+  {
+   "name": "Quality Scores",
+   "screen": "simulation_run_summary",
+   "labels": [
+    "Quality",
+    "TASK COMPLETION",
+    "CONCISENESS",
+    "CONVERSATION FLOW",
+    "TURN-TAKING",
+    "TRANSCRIPT ACCURACY"
+   ],
+   "does": "Scores each run on task completion, conciseness and conversation flow; audio runs add turn-taking and transcript accuracy.",
+   "value": "A trend line for quality, not just a list of failures, so you can see if the agent is getting better or worse.",
+   "say": "Beyond pass and fail you get scores for whether it finished the job, stayed concise and kept the conversation flowing.",
+   "ask": "What one number would your leadership use to say the agent is good enough to take more calls?",
+   "use_cases": [
+    "Tracking quality release over release",
+    "Comparing prompts or models"
+   ],
+   "limits": "Turn-taking and transcript accuracy only exist for audio runs.",
+   "source": "video ycSxhQTKX7Y 02:48, 06:09; docs (audio metrics)",
+   "ask_technical": "Which metrics would you track per release: task completion, p95 caller-heard latency, entity accuracy?"
+  },
+  {
+   "name": "Issues Detected and Fix Prompts",
+   "screen": "simulation_run_summary",
+   "labels": [
+    "Issues detected",
+    "View details",
+    "Copy fix prompt",
+    "GIVE THIS TO YOUR CODING AGENT",
+    "Copy prompt"
+   ],
+   "does": "Groups failures into named issues with the conversations that show them, a recommended action, and a ready-made prompt to hand to a coding agent.",
+   "value": "Shortens the loop from 'something is wrong' to a concrete fix.",
+   "say": "It doesn't just tell you something failed: it groups the problem, shows the calls that prove it, and gives you the fix instructions to paste into your coding assistant.",
+   "ask": "When a call goes wrong today, how long does it take your team to get from the complaint to a fix?",
+   "use_cases": [
+    "Catching hallucinated capability claims",
+    "Fixing repeated questions",
+    "Tightening guardrails"
+   ],
+   "limits": "Recommendations are suggestions; a human still decides and re-runs the suite.",
+   "source": "video ycSxhQTKX7Y 03:08-03:23",
+   "ask_technical": "Do your engineers already use a coding agent that could take these fix prompts directly?"
+  },
+  {
+   "name": "Text Mode",
+   "screen": "simulation_run_summary",
+   "labels": [
+    "SIMULATION MODE",
+    "Text"
+   ],
+   "does": "Runs scenarios as text, skipping speech models, to test the LLM, tools and conversation logic fast and cheaply; requests run at low priority so they never take capacity from live calls.",
+   "value": "Cheap enough to run on every code change, so regressions are caught in the change that caused them.",
+   "say": "The fast mode checks the agent's thinking and actions as text, cheap enough to run on every change, and it never steals capacity from your live calls.",
+   "ask": "How often does your team change prompts or tools: daily, weekly, or per release?",
+   "use_cases": [
+    "Per-commit CI",
+    "Prompt iteration"
+   ],
+   "limits": "Doesn't exercise speech recognition, turn-taking or interruptions.",
+   "source": "docs /testing/simulations#text-mode + blog 2026-10-08",
+   "ask_technical": "Is your LLM on LiveKit Inference (low-priority scheduling applies) or your own provider keys?"
+  },
+  {
+   "name": "Audio Mode and Degraded Callers",
+   "screen": "simulation_run_scenarios",
+   "labels": [
+    "SIMULATION MODE",
+    "Voice",
+    "Play",
+    "Latency breakdown",
+    "Turns",
+    "Interruptions"
+   ],
+   "does": "The simulated caller speaks over real audio, backchannels and interrupts; the run measures caller-heard latency (p50/p95/p99), turn-taking, transcription accuracy and can add background noise, a low-quality mic or packet loss.",
+   "value": "Catches what only voice exposes, like the agent going silent, talking over people, or mishearing numbers on a bad line, before a customer does.",
+   "say": "Voice mode makes the fake caller actually talk, with noise and a bad connection if you want, so you hear how your agent holds up in a parking lot, not just in a quiet office.",
+   "ask": "Where are your callers usually calling from: quiet offices, cars, busy stores?",
+   "use_cases": [
+    "Nightly or pre-release pass",
+    "Noisy-environment readiness",
+    "Validating a new STT/TTS provider"
+   ],
+   "limits": "Runs in real time, calls your STT/TTS on every turn and is metered higher than text; supported in ~50 languages.",
+   "source": "docs /testing/simulations#audio-simulations + video ycSxhQTKX7Y 04:39-08:26",
+   "ask_technical": "Do you want --background-noise / --packet-loss runs in your nightly pipeline?"
+  },
+  {
+   "name": "Turn into a Test (from a real call)",
+   "screen": "dialog_turn_into_test",
+   "labels": [
+    "Turn into a test",
+    "Test name",
+    "Simulated user",
+    "Pass criteria",
+    "Show me how to run it",
+    "Download"
+   ],
+   "does": "Derives a scenario from a recorded session (or a run's scenario): a simulated user that reproduces the caller's goal and pass criteria for the judge, downloadable as scenario.yaml.",
+   "value": "Every bad production call becomes a permanent regression test, so the same failure can't come back unnoticed.",
+   "say": "Here's a real customer call. One click turns it into a repeatable test, with the caller's goal and what a good answer must include, so that mistake can never sneak back in.",
+   "ask": "What's a call that went badly recently that you'd never want to happen again?",
+   "use_cases": [
+    "Locking in a bug fix",
+    "Building a suite from production traffic",
+    "Validating a migration against real calls"
+   ],
+   "limits": "Needs a recorded session with Agent insights (30-day retention). Generation takes ~10-20 s. The derived scenario describes one call; generalize it before committing.",
+   "source": "live dashboard (verified on RM_SDfdxKCCwvzq) + docs /testing/simulations/derive-a-scenario",
+   "ask_technical": "Where would the downloaded scenario.yaml live: next to the agent code in your repo?"
+  },
+  {
+   "name": "CI Integration",
+   "screen": "simulation_run_scenarios",
+   "labels": [
+    "Add to CI"
+   ],
+   "does": "Runs the committed scenarios.yaml in CI (e.g. GitHub Actions); the CLI exits non-zero when a scenario fails and prints a link to the run.",
+   "value": "Agent quality is gated like any other code; broken behavior can't merge.",
+   "say": "Drop the same tests into your build pipeline and a change that breaks a conversation fails the build, just like a broken unit test.",
+   "ask": "Do you have a release process today where a quality check can block a change from going live?",
+   "use_cases": [
+    "PR gating",
+    "Nightly audio pass",
+    "Release candidate checks"
+   ],
+   "limits": "CI needs LIVEKIT_URL/API key/secret plus any provider keys the agent reads.",
+   "source": "docs /testing/simulations/ci + video ycSxhQTKX7Y 09:32",
+   "ask_technical": "Which CI do you use, and can it hold LiveKit and model provider secrets?"
+  },
+  {
+   "name": "Customer Proof: Serve AI",
+   "screen": "simulations_runs",
+   "labels": [
+    "Simulations"
+   ],
+   "does": "Serve AI validated a full agent rewrite (from a 600-edge Retell graph to one prompt on LiveKit) against ~100 real production calls with Agent Simulations.",
+   "value": "98% pass rate before cutover, migration in 1 week, 15% higher containment, $320K additional yearly customer savings.",
+   "say": "Serve AI rebuilt their whole agent and proved it on a hundred real calls before switching anyone over: 98 percent pass rate, done in a week, and containment went up 15 percent.",
+   "ask": "If you migrated or rewrote your agent, how would you prove to the business it's at least as good as today?",
+   "use_cases": [
+    "Platform migration",
+    "Architecture rewrite"
+   ],
+   "limits": "Public customer story (Oct 2026).",
+   "source": "blog 2026-10-08 (Serve AI)",
+   "ask_technical": "Would you replay production transcripts as scenarios to validate a migration?"
+  }
+ ],
+ "demo_instructions": "1. Frame the problem: voice agents are tested on the happy path, but they fail on the long tail (noisy lines, people who give an account number in three pieces, people who try to break it), and calling your own agent by hand doesn't scale. Ask: 'Today, how do you find out a prompt change broke something that used to work?' (if technical: 'What runs before an agent change ships: unit tests, manual calls, nothing?')\n2. Click 'Simulations' in the left sidebar. demo-tour has no runs yet, so own it: 'Runs start from the CLI or CI and land here.' Point at 'lk agent simulate -n 5': one command reads your agent's code, invents five realistic callers including edge cases, runs them in parallel and grades each one.\n3. Explain how a run works in one breath: a simulated caller with a persona and goal, your real agent and tools, and a judge that grades the whole call pass/fail with a reason. Text mode is cheap enough for every change and never takes capacity from live calls; voice mode adds real audio, noise and packet loss for the nightly pass.\n4. Describe what a run page shows (from the launch walkthrough): 'Simulated scenarios' with Passed/Failed and the judge's reason, 'Summary' with Quality scores (task completion, conciseness, conversation flow; voice adds turn-taking and transcript accuracy) and 'Issues detected' with 'Copy fix prompt' for your coding agent. Ask: 'What would a perfect call for your top use case have to include?'\n5. Pivot to something live: click 'Sessions', widen 'Past 24 hours' to 'Past 7 days', and open RM_SDfdxKCCwvzq (the Nimbus support call).\n6. Click 'Agent insights', then 'Turn into a test'. Wait the 10-20 seconds while it derives the scenario, then show the dialog: the 'Test name', the 'Simulated user' that replays the caller's goal, and the 'Pass criteria' (expand with its '+N more' button). Say: 'a bad call becomes a permanent regression test.' Ask: 'What's one call that went badly recently that you'd never want repeated?'\n7. Click 'Cancel' (never Download in the demo). Explain the loop: download scenario.yaml, commit it with the agent, and CI fails the build if that behavior ever regresses.\n8. Proof point: Serve AI rewrote their agent from a 600-edge Retell graph to one prompt and validated it on ~100 real calls: 98% pass rate before cutover, 1 week, +15% containment.\n9. Close: 'Simulations is GA on every LiveKit Cloud project and free through October; your agent's own LLM and speech usage bill as normal.' Next step: pick 10 real calls for your top use case, turn them into tests, and run them against your agent this week."
+}

@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+.venv
+state/
+sessions/
+*.log
+__pycache__/
+*.secrets
+web/node_modules
+web/.vercel

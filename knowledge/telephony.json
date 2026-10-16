@@ -1,0 +1,859 @@
+{
+ "area": "telephony",
+ "clickmap": {
+  "screens": [
+   {
+    "id": "telephony_calls",
+    "name": "Telephony - Calls",
+    "url_hint": "/telephony",
+    "parent": null,
+    "how_to_reach": [
+     "Click 'Telephony' in the left sidebar"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'demo-tour / Telephony'; 'Auto-refresh off'; time range button 'Past 24 hours'",
+     "left": "Telephony sub-navigation (replaces the main sidebar): 'Back to project navigation' (Telephony), Calls, Dispatch rules, Phone numbers, SIP trunks",
+     "main": "Cards Total calls, Total call duration, Average call duration, Active calls, Calls with issues; 'Calls' table (ID, From, To, Direction, Started at, Ended at, Duration, Session, Status) with Filters (Status), Search, Column visibility. demo-tour: 0 calls ('No results.')",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Telephony",
+      "kind": "nav_link",
+      "position": "main left sidebar",
+      "needs_scroll": false,
+      "leads_to": "telephony_calls",
+      "opens": "page"
+     },
+     {
+      "label": "Past 24 hours",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": "telephony_calls",
+      "opens": "menu"
+     },
+     {
+      "label": "Filters",
+      "kind": "button",
+      "position": "Calls table header right",
+      "needs_scroll": false,
+      "leads_to": "telephony_calls",
+      "opens": "menu"
+     },
+     {
+      "label": "Dispatch rules",
+      "kind": "nav_link",
+      "position": "telephony sub-nav, second",
+      "needs_scroll": false,
+      "leads_to": "dispatch_rules",
+      "opens": "page"
+     },
+     {
+      "label": "Phone numbers",
+      "kind": "nav_link",
+      "position": "telephony sub-nav, third",
+      "needs_scroll": false,
+      "leads_to": "phone_numbers",
+      "opens": "page"
+     },
+     {
+      "label": "SIP trunks",
+      "kind": "nav_link",
+      "position": "telephony sub-nav, fourth",
+      "needs_scroll": false,
+      "leads_to": "sip_trunks",
+      "opens": "page"
+     },
+     {
+      "label": "Back to project navigation",
+      "kind": "button",
+      "position": "top of telephony sub-nav",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "phone_numbers",
+    "name": "Telephony - Phone numbers",
+    "url_hint": "/telephony/phone-numbers",
+    "parent": "telephony_calls",
+    "how_to_reach": [
+     "Telephony",
+     "Phone numbers"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'demo-tour / Telephony / Phone numbers'; button 'Rent a number' (top right)",
+     "left": "Telephony sub-navigation (replaces the main sidebar): 'Back to project navigation' (Telephony), Calls, Dispatch rules, Phone numbers, SIP trunks",
+     "main": "Cards Total numbers (1), Offline numbers (0); 'Numbers' table (Number, Location, Type, Dispatch rules, Purchased, Released, Status) with Filters; row +12676950013, LINELXNGTN, PA, Local, 'Not configured', Active, 'Open menu'",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Rent a number",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": "dialog_rent_number",
+      "opens": "dialog"
+     },
+     {
+      "label": "Open menu",
+      "kind": "button",
+      "position": "row actions (far right of +12676950013)",
+      "needs_scroll": false,
+      "leads_to": "menu_number_actions",
+      "opens": "menu"
+     }
+    ]
+   },
+   {
+    "id": "dialog_rent_number",
+    "name": "Rent a number dialog",
+    "url_hint": "/telephony/phone-numbers",
+    "parent": "phone_numbers",
+    "how_to_reach": [
+     "Telephony",
+     "Phone numbers",
+     "Rent a number"
+    ],
+    "layout": {
+     "top": "'Rent a number' - 'All plans include one free US local phone number for inbound calling. Additional local and toll-free numbers can be purchased for a monthly rate. Currently limited to US numbers only.' + 'Learn more in the docs'",
+     "left": null,
+     "main": "'Phone numbers' table with 'Search' (area code): Number, Location, Type, Features, Monthly rate, and a 'Rent' button per row (e.g. +1 240 212 4060, OAKLAND, MD, Local, $1.00); 'Page 1 of 10' with page buttons",
+     "right": "'Close' (X) - there is no Cancel button"
+    },
+    "controls": [
+     {
+      "label": "Search",
+      "kind": "button",
+      "position": "above the numbers table",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Rent",
+      "kind": "button",
+      "position": "each row, far right (NEVER click in a demo: rents a paid number)",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "dialog"
+     },
+     {
+      "label": "Close",
+      "kind": "button",
+      "position": "dialog top right / bottom",
+      "needs_scroll": false,
+      "leads_to": "phone_numbers",
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "menu_number_actions",
+    "name": "Phone number row menu",
+    "url_hint": "/telephony/phone-numbers",
+    "parent": "phone_numbers",
+    "how_to_reach": [
+     "Telephony",
+     "Phone numbers",
+     "Open menu"
+    ],
+    "layout": {
+     "top": null,
+     "left": null,
+     "main": "Menu items: 'Create dispatch rule', 'Configure with existing dispatch rules', 'Release number'",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Configure with existing dispatch rules",
+      "kind": "menu_item",
+      "position": "menu second item",
+      "needs_scroll": false,
+      "leads_to": "dialog_configure_number",
+      "opens": "dialog"
+     },
+     {
+      "label": "Create dispatch rule",
+      "kind": "menu_item",
+      "position": "menu first item",
+      "needs_scroll": false,
+      "leads_to": "dialog_create_dispatch_rule",
+      "opens": "dialog"
+     },
+     {
+      "label": "Release number",
+      "kind": "menu_item",
+      "position": "menu third item (NEVER click)",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "dialog"
+     }
+    ]
+   },
+   {
+    "id": "dialog_configure_number",
+    "name": "Configure number dialog",
+    "url_hint": "/telephony/phone-numbers",
+    "parent": "menu_number_actions",
+    "how_to_reach": [
+     "Phone numbers",
+     "Open menu",
+     "Configure with existing dispatch rules"
+    ],
+    "layout": {
+     "top": "'Configure number'",
+     "left": null,
+     "main": "'Phone number' +12676950013 with copy; 'Number dispatch' - 'Configure origination by setting up how the phone number will be dispatched to LiveKit rooms.' with a list: 'Route to Agent SDR_fX5Wd4tdQfGZ'",
+     "right": "Footer 'Cancel', 'Save'; 'Close'"
+    },
+    "controls": [
+     {
+      "label": "Cancel",
+      "kind": "button",
+      "position": "dialog footer",
+      "needs_scroll": false,
+      "leads_to": "phone_numbers",
+      "opens": null
+     },
+     {
+      "label": "Save",
+      "kind": "button",
+      "position": "dialog footer right (do not click in demo)",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "dispatch_rules",
+    "name": "Telephony - Dispatch rules",
+    "url_hint": "/telephony/dispatch",
+    "parent": "telephony_calls",
+    "how_to_reach": [
+     "Telephony",
+     "Dispatch rules"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'demo-tour / Telephony / Dispatch rules'; button 'Create new dispatch rule' (top right)",
+     "left": "Telephony sub-navigation (replaces the main sidebar): 'Back to project navigation' (Telephony), Calls, Dispatch rules, Phone numbers, SIP trunks",
+     "main": "Cards Total dispatch rules (1), SIP URI (sip:3ze3xb0sgz5.sip.livekit.cloud); table Dispatch rule ID, Rule name, Inbound routing, Destination room, Agents, Rule type, Created, Updated; row SDR_fX5Wd4tdQfGZ 'Route to Agent', Individual, 'Dispatch rule actions'",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Create new dispatch rule",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": "dialog_create_dispatch_rule",
+      "opens": "dialog"
+     },
+     {
+      "label": "Dispatch rule actions",
+      "kind": "button",
+      "position": "row far right",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "menu"
+     },
+     {
+      "label": "Edit rule",
+      "kind": "menu_item",
+      "position": "Dispatch rule actions menu (Delete rule is next to it: never click)",
+      "needs_scroll": false,
+      "leads_to": "dialog_create_dispatch_rule",
+      "opens": "dialog"
+     }
+    ]
+   },
+   {
+    "id": "dialog_create_dispatch_rule",
+    "name": "Create a new dispatch rule dialog",
+    "url_hint": "/telephony/dispatch",
+    "parent": "dispatch_rules",
+    "how_to_reach": [
+     "Telephony",
+     "Dispatch rules",
+     "Create new dispatch rule"
+    ],
+    "layout": {
+     "top": "'Create a new dispatch rule' - 'Route inbound SIP calls to an agent or room based on the trunk they arrive on.'; tabs 'Dispatch rule details' / 'JSON editor'",
+     "left": null,
+     "main": "'Rule name' (placeholder My rule); 'Rule type' (Individual by default; options Direct, Individual, Callee); 'Room prefix' (pre-); 'Agent dispatch' - 'Configure an agent to dispatch to LiveKit rooms and enable inbound calling for your agent.' + 'Add agent' (adds Agent name, Deployment = production, Restart policy = Restart on failure, Dispatch metadata, Remove agent); 'Inbound routing' with tabs 'Phone numbers' (Match phone numbers: +12676950013) and 'Trunks' (Match trunks: sip:livekit.example.com ST_T7tcczSs5DhV); 'If no number or trunk is selected, the rule will be applied to all.'",
+     "right": "Footer 'Learn more in the docs', 'Cancel', 'Create'; 'Close'"
+    },
+    "controls": [
+     {
+      "label": "Rule type Help",
+      "kind": "dropdown",
+      "position": "under Rule name",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "menu"
+     },
+     {
+      "label": "Add agent",
+      "kind": "button",
+      "position": "Agent dispatch section",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Trunks",
+      "kind": "tab",
+      "position": "Inbound routing, right of Phone numbers",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "JSON editor",
+      "kind": "tab",
+      "position": "dialog top, right of Dispatch rule details",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Cancel",
+      "kind": "button",
+      "position": "dialog footer",
+      "needs_scroll": false,
+      "leads_to": "dispatch_rules",
+      "opens": null
+     },
+     {
+      "label": "Create",
+      "kind": "button",
+      "position": "dialog footer right (never click in demo)",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "sip_trunks",
+    "name": "Telephony - SIP trunks",
+    "url_hint": "/telephony/trunks",
+    "parent": "telephony_calls",
+    "how_to_reach": [
+     "Telephony",
+     "SIP trunks"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'demo-tour / Telephony / SIP trunks'; button 'Create new trunk' (top right)",
+     "left": "Telephony sub-navigation (replaces the main sidebar): 'Back to project navigation' (Telephony), Calls, Dispatch rules, Phone numbers, SIP trunks",
+     "main": "Cards Total inbound trunks (1), Total outbound trunks (0), SIP URI (sip:3ze3xb0sgz5.sip.livekit.cloud); 'Inbound' trunks table (Trunk ID, Trunk name, Numbers, Created; row ST_T7tcczSs5DhV sip:livekit.example.com +15550100, 'Trunk actions'); 'Outbound' trunks table (Trunk ID, Trunk name, Numbers, SIP URI, Created; 'No results.')",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Create new trunk",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": "dialog_create_trunk",
+      "opens": "dialog"
+     },
+     {
+      "label": "Trunk actions",
+      "kind": "button",
+      "position": "inbound row far right (menu: Configure trunk, Delete trunk)",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "menu"
+     }
+    ]
+   },
+   {
+    "id": "dialog_create_trunk",
+    "name": "Create a new trunk dialog",
+    "url_hint": "/telephony/trunks",
+    "parent": "sip_trunks",
+    "how_to_reach": [
+     "Telephony",
+     "SIP trunks",
+     "Create new trunk"
+    ],
+    "layout": {
+     "top": "'Create a new trunk' - 'Configure a SIP trunk for inbound calls (from a carrier into LiveKit) or outbound calls (from LiveKit out to a carrier).'; tabs 'Trunk details' / 'JSON editor'",
+     "left": null,
+     "main": "'Trunk name'; 'Trunk direction' radios 'Inbound' / 'Outbound'. Inbound: Numbers, Allowed addresses (IP allowlist), 'Optional settings' (Media encryption (SRTP), Include headers, Enable Krisp). Outbound: Address, Transport, Numbers, Media encryption (SRTP), Username, Password",
+     "right": "Footer 'Learn more in the docs', 'Cancel', 'Create'; 'Close'"
+    },
+    "controls": [
+     {
+      "label": "Inbound",
+      "kind": "radio",
+      "position": "Trunk direction",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Outbound",
+      "kind": "radio",
+      "position": "Trunk direction",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Optional settings",
+      "kind": "button",
+      "position": "below Numbers",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Cancel",
+      "kind": "button",
+      "position": "dialog footer",
+      "needs_scroll": false,
+      "leads_to": "sip_trunks",
+      "opens": null
+     },
+     {
+      "label": "Create",
+      "kind": "button",
+      "position": "dialog footer right (never click in demo)",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   }
+  ],
+  "flows": [
+   {
+    "id": "telephony_overview",
+    "goal": "Open Telephony and explain the call dashboard",
+    "steps": [
+     {
+      "screen": "telephony_calls",
+      "do": "click",
+      "click": "Telephony",
+      "position": "left sidebar, below Voices",
+      "expected_result": "Telephony opens on Calls with call metrics and the Calls table; sidebar switches to the telephony sub-nav",
+      "if_not_visible": null
+     },
+     {
+      "screen": "telephony_calls",
+      "do": "click",
+      "click": "Past 24 hours",
+      "position": "top right time range",
+      "expected_result": "Quick ranges popover (Past hour ... Past 60 days, Custom range)",
+      "if_not_visible": "The time-range button keeps the last range chosen anywhere in the dashboard (e.g. it may already read 'Past 7 days' or 'Past 60 days'); click it whatever it says, or skip if it already covers Oct 14. demo-tour has 0 calls; say so and move on"
+     },
+     {
+      "screen": "telephony_calls",
+      "do": "click",
+      "click": "Phone numbers",
+      "position": "telephony sub-nav, third item",
+      "expected_result": "Phone numbers page opens",
+      "if_not_visible": null
+     }
+    ]
+   },
+   {
+    "id": "rent_number_preview",
+    "goal": "Show how a phone number is rented in the dashboard without renting one",
+    "steps": [
+     {
+      "screen": "phone_numbers",
+      "do": "click",
+      "click": "Phone numbers",
+      "position": "telephony sub-nav",
+      "expected_result": "Numbers table: +12676950013, Local, 'Not configured', Active",
+      "if_not_visible": null
+     },
+     {
+      "screen": "phone_numbers",
+      "do": "click",
+      "click": "Rent a number",
+      "position": "top right button",
+      "expected_result": "'Rent a number' dialog lists available US numbers with Location, Type, Monthly rate ($1.00) and a 'Rent' button per row",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_rent_number",
+      "do": "click",
+      "click": "Close",
+      "position": "dialog top right (X)",
+      "expected_result": "Dialog closes; nothing rented",
+      "if_not_visible": "Press Escape. There is no Cancel button; never click 'Rent'"
+     }
+    ]
+   },
+   {
+    "id": "number_to_agent",
+    "goal": "Show how a number is pointed at an agent via a dispatch rule (open and cancel)",
+    "steps": [
+     {
+      "screen": "phone_numbers",
+      "do": "click",
+      "click": "Open menu",
+      "position": "row actions, far right of +12676950013",
+      "expected_result": "Menu: Create dispatch rule, Configure with existing dispatch rules, Release number",
+      "if_not_visible": null
+     },
+     {
+      "screen": "menu_number_actions",
+      "do": "click",
+      "click": "Configure with existing dispatch rules",
+      "position": "menu second item",
+      "expected_result": "'Configure number' dialog with 'Number dispatch' list showing 'Route to Agent SDR_fX5Wd4tdQfGZ'",
+      "if_not_visible": "Never click 'Release number'"
+     },
+     {
+      "screen": "dialog_configure_number",
+      "do": "click",
+      "click": "Cancel",
+      "position": "dialog footer",
+      "expected_result": "Dialog closes; number unchanged",
+      "if_not_visible": "Press Escape"
+     }
+    ]
+   },
+   {
+    "id": "create_dispatch_rule_preview",
+    "goal": "Walk the dispatch rule form: rule type, agent dispatch, inbound routing, JSON editor (cancel)",
+    "steps": [
+     {
+      "screen": "telephony_calls",
+      "do": "click",
+      "click": "Dispatch rules",
+      "position": "telephony sub-nav, second item",
+      "expected_result": "Dispatch rules table (SDR_fX5Wd4tdQfGZ 'Route to Agent', Individual) and SIP URI sip:3ze3xb0sgz5.sip.livekit.cloud",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dispatch_rules",
+      "do": "click",
+      "click": "Create new dispatch rule",
+      "position": "top right button",
+      "expected_result": "'Create a new dispatch rule' dialog on 'Dispatch rule details'",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_create_dispatch_rule",
+      "do": "click",
+      "click": "Add agent",
+      "position": "Agent dispatch section",
+      "expected_result": "Agent name, Deployment (production), Restart policy (Restart on failure), Dispatch metadata fields appear",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_create_dispatch_rule",
+      "do": "click",
+      "click": "Trunks",
+      "position": "Inbound routing tabs",
+      "expected_result": "'Match trunks' list shows sip:livekit.example.com ST_T7tcczSs5DhV",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_create_dispatch_rule",
+      "do": "click",
+      "click": "JSON editor",
+      "position": "dialog top tab",
+      "expected_result": "sip-dispatch-rule-info.json editor (full API parameters, e.g. attributes, metadata, pin)",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_create_dispatch_rule",
+      "do": "click",
+      "click": "Cancel",
+      "position": "dialog footer",
+      "expected_result": "Dialog closes; no rule created",
+      "if_not_visible": "Click 'Close' (X) or press Escape; never click 'Create'"
+     }
+    ]
+   },
+   {
+    "id": "sip_trunk_preview",
+    "goal": "Show bring-your-own-carrier SIP trunks, inbound and outbound (cancel)",
+    "steps": [
+     {
+      "screen": "telephony_calls",
+      "do": "click",
+      "click": "SIP trunks",
+      "position": "telephony sub-nav, fourth item",
+      "expected_result": "Inbound trunks table (ST_T7tcczSs5DhV), Outbound table empty, SIP URI card",
+      "if_not_visible": null
+     },
+     {
+      "screen": "sip_trunks",
+      "do": "click",
+      "click": "Create new trunk",
+      "position": "top right button",
+      "expected_result": "'Create a new trunk' dialog with Trunk direction Inbound selected: Numbers, Allowed addresses",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_create_trunk",
+      "do": "click",
+      "click": "Optional settings",
+      "position": "below Allowed addresses",
+      "expected_result": "Media encryption (SRTP), Include headers, Enable Krisp",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_create_trunk",
+      "do": "click",
+      "click": "Outbound",
+      "position": "Trunk direction radio",
+      "expected_result": "Fields switch to Address, Transport, Numbers, Username, Password",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_create_trunk",
+      "do": "click",
+      "click": "Cancel",
+      "position": "dialog footer",
+      "expected_result": "Dialog closes; no trunk created",
+      "if_not_visible": "Press Escape; never click 'Create'"
+     }
+    ]
+   }
+  ]
+ },
+ "features": [
+  {
+   "name": "Calls Dashboard",
+   "screen": "telephony_calls",
+   "labels": [
+    "Total calls",
+    "Total call duration",
+    "Average call duration",
+    "Active calls",
+    "Calls with issues",
+    "Calls"
+   ],
+   "does": "Shows phone call volume, duration, live calls and calls with issues, with a table linking each call (From, To, Direction, Status) to its session.",
+   "value": "Phone operations in the same place as agent quality: from a call record straight into what the agent did.",
+   "say": "Every phone call in and out shows up here, with any call that had problems flagged, and each one links to the full session with the agent.",
+   "ask": "Roughly how many calls a day does your team handle today, and what share could an agent fully resolve?",
+   "use_cases": [
+    "Call center volume monitoring",
+    "Spotting failed calls"
+   ],
+   "limits": "demo-tour has no calls yet (empty table).",
+   "source": "live dashboard",
+   "ask_technical": "Inbound, outbound, or both, and what peak concurrency do you expect?"
+  },
+  {
+   "name": "LiveKit Phone Numbers",
+   "screen": "phone_numbers",
+   "labels": [
+    "Phone numbers",
+    "Rent a number",
+    "Total numbers",
+    "Offline numbers",
+    "Monthly rate",
+    "Rent"
+   ],
+   "does": "Rent US local or toll-free numbers directly in LiveKit and route them to agents with no third-party SIP trunk.",
+   "value": "Zero to a ringing agent in about a minute, one vendor and one bill, fewer network hops for better audio.",
+   "say": "You can get a phone number right here, no phone carrier account or trunk setup, and point it at your agent in about a minute. Every plan includes one free US number.",
+   "ask": "Do your callers reach you on numbers you already own, or would new numbers work for a pilot?",
+   "use_cases": [
+    "Pilot lines",
+    "After-hours line",
+    "New campaign numbers"
+   ],
+   "limits": "US only; inbound only for now (outbound coming); call forwarding via TransferSIPParticipant not yet supported; released numbers billed for the full month.",
+   "source": "live dashboard + docs /telephony/start/phone-numbers + video KJ1CgZ0iZbY",
+   "ask_technical": "Do you need outbound dialing or non-US numbers? If so we'd use a SIP trunk from your carrier."
+  },
+  {
+   "name": "Number Routing (Configure number)",
+   "screen": "dialog_configure_number",
+   "labels": [
+    "Open menu",
+    "Create dispatch rule",
+    "Configure with existing dispatch rules",
+    "Configure number",
+    "Number dispatch"
+   ],
+   "does": "From a number's menu, attach it to an existing dispatch rule or create a new one, which decides which agent answers.",
+   "value": "Change which agent answers a number in seconds, without touching the carrier.",
+   "say": "Each number is attached to a routing rule, so switching which agent answers is a dropdown, not a ticket with your phone provider.",
+   "ask": "Do different numbers or departments need different agents, like sales versus support?",
+   "use_cases": [
+    "Department routing",
+    "Swapping in a new agent version"
+   ],
+   "limits": "The demo number is 'Not configured' in the table; the dialog shows the 'Route to Agent' rule available.",
+   "source": "live dashboard",
+   "ask_technical": "Would you route by called number, by trunk, or by metadata to one generic agent?"
+  },
+  {
+   "name": "Dispatch Rules",
+   "screen": "dispatch_rules",
+   "labels": [
+    "Dispatch rules",
+    "Create new dispatch rule",
+    "Total dispatch rules",
+    "SIP URI",
+    "Rule type",
+    "Destination room",
+    "Agents"
+   ],
+   "does": "Decide which room each inbound caller joins and which agent is dispatched: Individual (a room per caller), Direct (one room, optional PIN), Callee (room per called number).",
+   "value": "Callers are isolated in their own room with the right agent, automatically, at any scale.",
+   "say": "A dispatch rule is the switchboard: when a call comes in, it gives the caller their own private room and sends in the right agent.",
+   "ask": "When a call comes in, what decides who should answer it today: the number dialed, the time of day, the caller?",
+   "use_cases": [
+    "One agent per number",
+    "PIN-protected conference lines",
+    "Per-tenant routing"
+   ],
+   "limits": "Reuse rules across calls (don't create one per call). Individual rules put the caller's number in the room name, which PII redaction does not remove.",
+   "source": "live dashboard + docs /telephony/accepting-calls/dispatch-rule",
+   "ask_technical": "Do you need custom participant attributes or metadata on callers (JSON editor only)?"
+  },
+  {
+   "name": "Agent Dispatch on Calls",
+   "screen": "dialog_create_dispatch_rule",
+   "labels": [
+    "Agent dispatch",
+    "Add agent",
+    "Agent name",
+    "Deployment",
+    "Restart policy",
+    "Dispatch metadata"
+   ],
+   "does": "Names the agent that joins each call, which deployment (production or a non-production one) and passes dispatch metadata as job metadata.",
+   "value": "One agent build can serve many lines and customers, configured per number with metadata.",
+   "say": "Here you pick which agent answers, and you can pass context like which brand or clinic the number belongs to, so one agent serves many lines.",
+   "ask": "Would the same agent answer for several brands or locations, just with different details?",
+   "use_cases": [
+    "Multi-tenant agents",
+    "Staging vs production lines"
+   ],
+   "limits": "Agent must be registered with that agent name (explicit dispatch).",
+   "source": "live dashboard (verified Add agent fields) + docs",
+   "ask_technical": "Would you read ctx.job.metadata to switch data stores or workflows per number?"
+  },
+  {
+   "name": "Inbound Routing Match",
+   "screen": "dialog_create_dispatch_rule",
+   "labels": [
+    "Inbound routing",
+    "Phone numbers",
+    "Trunks",
+    "Match phone numbers",
+    "Match trunks"
+   ],
+   "does": "Limits a dispatch rule to specific numbers or trunks; with none selected it applies to all.",
+   "value": "Precise control over which calls go where as you add numbers and carriers.",
+   "say": "You choose exactly which numbers or carrier connections this rule covers, or leave it open to catch everything.",
+   "ask": "How many phone lines or carriers would feed into this over the next year?",
+   "use_cases": [
+    "Separate support and sales lines",
+    "Carrier migration"
+   ],
+   "limits": "Overlapping rules on the same trunk need distinct numbers or PINs.",
+   "source": "live dashboard",
+   "ask_technical": "Do you need region-pinned trunks for local telephony regulations?"
+  },
+  {
+   "name": "JSON Editor",
+   "screen": "dialog_create_dispatch_rule",
+   "labels": [
+    "JSON editor",
+    "sip-dispatch-rule-info.json"
+   ],
+   "does": "Edit the full dispatch rule or trunk as JSON, exposing every API parameter (attributes, metadata, PIN, room config).",
+   "value": "Everything in the UI is the same object your code and CLI manage, so you can automate it.",
+   "say": "Everything you click here is plain configuration you can also manage from code or the command line, so nothing is locked in the UI.",
+   "ask": "Would your team set this up by hand, or manage it as code through your deploy pipeline?",
+   "use_cases": [
+    "Infrastructure as code",
+    "Copying config between projects"
+   ],
+   "limits": "Some parameters (attributes, metadata) are JSON-editor only.",
+   "source": "live dashboard + docs",
+   "ask_technical": "Would you manage trunks and rules via 'lk sip' CLI or the SIP API in CI?"
+  },
+  {
+   "name": "SIP Trunks (bring your carrier)",
+   "screen": "sip_trunks",
+   "labels": [
+    "SIP trunks",
+    "Create new trunk",
+    "Total inbound trunks",
+    "Total outbound trunks",
+    "Inbound",
+    "Outbound",
+    "SIP URI"
+   ],
+   "does": "Connect your existing carrier (Twilio, Telnyx, Plivo, Exotel, Wavix, Sinch...) or contact center to LiveKit for inbound and outbound calls using your own numbers.",
+   "value": "Keep your numbers and carrier contracts, and add AI agents beside your existing contact center.",
+   "say": "If you already have numbers and a phone carrier, you keep them: you point them at this address and your agent starts answering, no rip-and-replace.",
+   "ask": "Which phone carrier or contact center platform do your calls run through today?",
+   "use_cases": [
+    "Existing CCaaS integration",
+    "Outbound campaigns",
+    "High-volume multi-carrier setups"
+   ],
+   "limits": "Static SIP IP ranges only in some regions; prefer username/password auth on the provider side.",
+   "source": "live dashboard + docs /telephony",
+   "ask_technical": "Inbound via IP allowlist or digest auth? Any SIP headers you need passed to the agent?"
+  },
+  {
+   "name": "Trunk Security and Audio Options",
+   "screen": "dialog_create_trunk",
+   "labels": [
+    "Allowed addresses",
+    "Numbers",
+    "Optional settings",
+    "Media encryption (SRTP)",
+    "Include headers",
+    "Enable Krisp",
+    "Username",
+    "Password"
+   ],
+   "does": "Restrict inbound trunks to trusted IPs and numbers, encrypt media with SRTP, pass SIP headers to the agent, and enable Krisp noise cancellation; outbound trunks use address, transport and credentials.",
+   "value": "Secure, clear calls: only your carrier can reach the agent and background noise is removed before the agent hears it.",
+   "say": "You can lock the line to your carrier only, encrypt the audio, and turn on noise cancellation so the agent hears the caller, not the traffic behind them.",
+   "ask": "Do your callers often call from noisy places like cars or job sites?",
+   "use_cases": [
+    "Healthcare and finance security reviews",
+    "Field service callers"
+   ],
+   "limits": "Empty allowlist or 0.0.0.0/0 allows all IPs.",
+   "source": "live dashboard (verified Inbound and Outbound fields)",
+   "ask_technical": "Do you require SRTP/TLS end to end, and which SIP headers (e.g. X-Customer-ID) should reach the agent?"
+  },
+  {
+   "name": "Telephony Capabilities and Proof",
+   "screen": "telephony_calls",
+   "labels": [
+    "Telephony"
+   ],
+   "does": "DTMF, cold (REFER) and warm transfer to humans, caller ID, HD voice, region pinning, noise cancellation, answering machine detection for outbound, and Connectors for Twilio and WhatsApp without SIP.",
+   "value": "Production telephony features in the same platform as the agent; telli runs 30,000+ calls a day across 400+ SIP trunks on LiveKit.",
+   "say": "It handles the real phone stuff: keypad tones, warm handoff to a person with context, voicemail detection on outbound. telli runs over thirty thousand calls a day across four hundred carrier connections on it.",
+   "ask": "When the agent can't help, how should the caller reach a person: transfer to your queue, or a callback?",
+   "use_cases": [
+    "Warm transfer to agents",
+    "Outbound reminders with voicemail detection",
+    "WhatsApp calling"
+   ],
+   "limits": "No SIP REGISTER or video over SIP. Outbound voicemail attempts are still billed.",
+   "source": "docs /telephony + blogs (AMD, Connectors, telli)",
+   "ask_technical": "Do you need warm transfer into a specific CCaaS (Genesys, Five9, Twilio Flex) with context passed along?"
+  }
+ ],
+ "demo_instructions": "1. Frame it: putting an agent on the phone usually means a carrier account, buying numbers, configuring trunks and wiring SIP before you hear a single ring. Ask: 'How do callers reach you today, and which calls would you want an agent to answer first?' (if technical: 'Which carrier or contact center platform do calls run through today?')\n2. Click 'Telephony' in the sidebar: the Calls dashboard (Total calls, Active calls, Calls with issues) sits next to everything else, and each call links to its full agent session. demo-tour has no calls yet; say so in one line.\n3. Click 'Phone numbers', then 'Rent a number': numbers by area code, $1 a month, one free US number on every plan. Click 'Close' (never 'Rent').\n4. Open the number's menu ('Open menu') > 'Configure with existing dispatch rules': show 'Route to Agent', so which agent answers a number is a dropdown, not a carrier ticket. Click 'Cancel'.\n5. Click 'Dispatch rules', then 'Create new dispatch rule'. Explain Rule type 'Individual' (each caller gets a private room), click 'Add agent' to show Agent name, Deployment and Dispatch metadata, then the 'Trunks' tab under Inbound routing. Ask: 'Do different numbers or brands need different agents or context?'\n6. Click the 'JSON editor' tab: the same config is code you can manage from the CLI or API. Click 'Cancel'.\n7. Click 'SIP trunks', then 'Create new trunk': keep your own carrier and numbers; show Allowed addresses, 'Optional settings' (SRTP, headers, Krisp), and flip to 'Outbound' for credentials. Click 'Cancel'. Ask: 'Would you start on a LiveKit number for the pilot, or point your existing numbers here?'\n8. Proof and depth: DTMF, warm transfer to a human with context, voicemail detection on outbound, Twilio and WhatsApp connectors; telli runs 30,000+ calls a day across 400+ SIP trunks on LiveKit.\n9. Close: 'Same agent on the web and on the phone, live in minutes.' Next step: pick the first line (e.g. after-hours), rent or connect one number, and route it to the pilot agent this week."
+}

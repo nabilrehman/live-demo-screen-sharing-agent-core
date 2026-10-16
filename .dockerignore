@@ -1,0 +1,9 @@
+.venv
+.env
+state
+sessions
+*.log
+__pycache__
+*.secrets
+web
+tests

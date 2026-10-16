@@ -1,0 +1,1292 @@
+{
+ "area": "agent_builder",
+ "clickmap": {
+  "screens": [
+   {
+    "id": "agents_list",
+    "name": "Agents Dashboard",
+    "url_hint": "/agents",
+    "parent": null,
+    "how_to_reach": [],
+    "layout": {
+     "top": "Launch Console link (x1116), Deploy new agent button (x1259)",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents, Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Stats: TOTAL SESSIONS, AVG LLM TOKENS / SESSION, INTERRUPTED RATE, AGENT SESSION MINUTES; Table: NAME, SESSIONS, AVG TURNS, INTERRUPTED, E2E MEDIAN, Agent actions per row",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Deploy new agent",
+      "kind": "button",
+      "position": "top right x1259",
+      "needs_scroll": false,
+      "leads_to": "menu_deploy_agent",
+      "opens": "menu"
+     },
+     {
+      "label": "Launch Console",
+      "kind": "link",
+      "position": "top right x1116",
+      "needs_scroll": false,
+      "leads_to": "agent_console",
+      "opens": "page"
+     },
+     {
+      "label": "Agents",
+      "kind": "nav_link",
+      "position": "left sidebar",
+      "needs_scroll": false,
+      "leads_to": "agents_list",
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "menu_deploy_agent",
+    "name": "Deploy New Agent Dropdown Menu",
+    "url_hint": "/agents",
+    "parent": "agents_list",
+    "how_to_reach": [
+     "Click 'Deploy new agent' on Agents list"
+    ],
+    "layout": {
+     "top": null,
+     "left": null,
+     "main": "Two deployment paths: 'Create in browser using Agent Builder' (Prototype agent ideas through prompts) and 'Deploy with code' (Develop complex voice agent workflows)",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Create in browser using Agent Builder",
+      "kind": "menu_item",
+      "position": "menu top",
+      "needs_scroll": false,
+      "leads_to": "dialog_create_agent",
+      "opens": "dialog"
+     },
+     {
+      "label": "Deploy with code",
+      "kind": "menu_item",
+      "position": "menu bottom",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "dialog_create_agent",
+    "name": "Create New Agent Template Dialog",
+    "url_hint": "/agents",
+    "parent": "menu_deploy_agent",
+    "how_to_reach": [
+     "Click 'Deploy new agent' -> click 'Create in browser using Agent Builder'"
+    ],
+    "layout": {
+     "top": "Dialog header: 'Create new agent' - 'Use case: Pick the template closest to what you're building'",
+     "left": null,
+     "main": "OPEN ENDED CONVERSATION cards: Generic assistant, Customer support, Receptionist, 1-to-1 training; DATA COLLECTION cards: Lead qualification, Appointment scheduling, Customer feedback",
+     "right": "Dialog footer: Cancel, Create buttons"
+    },
+    "controls": [
+     {
+      "label": "Generic assistant",
+      "kind": "card",
+      "position": "dialog main OPEN ENDED CONVERSATION",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Customer support",
+      "kind": "card",
+      "position": "dialog main OPEN ENDED CONVERSATION",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Receptionist",
+      "kind": "card",
+      "position": "dialog main OPEN ENDED CONVERSATION",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "1-to-1 training",
+      "kind": "card",
+      "position": "dialog main OPEN ENDED CONVERSATION",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Lead qualification",
+      "kind": "card",
+      "position": "dialog main DATA COLLECTION",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Appointment scheduling",
+      "kind": "card",
+      "position": "dialog main DATA COLLECTION",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Customer feedback",
+      "kind": "card",
+      "position": "dialog main DATA COLLECTION",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Cancel",
+      "kind": "button",
+      "position": "dialog footer left",
+      "needs_scroll": true,
+      "leads_to": "agents_list",
+      "opens": null
+     },
+     {
+      "label": "Create",
+      "kind": "button",
+      "position": "dialog footer right",
+      "needs_scroll": true,
+      "leads_to": "builder_conversation",
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "builder_conversation",
+    "name": "Agent Builder - Conversation Tab",
+    "url_hint": "/agents/builder/<id>?tab=conversation",
+    "parent": "dialog_create_agent",
+    "how_to_reach": [
+     "Select a template card in Create new agent dialog and click Create"
+    ],
+    "layout": {
+     "top": "Top bar: 'Last saved N minutes ago', 'Test in Console' (x1150), 'Deploy agent' (x1289), 'Agent actions' (x1396)",
+     "left": "Agent Detail sidebar (Overview, Versions, Console, Builder, Secrets); Builder tabs at y118: Conversation, Models & Voice, Actions, Advanced",
+     "main": "Type: 'Open ended' | 'Data collection'; 'Instructions' textarea with 'Insert variable' and 'Learn more'; 'Welcome message' card with ON toggle, 'Allow users to interrupt the greeting.', 'Insert variable'; 'Call ending' section with 'Configure' button (y828)",
+     "right": "Right panel: tabs 'Live preview' (x854), 'Code' (x1138); 'Preview your agent', 'START CALL'; bottom drawer: Audio, Events, Logs, Session, Clear events, Maximize, Collapse"
+    },
+    "controls": [
+     {
+      "label": "Conversation",
+      "kind": "tab",
+      "position": "builder tabs left y118",
+      "needs_scroll": false,
+      "leads_to": "builder_conversation",
+      "opens": null
+     },
+     {
+      "label": "Models & Voice",
+      "kind": "tab",
+      "position": "builder tabs left y118",
+      "needs_scroll": false,
+      "leads_to": "builder_models_voice",
+      "opens": null
+     },
+     {
+      "label": "Actions",
+      "kind": "tab",
+      "position": "builder tabs left y118",
+      "needs_scroll": false,
+      "leads_to": "builder_actions",
+      "opens": null
+     },
+     {
+      "label": "Advanced",
+      "kind": "tab",
+      "position": "builder tabs left y118",
+      "needs_scroll": false,
+      "leads_to": "builder_advanced",
+      "opens": null
+     },
+     {
+      "label": "Open ended",
+      "kind": "radio",
+      "position": "main top Type selector",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Data collection",
+      "kind": "radio",
+      "position": "main top Type selector",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Instructions",
+      "kind": "textarea",
+      "position": "main upper instructions editor",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Insert variable",
+      "kind": "button",
+      "position": "main upper right of instructions",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "menu"
+     },
+     {
+      "label": "Welcome message",
+      "kind": "toggle",
+      "position": "main Welcome message card header",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Allow users to interrupt the greeting.",
+      "kind": "checkbox",
+      "position": "main inside Welcome message card",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Configure",
+      "kind": "button",
+      "position": "main bottom Call ending section y828",
+      "needs_scroll": true,
+      "leads_to": null,
+      "opens": "drawer"
+     },
+     {
+      "label": "Live preview",
+      "kind": "tab",
+      "position": "right panel top x854",
+      "needs_scroll": false,
+      "leads_to": "builder_conversation",
+      "opens": null
+     },
+     {
+      "label": "Code",
+      "kind": "tab",
+      "position": "right panel top x1138",
+      "needs_scroll": false,
+      "leads_to": "builder_code_view",
+      "opens": null
+     },
+     {
+      "label": "START CALL",
+      "kind": "button",
+      "position": "right panel preview bottom",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Deploy agent",
+      "kind": "button",
+      "position": "top right x1289",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Test in Console",
+      "kind": "button",
+      "position": "top right x1150",
+      "needs_scroll": false,
+      "leads_to": "agent_console",
+      "opens": "page"
+     },
+     {
+      "label": "Agent actions",
+      "kind": "button",
+      "position": "top right x1396",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "menu"
+     }
+    ]
+   },
+   {
+    "id": "builder_models_voice",
+    "name": "Agent Builder - Models & Voice Tab",
+    "url_hint": "/agents/builder/<id>?tab=models",
+    "parent": "builder_conversation",
+    "how_to_reach": [
+     "Click 'Models & Voice' tab"
+    ],
+    "layout": {
+     "top": "Top bar: 'Last saved N minutes ago', 'Test in Console', 'Deploy agent', 'Agent actions'",
+     "left": "Agent Detail sidebar, Builder tabs",
+     "main": "Pipeline mode ('STT-LLM-TTS pipeline' | 'Realtime model'); Text-to-speech (TTS) with Voice type Default|Custom, Model 'Cartesia Sonic 3', Voice 'Jacqueline English (United States)', 'Expressive mode' toggle; Large language model (LLM) with Model 'Gemma 4 31B'; Speech-to-text (STT) with Model 'Deepgram Nova-3 (Monolingual)', Language English, 'Keyterm recognition' toggle, 'Custom keyterms'; 'Noise cancellation' ('Quail VF S'); 'Background audio' ('None')",
+     "right": "Right panel: Live preview / Code"
+    },
+    "controls": [
+     {
+      "label": "Conversation",
+      "kind": "tab",
+      "position": "builder tabs left y118",
+      "needs_scroll": false,
+      "leads_to": "builder_conversation",
+      "opens": null
+     },
+     {
+      "label": "Models & Voice",
+      "kind": "tab",
+      "position": "builder tabs left y118",
+      "needs_scroll": false,
+      "leads_to": "builder_models_voice",
+      "opens": null
+     },
+     {
+      "label": "STT-LLM-TTS pipeline",
+      "kind": "radio",
+      "position": "main top Pipeline mode selector",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Realtime model",
+      "kind": "radio",
+      "position": "main top Pipeline mode selector",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Cartesia Sonic 3",
+      "kind": "dropdown",
+      "position": "main Text-to-speech (TTS) Model field",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "menu"
+     },
+     {
+      "label": "Jacqueline English (United States)",
+      "kind": "dropdown",
+      "position": "main Text-to-speech (TTS) Voice field",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "menu"
+     },
+     {
+      "label": "Expressive mode",
+      "kind": "toggle",
+      "position": "main Text-to-speech (TTS) section",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Gemma 4 31B",
+      "kind": "dropdown",
+      "position": "main Large language model (LLM) Model field",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "menu"
+     },
+     {
+      "label": "Deepgram Nova-3 (Monolingual)",
+      "kind": "dropdown",
+      "position": "main Speech-to-text (STT) Model field",
+      "needs_scroll": true,
+      "leads_to": null,
+      "opens": "menu"
+     },
+     {
+      "label": "Keyterm recognition",
+      "kind": "toggle",
+      "position": "main Speech-to-text (STT) section",
+      "needs_scroll": true,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Quail VF S",
+      "kind": "dropdown",
+      "position": "main Noise cancellation section",
+      "needs_scroll": true,
+      "leads_to": null,
+      "opens": "menu"
+     },
+     {
+      "label": "None",
+      "kind": "dropdown",
+      "position": "main Background audio section",
+      "needs_scroll": true,
+      "leads_to": null,
+      "opens": "menu"
+     }
+    ]
+   },
+   {
+    "id": "builder_actions",
+    "name": "Agent Builder - Actions Tab",
+    "url_hint": "/agents/builder/<id>?tab=actions",
+    "parent": "builder_conversation",
+    "how_to_reach": [
+     "Click 'Actions' tab"
+    ],
+    "layout": {
+     "top": "Top bar: 'Last saved N minutes ago', 'Test in Console', 'Deploy agent', 'Agent actions'",
+     "left": "Agent Detail sidebar, Builder tabs",
+     "main": "Actions categories: HTTP tools with 'Add HTTP tool' button, Client tools with 'Add client tool' button, MCP servers with 'Add MCP server' button",
+     "right": "Right panel: Live preview / Code"
+    },
+    "controls": [
+     {
+      "label": "Conversation",
+      "kind": "tab",
+      "position": "builder tabs left y118",
+      "needs_scroll": false,
+      "leads_to": "builder_conversation",
+      "opens": null
+     },
+     {
+      "label": "Add HTTP tool",
+      "kind": "button",
+      "position": "main HTTP tools card",
+      "needs_scroll": false,
+      "leads_to": "modal_add_http_tool",
+      "opens": "dialog"
+     },
+     {
+      "label": "Add client tool",
+      "kind": "button",
+      "position": "main Client tools card",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "dialog"
+     },
+     {
+      "label": "Add MCP server",
+      "kind": "button",
+      "position": "main MCP servers card",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "dialog"
+     }
+    ]
+   },
+   {
+    "id": "modal_add_http_tool",
+    "name": "Add HTTP Tool Dialog",
+    "url_hint": "/agents/builder/<id>?tab=actions",
+    "parent": "builder_actions",
+    "how_to_reach": [
+     "Click 'Add HTTP tool' on Actions tab"
+    ],
+    "layout": {
+     "top": "Dialog header: Add HTTP tool",
+     "left": null,
+     "main": "Tool configuration fields: Name, Description, HTTP method, URL, Parameters, Headers",
+     "right": "Footer with Cancel button"
+    },
+    "controls": [
+     {
+      "label": "Cancel",
+      "kind": "button",
+      "position": "dialog footer",
+      "needs_scroll": true,
+      "leads_to": "builder_actions",
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "builder_advanced",
+    "name": "Agent Builder - Advanced Tab",
+    "url_hint": "/agents/builder/<id>?tab=advanced",
+    "parent": "builder_conversation",
+    "how_to_reach": [
+     "Click 'Advanced' tab"
+    ],
+    "layout": {
+     "top": "Top bar: 'Last saved N minutes ago', 'Test in Console', 'Deploy agent', 'Agent actions'",
+     "left": "Agent Detail sidebar, Builder tabs",
+     "main": "Agent name field (e.g. receptionist-db6); Custom metadata with 'Add variable' button; Secrets with 'Add secret' button; Telephony section with 'dispatch rules' link and 'Rent a number' button",
+     "right": "Right panel: Live preview / Code"
+    },
+    "controls": [
+     {
+      "label": "Conversation",
+      "kind": "tab",
+      "position": "builder tabs left y118",
+      "needs_scroll": false,
+      "leads_to": "builder_conversation",
+      "opens": null
+     },
+     {
+      "label": "Add variable",
+      "kind": "button",
+      "position": "main Custom metadata section",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "dialog"
+     },
+     {
+      "label": "Add secret",
+      "kind": "button",
+      "position": "main Secrets section",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "dialog"
+     },
+     {
+      "label": "dispatch rules",
+      "kind": "link",
+      "position": "main Telephony section",
+      "needs_scroll": false,
+      "leads_to": "telephony_dispatch_rules",
+      "opens": "page"
+     },
+     {
+      "label": "Rent a number",
+      "kind": "button",
+      "position": "main Telephony section",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "dialog"
+     }
+    ]
+   },
+   {
+    "id": "builder_code_view",
+    "name": "Agent Builder - Code View",
+    "url_hint": "/agents/builder/<id>?tab=code",
+    "parent": "builder_conversation",
+    "how_to_reach": [
+     "Click 'Code' tab on right panel"
+    ],
+    "layout": {
+     "top": "Top bar: 'Last saved N minutes ago', 'Test in Console', 'Deploy agent', 'Agent actions'",
+     "left": "Agent Detail sidebar, Builder tabs",
+     "main": "Configuration editor",
+     "right": "Right panel showing compiled Python agent.py source code"
+    },
+    "controls": [
+     {
+      "label": "Live preview",
+      "kind": "tab",
+      "position": "right panel top x854",
+      "needs_scroll": false,
+      "leads_to": "builder_conversation",
+      "opens": null
+     },
+     {
+      "label": "Code",
+      "kind": "tab",
+      "position": "right panel top x1138",
+      "needs_scroll": false,
+      "leads_to": "builder_code_view",
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "telephony_dispatch_rules",
+    "name": "Telephony Dispatch Rules",
+    "url_hint": "/telephony",
+    "parent": "builder_advanced",
+    "how_to_reach": [
+     "Click 'dispatch rules' link on Advanced tab"
+    ],
+    "layout": {
+     "top": "Telephony navigation",
+     "left": "Main sidebar",
+     "main": "Inbound SIP trunk dispatch rules mapping phone numbers to agent names",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Agents",
+      "kind": "nav_link",
+      "position": "left sidebar",
+      "needs_scroll": false,
+      "leads_to": "agents_list",
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "agent_console",
+    "name": "Agent Console",
+    "url_hint": "/agents/console",
+    "parent": "builder_conversation",
+    "how_to_reach": [
+     "Click 'Test in Console' on top bar"
+    ],
+    "layout": {
+     "top": "Console status and controls",
+     "left": "Agent navigation sidebar",
+     "main": "Live real-time WebRTC audio inspector, event log, and latency waterfall",
+     "right": null
+    },
+    "controls": []
+   }
+  ],
+  "flows": [
+   {
+    "id": "create_agent",
+    "goal": "Navigate from Agents dashboard to start a new agent using a template in Agent Builder",
+    "steps": [
+     {
+      "screen": "agents_list",
+      "do": "click",
+      "click": "Deploy new agent",
+      "position": "top right x1259",
+      "expected_result": "Deploy new agent menu opens showing 'Create in browser using Agent Builder' and 'Deploy with code'",
+      "if_not_visible": "Ensure you are on the /agents list page; check project quotas if agent limit reached"
+     },
+     {
+      "screen": "menu_deploy_agent",
+      "do": "click",
+      "click": "Create in browser using Agent Builder",
+      "position": "menu top",
+      "expected_result": "'Create new agent' dialog opens displaying use case template cards",
+      "if_not_visible": "Re-click 'Deploy new agent' to trigger menu"
+     },
+     {
+      "screen": "dialog_create_agent",
+      "do": "click",
+      "click": "Receptionist",
+      "position": "dialog main OPEN ENDED CONVERSATION",
+      "expected_result": "Receptionist template card selected and agent name generated",
+      "if_not_visible": "Scroll dialog content to view all open-ended cards"
+     },
+     {
+      "screen": "dialog_create_agent",
+      "do": "click",
+      "click": "Create",
+      "position": "dialog footer right",
+      "expected_result": "Builder interface loads on Conversation tab with pre-filled instructions and greeting",
+      "if_not_visible": "Scroll to bottom of dialog to reveal footer buttons"
+     }
+    ]
+   },
+   {
+    "id": "tour_builder_tabs",
+    "goal": "Tour all visual builder tabs and split preview/code panels",
+    "steps": [
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "Conversation",
+      "position": "builder tabs left y118",
+      "expected_result": "Conversation tab displays conversation type, prompt instructions, and welcome greeting",
+      "if_not_visible": "Builder left tabs always visible at y118"
+     },
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "Models & Voice",
+      "position": "builder tabs left y118",
+      "expected_result": "Models & Voice tab opens showing pipeline mode, TTS, LLM, STT, and audio controls",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_models_voice",
+      "do": "click",
+      "click": "Actions",
+      "position": "builder tabs left y118",
+      "expected_result": "Actions tab displays HTTP tools, Client tools, and MCP servers cards",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_actions",
+      "do": "click",
+      "click": "Advanced",
+      "position": "builder tabs left y118",
+      "expected_result": "Advanced tab displays Agent name, Custom metadata, Secrets, and Telephony",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_advanced",
+      "do": "click",
+      "click": "Code",
+      "position": "right panel top x1138",
+      "expected_result": "Right panel displays compiled live Python agent code",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_code_view",
+      "do": "click",
+      "click": "Live preview",
+      "position": "right panel top x854",
+      "expected_result": "Right panel switches back to Live preview with START CALL button and events drawer",
+      "if_not_visible": null
+     }
+    ]
+   },
+   {
+    "id": "configure_models_voice",
+    "goal": "Inspect and toggle models, voice, and pipeline modes",
+    "steps": [
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "Models & Voice",
+      "position": "builder tabs left y118",
+      "expected_result": "Models & Voice tab displays pipeline and provider dropdowns",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_models_voice",
+      "do": "click",
+      "click": "STT-LLM-TTS pipeline",
+      "position": "main top Pipeline mode selector",
+      "expected_result": "STT-LLM-TTS pipeline remains selected, showing modular pipeline stages",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_models_voice",
+      "do": "click",
+      "click": "Expressive mode",
+      "position": "main Text-to-speech (TTS) section",
+      "needs_scroll": false,
+      "expected_result": "Expressive mode voice synthesis toggle switched",
+      "if_not_visible": null
+     }
+    ]
+   },
+   {
+    "id": "add_action_tool",
+    "goal": "Open tool creation modal, explain API integration, and safely cancel",
+    "steps": [
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "Actions",
+      "position": "builder tabs left y118",
+      "expected_result": "Actions tab displays HTTP tools, Client tools, and MCP servers",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_actions",
+      "do": "click",
+      "click": "Add HTTP tool",
+      "position": "main HTTP tools card",
+      "expected_result": "Add HTTP tool modal dialog opens",
+      "if_not_visible": null
+     },
+     {
+      "screen": "modal_add_http_tool",
+      "do": "click",
+      "click": "Cancel",
+      "position": "dialog footer",
+      "expected_result": "Modal closes safely without committing changes",
+      "if_not_visible": "Scroll inside dialog to reach footer Cancel button"
+     }
+    ]
+   },
+   {
+    "id": "test_in_preview",
+    "goal": "Initiate an interactive live audio test session in the builder right panel",
+    "steps": [
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "Live preview",
+      "position": "right panel top x854",
+      "expected_result": "Preview panel with START CALL button is visible",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "START CALL",
+      "position": "right panel preview bottom",
+      "expected_result": "Microphone activates; live WebRTC audio session streams greeting and opens events drawer",
+      "if_not_visible": "Grant browser microphone permission"
+     }
+    ]
+   },
+   {
+    "id": "deploy_and_console",
+    "goal": "Deploy the agent to LiveKit Cloud and open Agent Console for production verification",
+    "steps": [
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "Deploy agent",
+      "position": "top right x1289",
+      "expected_result": "Agent packages and deploys to LiveKit Cloud infrastructure; status reflects saved deployment",
+      "if_not_visible": "Check that agent quota on project is not exceeded"
+     },
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "Test in Console",
+      "position": "top right x1150",
+      "expected_result": "Agent Console opens to run live production session with complete telemetry",
+      "if_not_visible": "Wait for agent deployment build to finish"
+     }
+    ]
+   },
+   {
+    "id": "dispatch_and_phone",
+    "goal": "Navigate to telephony routing without committing paid phone number rentals",
+    "steps": [
+     {
+      "screen": "builder_conversation",
+      "do": "click",
+      "click": "Advanced",
+      "position": "builder tabs left y118",
+      "expected_result": "Advanced tab opens showing Agent name and Telephony",
+      "if_not_visible": null
+     },
+     {
+      "screen": "builder_advanced",
+      "do": "click",
+      "click": "dispatch rules",
+      "position": "main Telephony section",
+      "expected_result": "Navigates to SIP inbound dispatch rules configuring telephony routing to agent name",
+      "if_not_visible": "Scroll down inside Advanced tab to Telephony section"
+     }
+    ]
+   }
+  ]
+ },
+ "features": [
+  {
+   "name": "Use Case Templates",
+   "screen": "dialog_create_agent",
+   "labels": [
+    "Create new agent",
+    "Generic assistant",
+    "Customer support",
+    "Receptionist",
+    "1-to-1 training",
+    "Lead qualification",
+    "Appointment scheduling",
+    "Customer feedback",
+    "Create"
+   ],
+   "does": "Provides battle-tested conversational starters and prompt patterns for open-ended assistants and structured data collection.",
+   "value": "Gets teams from an initial idea to a talking voice agent in seconds rather than starting from blank prompts.",
+   "say": "Pre-built templates let you launch tested reception or support flows immediately. Your team starts from proven patterns instead of building from a blank slate.",
+   "ask": "When a customer calls your front desk today, what are the top two or three things they are trying to get done?",
+   "use_cases": [
+    "Inbound clinic or salon scheduling",
+    "Tier-1 customer service triage",
+    "Automated inbound lead qualification"
+   ],
+   "limits": "Templates initialize baseline prompts; custom organizational policies require further instruction tuning.",
+   "source": "live dashboard",
+   "ask_technical": "What conversational flow or agent role are you looking to scaffold first using pre-built base templates?"
+  },
+  {
+   "name": "Conversation Type Selection",
+   "screen": "builder_conversation",
+   "labels": [
+    "Open ended",
+    "Data collection"
+   ],
+   "does": "Switches the agent's core interaction model between open dialogue and schema-enforced field extraction that automatically terminates on completion.",
+   "value": "Guarantees structured transactional records for business workflows without relying on unpredictable prompt adherence.",
+   "say": "Choose whether the agent has a natural open conversation or systematically collects required intake details. This ensures your systems get complete, accurate customer information every time.",
+   "ask": "Are your staff mostly answering open questions, or are they taking down specific details like names, dates, and account numbers?",
+   "use_cases": [
+    "Patient intake screening",
+    "Insurance first notice of loss",
+    "Reservation and booking intake"
+   ],
+   "limits": "Data collection automatically ends the call when all required fields are collected.",
+   "source": "live dashboard",
+   "ask_technical": "Do you need open-ended multi-turn dialog or a schema-guided data collection agent that emits structured JSON payloads?"
+  },
+  {
+   "name": "Conversation Instructions & Variables",
+   "screen": "builder_conversation",
+   "labels": [
+    "Instructions",
+    "Insert variable",
+    "Learn more"
+   ],
+   "does": "Accepts natural language system prompts governing persona, tone, guardrails, and dynamic metadata variable interpolation (such as caller name).",
+   "value": "Allows rapid prompt iteration with personalized context injected directly from CRM or SIP telephony metadata.",
+   "say": "Clear guardrails keep the assistant firmly within your company policies while personalizing each call with caller data. It protects your brand while handling routine conversations automatically.",
+   "ask": "What is the number one mistake a new hire might make on the phone that you would never want this assistant to repeat?",
+   "use_cases": [
+    "Enforcing strict compliance disclaimers",
+    "Personalized conversational greeting and context",
+    "Concise phone-optimized voice prompting"
+   ],
+   "limits": "A single prompt cannot replace complex multi-agent state machines, which require the LiveKit Python SDK.",
+   "source": "live dashboard",
+   "ask_technical": "What core system prompt guardrails, dynamic runtime variables, and persona constraints must be injected into the session?"
+  },
+  {
+   "name": "Welcome Message & Interruption Handling",
+   "screen": "builder_conversation",
+   "labels": [
+    "Welcome message",
+    "Allow users to interrupt the greeting.",
+    "Insert variable"
+   ],
+   "does": "Defines the agent's initial spoken greeting upon joining, with native support for full barge-in interruption.",
+   "value": "Establishes immediate human-grade conversational naturalness so callers can interrupt greetings without awkward waiting.",
+   "say": "Callers can speak right over the opening greeting just like talking to a real person. This eliminates awkward pauses and stops callers from hanging up out of frustration.",
+   "ask": "When someone calls in, do they usually want to cut right to the chase, or do they wait for a full greeting to finish?",
+   "use_cases": [
+    "After-hours receptionist greeting",
+    "Personalized outbound call opening",
+    "Emergency triage immediate greeting"
+   ],
+   "limits": "Overly broad welcome instructions can lead to rambling greetings; keep opening prompts to a greeting and a single question.",
+   "source": "live dashboard",
+   "ask_technical": "What initial greeting latency and barge-in interruption sensitivity do your callers require?"
+  },
+  {
+   "name": "Call Ending & Webhook Delivery",
+   "screen": "builder_conversation",
+   "labels": [
+    "Call ending",
+    "Configure"
+   ],
+   "does": "Configures call completion logic, room teardown rules, post-call AI summarization, and webhook endpoints for extracted data delivery.",
+   "value": "Closes the loop between voice conversations and enterprise backends by delivering structured summaries and payloads automatically.",
+   "say": "Every call automatically logs clean summaries and collected data right into your existing business systems. Your staff gets actionable records without spending hours writing manual call notes.",
+   "ask": "Once a call wraps up, who on your team needs to know what happened, and where does that record usually go?",
+   "use_cases": [
+    "Webhook post-call CRM logging",
+    "Automatic room deletion upon intake completion",
+    "Automated QA ticket creation"
+   ],
+   "limits": "Data collection requires a valid endpoint URL to save call ending settings.",
+   "source": "live dashboard",
+   "ask_technical": "Which webhook endpoints or event queues should receive the structured call transcript and end-of-call summary?"
+  },
+  {
+   "name": "Pipeline Mode Selection",
+   "screen": "builder_models_voice",
+   "labels": [
+    "Pipeline mode",
+    "STT-LLM-TTS pipeline",
+    "Realtime model"
+   ],
+   "does": "Toggles between a modular STT-LLM-TTS processing pipeline and end-to-end multimodal speech-to-speech architectures.",
+   "value": "Provides architectural flexibility to choose between swappable modular providers or cutting-edge unified realtime inference.",
+   "say": "You can pick the underlying architecture that fits your exact latency and cost goals. That means you get human-like conversational speed without compromising on flexibility.",
+   "ask": "Is your priority having the fastest possible response time so it feels like a real human, or having total flexibility over which AI vendors you use?",
+   "use_cases": [
+    "Cost-optimized STT-LLM-TTS production pipelines",
+    "Ultra-low-latency realtime conversational evaluation",
+    "Hybrid architecture benchmarking"
+   ],
+   "limits": "Advanced client-side multimodal vision and complex tooling flows require the Python SDK.",
+   "source": "live dashboard",
+   "ask_technical": "Are you targeting modular STT-LLM-TTS orchestration or an integrated speech-to-speech realtime model architecture?"
+  },
+  {
+   "name": "Text-to-Speech (TTS) & Expressive Mode",
+   "screen": "builder_models_voice",
+   "labels": [
+    "Text-to-speech (TTS)",
+    "Default",
+    "Custom",
+    "Cartesia Sonic 3",
+    "Jacqueline English (United States)",
+    "Expressive mode"
+   ],
+   "does": "Configures vocal synthesis provider, voice identity, custom cloned voices, and emotional prosody through Expressive mode.",
+   "value": "Delivers human-like voice quality tailored to company branding with sub-100ms streaming audio generation.",
+   "say": "Expressive voices adapt their pacing and tone so conversations sound genuinely human and warm. Callers stay engaged and feel heard instead of trapped in a robotic phone menu.",
+   "ask": "How important is it that your callers feel like they are speaking to a warm, empathetic person rather than an automated phone tree?",
+   "use_cases": [
+    "Brand voice consistency across customer touchpoints",
+    "Empathetic tone for healthcare and support calls",
+    "High-energy voice personas for coaching"
+   ],
+   "limits": "Custom voice cloning requires pre-uploading voice assets in the project Voices tab.",
+   "source": "live dashboard",
+   "ask_technical": "What TTS provider, neural voice clone, and expressive prosody settings are required for your target latency envelope?"
+  },
+  {
+   "name": "Large Language Model (LLM) Selection",
+   "screen": "builder_models_voice",
+   "labels": [
+    "Large language model (LLM)",
+    "Gemma 4 31B"
+   ],
+   "does": "Selects the underlying reasoning model from leading open-source and proprietary models routed via LiveKit Inference.",
+   "value": "Eliminates multiple vendor contracts and API keys while allowing instant model swaps without rewriting code.",
+   "say": "Switch between leading AI models with a single click to balance intelligence against response speed. You always get the right level of reasoning for your specific budget and workflow.",
+   "ask": "Do your calls require deep reasoning to solve tricky customer problems, or simple, lightning-fast answers to routine questions?",
+   "use_cases": [
+    "High-speed conversational triage with lightweight models",
+    "Complex reasoning and tool execution",
+    "Zero-retention enterprise compliance pipelines"
+   ],
+   "limits": "Builder uses unified Inference credits; custom self-hosted LLM endpoints require SDK deployment.",
+   "source": "live dashboard",
+   "ask_technical": "Which LLM model family and parameter size are you benchmarking for inference latency and task complexity?"
+  },
+  {
+   "name": "Speech-to-Text (STT) & Keyterms",
+   "screen": "builder_models_voice",
+   "labels": [
+    "Speech-to-text (STT)",
+    "Deepgram Nova-3 (Monolingual)",
+    "English",
+    "Keyterm recognition",
+    "Custom keyterms"
+   ],
+   "does": "Configures speech transcription provider, language, and keyterm boosting for specialized domain vocabulary.",
+   "value": "Ensures near-zero transcription error rates for brand names, drug nomenclature, and complex alphanumeric IDs.",
+   "say": "Custom keyword recognition trains the system on your unique product names, industry jargon, and accents. This keeps callers from having to repeat themselves over simple misunderstandings.",
+   "ask": "What industry terms, doctor names, or product codes do automated systems or new staff frequently mishear?",
+   "use_cases": [
+    "Pharmaceutical and medical nomenclature transcription",
+    "Catalog SKU and product name recognition",
+    "Multilingual transcription"
+   ],
+   "limits": "Custom keyterm lists are optimized for short phrases and specific vocabulary rather than paragraph prompts.",
+   "source": "live dashboard",
+   "ask_technical": "What specialized vocabulary, medical or domain acronyms, and phonetic keyterms need biasing in the transcription model?"
+  },
+  {
+   "name": "Noise Cancellation & Background Audio",
+   "screen": "builder_models_voice",
+   "labels": [
+    "Noise cancellation",
+    "Quail VF S",
+    "Background audio",
+    "None"
+   ],
+   "does": "Provides server-side audio processing including machine-learning noise suppression (Quail) and ambient background audio simulation.",
+   "value": "Isolates caller speech from noisy environments like cars or crowded rooms to maintain high transcription accuracy.",
+   "say": "Built-in noise suppression filters out traffic, dogs, and background chatter before processing the caller's voice. The assistant understands callers clearly, even on noisy speakerphones.",
+   "ask": "Are your callers often on speakerphone, in busy parking lots, or calling from noisy living rooms?",
+   "use_cases": [
+    "Inbound automotive hands-free calling",
+    "Field agent voice intake",
+    "Call center background audio simulation"
+   ],
+   "limits": "Heavy acoustic echo requires caller-side hardware echo cancellation or headphones during testing.",
+   "source": "live dashboard",
+   "ask_technical": "What ambient noise suppression and telephony audio pre-processing thresholds are required before transcription?"
+  },
+  {
+   "name": "HTTP Tools & Client Actions",
+   "screen": "builder_actions",
+   "labels": [
+    "HTTP tools",
+    "Add HTTP tool",
+    "Client tools",
+    "Add client tool"
+   ],
+   "does": "Configures external REST API endpoints and client-side RPC functions that the agent triggers autonomously via LLM tool calls.",
+   "value": "Transforms the voice agent from a passive conversationalist into an active system capable of executing transactions live.",
+   "say": "The assistant can securely look up appointments, check account statuses, and update records during the call. That resolves customer requests end-to-end without pulling in your staff.",
+   "ask": "What customer lookups or calendar checks do your staff spend the most time clicking through while on the phone?",
+   "use_cases": [
+    "Live calendar availability lookup and appointment booking",
+    "Order status checks and tracking lookups",
+    "Frontend client app state navigation"
+   ],
+   "limits": "Multi-step transactional rollbacks or complex conditional branching are best implemented in Python code.",
+   "source": "live dashboard",
+   "ask_technical": "What external REST endpoints or client-side tool definitions should the agent trigger during runtime execution?"
+  },
+  {
+   "name": "Model Context Protocol (MCP) Integration",
+   "screen": "builder_actions",
+   "labels": [
+    "MCP servers",
+    "Add MCP server"
+   ],
+   "does": "Connects the agent directly to MCP servers over streaming HTTP/SSE, auto-discovering tools and resources dynamically.",
+   "value": "Leverages the emerging MCP ecosystem to plug agents into enterprise data sources and third-party tools instantly.",
+   "say": "Standardized tool connections let your voice assistant tap directly into your company tools. You expand what the assistant can do without rewriting custom integrations every time.",
+   "ask": "Do you already have shared internal systems or business apps that all your customer tools need to connect to?",
+   "use_cases": [
+    "Enterprise knowledge base retrieval via MCP",
+    "Developer tool execution and incident response",
+    "Standardized multi-system data connectors"
+   ],
+   "limits": "Requires an accessible MCP server endpoint supporting SSE or HTTP streaming.",
+   "source": "live dashboard",
+   "ask_technical": "Do you plan to leverage Model Context Protocol (MCP) servers to expose enterprise toolsets dynamically to the agent?"
+  },
+  {
+   "name": "Agent Name & Identity",
+   "screen": "builder_advanced",
+   "labels": [
+    "Agent name"
+   ],
+   "does": "Establishes the unique system identifier used by LiveKit Cloud for explicit agent dispatch and SIP telephony routing.",
+   "value": "Enables deterministic routing so phone numbers and frontend applications connect to the exact intended agent version.",
+   "say": "Organized assistant identities make sure callers are immediately routed to the right specialist. It keeps call flows orderly across all your phone numbers and departments.",
+   "ask": "If a caller dials your main number versus a direct line, should they reach the same assistant or different specialists?",
+   "use_cases": [
+    "Inbound SIP telephony routing target",
+    "Multi-agent application routing handles",
+    "Version-controlled deployment separation"
+   ],
+   "limits": "Renaming a deployed agent breaks existing SIP dispatch rules and frontend connection handles.",
+   "source": "live dashboard",
+   "ask_technical": "How will your inbound SIP dispatch rules map telephony numbers and client metadata to distinct agent dispatch names?"
+  },
+  {
+   "name": "Custom Metadata & Environment Secrets",
+   "screen": "builder_advanced",
+   "labels": [
+    "Custom metadata",
+    "Add variable",
+    "Secrets",
+    "Add secret"
+   ],
+   "does": "Manages mock test variables for prompt interpolation and securely stores encrypted API keys and auth headers.",
+   "value": "Safeguards sensitive backend credentials while enabling realistic testing with caller-specific metadata.",
+   "say": "Your private system keys and sensitive credentials stay fully encrypted in secure cloud storage. You can safely connect customer tools without exposing protected information.",
+   "ask": "What sensitive customer information or internal system passwords need to be kept strictly protected during these calls?",
+   "use_cases": [
+    "Securing third-party API bearer tokens",
+    "Mocking caller IDs and account numbers during preview",
+    "Injecting tenant IDs across sessions"
+   ],
+   "limits": "Secrets are encrypted at rest; values cannot be read back once saved.",
+   "source": "live dashboard",
+   "ask_technical": "How are you managing encrypted runtime environment secrets and dynamic caller metadata payloads?"
+  },
+  {
+   "name": "Telephony Dispatch & Phone Number Routing",
+   "screen": "builder_advanced",
+   "labels": [
+    "Telephony",
+    "dispatch rules",
+    "Rent a number"
+   ],
+   "does": "Links agents directly to LiveKit Telephony SIP trunks and inbound dispatch rules for PSTN calling.",
+   "value": "Provides a direct bridge from visual agent design to public phone numbers without third-party PBX middleware.",
+   "say": "Attach this assistant directly to your existing business phone numbers or website with zero disruption. Callers get immediate help without your team needing to overhaul phone carriers.",
+   "ask": "How do your customers reach you today\u2014on existing office phone lines, a toll-free number, or through your website?",
+   "use_cases": [
+    "Inbound customer service call handling",
+    "After-hours phone receptionist routing",
+    "Toll-free hotline automation"
+   ],
+   "limits": "Renting a live phone number incurs recurring telecom carrier fees and should not be executed during demos.",
+   "source": "live dashboard",
+   "ask_technical": "Are you provisioning new inbound phone numbers or interconnecting existing SIP trunks with WebRTC dispatch?"
+  },
+  {
+   "name": "Live Interactive In-Browser Preview & Events Drawer",
+   "screen": "builder_conversation",
+   "labels": [
+    "Live preview",
+    "Preview your agent",
+    "START CALL",
+    "Audio",
+    "Events",
+    "Logs",
+    "Session",
+    "Clear events",
+    "Maximize",
+    "Collapse"
+   ],
+   "does": "Runs an immediate live WebRTC voice session in the browser with audio waveforms, event streaming, and raw execution logs.",
+   "value": "Shrinks prompt and behavior iteration loops to zero seconds by testing without packaging or deploying containers.",
+   "say": "Test your assistant right in your browser microphone and see exactly how it reacts before going live. Your team can refine phrasing in seconds without waiting on technical deployments.",
+   "ask": "How does your team currently check if a new phone script or greeting works before trying it out on real customers?",
+   "use_cases": [
+    "Immediate tone and interruption testing",
+    "Live verification of tool calling arguments",
+    "Zero-wait persona prototyping"
+   ],
+   "limits": "Preview calls consume Inference tokens but are not saved to long-term Agent Insights session analytics.",
+   "source": "live dashboard",
+   "ask_technical": "How do prompt engineers and QA test conversation turns, tool executions, and event logs prior to release?"
+  },
+  {
+   "name": "Live Realtime Python Code Generation",
+   "screen": "builder_code_view",
+   "labels": [
+    "Code",
+    "Live preview"
+   ],
+   "does": "Translates visual builder settings into production-grade Python code utilizing the open-source LiveKit Agents framework.",
+   "value": "Eliminates low-code lock-in by providing a transparent bridge from visual prototyping to developer git repos.",
+   "say": "Every screen setting generates standard, exportable code that your developers fully own. You get the speed of a visual builder without ever being locked into a proprietary platform.",
+   "ask": "Have you ever been stuck with software where you couldn't change how it worked because the vendor locked you out of the code?",
+   "use_cases": [
+    "Smooth handoff from product prototyping to software engineering",
+    "Learning production LiveKit agent design patterns",
+    "Exporting to Git repositories for CI/CD deployments"
+   ],
+   "limits": "Changes made directly to downloaded Python code cannot be reverse-imported back into visual Agent Builder.",
+   "source": "live dashboard",
+   "ask_technical": "Do your software engineers require direct access to idiomatic, exportable Python code using the underlying SDK?"
+  },
+  {
+   "name": "Cloud Container Deployment",
+   "screen": "builder_conversation",
+   "labels": [
+    "Deploy agent",
+    "Last saved N minutes ago"
+   ],
+   "does": "Packages the agent into an optimized container and deploys it across LiveKit Cloud's globally distributed real-time infrastructure.",
+   "value": "Provides one-click zero-DevOps production hosting with rolling zero-downtime updates and automated scaling.",
+   "say": "One-click deployment automatically scales up during your busiest call spikes so no customer gets a busy signal. You never have to purchase or manage phone servers.",
+   "ask": "What happens to your phone lines when call volume spikes on your busiest Monday morning of the month?",
+   "use_cases": [
+    "Zero-DevOps production voice agent hosting",
+    "Staging environments for client acceptance testing",
+    "Instant rollout of updated prompt versions"
+   ],
+   "limits": "Free tier permits one active deployed agent; higher concurrency requires standard Cloud tiers.",
+   "source": "live dashboard",
+   "ask_technical": "How do you handle container orchestration, autoscaling, and zero-downtime rolling deploys for voice workers?"
+  },
+  {
+   "name": "Production Verification in Agent Console",
+   "screen": "builder_conversation",
+   "labels": [
+    "Test in Console"
+   ],
+   "does": "Launches the LiveKit Agent Console to test the deployed production agent with end-to-end telemetry and latency waterfalls.",
+   "value": "Enables rigorous verification of the live deployed instance across WebRTC media, model inference, and tool execution.",
+   "say": "Real-time call inspection lets you trace every second of a conversation to pinpoint why an issue happened. You can quickly fix problems and maintain high service standards.",
+   "ask": "When a caller has a bad phone experience, how do you currently figure out where things went wrong?",
+   "use_cases": [
+    "Live latency breakdown across STT, LLM, and TTS",
+    "Production agent sanity testing before DNS/SIP cutover",
+    "Real-time event and tool execution validation"
+   ],
+   "limits": "Test in Console connects to the deployed cloud container, requiring a completed deployment build.",
+   "source": "live dashboard",
+   "ask_technical": "What observability and latency waterfall tooling do you use to diagnose per-turn response delays in production?"
+  }
+ ],
+ "demo_instructions": "1. Start on the LiveKit Agents dashboard (/agents): point out high-level metrics (TOTAL SESSIONS, AVG LLM TOKENS / SESSION, INTERRUPTED RATE).\n2. Explain that getting started with voice AI historically required stitching speech, intelligence, and audio streaming tools from scratch.\n3. Click 'Deploy new agent' (top right x1259) to open the deployment menu.\n4. Click 'Create in browser using Agent Builder' to open the template dialog, highlighting that this is a zero-setup visual workflow.\n5. Select the 'Receptionist' template card under OPEN ENDED CONVERSATION, explaining that templates provide pre-tuned conversational baselines.\n6. Ask discovery question: 'Where is your team spending the most time today: handling calls manually, setting up software, or trying to fix existing phone tools? (if technical: Where are you today: building, hosting, operating, or improving?)'\n7. Scroll inside the dialog and click 'Create' (bottom right) to enter the Agent Builder on the 'Conversation' tab.\n8. Point out the 'Open ended' and 'Data collection' options: explain that Data collection gathers specific required details like names and account numbers and sends them straight to your records (if technical: extracts structured schemas and POSTs JSON to a backend).\n9. In the 'Instructions' textarea, highlight the persona and ask: 'What is the number one thing this assistant should never say or do with a customer? (if technical: What is the single most critical guardrail this agent must never violate?)'\n10. Add their guardrail live into the Instructions prompt (e.g. 'Never quote specific pricing; always offer a representative').\n11. Point out the 'Welcome message' card: verify it is toggled ON and that 'Allow users to interrupt the greeting.' is enabled so callers can speak right away without waiting out a recording.\n12. Switch to the 'Models & Voice' tab: show the modular approach and all-in-one conversational options (if technical: 'STT-LLM-TTS pipeline' and 'Realtime model' options).\n13. Point out 'Cartesia Sonic 3' under TTS, explain 'Expressive mode' for natural human cadence, and highlight 'Gemma 4 31B' under LLM.\n14. Ask discovery question: 'How natural and responsive does this voice need to sound to keep your callers comfortable? (if technical: Which model providers and vocal latency targets are you standardized on?)'\n15. Scroll down to show 'Speech-to-text (STT)', 'Keyterm recognition' for company product names and terms, and 'Noise cancellation'.\n16. Switch to the 'Actions' tab: click 'Add HTTP tool' to demonstrate how the assistant looks up records or updates your system live on a call.\n17. Mock the tool creation safely: explain how data passes between systems, and click 'Cancel' to avoid creating unauthenticated demo endpoints.\n18. Switch to the 'Advanced' tab: highlight 'Agent name' (used to send calls to the right team), dynamic caller details, stored passwords, and incoming call routing.\n19. Pitfall warning: point out 'Rent a number' under Telephony to explain phone routing, but never click to commit paid carrier rentals.\n20. Switch the right panel to 'Code' (x1138): emphasize that every setting has compiled into clean, accessible code your team owns without vendor lock-in.\n21. Switch back to 'Live preview' (x854) and click 'START CALL': grant microphone access and speak naturally with the agent.\n22. Test the guardrail live by asking a forbidden pricing question, demonstrating immediate compliance and smooth interruption.\n23. Point out the bottom drawer tabs (Audio, Events, Logs) to show live voice detection and activity tracking as you speak.\n24. Click 'Deploy agent' (top right x1289) to package and launch the assistant with automatic capacity scaling so calls never drop.\n25. Conclude by clicking 'Test in Console' (x1150) to demonstrate live call verification, timing breakdowns, and operational visibility.",
+ "choices": {
+  "templates": {
+   "Generic assistant": "anything else",
+   "Customer support": "answer questions, troubleshoot, guide next steps",
+   "Receptionist": "greet callers, route, take messages",
+   "1-to-1 training": "practice, roleplay, coaching",
+   "Lead qualification": "qualify prospects, capture contact info",
+   "Appointment scheduling": "booking: details, availability, contact info",
+   "Customer feedback": "satisfaction, NPS, comments"
+  }
+ },
+ "screen_names": {
+  "builder_conversation": "Conversation tab",
+  "builder_models_voice": "Models & Voice tab",
+  "builder_actions": "Actions tab",
+  "builder_advanced": "Advanced tab",
+  "builder_code_view": "Code view",
+  "dialog_create_agent": "Create dialog"
+ }
+}

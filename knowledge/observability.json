@@ -1,0 +1,1083 @@
+{
+ "area": "observability",
+ "clickmap": {
+  "screens": [
+   {
+    "id": "sessions_list",
+    "name": "Sessions",
+    "url_hint": "/sessions",
+    "parent": null,
+    "how_to_reach": [
+     "Click 'Sessions' in the left sidebar"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'demo-tour / Sessions'; 'Auto-refresh off'; time range button 'Past 24 hours'",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Cards 'Unique participants', 'Total rooms'; Sessions table (Session ID, Room name, Started at, Ended at, Duration, Participants, Features, Status) with 'Filters', 'Search', 'Column visibility'. Agent sessions show 'View agent insights' in Features",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Sessions",
+      "kind": "nav_link",
+      "position": "left sidebar, second item",
+      "needs_scroll": false,
+      "leads_to": "sessions_list",
+      "opens": "page"
+     },
+     {
+      "label": "Past 24 hours",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": "sessions_list",
+      "opens": "menu"
+     },
+     {
+      "label": "Past 7 days",
+      "kind": "button",
+      "position": "Quick ranges popover",
+      "needs_scroll": false,
+      "leads_to": "sessions_list",
+      "opens": null
+     },
+     {
+      "label": "Filters",
+      "kind": "button",
+      "position": "table header right",
+      "needs_scroll": false,
+      "leads_to": "sessions_list",
+      "opens": "menu"
+     },
+     {
+      "label": "RM_SDfdxKCCwvzq",
+      "kind": "link",
+      "position": "sessions table, Session ID column (room nimbus-support-582de, Oct 14)",
+      "needs_scroll": false,
+      "leads_to": "session_analytics",
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "session_analytics",
+    "name": "Session detail - Session analytics",
+    "url_hint": "/sessions/RM_SDfdxKCCwvzq",
+    "parent": "sessions_list",
+    "how_to_reach": [
+     "Sessions",
+     "Past 7 days",
+     "RM_SDfdxKCCwvzq"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'demo-tour / Sessions / RM_SDfdxKCCwvzq'; 'Session lifetime'; view links 'Session analytics', 'Session events', 'Agent insights'",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Cards Room name, Room session ID, Unique participants, Start time, End time, Duration, Status, Total WebRTC participant minutes; Session timeline; Participants; Publishers table (Participant identity, Joined at, Location, Region, Kind)",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Session events",
+      "kind": "link",
+      "position": "view links under heading (second)",
+      "needs_scroll": false,
+      "leads_to": "session_events",
+      "opens": "page"
+     },
+     {
+      "label": "Agent insights",
+      "kind": "link",
+      "position": "view links under heading (third)",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_metrics",
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "session_events",
+    "name": "Session detail - Session events",
+    "url_hint": "/sessions/RM_SDfdxKCCwvzq/events",
+    "parent": "session_analytics",
+    "how_to_reach": [
+     "Sessions",
+     "RM_SDfdxKCCwvzq",
+     "Session events"
+    ],
+    "layout": {
+     "top": "Same header and view links",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Event log table (participant joins/leaves, tracks, room events with timestamps)",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Agent insights",
+      "kind": "link",
+      "position": "view links under heading (third)",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_metrics",
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "agent_insights_metrics",
+    "name": "Agent insights - Metrics",
+    "url_hint": "/sessions/RM_SDfdxKCCwvzq/observability?mode=metrics",
+    "parent": "session_analytics",
+    "how_to_reach": [
+     "Sessions",
+     "RM_SDfdxKCCwvzq",
+     "Agent insights"
+    ],
+    "layout": {
+     "top": "Top right: 'Turn into a test' (teal), 'Share', 'Download data'; Player bar: Play, 1.0x, Stop playback, Jump to previous turn, Jump to next turn, Mute audio, 00:01.70/01:57.70, Fit conversation to view, Zoom in, Zoom out; waveform timeline (User / Agent / Interruption / Backchannel legend)",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Sub-view buttons right of the waveform legend: Metrics, Transcript, Traces, Session logs. Cards Turns (6), Interruptions (0), Backchannels, Overlapping speech; 'Latency breakdown' (STT delay 309 ms, EOT 268 ms, LLM TTFT 589 ms, TTS TTFB 314 ms, average reply ~1,480 ms); 'Latency distribution' dot plot (slowest: turn 3 - 1,910 ms) with E2E / STT delay / EOT / LLM TTFT / TTS TTFB toggles; scroll: 'Agent turn latency', 'Model Usage' table",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Metrics",
+      "kind": "button",
+      "position": "sub-view bar",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_metrics",
+      "opens": null
+     },
+     {
+      "label": "Transcript",
+      "kind": "button",
+      "position": "sub-view bar",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_transcript",
+      "opens": null
+     },
+     {
+      "label": "Traces",
+      "kind": "button",
+      "position": "sub-view bar",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_traces",
+      "opens": null
+     },
+     {
+      "label": "Session logs",
+      "kind": "button",
+      "position": "sub-view bar",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_logs",
+      "opens": null
+     },
+     {
+      "label": "Play",
+      "kind": "button",
+      "position": "player bar left",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Jump to next turn",
+      "kind": "button",
+      "position": "player bar",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Turn into a test",
+      "kind": "button",
+      "position": "top right teal",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "dialog"
+     },
+     {
+      "label": "Share",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": "dialog_share",
+      "opens": "dialog"
+     },
+     {
+      "label": "Download data",
+      "kind": "button",
+      "position": "top right",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "agent_insights_transcript",
+    "name": "Agent insights - Transcript",
+    "url_hint": "/sessions/RM_SDfdxKCCwvzq/observability?mode=transcript",
+    "parent": "agent_insights_metrics",
+    "how_to_reach": [
+     "Sessions",
+     "RM_SDfdxKCCwvzq",
+     "Agent insights",
+     "Transcript"
+    ],
+    "layout": {
+     "top": "Top right: 'Turn into a test' (teal), 'Share', 'Download data'; Player bar: Play, 1.0x, Stop playback, Jump to previous turn, Jump to next turn, Mute audio, 00:01.70/01:57.70, Fit conversation to view, Zoom in, Zoom out; waveform timeline (User / Agent / Interruption / Backchannel legend)",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Chronological stream: 'Session options', 'Agent handoff to: nova', 'Config update', Agent/User messages with 'TTFT:', 'TTFB:', 'Latency:' and 'Transcript confidence:' badges; 'Tool call: get_support_tickets' (00:43) with the CRM result",
+     "right": "Drawer after selecting an item: 'Transcript <time>', 'Close', 'Attributes' (chat.item.function_call with arguments serial NBH-4471-20417), 'View in trace'"
+    },
+    "controls": [
+     {
+      "label": "get_support_tickets",
+      "kind": "bubble",
+      "position": "transcript stream, after 'The Zigbee radio keeps dropping.' (00:43)",
+      "needs_scroll": true,
+      "leads_to": "agent_insights_transcript",
+      "opens": "drawer"
+     },
+     {
+      "label": "View in trace",
+      "kind": "button",
+      "position": "right drawer, below Attributes",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_traces",
+      "opens": null
+     },
+     {
+      "label": "Close",
+      "kind": "button",
+      "position": "right drawer top",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_transcript",
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "agent_insights_traces",
+    "name": "Agent insights - Traces",
+    "url_hint": "/sessions/RM_SDfdxKCCwvzq/observability?mode=trace",
+    "parent": "agent_insights_metrics",
+    "how_to_reach": [
+     "Sessions",
+     "RM_SDfdxKCCwvzq",
+     "Agent insights",
+     "Traces"
+    ],
+    "layout": {
+     "top": "Top right: 'Turn into a test' (teal), 'Share', 'Download data'; Player bar: Play, 1.0x, Stop playback, Jump to previous turn, Jump to next turn, Mute audio, 00:01.70/01:57.70, Fit conversation to view, Zoom in, Zoom out; waveform timeline (User / Agent / Interruption / Backchannel legend)",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Gantt of spans per turn: user_turn > user_speaking, eou_wait, on_user_turn_completed; agent_turn > llm_node, function_tool, tts_node, agent_speaking; 'Collapse' per group; 'Show all spans' switch (Off)",
+     "right": "Span drawer: name and time, 'Close', Start time, End time, Stage (LLM), Duration (855ms), TTFT (671ms), Model (openai/gpt-4.1-mini), Agent transcript, 'Attributes' incl. lk.pii.chat_ctx (the exact prompt and instructions)"
+    },
+    "controls": [
+     {
+      "label": "llm_node",
+      "kind": "span",
+      "position": "Gantt, inside each agent_turn",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_traces",
+      "opens": "drawer"
+     },
+     {
+      "label": "Show all spans",
+      "kind": "switch",
+      "position": "below the Gantt",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Close",
+      "kind": "button",
+      "position": "span drawer top",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_traces",
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "agent_insights_logs",
+    "name": "Agent insights - Session logs",
+    "url_hint": "/sessions/RM_SDfdxKCCwvzq/observability?mode=logs",
+    "parent": "agent_insights_metrics",
+    "how_to_reach": [
+     "Sessions",
+     "RM_SDfdxKCCwvzq",
+     "Agent insights",
+     "Session logs"
+    ],
+    "layout": {
+     "top": "Top right: 'Turn into a test' (teal), 'Share', 'Download data'; Player bar: Play, 1.0x, Stop playback, Jump to previous turn, Jump to next turn, Mute audio, 00:01.70/01:57.70, Fit conversation to view, Zoom in, Zoom out; waveform timeline (User / Agent / Interruption / Backchannel legend)",
+     "left": "'Toggle filter panel' (log levels)",
+     "main": "Notice 'Viewing session-scoped logs. To capture crash and cross-replica logs, set up a log drain.' with 'View setup documentation' and 'Dismiss session logs notice'; table Elapsed, Timestamp, Level, Logger, Message (e.g. warn 'preemptive generation invalidated...', prompt-caching-agent cache hit lines)",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Toggle filter panel",
+      "kind": "button",
+      "position": "logs toolbar",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "panel"
+     },
+     {
+      "label": "View setup documentation",
+      "kind": "link",
+      "position": "logs notice banner",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "page"
+     }
+    ]
+   },
+   {
+    "id": "dialog_share",
+    "name": "Share this page dialog",
+    "url_hint": null,
+    "parent": "agent_insights_metrics",
+    "how_to_reach": [
+     "Agent insights",
+     "Share"
+    ],
+    "layout": {
+     "top": "'Share this page'",
+     "left": null,
+     "main": "'Who has access: Project admins'; checkbox 'Allow LiveKit support to access this page' - 'LiveKit will only access this content to help you debug or troubleshoot issues. You can revoke access anytime.'",
+     "right": "Footer 'Close', 'Copy link'"
+    },
+    "controls": [
+     {
+      "label": "Close",
+      "kind": "button",
+      "position": "dialog footer left",
+      "needs_scroll": false,
+      "leads_to": "agent_insights_metrics",
+      "opens": null
+     },
+     {
+      "label": "Copy link",
+      "kind": "button",
+      "position": "dialog footer right",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "agents_list",
+    "name": "Agents (fleet view)",
+    "url_hint": "/agents",
+    "parent": null,
+    "how_to_reach": [
+     "Click 'Agents' in the left sidebar"
+    ],
+    "layout": {
+     "top": "Breadcrumb; time range button; 'Compare agents' (enabled after selecting 2 agents)",
+     "left": "Sidebar navigation: Overview, Sessions, Simulations, Agents (with agent list), Voices, Telephony, Egress & Ingress, Usage, Settings",
+     "main": "Cards Total sessions, Avg LLM tokens / session, Interrupted rate, Agent session minutes; agents table (Name, Status, Type, Version, Region, Sessions, AVG Turns, Interrupted, E2E median) with 'Select agent' checkboxes; scroll: 'Fleet health' > 'Response latency' ('Over time' / 'Tails by stage' with 'Open sessions for E2E', '... STT delay', '... EOT', '... LLM TTFT', '... TTS TTFB', '... Tool calls'); 'Session activity' (Agent sessions served, Turns, Interruptions); 'Model performance' table",
+     "right": "'Matching sessions' drawer after 'Open sessions for ...'"
+    },
+    "controls": [
+     {
+      "label": "Agents",
+      "kind": "nav_link",
+      "position": "left sidebar",
+      "needs_scroll": false,
+      "leads_to": "agents_list",
+      "opens": "page"
+     },
+     {
+      "label": "Tails by stage",
+      "kind": "button",
+      "position": "Fleet health > Response latency",
+      "needs_scroll": true,
+      "leads_to": "agents_list",
+      "opens": null
+     },
+     {
+      "label": "Open sessions for E2E",
+      "kind": "button",
+      "position": "Tails by stage chart, E2E row",
+      "needs_scroll": true,
+      "leads_to": "drawer_matching_sessions",
+      "opens": "drawer"
+     },
+     {
+      "label": "Compare agents",
+      "kind": "button",
+      "position": "above agents table",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": "drawer"
+     }
+    ]
+   },
+   {
+    "id": "drawer_matching_sessions",
+    "name": "Matching sessions drawer",
+    "url_hint": "/agents?dd_metric=1&dd_stat=5",
+    "parent": "agents_list",
+    "how_to_reach": [
+     "Agents",
+     "Tails by stage",
+     "Open sessions for E2E"
+    ],
+    "layout": {
+     "top": "Breadcrumb 'All sessions /'; 'Expand'; 'Close'",
+     "left": null,
+     "main": "'Matching sessions' - 'The sessions behind the tile you opened this from. Select one to play it back here.'; 'E2E max, worst first'; table E2E latency max, Session, Started at, Duration, Agent, Turns, Interruptions, E2E mean, E2E max, Input tokens, Output tokens (row: 1.9 sec RM_SDfdxKCCwvzq prompt-caching-agent)",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "RM_SDfdxKCCwvzq",
+      "kind": "row",
+      "position": "drawer table first row",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     },
+     {
+      "label": "Close",
+      "kind": "button",
+      "position": "drawer top right",
+      "needs_scroll": false,
+      "leads_to": "agents_list",
+      "opens": null
+     }
+    ]
+   },
+   {
+    "id": "settings_observability",
+    "name": "Settings - Observability",
+    "url_hint": "/settings/observability",
+    "parent": null,
+    "how_to_reach": [
+     "Settings (left sidebar)",
+     "Observability (settings sidebar, under Project > General)"
+    ],
+    "layout": {
+     "top": "'Observability settings' - 'Configure session recording and telemetry for debugging and monitoring.'",
+     "left": "Settings sidebar: Project > General, Observability, Private links, ...",
+     "main": "'Agent observability': 'Enable observability' switch (On), 'See pricing details', 'Data region' (United States); 'PII redaction' switch (Off) with 10 category groups totalling 41 categories: Name (3), Contact (2), Demographics (8), Credentials (2), Network (2), Organization (1), Financial (6), Location (7), Date (1), Identifiers (9), each with 'Redact all <group> categories' and 'View category'; 'Changes take effect on new sessions only.'",
+     "right": null
+    },
+    "controls": [
+     {
+      "label": "Settings",
+      "kind": "nav_link",
+      "position": "left sidebar bottom group",
+      "needs_scroll": false,
+      "leads_to": "settings_observability",
+      "opens": "page"
+     },
+     {
+      "label": "Observability",
+      "kind": "nav_link",
+      "position": "settings sidebar, second item",
+      "needs_scroll": false,
+      "leads_to": "settings_observability",
+      "opens": "page"
+     },
+     {
+      "label": "PII redaction",
+      "kind": "switch",
+      "position": "main, PII redaction heading (do NOT toggle)",
+      "needs_scroll": false,
+      "leads_to": null,
+      "opens": null
+     }
+    ]
+   }
+  ],
+  "flows": [
+   {
+    "id": "session_tour",
+    "goal": "Walk one call from the main menu: Sessions, open a call, Session analytics, Session events, Agent insights",
+    "steps": [
+     {
+      "screen": "sidebar",
+      "do": "click",
+      "click": "Sessions",
+      "position": "main left sidebar",
+      "expected_result": "Sessions list",
+      "if_not_visible": "Click the project name in the breadcrumb to get the main sidebar"
+     },
+     {
+      "screen": "sessions",
+      "do": "click",
+      "click": "<a session ID in the list>",
+      "position": "sessions table",
+      "expected_result": "Session page on Session analytics",
+      "if_not_visible": "Widen the time range to Past 7 days"
+     },
+     {
+      "screen": "session",
+      "do": "click",
+      "click": "Session events",
+      "position": "session view links under the title",
+      "expected_result": "Room event log",
+      "if_not_visible": ""
+     },
+     {
+      "screen": "session",
+      "do": "click",
+      "click": "Agent insights",
+      "position": "session view links under the title",
+      "expected_result": "Agent metrics, transcript, traces, logs",
+      "if_not_visible": ""
+     },
+     {
+      "screen": "agent_insights",
+      "do": "click",
+      "click": "Transcript",
+      "position": "agent insights views",
+      "expected_result": "Turn-by-turn transcript",
+      "if_not_visible": ""
+     },
+     {
+      "screen": "agent_insights",
+      "do": "click",
+      "click": "Traces",
+      "position": "agent insights views",
+      "expected_result": "Per-turn trace spans",
+      "if_not_visible": ""
+     }
+    ]
+   },
+   {
+    "id": "open_session",
+    "goal": "Find the real agent call in Sessions and open it",
+    "steps": [
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "Sessions",
+      "position": "left sidebar, second item",
+      "expected_result": "Sessions table opens on 'Past 24 hours' (may only show console tests)",
+      "if_not_visible": null
+     },
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "Past 24 hours",
+      "position": "top right time range",
+      "expected_result": "Quick ranges popover opens",
+      "if_not_visible": "The time-range button keeps the last range chosen anywhere in the dashboard (e.g. it may already read 'Past 7 days' or 'Past 60 days'); click it whatever it says, or skip if it already covers Oct 14"
+     },
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "Past 7 days",
+      "position": "Quick ranges list",
+      "expected_result": "RM_SDfdxKCCwvzq (nimbus-support-582de, 2 min, 2 participants, 'View agent insights') appears",
+      "if_not_visible": "Pick 'Past 60 days' once the Oct 14 call is older than 7 days"
+     },
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "RM_SDfdxKCCwvzq",
+      "position": "sessions table, Session ID column",
+      "expected_result": "Session analytics opens: room, participants, duration, publishers",
+      "if_not_visible": null
+     }
+    ]
+   },
+   {
+    "id": "inspect_session",
+    "goal": "One timeline for the whole call: metrics, transcript with tool call, trace span with the exact prompt, logs, and audio",
+    "steps": [
+     {
+      "screen": "session_analytics",
+      "do": "click",
+      "click": "Agent insights",
+      "position": "third view link under the heading",
+      "expected_result": "Agent insights opens on Metrics: Turns 6, Latency breakdown ~1,480 ms average reply",
+      "if_not_visible": "If Agent insights shows 'expired' or no data (30-day retention; the Oct 14 session expires around Nov 13), say 'this one has aged out of the 30-day window' and go to the Agents page fleet view instead."
+     },
+     {
+      "screen": "agent_insights_metrics",
+      "do": "click",
+      "click": "Transcript",
+      "position": "sub-view bar right of waveform legend",
+      "expected_result": "Turn-by-turn transcript with TTFT/TTFB, latency and transcript confidence badges",
+      "if_not_visible": null
+     },
+     {
+      "screen": "agent_insights_transcript",
+      "do": "click",
+      "click": "get_support_tickets",
+      "position": "transcript stream at 00:43 (scroll down)",
+      "expected_result": "Right drawer shows the tool call Attributes (serial NBH-4471-20417) and 'View in trace'",
+      "if_not_visible": "Scroll the transcript; it follows 'The Zigbee radio keeps dropping.'"
+     },
+     {
+      "screen": "agent_insights_transcript",
+      "do": "click",
+      "click": "View in trace",
+      "position": "right drawer below Attributes",
+      "expected_result": "Switches to Traces with a span selected in the drawer",
+      "if_not_visible": "Click 'Traces' in the sub-view bar"
+     },
+     {
+      "screen": "agent_insights_traces",
+      "do": "click",
+      "click": "llm_node",
+      "position": "Gantt, first agent_turn",
+      "expected_result": "Span drawer: Stage LLM, Duration 855ms, TTFT 671ms, Model openai/gpt-4.1-mini, and lk.pii.chat_ctx with the exact instructions",
+      "if_not_visible": null
+     },
+     {
+      "screen": "agent_insights_traces",
+      "do": "click",
+      "click": "Close",
+      "position": "span drawer top",
+      "expected_result": "Drawer closes",
+      "if_not_visible": "Press Escape"
+     },
+     {
+      "screen": "agent_insights_traces",
+      "do": "click",
+      "click": "Session logs",
+      "position": "sub-view bar",
+      "expected_result": "Logs table (Elapsed, Timestamp, Level, Logger, Message) aligned with the call; log-drain notice on top",
+      "if_not_visible": null
+     },
+     {
+      "screen": "agent_insights_logs",
+      "do": "click",
+      "click": "Play",
+      "position": "player bar far left",
+      "expected_result": "Audio plays; playhead moves across waveform, transcript and logs together",
+      "if_not_visible": "Unmute ('Mute audio' toggles) if silent"
+     }
+    ]
+   },
+   {
+    "id": "fleet_tails",
+    "goal": "Go from fleet-level slow-response tails to the exact worst call",
+    "steps": [
+     {
+      "screen": "agents_list",
+      "do": "click",
+      "click": "Agents",
+      "position": "left sidebar",
+      "expected_result": "Agents page: Total sessions, Avg LLM tokens / session, Interrupted rate, agents table",
+      "if_not_visible": null
+     },
+     {
+      "screen": "agents_list",
+      "do": "click",
+      "click": "Tails by stage",
+      "position": "scroll to Fleet health > Response latency",
+      "expected_result": "Per-stage tails: E2E max 1,910 ms, p95 1,755 ms; STT delay, EOT, LLM TTFT, TTS TTFB, Tool calls rows",
+      "if_not_visible": "Scroll down; widen the time range to Past 7 days if empty"
+     },
+     {
+      "screen": "agents_list",
+      "do": "click",
+      "click": "Open sessions for E2E",
+      "position": "Tails by stage chart, E2E row",
+      "expected_result": "'Matching sessions' drawer, 'E2E max, worst first', row 1.9 sec RM_SDfdxKCCwvzq",
+      "if_not_visible": null
+     },
+     {
+      "screen": "drawer_matching_sessions",
+      "do": "click",
+      "click": "Close",
+      "position": "drawer top right",
+      "expected_result": "Back to the Agents page",
+      "if_not_visible": "Press Escape"
+     }
+    ]
+   },
+   {
+    "id": "share_and_export",
+    "goal": "Show support sharing and data export controls without changing anything",
+    "steps": [
+     {
+      "screen": "agent_insights_metrics",
+      "do": "click",
+      "click": "Share",
+      "position": "top right, between 'Turn into a test' and 'Download data'",
+      "expected_result": "'Share this page' dialog: Project admins, 'Allow LiveKit support to access this page' (unchecked)",
+      "if_not_visible": null
+     },
+     {
+      "screen": "dialog_share",
+      "do": "click",
+      "click": "Close",
+      "position": "dialog footer left",
+      "expected_result": "Dialog closes; nothing changed",
+      "if_not_visible": "Press Escape"
+     }
+    ]
+   },
+   {
+    "id": "privacy_settings",
+    "goal": "Show the observability switch, data region and 41-category PII redaction (look, never toggle)",
+    "steps": [
+     {
+      "screen": "sessions_list",
+      "do": "click",
+      "click": "Settings",
+      "position": "left sidebar, bottom group",
+      "expected_result": "Project settings (General) open",
+      "if_not_visible": null
+     },
+     {
+      "screen": "settings_observability",
+      "do": "click",
+      "click": "Observability",
+      "position": "settings sidebar, second item under Project",
+      "expected_result": "'Observability settings': Enable observability (On), Data region (United States), PII redaction (Off) with 10 groups / 41 categories",
+      "if_not_visible": "Open /settings/observability directly"
+     }
+    ]
+   }
+  ]
+ },
+ "features": [
+  {
+   "name": "Session events",
+   "screen": "session",
+   "labels": [
+    "Session events"
+   ],
+   "does": "The room's raw event log: joins, published tracks, disconnects with reasons.",
+   "value": "Exact answers to 'who dropped and why'.",
+   "say": "",
+   "ask": "When a call goes wrong today, can you tell whether it was the network or the agent?",
+   "use_cases": [],
+   "limits": "",
+   "source": "live dashboard 2026-10-16",
+   "ask_technical": ""
+  },
+  {
+   "name": "Session analytics",
+   "screen": "session",
+   "labels": [
+    "Session analytics"
+   ],
+   "does": "The default view of a call: room facts, session timeline, publishers/subscribers, egresses, bandwidth and connection quality/latency.",
+   "value": "Rules the network in or out before anyone blames the AI.",
+   "say": "",
+   "ask": "When a call goes wrong today, can you tell whether it was the network or the agent?",
+   "use_cases": [],
+   "limits": "",
+   "source": "live dashboard 2026-10-16",
+   "ask_technical": ""
+  },
+  {
+   "name": "Sessions List",
+   "screen": "sessions_list",
+   "labels": [
+    "Sessions",
+    "Past 24 hours",
+    "Filters",
+    "Search",
+    "Features",
+    "View agent insights"
+   ],
+   "does": "Searchable history of every room/call with time range, filters and a Features column that flags sessions with agent insights.",
+   "value": "Find the exact call a customer complained about in seconds.",
+   "say": "Every conversation your agent has lands here, searchable, and the ones with full agent recordings are flagged so you can jump straight in.",
+   "ask": "When a customer complains about a bad call, how does your team find that specific call today?",
+   "use_cases": [
+    "Complaint investigation",
+    "QA sampling",
+    "Spot-checking a new release"
+   ],
+   "limits": "Default range is Past 24 hours; widen it to find older calls.",
+   "source": "live dashboard",
+   "ask_technical": "Do you key sessions to your own call or customer IDs (room names, metadata) so support can search them?"
+  },
+  {
+   "name": "Session Analytics",
+   "screen": "session_analytics",
+   "labels": [
+    "Session analytics",
+    "Room name",
+    "Unique participants",
+    "Duration",
+    "Session timeline",
+    "Publishers"
+   ],
+   "does": "Shows who joined, from where and which region, connection and timeline for the room.",
+   "value": "Rules out a caller's bad connection before blaming the agent.",
+   "say": "Before we blame the AI, this shows who was on the call, where they connected from, and how the connection held up.",
+   "ask": "When callers say the line broke up, how do you tell whether it was their signal or your system?",
+   "use_cases": [
+    "Network troubleshooting",
+    "Regional routing checks"
+   ],
+   "limits": "Network-level view; conversational detail lives in Agent insights.",
+   "source": "live dashboard",
+   "ask_technical": "Do you need per-participant region and connection data exported into your own monitoring?"
+  },
+  {
+   "name": "Agent Insights Timeline and Playback",
+   "screen": "agent_insights_metrics",
+   "labels": [
+    "Agent insights",
+    "Play",
+    "1.0x",
+    "Jump to previous turn",
+    "Jump to next turn",
+    "Fit conversation to view"
+   ],
+   "does": "Puts call audio, transcript, traces and logs on one synchronized timeline you can play and scrub turn by turn.",
+   "value": "Replaces hours of stitching recordings, LLM consoles and server logs with one view.",
+   "say": "This is the whole call on one timeline: you can hear it, read it, and see what the agent was doing at the exact same second.",
+   "ask": "When someone reviews a bad call today, how many tools do they open to piece it together?",
+   "use_cases": [
+    "Debugging a complaint",
+    "Coaching prompt changes",
+    "Executive call reviews"
+   ],
+   "limits": "Requires Agent observability enabled and LiveKit Agents SDK 1.3+; data kept 30 days.",
+   "source": "live dashboard + video LAXpS14bzW4",
+   "ask_technical": "Are your agents on Agents SDK 1.3+ and deployed to LiveKit Cloud or self-hosted workers?"
+  },
+  {
+   "name": "Latency Breakdown and Distribution",
+   "screen": "agent_insights_metrics",
+   "labels": [
+    "Turns",
+    "Interruptions",
+    "Latency breakdown",
+    "STT delay",
+    "EOT",
+    "LLM TTFT",
+    "TTS TTFB",
+    "Latency distribution"
+   ],
+   "does": "Splits every reply into hearing (STT), knowing the caller finished (EOT), thinking (LLM TTFT) and speaking (TTS TTFB), and plots every turn so outliers stand out.",
+   "value": "Tells you exactly which part to fix when the agent pauses awkwardly.",
+   "say": "Every pause is broken down: how long to hear, to decide you'd finished, to think, and to start speaking. Here the average reply is about 1.5 seconds and you can see the one slow turn.",
+   "ask": "When your agent pauses before answering, how do you figure out which part caused it?",
+   "use_cases": [
+    "Model/provider selection",
+    "Latency SLAs",
+    "Turn-detection tuning"
+   ],
+   "limits": "Backchannels show 'Not measured' unless adaptive interruption is enabled.",
+   "source": "live dashboard",
+   "ask_technical": "What reply latency target do you hold yourselves to, and at which percentile?"
+  },
+  {
+   "name": "Transcript with Tool Calls",
+   "screen": "agent_insights_transcript",
+   "labels": [
+    "Transcript",
+    "Agent handoff to: nova",
+    "Tool call:",
+    "get_support_tickets",
+    "Transcript confidence:",
+    "View in trace"
+   ],
+   "does": "Turn-by-turn transcript with confidence, per-turn latency, agent handoffs and every tool call with its arguments and result.",
+   "value": "See what the agent heard, what it looked up in your systems, and what came back.",
+   "say": "Here's the conversation with how sure we were of every word the caller said, and here the agent looked up the customer's tickets: you see exactly what it asked your system and what it got back.",
+   "ask": "When the agent looks something up in your systems and gets it wrong, how do you know whether it was the agent or the data?",
+   "use_cases": [
+    "Verifying CRM/ticket lookups",
+    "Catching mishearings of names and numbers"
+   ],
+   "limits": "Tool payloads are stored unless PII redaction is enabled.",
+   "source": "live dashboard (verified tool call drawer)",
+   "ask_technical": "Which backend calls would your agent make: REST tools, MCP servers, or both?"
+  },
+  {
+   "name": "Traces and Prompt Context",
+   "screen": "agent_insights_traces",
+   "labels": [
+    "Traces",
+    "user_turn",
+    "eou_wait",
+    "agent_turn",
+    "llm_node",
+    "function_tool",
+    "tts_node",
+    "Show all spans",
+    "lk.pii.chat_ctx"
+   ],
+   "does": "Gantt chart of every pipeline stage per turn; each span shows duration, TTFT, model, and the exact chat context/instructions the LLM saw.",
+   "value": "Fix bad answers with certainty because you see the prompt behind them.",
+   "say": "Click the thinking step and you see the exact instructions and context the model had when it answered, plus how long it took.",
+   "ask": "When the agent says something off-brand, how do you check what instructions it was actually following?",
+   "use_cases": [
+    "Prompt debugging",
+    "Tool latency analysis",
+    "Model comparisons"
+   ],
+   "limits": "Built on OpenTelemetry; disabled if OTEL_SDK_DISABLED=true in the agent environment.",
+   "source": "live dashboard (verified llm_node drawer) + docs",
+   "ask_technical": "Do you also want these spans in your own APM (Datadog, Langfuse) via OpenTelemetry export?"
+  },
+  {
+   "name": "Session Logs and Log Drains",
+   "screen": "agent_insights_logs",
+   "labels": [
+    "Session logs",
+    "Toggle filter panel",
+    "Elapsed",
+    "Level",
+    "Logger",
+    "View setup documentation"
+   ],
+   "does": "Agent worker logs for the session aligned to the call timeline, with level filters; log drains capture crash and cross-replica logs.",
+   "value": "Connect an error message to the exact moment the caller heard silence.",
+   "say": "Your agent's own logs line up with the audio, so a warning sits right next to the moment the caller experienced it.",
+   "ask": "When a call fails, how hard is it to connect the error log to what the caller actually heard?",
+   "use_cases": [
+    "Incident triage",
+    "Warning cleanup before launch"
+   ],
+   "limits": "Session-scoped; set up a log drain for crash and cross-replica logs.",
+   "source": "live dashboard",
+   "ask_technical": "Where do your logs live today, and do you want a drain into that system?"
+  },
+  {
+   "name": "Turn into a Test",
+   "screen": "agent_insights_metrics",
+   "labels": [
+    "Turn into a test",
+    "Test name",
+    "Simulated user",
+    "Pass criteria",
+    "Download"
+   ],
+   "does": "Derives a simulation scenario (simulated caller + pass criteria) from this real call and downloads it as scenario.yaml.",
+   "value": "Every bad call becomes a regression test so it can't happen again unnoticed.",
+   "say": "Found a bad call? One click turns it into a repeatable test you run before every release.",
+   "ask": "What's one call that went badly that you'd never want repeated?",
+   "use_cases": [
+    "Locking in fixes",
+    "Building a test suite from production"
+   ],
+   "limits": "Takes ~10-20 s to generate; cancel in demos (don't download).",
+   "source": "live dashboard (verified dialog) + docs derive-a-scenario",
+   "ask_technical": "Would you check these scenarios into the repo and run them in CI with 'lk agent simulate'?"
+  },
+  {
+   "name": "Share with LiveKit Support and Download Data",
+   "screen": "dialog_share",
+   "labels": [
+    "Share",
+    "Share this page",
+    "Project admins",
+    "Allow LiveKit support to access this page",
+    "Copy link",
+    "Download data"
+   ],
+   "does": "Share a session with project admins or grant revocable LiveKit support access; export the session's audio, transcript and telemetry.",
+   "value": "Fast support without sharing credentials; keep records beyond 30 days for compliance.",
+   "say": "If you need our help, one checkbox lets our team see just this call, and you can revoke it anytime. And you can download everything for your own archive.",
+   "ask": "Do you have to keep call recordings and transcripts in your own systems for compliance?",
+   "use_cases": [
+    "Support escalations",
+    "Compliance archiving"
+   ],
+   "limits": "Insights expire after 30 days unless downloaded or exported.",
+   "source": "live dashboard",
+   "ask_technical": "Would you rather stream recordings and transcripts to your own bucket continuously?"
+  },
+  {
+   "name": "Fleet Health and Tails by Stage",
+   "screen": "agents_list",
+   "labels": [
+    "Total sessions",
+    "Avg LLM tokens / session",
+    "Interrupted rate",
+    "Response latency",
+    "Tails by stage",
+    "Open sessions for E2E",
+    "Matching sessions"
+   ],
+   "does": "Fleet-wide metrics and latency tails per stage; click a tail to open the matching sessions ranked worst first.",
+   "value": "Go from 'some calls feel slow' to the exact worst calls in two clicks.",
+   "say": "Across every call, this shows your slowest replies and which stage caused them, and one click lists the worst calls so you can listen to them.",
+   "ask": "Which part of the call experience generates the most complaints about delays?",
+   "use_cases": [
+    "Weekly quality review",
+    "Release regressions",
+    "Capacity planning"
+   ],
+   "limits": "Most charts need agent observability on; otherwise only session counts, connection latency, uptime and load show.",
+   "source": "live dashboard (verified Matching sessions drawer)",
+   "ask_technical": "Do you track p95/p99 end-to-end latency today, and per which stage?"
+  },
+  {
+   "name": "Compare Agents",
+   "screen": "agents_list",
+   "labels": [
+    "Select agent",
+    "Compare agents"
+   ],
+   "does": "Select agents or versions and compare latency composition and interruption rates side by side.",
+   "value": "Pick the better prompt, model or voice with numbers, not opinions.",
+   "say": "Trying a new prompt or voice? Put the two side by side and see which one is actually faster and interrupted less.",
+   "ask": "When you try a new script or provider, how do you prove it's better before rolling it out?",
+   "use_cases": [
+    "A/B testing prompts or models",
+    "Provider evaluation"
+   ],
+   "limits": "Needs two agents with sessions in the selected range; button stays disabled until two are selected.",
+   "source": "live dashboard (button present, not clicked)",
+   "ask_technical": "Would you compare agents, or versions of the same agent via non-production deployments?"
+  },
+  {
+   "name": "Observability Settings and Data Region",
+   "screen": "settings_observability",
+   "labels": [
+    "Agent observability",
+    "Enable observability",
+    "See pricing details",
+    "Data region"
+   ],
+   "does": "Project-wide switch for capturing traces, transcripts and audio, plus the data region where it is stored.",
+   "value": "One decision for the whole project, with data kept in your chosen region.",
+   "say": "One switch turns on full call recording and insight for the project, and you choose which region the data lives in.",
+   "ask": "Who on your team decides what gets recorded, and are there regions your data must stay in?",
+   "use_cases": [
+    "Rolling out recording",
+    "EU/US data residency"
+   ],
+   "limits": "Applies to new sessions only; agents can opt out per session in code.",
+   "source": "live dashboard + docs",
+   "ask_technical": "Do you need recording off for some agents or callers (per-session record options)?"
+  },
+  {
+   "name": "PII Redaction (41 categories)",
+   "screen": "settings_observability",
+   "labels": [
+    "PII redaction",
+    "Redact all Name categories",
+    "Redact all Financial categories",
+    "Redact all Identifiers categories",
+    "View category"
+   ],
+   "does": "LLM-based redaction of 41 categories of personal data (names, contact, demographics, credentials, network, organization, financial, location, date, identifiers) from transcripts, traces and audio before storage.",
+   "value": "Debug real calls without storing card numbers, SSNs or patient names; included at no extra cost.",
+   "say": "Turn this on and sensitive details like card numbers, IDs and names are scrubbed from transcripts, traces and audio before anything is stored, across 41 categories, at no extra cost.",
+   "ask": "What rules do you have about card numbers, patient names or IDs showing up in call transcripts?",
+   "use_cases": [
+    "Healthcare intake",
+    "Payments and collections",
+    "GDPR programs"
+   ],
+   "limits": "Off by default; new sessions only. Room names (e.g. caller numbers from individual dispatch rules) are not redacted.",
+   "source": "live dashboard (counted 3+2+8+2+2+1+6+7+1+9 = 41) + blog 2026-08-20",
+   "ask_technical": "Which categories must be redacted for you, and do you also need redaction in your own exported logs?"
+  }
+ ],
+ "demo_instructions": "1. Frame it: when a customer says 'the agent was weird on my call', you need that exact call, not guesswork. Ask: 'Today, how long does it take you to find out what went wrong on one bad call?' 2. Go to Sessions from the main left sidebar (if you're inside an agent or builder page, click the project name in the breadcrumb first). Explain: every room/call in the project, searchable, with a time range (widen it to Past 7 days if the list is empty). 3. Open a call that has agent data: in the sessions list prefer a row whose Features column shows 'View agent insights' (widen the time range to Past 7 days if none do; skip console test rooms). Click its session ID. It lands on Session analytics: explain the top facts (room name, duration, unique participants, total participant minutes), the session timeline (who joined and left when), the participants (publishers and subscribers: the caller and the agent), egresses (recordings/streams) and the network panels: bandwidth and connection quality/latency. Value: rule out the network before blaming the AI. 4. Click Session events: the raw event log of the room (joins, tracks published, disconnects and their reasons). Value: exact answers like 'the caller dropped' vs 'the agent left'. 5. Click Agent insights: the agent's own view of the same call, on one timeline: the latency metrics and per-turn breakdown (speech-to-text, LLM, text-to-speech), then Transcript (every turn and tool call), Traces (each stage of a slow turn with the exact prompt), Logs, and audio playback. Point at the slowest turn. 6. Mention Share (send a call to a teammate or LiveKit support) and Turn into a test (make this call a Simulation so it never regresses). 7. Close: ask which recent call they'd want to look at first, and offer to set up observability on their project."
+}

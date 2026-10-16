@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Live demo with Kai</title>
+<style>
+  :root {
+    --bg: #070707;
+    --panel: #111214;
+    --panel-2: #17181b;
+    --line: #23252a;
+    --text: #e8e9eb;
+    --muted: #8a8f98;
+    --accent: #1fd5f9;
+    --accent-dim: rgba(31, 213, 249, .14);
+    --ok: #2bd67b;
+    --warn: #f5b84a;
+    --bad: #f0566a;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow: hidden;
+  }
+  .app { height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; }
+
+  /* ---------- stage ---------- */
+  .stage {
+    display: grid; gap: 14px; padding: 16px 16px 0;
+    grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr);
+    min-height: 0;
+  }
+  .main { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 10px; min-width: 0; min-height: 0; }
+  .screen {
+    position: relative; background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; min-height: 0;
+  }
+  .screen video { width: 100%; height: 100%; object-fit: contain; display: block; background: #0b0c0e; }
+  .caption {
+    min-height: 2.9em; padding: 0 6px; color: #c9ccd2; font-size: 15px; text-align: center;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    transition: opacity .6s ease; opacity: 0;
+  }
+  .caption.on { opacity: 1; }
+  .caption b { color: var(--accent); font-weight: 600; margin-right: 6px; }
+
+  .side { display: flex; flex-direction: column; gap: 14px; min-width: 0; min-height: 0; }
+  .tile {
+    position: relative; background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .avatar { aspect-ratio: 3 / 4; max-height: 62vh; transition: box-shadow .25s ease, border-color .25s ease; }
+  .avatar.speaking { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 28px var(--accent-dim); }
+  .avatar video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .self { aspect-ratio: 16 / 10; width: 62%; align-self: flex-end; }
+  .self video { width: 100%; height: 100%; object-fit: cover; display: block; transform: scaleX(-1); }
+
+  .label {
+    position: absolute; left: 10px; bottom: 10px; display: flex; align-items: center; gap: 7px;
+    padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.55); backdrop-filter: blur(6px);
+    font-size: 12px; font-weight: 500;
+  }
+  .label .sub { color: var(--muted); font-weight: 400; }
+
+  /* placeholders: shown while there is no video, hidden by .live */
+  .ph {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 12px; color: var(--muted); text-align: center; padding: 16px;
+    background: radial-gradient(120% 80% at 50% 30%, #15191c 0%, var(--panel) 70%);
+  }
+  .live .ph { display: none; }
+  .tile:not(.live) video, .screen:not(.live) video { visibility: hidden; }
+  .orb {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #7cecff 0%, var(--accent) 35%, #0a6f86 100%);
+    box-shadow: 0 0 40px var(--accent-dim); animation: breathe 2.4s ease-in-out infinite;
+  }
+  .orb.sm { width: 40px; height: 40px; }
+  .initials {
+    width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--panel-2); border: 1px solid var(--line); color: var(--text); font-weight: 600;
+  }
+  .ph .t { color: var(--text); font-weight: 500; }
+  .self .ph { gap: 6px; font-size: 12px; }
+  @keyframes breathe { 0%,100% { transform: scale(.94); opacity: .85 } 50% { transform: scale(1); opacity: 1 } }
+
+  /* ---------- bottom bar ---------- */
+  .bar {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    padding: 12px 16px 14px; gap: 12px;
+  }
+  .status { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; min-width: 0; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); flex: none; }
+  .dot.connected { background: var(--ok); }
+  .dot.reconnecting { background: var(--warn); animation: blink 1s infinite; }
+  .dot.disconnected { background: var(--bad); }
+  @keyframes blink { 50% { opacity: .3 } }
+  .controls { display: flex; gap: 10px; }
+  .btn {
+    height: 44px; min-width: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--panel-2); color: var(--text); display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; font: inherit; font-weight: 500; cursor: pointer; transition: background .15s, border-color .15s;
+  }
+  .btn:hover { background: #1f2125; border-color: #30333a; }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn svg { width: 20px; height: 20px; }
+  .btn.off { background: #2a1519; border-color: #4a2229; color: #ff9aa8; }
+  .btn.leave { background: var(--bad); border-color: var(--bad); color: #fff; }
+  .btn.leave:hover { background: #d9455a; }
+  .btn .ic-off { display: none; }
+  .btn.off .ic-on { display: none; }
+  .btn.off .ic-off { display: inline; }
+  .brand { justify-self: end; color: var(--muted); font-size: 12px; }
+  .brand b { color: var(--text); font-weight: 600; }
+
+  /* ---------- overlays ---------- */
+  .overlay {
+    position: fixed; inset: 0; z-index: 10; display: none; align-items: center; justify-content: center;
+    background: rgba(5,5,6,.82); backdrop-filter: blur(8px); text-align: center; padding: 16px;
+  }
+  .overlay.show { display: flex; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 28px 30px;
+    max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .card h2 { margin: 0; font-size: 18px; font-weight: 600; }
+  .card p { margin: 0; color: var(--muted); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #031317; font-weight: 600; padding: 0 22px; }
+  .btn.primary:hover { background: #5be2fb; }
+
+  /* ---------- customer profile panel (faan.profile attribute, docs/CUSTOMER_PROFILE.md) ---------- */
+  .pf {
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column;
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  }
+  .pf[hidden] { display: none; }
+  .pf-head {
+    all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; gap: 8px;
+    padding: 10px 12px; min-height: 40px;
+  }
+  .pf-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius); }
+  .pf-title { font: 600 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text); }
+  .pf-chip {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 6px; max-width: 62%;
+    padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(31, 213, 249, .45); background: var(--accent-dim);
+    color: var(--accent); font: 600 10px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .pf-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; animation: blink 1.6s infinite; }
+  .pf-chev { width: 14px; height: 14px; color: var(--muted); flex: none; transition: transform .2s; }
+  .pf.collapsed .pf-chev { transform: rotate(-90deg); }
+  .pf-body { min-height: 0; overflow-y: auto; padding: 0 12px 12px; scrollbar-width: thin; }
+  .pf.collapsed .pf-body { display: none; }
+  .pf-stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 2px 0 10px; }
+  .pf-stage { min-width: 0; }
+  .pf-bar { height: 3px; border-radius: 2px; background: var(--line); overflow: hidden; }
+  .pf-stage.done .pf-bar { background: var(--accent); }
+  .pf-stage.now .pf-bar { background: linear-gradient(90deg, var(--accent) 0 55%, var(--line) 55%); }
+  .pf-sl {
+    margin-top: 5px; font: 500 9px/1.1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .pf-stage.now .pf-sl { color: var(--accent); }
+  .pf-stage.done .pf-sl { color: #b9c2cc; }
+  .pf-rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .pf-row { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 9px; align-items: start; animation: pf-in .5s ease both; }
+  .pf-ic {
+    width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
+    background: var(--panel-2); border: 1px solid var(--line); color: var(--accent);
+  }
+  .pf-ic svg { width: 14px; height: 14px; }
+  .pf-l { font: 500 9.5px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .pf-v { font-size: 13px; line-height: 1.3; color: var(--text); overflow-wrap: anywhere; }
+  .pf-v.quote { font-style: italic; color: #d6dadf; }
+  .pf-v.quote::before { content: "\201C"; color: var(--accent); }
+  .pf-v.quote::after { content: "\201D"; color: var(--accent); }
+  .pf-row.fresh .pf-ic { animation: pf-flash 1.6s ease; }
+  .pf-see { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+  .pf-see[hidden] { display: none; }
+  .pf-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .pf-tag {
+    display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; font-size: 11.5px;
+    border: 1px solid var(--line); background: var(--panel-2); color: #c9ccd2;
+  }
+  .pf-tag.done { color: var(--accent); border-color: rgba(31, 213, 249, .35); }
+  .pf-tag.done::before { content: "\2713"; font-weight: 700; }
+  @keyframes pf-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes pf-flash { 0%, 100% { box-shadow: none; } 25% { box-shadow: 0 0 0 1px var(--accent), 0 0 14px var(--accent-dim); } }
+  /* with the panel shown, Kai's tile and the self-view give it room */
+  .side.has-profile .avatar { max-height: 32vh; flex-shrink: 0; }
+  .side.has-profile .self { width: 44%; flex-shrink: 0; }
+  .side.has-profile.pf-collapsed .avatar { max-height: 62vh; flex-shrink: 1; }
+  .side.has-profile.pf-collapsed .self { width: 62%; }
+  @media (prefers-reduced-motion: reduce) { .pf-row, .pf-row.fresh .pf-ic, .pf-chip::before { animation: none; } }
+
+  #audio-sink { display: none; }
+
+  /* ---------- access-code prompt (shown when the page URL has no ?code=) ---------- */
+  .gate { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 2px; }
+  .gate input {
+    width: 100%; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--panel-2); color: var(--text); font: inherit; font-size: 15px; outline: none;
+  }
+  .gate input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+  .gate input[aria-invalid="true"] { border-color: var(--bad); }
+  .gate .btn.primary { width: 100%; justify-content: center; }
+  .gate .btn[disabled] { opacity: .6; cursor: default; }
+  .gate-err { min-height: 18px; font-size: 13px; color: var(--bad); }
+
+  @media (max-width: 1100px) {
+    .stage { grid-template-columns: minmax(0, 7fr) minmax(200px, 2fr); }
+    .self { width: 80%; }
+  }
+  @media (max-width: 760px) {
+    body { overflow: auto; }
+    .app { height: auto; min-height: 100%; }
+    .stage { grid-template-columns: 1fr; }
+    .screen { aspect-ratio: 16 / 10; }
+    .side { flex-direction: row; }
+    .avatar { flex: 1; aspect-ratio: 1; max-height: none; }
+    .self { width: 38%; align-self: flex-end; }
+    .side { flex-wrap: wrap; }
+    .pf { order: 3; flex-basis: 100%; }
+    .side.has-profile .avatar { max-height: none; }
+    .side.has-profile .self { width: 38%; }
+    .brand { display: none; }
+    .bar { grid-template-columns: auto 1fr; }
+    .controls { justify-content: flex-end; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="stage">
+    <section class="main">
+      <div class="screen" id="screen">
+        <video id="screen-video" autoplay playsinline muted></video>
+        <div class="ph">
+          <div class="orb"></div>
+          <div class="t" id="screen-msg">Connecting…</div>
+          <div id="screen-sub">The live product demo will appear here.</div>
+        </div>
+      </div>
+      <div class="caption" id="caption" aria-live="polite"></div>
+    </section>
+    <aside class="side">
+      <div class="tile avatar" id="avatar">
+        <video id="avatar-video" autoplay playsinline muted></video>
+        <div class="ph"><div class="orb"></div><div class="t" id="kai-wait">Kai is joining…</div></div>
+        <div class="label">Kai <span class="sub" id="agent-state">AI guide</span></div>
+      </div>
+      <section class="pf" id="profile" hidden aria-label="What Kai has understood about your needs">
+        <button class="pf-head" id="pf-toggle" aria-expanded="true" aria-controls="pf-body">
+          <span class="pf-title">Your demo</span>
+          <span class="pf-chip" id="pf-chip">Listening</span>
+          <svg class="pf-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="pf-body" id="pf-body">
+          <div class="pf-stages" id="pf-stages"></div>
+          <ul class="pf-rows" id="pf-rows"></ul>
+          <div class="pf-see" id="pf-see" hidden><div class="pf-l">Asked to see</div><div class="pf-tags" id="pf-tags"></div></div>
+        </div>
+      </section>
+      <div class="tile self" id="self">
+        <video id="self-video" autoplay playsinline muted></video>
+        <div class="ph"><div class="initials" id="initials">You</div><div>Camera off</div></div>
+        <div class="label">You</div>
+      </div>
+    </aside>
+  </div>
+  <footer class="bar">
+    <div class="status"><span class="dot" id="dot"></span><span id="status-text">Connecting</span></div>
+    <div class="controls">
+      <button class="btn" id="mic" title="Mute microphone" aria-label="Toggle microphone">
+        <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M9 9v2a3 3 0 0 0 5.1 2.1M15 10V6a3 3 0 0 0-5.7-1.3M5 11a7 7 0 0 0 11.5 5.4M19 11a7 7 0 0 1-.5 2.5M12 18v3"/></svg>
+      </button>
+      <button class="btn" id="cam" title="Turn camera off" aria-label="Toggle camera">
+        <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>
+        <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M16 16v0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1M10 6h4a2 2 0 0 1 2 2v2l5-3v10"/></svg>
+      </button>
+      <button class="btn leave" id="leave" title="Leave call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15c2.5-2.7 5.6-4 9-4s6.5 1.3 9 4l-2.5 2.5-3.2-1.6v-2.6a12 12 0 0 0-6.6 0v2.6l-3.2 1.6z"/></svg>
+        Leave
+      </button>
+    </div>
+    <div class="brand">Live demo · <b>Kai</b></div>
+  </footer>
+</div>
+
+<div id="audio-sink"></div>
+
+<div class="overlay show" id="mode-overlay">
+  <div class="card">
+    <div class="orb sm"></div>
+    <h2>Your demo is ready</h2>
+    <p>How would you like Kai to join?</p>
+    <p style="opacity:.75;font-size:13px;margin-top:-4px">The avatar gives Kai a face. Voice only is a little more responsive.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn primary" data-mode="avatar" autofocus>With avatar <small style="opacity:.7">(recommended)</small></button>
+      <button class="btn" data-mode="voice">Voice only <small style="opacity:.7">(fastest)</small></button>
+    </div>
+    <p style="opacity:.6;font-size:12px;margin-top:2px">The avatar runs for up to 3 minutes, then Kai continues by voice.</p>
+  </div>
+</div>
+<div class="overlay" id="code-overlay">
+  <div class="card">
+    <div class="orb sm"></div>
+    <h2>Enter the access code</h2>
+    <p id="code-hint">This live demo is private. Enter the code you were given.</p>
+    <form class="gate" id="code-form" autocomplete="off">
+      <label for="code-input" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Access code</label>
+      <input id="code-input" type="password" placeholder="Access code" autocomplete="current-password" required>
+      <button class="btn primary" id="code-btn" type="submit">Continue</button>
+      <div class="gate-err" id="code-err" role="alert"></div>
+    </form>
+  </div>
+</div>
+<div class="overlay" id="start-overlay">
+  <div class="card">
+    <div class="orb sm"></div>
+    <h2>Your demo is ready</h2>
+    <p>Your browser needs a click before it can play Kai's voice.</p>
+    <button class="btn primary" id="start-btn">Click to start</button>
+  </div>
+</div>
+<div class="overlay" id="msg-overlay">
+  <div class="card">
+    <h2 id="msg-title">Call ended</h2>
+    <p id="msg-body">Thanks for joining.</p>
+    <button class="btn primary" id="msg-btn" hidden>Rejoin</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/livekit-client@2.15.7/dist/livekit-client.umd.min.js"
+        integrity="sha384-Xi7KEoauIhfuZTBufx2TYpgvKtb2BImoyPSFMmvAx8RZYS2epgzAq5bRwMca+J1f" crossorigin="anonymous"></script>
+<script>
+(() => {
+  const LK = window.LivekitClient;
+  const { Room, RoomEvent, Track, ParticipantKind, ConnectionState } = LK;
+  const $ = (id) => document.getElementById(id);
+  const ON_BEHALF = 'lk.publish_on_behalf';
+
+  // ---- join details: either in the URL fragment (make_link.py links, never sent to a server),
+  //      or minted on click by /api/token using the access code (?code= in the page URL, or typed in the prompt)
+  const frag = new URLSearchParams(location.hash.slice(1));
+  let url = frag.get('url'), token = frag.get('token');
+  const fromFragment = !!(url && token);
+  const CODE_KEY = 'faan.code';
+  const ss = {   // sessionStorage only (cleared when the tab closes); may throw in locked-down browsers
+    get() { try { return sessionStorage.getItem(CODE_KEY) || ''; } catch (e) { return ''; } },
+    set(v) { try { v ? sessionStorage.setItem(CODE_KEY, v) : sessionStorage.removeItem(CODE_KEY); } catch (e) {} },
+  };
+  let code = new URLSearchParams(location.search).get('code') || ss.get() || 'open';   // this deployment has no passcode (DEMO_PASSCODE unset): skip the code prompt
+  if (new URLSearchParams(location.search).has('code')) {
+    ss.set(code);
+    // keep the code out of the address bar / history once it is in sessionStorage
+    const u = new URL(location.href); u.searchParams.delete('code');
+    try { history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (e) {}
+  }
+  const tokenApi = (c, extra) => '/api/token?' + new URLSearchParams({ code: c, ...extra });
+
+  const room = new Room({ adaptiveStream: true, dynacast: true });
+  window.__room = room; // handy for debugging / tests
+
+  // ---------- status ----------
+  function setStatus(state, text) {
+    $('dot').className = 'dot ' + state;
+    $('status-text').textContent = text;
+  }
+  function showMessage(title, body, rejoin) {
+    $('msg-title').textContent = title;
+    $('msg-body').textContent = body;
+    $('msg-btn').hidden = !rejoin;
+    $('msg-overlay').classList.add('show');
+  }
+
+  // ---------- access code ----------
+  function askCode(err) {
+    $('mode-overlay').classList.remove('show');
+    $('msg-overlay').classList.remove('show');
+    setStatus('', 'Access code needed');
+    $('screen-msg').textContent = 'Enter the access code to start';
+    $('screen-sub').textContent = 'The live product demo will appear here.';
+    $('code-err').textContent = err || '';
+    $('code-input').setAttribute('aria-invalid', err ? 'true' : 'false');
+    $('code-overlay').classList.add('show');
+    setTimeout(() => $('code-input').focus(), 0);
+  }
+  function codeAccepted() {
+    $('code-overlay').classList.remove('show');
+    $('mode-overlay').classList.add('show');
+    setStatus('', 'Ready');
+    $('screen-msg').textContent = 'Connecting…';
+    setTimeout(() => { const b = document.querySelector('#mode-overlay [data-mode="avatar"]'); if (b) b.focus(); }, 0);   // Enter = avatar (the default)
+  }
+  // ?check=1 validates the code without minting a room: 'ok' | 'bad' | 'error'
+  async function checkCode(c) {
+    try {
+      const r = await fetch(tokenApi(c, { check: '1' }), { cache: 'no-store' });
+      return r.ok ? 'ok' : r.status === 401 ? 'bad' : 'error';
+    } catch (e) { return 'error'; }
+  }
+  $('code-form').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const c = $('code-input').value.trim();
+    if (!c) return;
+    $('code-btn').disabled = true; $('code-err').textContent = '';
+    const res = await checkCode(c);
+    $('code-btn').disabled = false;
+    if (res === 'ok') { code = c; ss.set(c); $('code-input').value = ''; codeAccepted(); }
+    else if (res === 'bad') { $('code-input').select(); $('code-err').textContent = 'That code is not right. Please try again.'; $('code-input').setAttribute('aria-invalid', 'true'); }
+    else $('code-err').textContent = 'Could not check the code. Please check your connection and try again.';
+  });
+
+  // fetch a fresh room + token; returns false (after showing a message or the code prompt) when that is not possible
+  async function fetchJoin() {
+    let r;
+    try { r = await fetch(tokenApi(code, {}), { cache: 'no-store' }); }
+    catch (e) { console.error(e); showMessage('Could not start the demo', 'Please check your connection and try again.', true); return false; }
+    if (r.status === 401) { ss.set(''); code = ''; askCode('That access code is not valid. Please enter it again.'); return false; }
+    if (r.status === 429) {
+      setStatus('disconnected', 'Please wait');
+      showMessage('Too many demos started', 'Too many demos were started from your network. Please try again in a few minutes.', true);
+      return false;
+    }
+    if (!r.ok) { showMessage('Could not start the demo', 'Something went wrong on our side. Please try again shortly.', true); return false; }
+    const j = await r.json();
+    url = j.url; token = j.token;
+    return true;
+  }
+
+  // ---------- classification ----------
+  const isAvatar = (p) => !!(p.attributes && p.attributes[ON_BEHALF]);
+  const isAgent = (p) => p.kind === ParticipantKind.AGENT || !!(p.attributes && p.attributes['lk.agent.state']);
+  const isScreen = (pub) => pub.source === Track.Source.ScreenShare || pub.trackName === 'screen';
+
+  function pickVideo() {
+    let screen = null, avatar = null, fallbackAvatar = null;
+    for (const p of room.remoteParticipants.values()) {
+      for (const pub of p.videoTrackPublications.values()) {
+        if (!pub.track || !pub.isSubscribed) continue;
+        if (isScreen(pub)) { if (!screen || isAgent(p)) screen = pub.track; continue; }
+        if (pub.source !== Track.Source.Camera) continue;
+        if (isAvatar(p)) avatar = avatar || pub.track;
+        else if (isAgent(p)) fallbackAvatar = fallbackAvatar || pub.track; // avatar without the attribute
+        // other remote cameras are intentionally not rendered: this page is 1 customer + Kai
+      }
+    }
+    return { screen, avatar: avatar || fallbackAvatar };
+  }
+
+  const bound = { screen: null, avatar: null };
+  function bind(slot, track, el, box) {
+    if (bound[slot] === track) return;
+    if (bound[slot]) bound[slot].detach(el);
+    bound[slot] = track;
+    if (track) track.attach(el);
+    box.classList.toggle('live', !!track);
+  }
+
+  function agentParticipant() {
+    for (const p of room.remoteParticipants.values()) if (isAgent(p) && !isAvatar(p)) return p;
+    return null;
+  }
+
+  function render() {
+    const v = pickVideo();
+    bind('screen', v.screen, $('screen-video'), $('screen'));
+    bind('avatar', v.avatar, $('avatar-video'), $('avatar'));
+    // the avatar can leave mid-call (provider session cap, outage) while Kai keeps talking on a voice track: say so, not "joining"
+    if (v.avatar) window.__hadAvatar = true;
+    const ph = document.querySelector('#avatar .ph .t');
+    if (ph && !v.avatar && window.__hadAvatar && agentParticipant()) ph.textContent = 'Kai · voice';
+    if (!v.screen && room.state === ConnectionState.Connected) {
+      const agent = agentParticipant();
+      $('screen-msg').textContent = agent ? 'Kai is getting the demo ready…' : 'Waiting for Kai…';
+    }
+    const agent = agentParticipant();
+    const st = agent && agent.attributes['lk.agent.state'];
+    $('agent-state').textContent = ({ listening: 'listening', thinking: 'thinking…', speaking: 'speaking' })[st] || 'AI guide';
+    syncProfile(agent);
+  }
+
+  // ---------- customer profile panel: agent attribute 'faan.profile' (compact JSON, faan/profile.py to_panel) ----------
+  const PF_ICONS = {   // 24x24 stroke paths
+    building: 'M4 21V5l8-3v19M12 8h8v13M8 9h.01M8 13h.01M8 17h.01M16 12h.01M16 16h.01M2 21h20',
+    globe: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18',
+    user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',
+    users: 'M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21a7 7 0 0 1 14 0M17 11a3 3 0 0 0 0-6M22 21a6 6 0 0 0-4-5.6',
+    target: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 12h.01',
+    phone: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z',
+    chart: 'M4 20V10M10 20V4M16 20v-7M22 20H2',
+    history: 'M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2',
+    alert: 'M12 3l10 18H2zM12 10v4M12 17h.01',
+    check: 'M20 6L9 17l-5-5',
+    plug: 'M9 2v6M15 2v6M6 8h12v3a6 6 0 0 1-12 0zM12 17v5',
+    shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4',
+    lang: 'M4 5h8M8 3v2M6 5c0 4 3 7 6 8M10 5c0 4-3 8-6 9M13 21l4-10 4 10M14.5 17h5',
+    flag: 'M5 21V4M5 4h12l-2 4 2 4H5',
+    clock: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2',
+    arrow: 'M5 12h14M13 6l6 6-6 6',
+    eye: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
+    coin: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM15 9h-4a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4H9M12 6v12',
+    pulse: 'M3 12h4l3-8 4 16 3-8h4',
+  };
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  function pfIcon(name) {
+    const svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2'); svg.setAttribute('stroke-linecap', 'round'); svg.setAttribute('stroke-linejoin', 'round');
+    const path = document.createElementNS(SVGNS, 'path'); path.setAttribute('d', PF_ICONS[name] || PF_ICONS.check);
+    svg.appendChild(path); return svg;
+  }
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  let pfLast = '', pfSeen = new Set();
+  function renderProfile(raw) {   // raw: JSON string or object; all text goes through textContent (it comes from an LLM)
+    let p;
+    try { p = typeof raw === 'string' ? JSON.parse(raw) : raw; } catch (e) { console.warn('faan.profile: bad JSON'); return; }
+    if (!p || typeof p !== 'object') return;
+    const rows = Array.isArray(p.rows) ? p.rows : [], see = Array.isArray(p.see) ? p.see : [];
+    const stages = Array.isArray(p.stages) && p.stages.length ? p.stages : ['Discover', 'Tailor', 'Prove', 'Next step'];
+    const cur = Math.max(0, Math.min(stages.length - 1, Number(p.stage) || 0));
+    const show = rows.length > 0 || see.length > 0 || cur > 0;
+    $('profile').hidden = !show;
+    document.querySelector('.side').classList.toggle('has-profile', show);
+    if (!show) return;
+    $('pf-chip').textContent = String(p.chip || 'Listening').toLowerCase();
+    const st = $('pf-stages'); st.textContent = '';
+    stages.forEach((name, i) => {
+      const s = el('div', 'pf-stage' + (i < cur ? ' done' : i === cur ? ' now' : ''));
+      s.append(el('div', 'pf-bar'), el('div', 'pf-sl', String(name)));
+      if (i === cur) s.setAttribute('aria-current', 'step');
+      st.appendChild(s);
+    });
+    const ul = $('pf-rows'); ul.textContent = '';
+    const now = new Set();
+    for (const r of rows) {
+      const key = (r.k || '') + '|' + (r.v || ''); now.add(key);
+      const li = el('li', 'pf-row' + (pfSeen.has(key) ? '' : ' fresh'));
+      if (pfSeen.has(key)) li.style.animation = 'none';
+      li.dataset.k = r.k || '';
+      const ic = el('div', 'pf-ic'); ic.appendChild(pfIcon(r.i));
+      const txt = el('div');
+      txt.append(el('div', 'pf-l', r.l || ''), el('div', 'pf-v' + (r.quote ? ' quote' : ''), r.v || ''));
+      if (r.q && !r.quote) txt.title = 'You said: \u201C' + r.q + '\u201D';
+      li.append(ic, txt); ul.appendChild(li);
+    }
+    pfSeen = now;
+    const tags = $('pf-tags'); tags.textContent = '';
+    for (const t of see.slice(-4)) tags.appendChild(el('span', 'pf-tag' + (t.d ? ' done' : ''), t.v || ''));
+    $('pf-see').hidden = see.length === 0;
+  }
+  window.__renderProfile = renderProfile;   // tests inject a profile directly
+  function syncProfile(agent) {
+    const raw = agent && agent.attributes && agent.attributes['faan.profile'];
+    if (!raw || raw === pfLast) return;
+    pfLast = raw; renderProfile(raw);
+  }
+  $('pf-toggle').onclick = () => {
+    const c = $('profile').classList.toggle('collapsed');
+    document.querySelector('.side').classList.toggle('pf-collapsed', c);
+    $('pf-toggle').setAttribute('aria-expanded', String(!c));
+  };
+
+  // ---------- audio: play every remote audio track, never as a tile ----------
+  function attachAudio(track) {
+    const el = track.attach();
+    el.dataset.sid = track.sid || '';
+    $('audio-sink').appendChild(el);
+  }
+  function checkAutoplay() {
+    $('start-overlay').classList.toggle('show', !room.canPlaybackAudio);
+  }
+  $('start-btn').onclick = async () => {
+    try { await room.startAudio(); } catch (e) { console.warn(e); }
+    document.querySelectorAll('video').forEach((v) => v.play().catch(() => {}));
+    checkAutoplay();
+  };
+
+  // ---------- speaking glow on Kai ----------
+  room.on(RoomEvent.ActiveSpeakersChanged, (speakers) => {
+    $('avatar').classList.toggle('speaking', speakers.some((p) => p !== room.localParticipant && (isAvatar(p) || isAgent(p))));
+  });
+
+  // ---------- captions (agent transcription text streams) ----------
+  let captionTimer = null;
+  function showCaption(text) {
+    const c = $('caption');
+    c.innerHTML = '';
+    const b = document.createElement('b'); b.textContent = 'Kai';
+    c.append(b, document.createTextNode(text));
+    c.classList.add('on');
+    clearTimeout(captionTimer);
+    captionTimer = setTimeout(() => c.classList.remove('on'), 7000);
+  }
+  try {
+    room.registerTextStreamHandler('lk.transcription', async (reader, info) => {
+      if (info.identity === room.localParticipant.identity) return; // customer's own words
+      const p = room.remoteParticipants.get(info.identity);
+      if (p && !isAgent(p) && !isAvatar(p)) return;
+      let text = '';
+      for await (const chunk of reader) { text += chunk; showCaption(text.trim()); }
+    });
+  } catch (e) { console.warn('captions unavailable', e); }
+
+  // ---------- room events ----------
+  room
+    .on(RoomEvent.TrackSubscribed, (track) => {
+      if (track.kind === Track.Kind.Audio) attachAudio(track);
+      render();
+    })
+    .on(RoomEvent.TrackUnsubscribed, (track) => {
+      if (track.kind === Track.Kind.Audio) track.detach().forEach((el) => el.remove());
+      render();
+    })
+    .on(RoomEvent.TrackMuted, render)
+    .on(RoomEvent.TrackUnmuted, render)
+    .on(RoomEvent.ParticipantConnected, render)
+    .on(RoomEvent.ParticipantDisconnected, render)
+    .on(RoomEvent.ParticipantAttributesChanged, render)
+    .on(RoomEvent.AudioPlaybackStatusChanged, checkAutoplay)
+    .on(RoomEvent.LocalTrackPublished, renderSelf)
+    .on(RoomEvent.LocalTrackUnpublished, renderSelf)
+    .on(RoomEvent.Reconnecting, () => setStatus('reconnecting', 'Reconnecting…'))
+    .on(RoomEvent.Reconnected, () => setStatus('connected', 'Connected'))
+    .on(RoomEvent.Disconnected, (reason) => {
+      setStatus('disconnected', 'Disconnected');
+      if (!leftOnPurpose) showMessage('Call disconnected', 'The connection was lost.', true);
+    });
+
+  // ---------- local controls ----------
+  function renderSelf() {
+    const lp = room.localParticipant;
+    const camPub = lp.getTrackPublication(Track.Source.Camera);
+    const camOn = !!(camPub && camPub.track && !camPub.isMuted);
+    const el = $('self-video');
+    if (camOn) camPub.track.attach(el); else if (camPub && camPub.track) camPub.track.detach(el);
+    $('self').classList.toggle('live', camOn);
+    $('cam').classList.toggle('off', !camOn);
+    $('cam').title = camOn ? 'Turn camera off' : 'Turn camera on';
+    const micOn = lp.isMicrophoneEnabled;
+    $('mic').classList.toggle('off', !micOn);
+    $('mic').title = micOn ? 'Mute microphone' : 'Unmute microphone';
+  }
+  $('mic').onclick = async () => {
+    try { await room.localParticipant.setMicrophoneEnabled(!room.localParticipant.isMicrophoneEnabled); }
+    catch (e) { console.warn(e); }
+    renderSelf();
+  };
+  $('cam').onclick = async () => {
+    try { await room.localParticipant.setCameraEnabled(!room.localParticipant.isCameraEnabled); }
+    catch (e) { console.warn(e); }
+    renderSelf();
+  };
+  let leftOnPurpose = false;
+  $('leave').onclick = async () => {
+    leftOnPurpose = true;
+    await room.disconnect();
+    showMessage('You left the call', 'Thanks for spending time with Kai.', true);
+  };
+  $('msg-btn').onclick = () => location.reload();
+
+  // ---------- connect ----------
+  async function start(mode) {
+    if (!fromFragment) {
+      setStatus('', 'Starting your demo…');
+      if (!(await fetchJoin())) return;
+    }
+    if (!url || !token) {
+      setStatus('disconnected', 'No join link');
+      $('screen-msg').textContent = 'This link is missing its join details';
+      $('screen-sub').textContent = 'Please ask for a fresh demo link.';
+      return;
+    }
+    setStatus('', 'Connecting…');
+    try {
+      await room.connect(url, token);
+    } catch (e) {
+      console.error(e);
+      setStatus('disconnected', 'Could not connect');
+      showMessage('Could not join', 'This link may have expired. Please ask for a fresh demo link.', false);
+      return;
+    }
+    setStatus('connected', 'Connected');
+    // tell Kai how to join: 'voice' (no avatar, lowest latency) or 'avatar'; the agent reads this participant attribute at start
+    try { await room.localParticipant.setAttributes({ 'faan.mode': mode }); } catch (e) { console.warn('mode attribute', e); }
+    if (mode === 'voice') { $('kai-wait').textContent = 'Kai · voice'; }
+    try { await room.startAudio(); } catch (e) {}
+    const name = room.localParticipant.name || '';
+    $('initials').textContent = name ? name.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase() : 'You';
+    // existing remote audio (tracks subscribed before handlers ran are covered by TrackSubscribed, but be safe)
+    render();
+    checkAutoplay();
+    try { await room.localParticipant.setMicrophoneEnabled(true); }
+    catch (e) { console.warn('mic unavailable', e); }
+    try { await room.localParticipant.setCameraEnabled(true); }
+    catch (e) { console.warn('camera unavailable', e); }
+    renderSelf();
+  }
+  document.querySelectorAll('#mode-overlay [data-mode]').forEach((b) => b.addEventListener('click', () => {
+    $('mode-overlay').classList.remove('show');
+    start(b.dataset.mode);   // the click also unlocks audio playback
+  }));
+
+  // no fragment: we need an access code. Ask for one, or check the one we have (mints nothing) so a bad
+  // link says so before the mode choice.
+  if (!fromFragment) {
+    if (!code) askCode();
+    else checkCode(code).then((res) => { if (res === 'bad') { ss.set(''); code = ''; askCode('That access code is not valid. Please enter it again.'); } });
+    // a network error here surfaces on click instead
+  }
+})();
+</script>
+</body>
+</html>

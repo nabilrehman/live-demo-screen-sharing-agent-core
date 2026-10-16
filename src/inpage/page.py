@@ -5,12 +5,14 @@ import json
 import re
 import time
 
-from .catalog import ALIASES, PRODUCTS, mentioned
+from .catalog import Catalog
 
 RECENT_TOUCH_S = 10  # a click or hover counts as "this one" for this long
-SPOKEN_FOR_S = 30  # "the second one" means the second product Kai just named, for this long
+SPOKEN_FOR_S = 30  # "the second one" means the second product the assistant just named, for this long
 HEARD_FOR_S = 15  # the shopper's last words count for the tool call that follows, for this long
 # a single position reference in what the shopper said: "the second one", "the last one", "the other one"
+# a price ceiling in what the shopper said: "under 300 dollars", "below $1,000", "less than 50 bucks"
+SAID_MAX_PRICE = re.compile(r"\b(?:under|below|less than|up to|max(?:imum)?|no more than)\s+\$?\s?(\d[\d,]*(?:\.\d+)?)")
 SAID_POSITION = re.compile(r"\b(first|second|third|fourth|fifth|sixth|last|other)\s+(one|item|product)\b")
 ORDINALS = {
     "first": 1, "1st": 1, "one": 1, "top": 1,
@@ -45,18 +47,19 @@ def _money(n) -> str:
 
 
 class PageState:
-    def __init__(self):
+    def __init__(self, catalog: Catalog):
+        self.cat = catalog
         self.ctx: dict = {}
         self.at = 0.0  # when the snapshot arrived (monotonic)
-        self.last_mentioned: str | None = None  # the last product Kai named
-        self.spoken: list[str] = []  # the products Kai named in his latest reply, in order (when 2 or more)
+        self.last_mentioned: str | None = None  # the last product the assistant named
+        self.spoken: list[str] = []  # the products the assistant named in its latest reply, in order (when 2 or more)
         self.spoken_at = 0.0
         self.spoken_route = None  # the page route when he said them
         self.heard, self.heard_at = "", -1e9  # the shopper's latest words
 
     def kai_said(self, text: str):
-        """Note the products Kai named in a reply: positions refer to these while the shopper stays on that page."""
-        names = list(dict.fromkeys(mentioned(text)))
+        """Note the products the assistant named in a reply: positions refer to these while the shopper stays on that page."""
+        names = list(dict.fromkeys(self.cat.mentioned(text)))
         if names:
             self.last_mentioned = names[-1]
         self.spoken = names if len(names) >= 2 else []
@@ -71,6 +74,21 @@ class PageState:
             return None
         m = SAID_POSITION.search(self.heard.lower())
         return self.resolve(f"the {m.group(1)} one")[0] if m else None
+
+    def max_price_heard(self) -> float | None:
+        """A price ceiling the shopper just said ("under 300 dollars"), for a search that left it out."""
+        if time.monotonic() - self.heard_at > HEARD_FOR_S:
+            return None
+        m = SAID_MAX_PRICE.search(self.heard.lower())
+        return float(m.group(1).replace(",", "")) if m else None
+
+    def color_heard(self, pid: str) -> str | None:
+        """The one color of this product the shopper just named ("a spool of black PLA"), for a call that left it out."""
+        if time.monotonic() - self.heard_at > HEARD_FOR_S:
+            return None
+        said = set(re.findall(r"[a-z]+", self.heard.lower()))
+        hits = [c for c in self.cat.colors(self.cat.products[pid]) if set(re.findall(r"[a-z]+", c.lower())) & said]
+        return hits[0] if len(hits) == 1 else None
 
     def spoken_list(self) -> list[str]:
         fresh = time.monotonic() - self.spoken_at < SPOKEN_FOR_S and self.ctx.get("route") == self.spoken_route
@@ -101,7 +119,7 @@ class PageState:
         if not li:
             return None
         age = li.get("ms_ago", 0) / 1000 + time.monotonic() - self.at
-        return li["id"] if age < RECENT_TOUCH_S and li["id"] in PRODUCTS else None
+        return li["id"] if age < RECENT_TOUCH_S and li["id"] in self.cat.products else None
 
     def note(self) -> str:
         c = self.ctx
@@ -132,7 +150,7 @@ class PageState:
         if t := self.touched():
             li = c["last_interaction"]
             lines.append(
-                f"Shopper just {'clicked' if li['type'] == 'click' else 'pointed at'}: {PRODUCTS[t]['name']} [{t}]."
+                f"Shopper just {'clicked' if li['type'] == 'click' else 'pointed at'}: {self.cat.products[t]['name']} [{t}]."
             )
         cart = c.get("cart") or {}
         if cart.get("count"):
@@ -147,15 +165,15 @@ class PageState:
 
     def resolve(self, ref: str) -> tuple[str | None, str]:
         """A product id for what the shopper said, or (None, why) when it isn't clear.
-        Order: an id or name; "this/that/it": the open product, then the one just touched, then the last one Kai
-        named; "the second one": the second product Kai just named out loud (2 or more, within 30 s, same page), else
-        number 2 in the list on screen; "the other one": the other of the two Kai just named; "the blue one": the one
+        Order: an id or name; "this/that/it": the open product, then the one just touched, then the last one the
+        named; "the second one": the second product the assistant just named out loud (2 or more, within 30 s, same page), else
+        number 2 in the list on screen; "the other one": the other of the two it just named; "the blue one": the one
         listed product with that color."""
         ref = (ref or "").strip()
         low = ref.lower().strip(" .?!")
-        if ref in PRODUCTS:
+        if ref in self.cat.products:
             return ref, ""
-        visible = [v["id"] for v in self.ctx.get("visible") or [] if v["id"] in PRODUCTS]
+        visible = [v["id"] for v in self.ctx.get("visible") or [] if v["id"] in self.cat.products]
         open_id = (self.ctx.get("product") or {}).get("id")
 
         if not low or DEICTIC.match(re.sub(r"^(the )?(product|item) ", "", low)):
@@ -180,35 +198,23 @@ class PageState:
                 return order[i], ""
             return None, f"There's no number {pos} in {where}."
 
-        # a name ("the QuietMax", "sonique studio q8") anywhere in the catalog, listed products first
-        for pid in sorted(PRODUCTS, key=lambda p: p not in visible):
-            if any(re.search(r"(?<![\w-])" + re.escape(a) + r"(?![\w-])", low) for a in ALIASES[pid]):
-                return pid, ""
+        # a product's name, preferring one that's listed on the page
+        if named := self.cat.mentioned(low):
+            return next((pid for pid in named if pid in visible), named[0]), ""
 
         # an attribute ("the blue one", "the cheaper one", "the earbuds") that fits exactly one listed product
         wanted = set(words) - STOP
         if wanted and visible:
-            cands = [pid for pid in visible if wanted <= _attr_words(PRODUCTS[pid])]
+            cands = [pid for pid in visible if wanted <= self.cat.attr_words(pid)]
             if len(cands) == 1:
                 return cands[0], ""
             if {"cheaper", "cheapest", "cheap"} & wanted:
                 pool = cands or visible
-                return min(pool, key=lambda p: PRODUCTS[p]["price"]), ""
+                return min(pool, key=lambda p: self.cat.products[p]["price"]), ""
             if {"pricier", "expensive", "priciest"} & wanted:
                 pool = cands or visible
-                return max(pool, key=lambda p: PRODUCTS[p]["price"]), ""
+                return max(pool, key=lambda p: self.cat.products[p]["price"]), ""
             if len(cands) > 1:
-                names = ", ".join(PRODUCTS[p]["name"] for p in cands[:3])
+                names = ", ".join(self.cat.products[p]["name"] for p in cands[:3])
                 return None, f"Several listed products fit '{ref}' ({names}); ask which one."
         return None, f"No product matches '{ref}'; ask them which one they mean."
-
-
-def _attr_words(p: dict) -> set[str]:
-    text = " ".join([p["name"], p["brand"], *p["colors"], *p["features"], p["cat"]])
-    words = set(re.findall(r"[a-z0-9]+", text.lower()))
-    return (
-        words
-        | {w.rstrip("s") for w in words}
-        | {w + "s" for w in words}
-        | {"cheaper", "cheapest", "cheap", "pricier", "expensive", "priciest"}
-    )

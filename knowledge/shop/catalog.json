@@ -1,0 +1,6180 @@
+{
+ "store": {
+  "name": "Voltline",
+  "assistant": "Kai",
+  "tagline": "3D Printers, Electronics & More",
+  "about": "Voltline sells real 3D printers from Bambu Lab, Prusa, Creality, Elegoo, Anycubic and Sovol, with filament, resin and parts, plus a range of made-up consumer electronics. You know 3D printing well and love helping beginners and makers pick the right printer.",
+  "greeting": "Greet the shopper in one short sentence as Kai from Voltline: say you can see their page and help them find something, like a 3D printer, and ask what they're shopping for today.",
+  "guide": [
+   "For 3D printers, the most useful single question is what they want to print (size, material), their budget, or whether they want multiple colors. Ask only one.",
+   "Build size: compare build volumes from the specs (for example a 180 mm cube versus 256 mm) and say what that means for the size of parts they can print in one piece.",
+   "Open frame versus enclosed: enclosed printers suit ABS and ASA, which need warmth and fume containment, and they keep dust and curious hands out; open-frame printers cost less and handle PLA, PETG and TPU well. Use each printer's materials list.",
+   "Multi-color: a Combo bundle adds a multi-color unit (the specs say which: AMS lite, AMS 2 Pro, CFS, ACE or CANVAS). On the printer's page a Combo is an option to select, not a separate cart item, unless they want the unit by itself.",
+   "Resin versus FDM: resin printers give finer detail for miniatures and jewelry, but need resin handling, washing, curing and ventilation; FDM printers are simpler and cheaper to run.",
+   "Suggest a filament that suits the printer and the job (PLA for beginners and decor, PETG for tougher or outdoor parts, TPU for flexible parts, ABS only in an enclosed printer), pick one listed in the printer's materials, and offer to add a spool.",
+   "Expert reviews: cite the publication and its score, and say when a review covered a previous version or a bundle.",
+   "Prices on this site are demo prices and may differ from the manufacturers' current prices; say so if they ask whether a price is current."
+  ],
+  "hero": {
+   "eyebrow": "New at Voltline: 3D printers",
+   "title": "Start 3D printing with Bambu Lab",
+   "sub": "The A1 mini prints a 180 mm cube with full-auto calibration, from $219. Add the AMS lite Combo for up to 4 colors.",
+   "product": "bambu-a1-mini",
+   "ctas": [
+    {
+     "label": "Shop 3D printers",
+     "href": "#/search?cat=3d-printers"
+    },
+    {
+     "label": "View the A1 mini",
+     "href": "#/product/bambu-a1-mini"
+    }
+   ]
+  },
+  "perks": [
+   "Free shipping on orders $35+",
+   "Same-day pickup at 3 nearby stores",
+   "Ask Kai: voice help while you shop",
+   "Demo store: nothing is really sold"
+  ],
+  "home_sections": [
+   {
+    "title": "Bambu Lab 3D printers",
+    "note": "From the beginner-friendly A1 mini to the dual-nozzle H2D.",
+    "ids": [
+     "bambu-a1-mini",
+     "bambu-a1",
+     "bambu-p1s",
+     "bambu-p2s",
+     "bambu-a2l",
+     "bambu-x2d",
+     "bambu-h2s",
+     "bambu-h2d"
+    ]
+   },
+   {
+    "title": "More 3D printers",
+    "ids": [
+     "prusa-core-one-plus",
+     "creality-k1c",
+     "elegoo-centauri-carbon-2",
+     "anycubic-kobra-s1"
+    ]
+   },
+   {
+    "title": "Filament & parts",
+    "ids": [
+     "bambu-pla-basic",
+     "bambu-petg-hf",
+     "bambu-ams-lite",
+     "bambu-textured-pei-plate"
+    ]
+   },
+   {
+    "title": "Trending electronics",
+    "ids": [
+     "sonique-studio-q8",
+     "nimbus-air-14",
+     "arcadia-nexus",
+     "halo-9-pro"
+    ]
+   }
+  ],
+  "search_placeholder": "Search 3D printers, filament, TVs...",
+  "language": "en-US"
+ },
+ "categories": [
+  {
+   "id": "3d-printers",
+   "name": "3D Printers",
+   "blurb": "Bambu Lab, Prusa, Creality, Elegoo and more",
+   "kind": "printer",
+   "noun": "3D printer"
+  },
+  {
+   "id": "3d-supplies",
+   "name": "Filament & Parts",
+   "blurb": "Filament, resin, plates, nozzles and multi-color units",
+   "kind": "spool",
+   "noun": "item"
+  },
+  {
+   "id": "tvs",
+   "name": "TVs",
+   "blurb": "OLED, QLED and 4K smart TVs",
+   "kind": "tv"
+  },
+  {
+   "id": "laptops",
+   "name": "Laptops",
+   "blurb": "Ultralights, 2-in-1s and gaming rigs",
+   "kind": "laptop"
+  },
+  {
+   "id": "headphones",
+   "name": "Headphones",
+   "blurb": "Noise cancelling, earbuds and studio",
+   "kind": "overear"
+  },
+  {
+   "id": "phones",
+   "name": "Phones",
+   "blurb": "Unlocked 5G phones and foldables",
+   "kind": "phone"
+  },
+  {
+   "id": "smart-home",
+   "name": "Smart Home",
+   "blurb": "Speakers, cameras, lighting and Wi-Fi",
+   "kind": "speaker"
+  },
+  {
+   "id": "gaming",
+   "name": "Gaming",
+   "blurb": "Consoles, handhelds and gear",
+   "kind": "controller"
+  },
+  {
+   "id": "accessories",
+   "name": "Accessories",
+   "blurb": "Cables, cases, chargers and mounts",
+   "kind": "charger",
+   "hidden": true
+  }
+ ],
+ "features": {
+  "noise-cancelling": "Noise cancelling",
+  "wireless": "Wireless",
+  "wired": "Wired",
+  "water-resistant": "Water resistant",
+  "over-ear": "Over-ear",
+  "earbuds": "Earbuds",
+  "4k": "4K",
+  "8k": "8K",
+  "120hz": "120Hz",
+  "oled": "OLED",
+  "hdr": "HDR",
+  "smart-tv": "Smart TV",
+  "touchscreen": "Touchscreen",
+  "2-in-1": "2-in-1",
+  "gaming": "Gaming",
+  "lightweight": "Lightweight",
+  "5g": "5G",
+  "wireless-charging": "Wireless charging",
+  "unlocked": "Unlocked",
+  "voice-assistant": "Voice assistant",
+  "works-with-hub": "Works with Domio Hub",
+  "wifi-6e": "Wi-Fi 6E",
+  "usb-c": "USB-C"
+ },
+ "products": [
+  {
+   "id": "bambu-a1-mini",
+   "name": "Bambu Lab A1 mini 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printer",
+   "art": "#00ae42",
+   "price": 219,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Small (up to 180 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Open frame"
+   },
+   "highlights": [
+    "Filament run-out, tangle and odometry sensing",
+    "Power-loss recovery",
+    "Quick-swap all-metal hotend"
+   ],
+   "summary": "The cheapest and smallest Bambu printer, set up for first-timers who mainly print PLA on a desk. You give up build size and engineering materials in exchange for a low price, a quiet machine and fully automatic setup.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "180 × 180 × 180 mm",
+    "Max speed": "500 mm/s",
+    "Max acceleration": "10,000 mm/s²",
+    "Multi-color": "Up to 4 colors with one AMS lite (Combo). Box-style AMS units (AMS 2 Pro / AMS HT) can be connected via the separately sold AMS HUB.",
+    "Enclosure": "Open frame (bed-slinger)",
+    "Auto leveling": "Full-auto calibration (bed leveling, offsets, vibration compensation) with no manual tuning",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "80 °C",
+    "Materials": "PLA, PETG, TPU, PVA",
+    "Nozzle": "0.4 mm stainless steel (0.2 / 0.6 / 0.8 mm optional)",
+    "Screen": "2.4-inch color IPS touchscreen",
+    "Camera": "Low-frame-rate monitoring camera (up to 1080p), timelapse supported",
+    "Connectivity": "Wi-Fi; 32 GB microSD card (pre-installed); Bambu Handy app and Bambu Studio",
+    "Weight": "5.5 kg",
+    "Noise": "49 dB",
+    "Best for": "beginner"
+   },
+   "in_box": [
+    "A1 mini printer",
+    "32 GB microSD card (pre-installed)",
+    "Purge wiper and screws",
+    "Spool holder with bracket and screws",
+    "PTFE tube (520 mm; Combo gets 2x580 mm + 2x700 mm)",
+    "Textured PEI plate",
+    "Sample filament (about 20 g)",
+    "Unclogging pin tool",
+    "Allen keys (H2, H1.5)",
+    "Cable organizer",
+    "Scraper blade and screws",
+    "Lubricant grease and oil",
+    "Quick start guide",
+    "Combo adds: AMS lite body with 4-pin cable, AMS lite stand and screws, 4 rotary spool holders, filament swatches"
+   ],
+   "qa": [
+    [
+     "Can it print in multiple colors?",
+     "Yes, with the Combo version. The AMS lite holds four spools, so one print can use up to four colors or materials. The printer-only version prints one color unless you add an AMS lite later."
+    ],
+    [
+     "Can I print ABS or ASA on it?",
+     "Not really. It is an open-frame printer with an 80 °C bed, so Bambu lists ABS, ASA, PC, PA and fiber-filled filaments as not recommended. It is meant for PLA, PETG, TPU and PVA."
+    ],
+    [
+     "How big can my prints be?",
+     "Each print must fit in a 180 x 180 x 180 mm cube. That covers most toys, desk items and small parts. For bigger single pieces, the A1 (256 mm) or A2L (330 x 320 x 325 mm) are the step up."
+    ],
+    [
+     "Is it loud?",
+     "Bambu rates it at about 49 dB, roughly library-quiet, so it suits a desk or a shared room."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/reviews/bambu-lab-a1-mini",
+     "date": "2023-10",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "A fast, quiet, beginner-friendly bed slinger; the build area is small but big enough for most practical prints, and the optional AMS Lite is easier to live with than Bambu's original AMS.",
+     "pros": [
+      "Very fast for its class",
+      "Intuitive interface and quick-swap nozzle",
+      "Affordable optional four-color AMS Lite"
+     ],
+     "cons": [
+      "AMS Lite takes up a lot of desk space",
+      "Purged filament gets flung out as waste"
+     ],
+     "quote": "Bambu Lab’s budget bed slinger is fast, quiet and easy to use."
+    },
+    {
+     "publication": "PCMag",
+     "url": "https://www.pcmag.com/reviews/bambu-lab-a1-mini",
+     "date": "2024-05",
+     "score_text": "4.5/5 (Outstanding)",
+     "score_5": 4.5,
+     "award": "Editors' Choice",
+     "verdict": "A top pick for beginners and hobbyists on a budget: quick to get running, fast, capable of four-color printing, and it produces great-looking parts.",
+     "pros": [
+      "Excellent print quality for the money",
+      "Fast at standard speeds",
+      "Quick assembly"
+     ],
+     "cons": [
+      "Small print bed",
+      "Cramped touchscreen",
+      "Multicolor printing wastes filament"
+     ],
+     "quote": "a top-notch 3D printer for beginners or hobbyists seeking an affordable option"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/bambu-labs-a1-mini-review",
+     "date": "2023-09",
+     "score_text": "5/5",
+     "score_5": 5.0,
+     "award": "Editor's Choice",
+     "verdict": "Calls it a standout compact printer that combines strong performance, accuracy and four-filament support at a low price, suiting both newcomers and experienced users despite a few rough edges.",
+     "pros": [
+      "Compact footprint",
+      "Very fast single-filament printing",
+      "Multi-filament option"
+     ],
+     "cons": [
+      "Touchscreen could be more responsive",
+      "Filament swaps are slow",
+      "Awkward to carry"
+     ],
+     "quote": "there is no doubt that this is an outstanding printer"
+    },
+    {
+     "publication": "CNET",
+     "url": "https://www.cnet.com/tech/computing/bambu-lab-a1-mini-combo-3d-printer-review-color-printing-at-a-fantastic-price/",
+     "date": "2023-10",
+     "score_text": "8.0/10",
+     "score_5": 4.0,
+     "verdict": "Not the ultimate 3D printer, but an unbeatable on-ramp for people new to the hobby thanks to painless setup and budget four-color printing.",
+     "pros": [
+      "Best-in-class setup experience",
+      "Four-color printing on a budget",
+      "Good app and surprisingly fast"
+     ],
+     "cons": [
+      "Little room for modification",
+      "AMS Lite feels wobbly",
+      "Awkward shape and footprint"
+     ],
+     "quote": "it can't be beat as a way to bring people into the hobby",
+     "model_reviewed": "Reviewed: Bambu Lab A1 Mini Combo"
+    }
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/a1-mini",
+    "https://wiki.bambulab.com/en/a1-mini/manual/acc-in-the-box",
+    "https://us.store.bambulab.com/products/touch-screen-a1-mini"
+   ],
+   "keywords": "3d printer printers fdm filament beginner",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Printer only",
+      "price": 219
+     },
+     {
+      "name": "A1 mini Combo (with AMS lite)",
+      "price": 329
+     }
+    ]
+   },
+   "rank": 1
+  },
+  {
+   "id": "bambu-a1",
+   "name": "Bambu Lab A1 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printer",
+   "art": "#00ae42",
+   "price": 299,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Open frame"
+   },
+   "highlights": [
+    "Full 256 mm cube build volume on an open frame",
+    "Filament run-out, tangle and odometry sensing",
+    "Power-loss recovery"
+   ],
+   "summary": "A full-size, open-frame printer that keeps the beginner-friendly setup of the mini but gives a 256 mm build area. It is a strong value for PLA and PETG work, but its open design rules out heat-sensitive engineering plastics.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "256 × 256 × 256 mm",
+    "Max speed": "500 mm/s",
+    "Max acceleration": "10,000 mm/s²",
+    "Multi-color": "Up to 4 colors with one AMS lite (Combo). Per Bambu, the A1 series can instead connect up to 4 box-style AMS units (AMS, AMS 2 Pro, AMS HT) via the AMS HUB; AMS lite cannot be mixed with them.",
+    "Enclosure": "Open frame (bed-slinger)",
+    "Auto leveling": "Full-auto calibration (bed leveling, offsets, vibration compensation) with no manual tuning",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "100 °C",
+    "Materials": "PLA, PETG, TPU, PVA",
+    "Nozzle": "0.4 mm stainless steel (0.2 / 0.6 / 0.8 mm optional)",
+    "Screen": "3.5-inch color IPS touchscreen (320 x 240)",
+    "Camera": "Low-frame-rate camera (up to 1080p), timelapse supported",
+    "Connectivity": "Wi-Fi; Bambu-Bus; 32 GB microSD card (pre-installed); Bambu Handy app and Bambu Studio",
+    "Weight": "8.3 kg",
+    "Noise": "49 dB",
+    "Best for": "beginner"
+   },
+   "in_box": [
+    "A1 base housing and frame (quick 2-part assembly) with screws",
+    "Power cable",
+    "Purge wiper and screws",
+    "Spool holder",
+    "PTFE tube for external spool (600 mm)",
+    "Textured PEI plate",
+    "Sample filament",
+    "Unclogging pin tool",
+    "Allen keys (H2, H1.5)",
+    "Heatbed nozzle wiper",
+    "Cable organizer",
+    "Scraper blade and screws",
+    "Lubricant grease and oil",
+    "Supportive footpad",
+    "32 GB microSD card (pre-installed)",
+    "Quick start guide, warranty leaflet, safety guidelines",
+    "Combo adds: AMS lite body with 4-pin cable, stand and screws, rotary spool holders, top-mount screw set, extra PTFE tubes, spare filament cutter"
+   ],
+   "qa": [
+    [
+     "A1 or A1 mini?",
+     "Both have the same easy setup and multicolor option. The A1 costs more but prints much larger parts (256 mm vs 180 mm per side) and has a hotter 100 °C bed; pick the mini only if desk space or budget is tight."
+    ],
+    [
+     "Do I need to assemble it?",
+     "Only lightly. It ships in two main pieces (base and frame) that bolt together, then the printer calibrates itself."
+    ],
+    [
+     "Can I add more than 4 colors later?",
+     "Yes, but not with the AMS lite. Bambu says A1-series printers can run up to four box-style AMS units through the AMS HUB accessory, which lets you go beyond four spools."
+    ],
+    [
+     "Is it good for ABS?",
+     "No. It is open-frame, so Bambu lists ABS, ASA, PC and nylon as not recommended. Choose a P1S, P2S or X2D for those."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/bambu-lab-a1-review",
+     "date": "2023-12",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "A dependable, quiet, high-speed full-size bed slinger at a competitive price; the optional AMS Lite makes it an affordable entry into four-color printing without X1-series cost.",
+     "pros": [
+      "Fast printing",
+      "Intuitive interface and quick-change nozzle",
+      "Inexpensive optional AMS Lite"
+     ],
+     "cons": [
+      "AMS Lite is bulky",
+      "Purge waste gets flung out"
+     ],
+     "quote": "a reliable and quiet high speed printer at a competitive price"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/bambu-labs-a1-review",
+     "date": "2023-12",
+     "score_text": "5/5",
+     "score_5": 5.0,
+     "award": "Editor's Choice",
+     "verdict": "Sees the A1 as a big step out of the A1 mini's shadow: fast, versatile multi-filament printing and excellent build quality at an affordable price, suitable from beginners to pros.",
+     "pros": [
+      "Ultra-fast printing",
+      "Multi-filament versatility",
+      "Excellent build quality"
+     ],
+     "cons": [
+      "Software can be complex",
+      "No enclosure",
+      "Bed limited to 80°C"
+     ],
+     "quote": "it strikes a perfect balance"
+    },
+    {
+     "publication": "PCMag",
+     "url": "https://www.pcmag.com/reviews/bambu-lab-a1",
+     "date": "2025-04",
+     "score_text": "4.0/5 (Excellent)",
+     "score_5": 4.0,
+     "award": "Editors' Choice",
+     "verdict": "The printer that made affordable multicolor printing mainstream remains a great choice for budget-minded hobbyists.",
+     "pros": [
+      "High-quality prints",
+      "Optional four-color capability",
+      "Very easy nozzle changes"
+     ],
+     "cons": [
+      "Multicolor printing produces lots of waste",
+      "Assembly is somewhat involved",
+      "Wi-Fi only, no USB port"
+     ],
+     "quote": "still an excellent tool for budget-conscious hobbyists"
+    },
+    {
+     "publication": "CNET",
+     "url": "https://www.cnet.com/tech/computing/bambulab-a1-review-as-close-to-perfect-as-ive-ever-used/",
+     "date": "2024-05",
+     "score_text": "9.2/10",
+     "score_5": 4.6,
+     "verdict": "CNET's reviewer calls the A1 Combo the most sensible 3D printer they have used and a complete package for any kind of user.",
+     "pros": [
+      "Flawless setup",
+      "Excellent app",
+      "Outstanding print quality and design"
+     ],
+     "cons": [
+      "Filament waste can add up",
+      "The purge-ejection design is clumsy"
+     ],
+     "quote": "I've never used a 3D printer that made more sense than the A1 Combo.",
+     "model_reviewed": "Reviewed: Bambu Lab A1 Combo"
+    }
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/a1",
+    "https://wiki.bambulab.com/en/a1/manual/acc-in-the-box",
+    "https://cdn.shopify.com/s/files/1/0635/8247/0318/files/A1_Spec_EN_1.pdf"
+   ],
+   "keywords": "3d printer printers fdm filament beginner",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Printer only",
+      "price": 299
+     },
+     {
+      "name": "A1 Combo (with AMS lite)",
+      "price": 399
+     },
+     {
+      "name": "A1 Combo Print with Care Bundle",
+      "price": 449
+     }
+    ]
+   },
+   "rank": 2
+  },
+  {
+   "id": "bambu-a2l",
+   "name": "Bambu Lab A2L 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printer",
+   "art": "#00ae42",
+   "price": 469,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Large (over 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Open frame"
+   },
+   "highlights": [
+    "Large open-frame format (330 x 320 x 325 mm)",
+    "Servo extruder with nozzle clumping (blob) detection",
+    "Built-in filament cutter"
+   ],
+   "summary": "A large-format, open-frame printer for people who want big PLA/PETG parts like helmets or props without paying for an H2 machine. It is not built for engineering filaments or lasers, and it uses a smaller, lower-resolution screen than the enclosed models.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "330 × 320 × 325 mm",
+    "Max speed": "500 mm/s",
+    "Max acceleration": "10,000 mm/s²",
+    "Multi-color": "Up to 4 colors with AMS lite (Combo); up to 19 colors with 4 box-style AMS units plus 1 AMS lite in series",
+    "Enclosure": "Open frame",
+    "Auto leveling": "Full-auto calibration with hands-free leveling and nozzle offset",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "80 °C",
+    "Materials": "PLA, PETG, TPU, PVA, PLA-CF and PETG-CF (with hardened steel nozzle)",
+    "Nozzle": "0.4 mm stainless steel (0.2 / 0.6 / 0.8 mm supported)",
+    "Screen": "3.5-inch touchscreen (240 x 320)",
+    "Camera": "Low-frame-rate camera (up to 1080p), timelapse supported",
+    "Connectivity": "2.4 GHz Wi-Fi; Bambu-Bus; 32 GB microSD card; no Ethernet",
+    "Weight": "12.8 kg",
+    "Noise": "52 dB",
+    "Best for": "hobbyist"
+   },
+   "in_box": [
+    "A2L printer",
+    "Tool box",
+    "Build plate (textured PEI)",
+    "Spool holder",
+    "Combo adds: AMS lite"
+   ],
+   "qa": [
+    [
+     "Is the A2L just a bigger A1?",
+     "Mostly in spirit: it is an open-frame, easy machine, but with a much larger 330 x 320 x 325 mm volume, a servo extruder and a blob detector. Its bed tops out at 80 °C, lower than the A1."
+    ],
+    [
+     "Can it engrave with a laser?",
+     "No. Bambu does not allow laser modules on the open-frame A2L for safety reasons. It does accept the blade-cutting and pen-plotting module."
+    ],
+    [
+     "How many colors can it do?",
+     "Four with the included AMS lite on the Combo. Bambu says you can chain up to four box-style AMS units plus one AMS lite for up to 19 colors."
+    ],
+    [
+     "Do AMS dryers work on it?",
+     "Yes, but AMS 2 Pro and AMS HT drying needs its own external power supply when used with the A2L."
+    ]
+   ],
+   "expert_reviews": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/a2l",
+    "https://wiki.bambulab.com/en/a2l/manual/acc-in-the-box"
+   ],
+   "keywords": "3d printer printers fdm filament hobbyist",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Printer only",
+      "price": 469
+     },
+     {
+      "name": "A2L Combo (with AMS lite)",
+      "price": 569
+     },
+     {
+      "name": "A2L Cutting Full Combo",
+      "price": 629
+     }
+    ]
+   },
+   "rank": 3
+  },
+  {
+   "id": "bambu-p1s",
+   "name": "Bambu Lab P1S 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#00ae42",
+   "price": 399,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "Enclosed chamber with activated carbon filter",
+    "Closed-loop control board, chamber and auxiliary part-cooling fans",
+    "Filament run-out sensor"
+   ],
+   "summary": "A proven enclosed printer that handles ABS and ASA as well as everyday PLA, at an entry price. It is older technology: no touchscreen, a slow camera and a stainless nozzle, so the P2S is the better pick if the budget allows.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "256 × 256 × 256 mm",
+    "Max speed": "500 mm/s",
+    "Max acceleration": "20,000 mm/s²",
+    "Multi-color": "Up to 16 colors with up to 4 AMS units (AMS, AMS 2 Pro or AMS HT); Combo includes one AMS (4 colors)",
+    "Enclosure": "Enclosed (plastic and glass)",
+    "Auto leveling": "Automatic bed leveling and vibration compensation",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "100 °C",
+    "Materials": "PLA, PETG, TPU, PVA, PET, ABS, ASA, PA (capable), PC (capable)",
+    "Nozzle": "0.4 mm stainless steel (0.2 / 0.6 / 0.8 mm optional)",
+    "Screen": "Small LCD with physical buttons (non-touch)",
+    "Camera": "Low-rate camera, 1280 x 720 at 0.5 fps, timelapse supported",
+    "Connectivity": "Wi-Fi; microSD card (32 GB included); Bambu Handy app and Bambu Studio",
+    "Weight": "12.95 kg",
+    "Best for": "hobbyist"
+   },
+   "in_box": [
+    "P1S printer with textured PEI plate (pre-installed)",
+    "LCD screen",
+    "Spool holder",
+    "Reusable spool with 250 g sample filament",
+    "Spare 0.4 mm stainless steel hotend",
+    "Nozzle wiping pads",
+    "Power cord",
+    "Unclogging tool",
+    "PTFE tube",
+    "Scraper blade and screws",
+    "H1.5 / H2 hex keys",
+    "Thermal grease and lubricant grease",
+    "Spare extruder screws and hotend clip",
+    "32 GB microSD card (pre-installed)",
+    "Quick start guide, disclaimer, warranty leaflet"
+   ],
+   "qa": [
+    [
+     "Why buy the P1S instead of the newer P2S?",
+     "Price. The P1S is $150 cheaper and still prints ABS/ASA in a closed chamber. The P2S adds a touchscreen, a sharper 30 fps camera, a hardened steel nozzle and AMS 2 Pro drying."
+    ],
+    [
+     "Is the P1S being discontinued?",
+     "Bambu says it has no current plans to stop selling it."
+    ],
+    [
+     "Can it print carbon-fiber filaments?",
+     "Not with the stock stainless steel nozzle; abrasive filaments need a hardened steel hotend, sold separately."
+    ],
+    [
+     "Which Combo should I get?",
+     "The $549 Combo has the original AMS; the $579 version has the AMS 2 Pro, which adds filament drying up to 65 °C. For PETG, nylon or humid rooms the extra $30 is worth it."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/reviews/bambu-lab-p1s",
+     "date": "2023-07",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "Hits a sweet spot: affordable CoreXY speed, an enclosure for a wide range of materials, and access to the AMS for up to 16-color printing.",
+     "pros": [
+      "Very fast CoreXY motion",
+      "Enclosure enables high-temperature materials",
+      "Simple auto bed leveling"
+     ],
+     "cons": [
+      "Noisy",
+      "Proprietary replacement parts",
+      "AMS wastes filament"
+     ],
+     "quote": "The P1S hits a sweet spot"
+    },
+    {
+     "publication": "Wired",
+     "url": "https://www.wired.com/review/bambu-p1s-combo/",
+     "date": "2026-01",
+     "score_text": "8/10",
+     "score_5": 4.0,
+     "verdict": "Wired's reviewer found it the easiest 3D printer they have used, producing consistent prints with very little setup or upkeep, with the AMS simplifying multicolor jobs.",
+     "pros": [
+      "Consistent prints with minimal setup and maintenance",
+      "AMS makes multicolor projects simple"
+     ],
+     "cons": [
+      "App quirks with non-Bambu filament",
+      "Waste disposal works but is inelegant"
+     ],
+     "quote": "This is the easiest to use 3D printer I've ever tried.",
+     "model_reviewed": "Reviewed: Bambu Lab P1S Combo"
+    }
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/p1s",
+    "https://wiki.bambulab.com/en/p1/manual/p1s-acc-in-the-box",
+    "https://wiki.bambulab.com/en/p1/manual/screen-operation"
+   ],
+   "keywords": "3d printer printers fdm filament hobbyist",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Printer only",
+      "price": 399
+     },
+     {
+      "name": "P1S AMS Combo",
+      "price": 549
+     },
+     {
+      "name": "P1S AMS 2 Pro Combo",
+      "price": 579
+     }
+    ]
+   },
+   "rank": 4
+  },
+  {
+   "id": "bambu-p2s",
+   "name": "Bambu Lab P2S 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#00ae42",
+   "price": 549,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "Built-in filament cutter",
+    "Activated carbon VOC and particulate filtration",
+    "Door, run-out and tangle sensors"
+   ],
+   "summary": "The mainstream enclosed Bambu for 2026: touchscreen, good camera, hardened nozzle and drying-capable AMS 2 Pro in the Combo. It costs more than the P1S and still lacks active chamber heating, so very demanding plastics are better on an X2D or H2 model.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "256 × 256 × 256 mm",
+    "Max speed": "600 mm/s",
+    "Max acceleration": "20,000 mm/s²",
+    "Multi-color": "Up to 20 colors with 4 AMS 2 Pro + 4 AMS HT units (8 units, 20 slots); Combo includes one AMS 2 Pro (4 colors)",
+    "Enclosure": "Enclosed (no active chamber heating; automatic internal/external airflow flap)",
+    "Auto leveling": "Fully automatic calibration including bed leveling",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "110 °C",
+    "Materials": "PLA, PETG, ABS, ASA, TPU, PET, PA, PC, PVA, Support for PLA / PLA-PETG / ABS, PLA-CF, PETG-CF, ABS-GF, ASA-CF, PA6-CF, PA6-GF, PAHT-CF, PPA-CF, PET-CF",
+    "Nozzle": "0.4 mm hardened steel, hardened steel extruder gears",
+    "Screen": "5-inch 854 x 480 touchscreen",
+    "Camera": "Built-in 1080p 30 fps HD camera with AI error detection",
+    "Connectivity": "Dual-band Wi-Fi; USB port; 8 GB eMMC; no Ethernet",
+    "Weight": "15 kg",
+    "Best for": "hobbyist / small business"
+   },
+   "in_box": [
+    "P2S printer with textured PEI plate and anti-vibration feet (pre-installed)",
+    "Touchscreen",
+    "Spool holder assembly",
+    "PTFE tubes",
+    "Power cord",
+    "Toolbox: hotend silicone sock, spare filament cutter, unclogging pin, nozzle wiping pad, scraper blade and screws, Allen keys, lubricant oil and grease",
+    "Quick start guide, warranty leaflet, safety guidelines",
+    "Combo adds: AMS 2 Pro, 6-pin Bambu Bus cable, AMS desiccant"
+   ],
+   "qa": [
+    [
+     "Does the P2S heat its chamber?",
+     "No. It is fully enclosed and uses a flap to switch between recirculating and venting air, but there is no chamber heater like on the X2D or H2 series."
+    ],
+    [
+     "Can it print carbon-fiber filament out of the box?",
+     "Yes. The nozzle and extruder gears are hardened steel, and Bambu lists PA6-CF, PET-CF, PPA-CF and similar materials as supported."
+    ],
+    [
+     "How many colors can it handle?",
+     "Up to 20, by chaining four AMS 2 Pro units (16 slots) and four single-slot AMS HT units."
+    ],
+    [
+     "Do my old P1S build plates fit?",
+     "Yes, sizes match, but older plates are not auto-recognized by the P2S plate-detection feature."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/bambu-lab-p2s-review",
+     "date": "2025-10",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "A successful refresh of a best seller: adds a real touchscreen, USB port and active airflow so you can print with the door closed, while keeping Bambu's speed, quality and price.",
+     "pros": [
+      "Proper touchscreen and easy nozzle swaps",
+      "Can print all materials with the door closed",
+      "Reasonable price"
+     ],
+     "cons": [
+      "AMS still wastes filament"
+     ],
+     "quote": "The P2S refresh does not disappoint."
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/bambu-lab-p2s-3d-printer-review",
+     "date": "2025-10",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Recommended",
+     "verdict": "Calls it superb and highly refined, but notes that newer multi-tool printers make it feel like the last of its generation.",
+     "pros": [
+      "Refined design",
+      "Easy to use",
+      "Handles specialist materials"
+     ],
+     "cons": [
+      "No actively heated chamber",
+      "Produces a lot of purge waste"
+     ],
+     "quote": "It's absolutely superb."
+    },
+    {
+     "publication": "PCMag",
+     "url": "https://www.pcmag.com/reviews/bambu-lab-p2s",
+     "date": "2025-10",
+     "score_text": "5.0/5 (Exemplary)",
+     "score_5": 5.0,
+     "award": "Editors' Choice",
+     "verdict": "PCMag rates it near-perfect, citing some of the cleanest prints it has seen from a consumer printer plus fast, quiet operation, strong cooling and smart calibration.",
+     "pros": [
+      "Excellent print quality and reliability",
+      "Fast, precise motion and smart cooling",
+      "Sharp 1080p camera and improved touchscreen"
+     ],
+     "cons": [
+      "Large footprint",
+      "Proprietary parts limit modding"
+     ],
+     "quote": "some of the cleanest prints we have ever seen from a consumer model"
+    },
+    {
+     "publication": "Wired",
+     "url": "https://www.wired.com/review/bambu-p2s-combo-3d-printer/",
+     "date": "2026-09",
+     "score_text": "9/10",
+     "score_5": 4.5,
+     "verdict": "Wired found the upgraded P2S makes multicolor projects and everyday household fixes feel effortless, with consistently excellent prints.",
+     "pros": [
+      "Very easy for anyone to use",
+      "Consistently excellent prints",
+      "Tool-free nozzle swaps and enclosed chamber"
+     ],
+     "cons": [
+      "Shakes a lot at speed, needs a stable surface",
+      "Waste disposal is messy",
+      "Strong fumes with high-temp filaments"
+     ],
+     "model_reviewed": "Reviewed: Bambu Lab P2S Combo"
+    }
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/p2s",
+    "https://wiki.bambulab.com/en/p2s/manual/acc-in-the-box"
+   ],
+   "keywords": "3d printer printers fdm filament hobbyist / small business",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Printer only",
+      "price": 549
+     },
+     {
+      "name": "P2S Combo (with AMS 2 Pro)",
+      "price": 749
+     }
+    ]
+   },
+   "rank": 5
+  },
+  {
+   "id": "bambu-x2d",
+   "name": "Bambu Lab X2D 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#00ae42",
+   "price": 649,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "Dual-nozzle system (main direct-drive extruder plus auxiliary remote extruder)",
+    "Closed-loop servo main extruder",
+    "H12 HEPA, G3 pre-filter and activated carbon filtration"
+   ],
+   "summary": "A compact enclosed flagship with dual nozzles and a heated chamber, aimed at people who print engineering plastics or want cleaner multicolor and soluble-support prints. It is pricier than the P2S and its build area stays at 256 mm, so very large parts need an H2 machine.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "256 × 256 × 260 mm",
+    "Max speed": "1000 mm/s",
+    "Max acceleration": "20,000 mm/s²",
+    "Multi-color": "Up to 24 slots with 4 AMS 2 Pro + 8 AMS HT on one hotend; up to 25 colors using both nozzles",
+    "Enclosure": "Enclosed with active chamber heating up to 65 °C",
+    "Auto leveling": "Fully automatic calibration plus vision-encoder motion accuracy calibration",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "120 °C",
+    "Materials": "PLA, PETG, ABS, ASA, TPU, PET, PA, PC, PVA, Support for PLA / PLA-PETG / ABS / PA-PET, CF/GF-reinforced PLA, PETG, ABS, ASA, PA6, PAHT, PPA, PET",
+    "Nozzle": "0.4 mm hardened steel (two identical, interchangeable hotends)",
+    "Screen": "5-inch 1280 x 720 touchscreen",
+    "Camera": "1080p live-view camera plus 1600 x 1200 toolhead camera",
+    "Connectivity": "Dual-band Wi-Fi; USB port; 8 GB eMMC; no Ethernet",
+    "Weight": "16.25 kg",
+    "Noise": "50 dB",
+    "Best for": "pro / small business"
+   },
+   "in_box": [
+    "X2D printer",
+    "Textured PEI build plate",
+    "External exhaust fan bundle",
+    "Accessory box",
+    "Spool holder",
+    "Combo adds: AMS 2 Pro"
+   ],
+   "qa": [
+    [
+     "Is the X2D the replacement for the X1 Carbon?",
+     "Yes, Bambu positions it that way. It adds a second nozzle, a heated chamber up to 65 °C, a servo extruder and more cameras, and it costs far less than the X1C did."
+    ],
+    [
+     "Why two nozzles?",
+     "You can print two materials (for example PLA with a dedicated support material) or two colors with far less purging and faster color changes. The left and right hotends are identical and swappable."
+    ],
+    [
+     "Is it quiet enough for a home office?",
+     "Bambu states it stays under 50 dB in typical use thanks to motor noise canceling and its duct design."
+    ],
+    [
+     "Does it fit my old build plates?",
+     "It uses all current 256 x 256 mm Bambu plates but does not recognize first-generation plates automatically."
+    ]
+   ],
+   "expert_reviews": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/x2d",
+    "https://wiki.bambulab.com/en/x2d/manual/acc-in-the-box"
+   ],
+   "keywords": "3d printer printers fdm filament pro / small business",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Printer only",
+      "price": 649
+     },
+     {
+      "name": "X2D AMS Combo (with AMS 2 Pro)",
+      "price": 899
+     },
+     {
+      "name": "X2D Combo Print with Care Bundle",
+      "price": 949
+     },
+     {
+      "name": "X2D Print More Bundle (2x AMS 2 Pro)",
+      "price": 1149
+     }
+    ]
+   },
+   "rank": 6
+  },
+  {
+   "id": "bambu-h2s",
+   "name": "Bambu Lab H2S 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#00ae42",
+   "price": 1199,
+   "was": 1249,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Large (over 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "Largest single-nozzle build volume in the lineup (340 x 320 x 340 mm)",
+    "Closed-loop servo extruder",
+    "Optional 10W laser and blade-cutting modules (no 40W)"
+   ],
+   "summary": "A large, single-nozzle enclosed printer for makers who need big engineering-grade parts and optional laser engraving. It costs well over twice a P2S and is heavy (30 kg), so it is overkill for casual PLA printing.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "340 × 320 × 340 mm",
+    "Max speed": "1000 mm/s",
+    "Max acceleration": "20,000 mm/s²",
+    "Multi-color": "Up to 24 colors with 4 AMS 2 Pro + 8 AMS HT (12 units, 24 slots); AMS lite not supported",
+    "Enclosure": "Enclosed with active chamber heating up to 65 °C",
+    "Auto leveling": "Fully automatic calibration plus 5 µm optical motion calibration",
+    "Max nozzle temperature": "350 °C",
+    "Max bed temperature": "120 °C",
+    "Materials": "PLA, PETG, TPU, PVA, BVOH, ABS, ASA, PC, PA, PET, PPS, CF/GF-reinforced PLA, PETG, PA, PET, PC, ABS, ASA, PPA, PPS",
+    "Nozzle": "0.4 mm hardened steel",
+    "Screen": "5-inch 720 x 1280 touchscreen",
+    "Camera": "1080p live-view camera, 1600 x 1200 toolhead camera; BirdsEye camera on Laser Edition",
+    "Connectivity": "Wi-Fi (2.4 / 5 GHz); USB port; 8 GB eMMC",
+    "Weight": "30 kg",
+    "Noise": "50 dB",
+    "Best for": "pro / small business"
+   },
+   "in_box": [
+    "H2S (or H2S Laser Edition)",
+    "Textured PEI build plate",
+    "Spool holder",
+    "Accessory box",
+    "AMS Combo and Laser Full Combo add: AMS 2 Pro",
+    "Laser Full Combo adds: 10W laser module, cutting module with pen holder, laser and cutting platforms, ventilation pipe, starter materials, emergency stop button"
+   ],
+   "qa": [
+    [
+     "H2S or H2D?",
+     "The H2S has one nozzle but a slightly bigger volume and costs about $350 less. Choose the H2D if you want two materials in one print or 40W laser support."
+    ],
+    [
+     "Can I add a laser later?",
+     "Yes, a non-laser H2S can be upgraded with Bambu's laser upgrade kit; it supports the 10W module only."
+    ],
+    [
+     "Does my old AMS work?",
+     "The first-gen AMS works for multicolor (no drying). The AMS lite is not compatible with H2 printers."
+    ],
+    [
+     "Is a USB drive included?",
+     "No. It prints from internal storage, but timelapse recording and some LAN features need a USB stick you supply."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/bambu-lab-h2s-review-the-one-we-wanted",
+     "date": "2025-08",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "Essentially a plug-and-play single-nozzle H-series machine with a big 340 x 340 mm plate, upgraded AMS that doubles as a dryer, and the speed and quality to succeed the X1C.",
+     "pros": [
+      "Large build volume",
+      "Heated enclosure; prints PLA with door closed",
+      "Excellent auto bed leveling"
+     ],
+     "cons": [
+      "Expensive",
+      "Proprietary replacement parts"
+     ],
+     "quote": "what makers have been asking for"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/bambu-lab-h2s-3d-printer-review",
+     "date": "2025-08",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Recommended",
+     "verdict": "A single nozzle may look like a step back, but it delivers enterprise-grade features and a huge build volume at a very affordable price.",
+     "pros": [
+      "Massive build area",
+      "Very high speed and acceleration",
+      "Precise servo-driven motion"
+     ],
+     "cons": [
+      "No dual nozzle",
+      "Heated chamber raises running costs",
+      "Vision Encoder is an optional extra"
+     ],
+     "quote": "enterprise-level print features and volume at an extremely affordable price"
+    },
+    {
+     "publication": "PCMag",
+     "url": "https://www.pcmag.com/reviews/bambu-lab-h2s",
+     "date": "2025-11",
+     "score_text": "4.5/5 (Outstanding)",
+     "score_5": 4.5,
+     "award": "Editors' Choice",
+     "verdict": "With the optional AMS and laser module it is more than a high-end printer; PCMag calls it a complete production setup for dedicated hobbyists.",
+     "pros": [
+      "Nearly flawless box-to-print experience",
+      "Huge build volume",
+      "Very quiet with active chamber heating"
+     ],
+     "cons": [
+      "Laser module capped at 10W",
+      "AMS doesn't dry while printing",
+      "Loud start/end and filament-change cycles"
+     ],
+     "quote": "a complete manufacturing solution for passionate hobbyists"
+    }
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/h2s"
+   ],
+   "keywords": "3d printer printers fdm filament pro / small business",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Printer only",
+      "price": 1199
+     },
+     {
+      "name": "H2S AMS Combo (with AMS 2 Pro)",
+      "price": 1399
+     },
+     {
+      "name": "H2S Laser Full Combo (10W laser, cutting module, AMS 2 Pro)",
+      "price": 1799
+     }
+    ]
+   },
+   "rank": 7
+  },
+  {
+   "id": "bambu-h2d",
+   "name": "Bambu Lab H2D 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#00ae42",
+   "price": 1549,
+   "was": 1749,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Large (over 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "Dual-nozzle printing (single nozzle 325 x 320 x 325 mm; both nozzles combined 350 x 320 x 325 mm)",
+    "Optional 10W or 40W laser and blade-cutting module",
+    "H12 HEPA, G3 pre-filter and activated carbon filtration"
+   ],
+   "summary": "Bambu's large dual-nozzle workstation that doubles as a laser engraver and cutter in the Laser editions. It is the most flexible machine in the range, but it is big, heavy and expensive, so it suits small businesses and serious makers more than casual hobbyists.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "350 × 320 × 325 mm",
+    "Max speed": "1000 mm/s",
+    "Max acceleration": "20,000 mm/s²",
+    "Multi-color": "Up to 24 slots with 4 AMS 2 Pro + 8 AMS HT; up to 25 colors using both nozzles; AMS lite not supported",
+    "Enclosure": "Enclosed with active chamber heating up to 65 °C",
+    "Auto leveling": "Fully automatic calibration plus 5 µm optical motion calibration",
+    "Max nozzle temperature": "350 °C",
+    "Max bed temperature": "120 °C",
+    "Materials": "PLA, PETG, TPU, PVA, BVOH, ABS, ASA, PC, PA, PET, CF/GF-reinforced PLA, PETG, PA, PET, PC, ABS, ASA, PPA-CF/GF, PPS, PPS-CF/GF",
+    "Nozzle": "0.4 mm hardened steel (dual identical hotends)",
+    "Screen": "5-inch 720 x 1280 touchscreen",
+    "Camera": "1080p live-view, nozzle and toolhead cameras; BirdsEye camera on Laser Edition",
+    "Connectivity": "Wi-Fi (2.4 / 5 GHz); USB port; 8 GB eMMC",
+    "Weight": "31 kg",
+    "Best for": "pro / small business"
+   },
+   "in_box": [
+    "H2D printer (or Laser Edition) with build plate pre-installed",
+    "Safety key",
+    "Spool holder(s) and power cord",
+    "Tool box: 0.4 mm nozzle, silicone sock, filament cutter, unclogging pin, nozzle wiping pad, nozzle blocker, scraper blade and screws, Allen keys, camera privacy cover, lubricant oil and grease",
+    "PTFE tube and desiccant",
+    "Quick start guide, warranty leaflet, safety guidelines",
+    "AMS Combo adds: AMS 2 Pro with 6-pin cable",
+    "Laser Full Combo adds: laser module, cutting module, emergency stop button, laser and cutting platforms, cutting mats and sample materials"
+   ],
+   "qa": [
+    [
+     "What does the second nozzle buy me?",
+     "Two different materials in one job, such as a rigid body with flexible TPU parts or PLA with a dedicated support material, with much less purge waste than single-nozzle color swaps."
+    ],
+    [
+     "How many colors can it print?",
+     "With four AMS 2 Pro and eight AMS HT units it has 24 slots, and Bambu says up to 25 colors if the second nozzle uses an external spool."
+    ],
+    [
+     "10W or 40W laser?",
+     "The 40W cuts up to 15 mm basswood plywood and engraves faster; the 10W handles up to 5 mm and finer detail. Both work on wood, leather, rubber, dark acrylic, stone and metal sheet."
+    ],
+    [
+     "Will A1 hotends fit?",
+     "They look similar but are not the same part. Bambu recommends using only H2 hotends on the H2D."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/bambu-lab-h2d-review",
+     "date": "2025-03",
+     "score_text": "5/5",
+     "score_5": 5.0,
+     "award": "Editor's Choice",
+     "verdict": "A premium printer with a bigger build volume, faster AMS and a filament-saving dual hotend; the optional laser kit turns it into a small craft factory. Pricey as a full kit, but a strong investment for serious crafters and small businesses.",
+     "pros": [
+      "Dual hotend saves material",
+      "Larger build volume",
+      "Enclosure for high-temp materials"
+     ],
+     "cons": [
+      "Expensive",
+      "Proprietary parts",
+      "Add-ons cost a lot extra"
+     ],
+     "quote": "Bambu Lab knocked it out of the park"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/bambu-lab-h2d-review",
+     "date": "2025-03",
+     "award": "Recommended",
+     "verdict": "Not a compromise multi-tool: its 3D print quality matches or beats dedicated machines, laser engraving and cutting are excellent, and tool swaps are easy despite some quirks.",
+     "pros": [
+      "Dual-nozzle print head",
+      "Up to 40W laser option",
+      "Capable cutting module"
+     ],
+     "cons": [
+      "Small laser work area",
+      "Workflow issues with advanced materials",
+      "Purges filament when using more than two"
+     ],
+     "quote": "Far from being a jack of all trades"
+    }
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/h2d",
+    "https://wiki.bambulab.com/en/h2/manual/acc-in-the-box"
+   ],
+   "keywords": "3d printer printers fdm filament pro / small business",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Printer only",
+      "price": 1549
+     },
+     {
+      "name": "H2D AMS Combo (with AMS 2 Pro)",
+      "price": 1749
+     },
+     {
+      "name": "H2D AMS Combo + AMS HT bundle",
+      "price": 1849
+     },
+     {
+      "name": "H2D AMS Combo Dual AMS 2 Pro bundle",
+      "price": 1949
+     },
+     {
+      "name": "H2D Laser Full Combo 10W",
+      "price": 2149
+     },
+     {
+      "name": "H2D Laser Full Combo 40W",
+      "price": 2699
+     }
+    ]
+   },
+   "rank": 8
+  },
+  {
+   "id": "bambu-h2c",
+   "name": "Bambu Lab H2C 3D Printer",
+   "brand": "Bambu Lab",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#00ae42",
+   "price": 2199,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Large (over 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "Vortek automatic hotend-change system with induction-heated nozzles for low purge waste",
+    "Dual-nozzle printing (dual volume 300 x 320 x 325 mm; total 330 x 320 x 325 mm)",
+    "Optional 10W/40W laser and blade cutting"
+   ],
+   "summary": "The top of the consumer lineup, built for heavy multicolor production where purge waste and color-change time matter. It is the most expensive model, only sold as a Combo, and the extra complexity is wasted on single-color printing.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "330 × 320 × 325 mm",
+    "Max speed": "1000 mm/s",
+    "Max acceleration": "20,000 mm/s²",
+    "Multi-color": "Up to 24 materials per print via AMS units (AMS 2 Pro / AMS HT); Vortek system auto-swaps up to 6 induction hotends on the right side",
+    "Enclosure": "Enclosed with active chamber heating up to 65 °C",
+    "Auto leveling": "Fully automatic calibration plus optical motion calibration",
+    "Max nozzle temperature": "350 °C",
+    "Max bed temperature": "120 °C",
+    "Materials": "PLA, PETG, TPU, PVA, BVOH, ABS, ASA, PC, PA, PET, PPS, CF/GF-reinforced PLA, PETG, PA, PET, PC, ABS, ASA, PPA, PPS",
+    "Nozzle": "Hardened steel; Combo ships with several induction hotends (0.2 / 0.4 / 0.6 mm) plus 0.4 mm hardened steel hotends",
+    "Screen": "5-inch 720 x 1280 touchscreen",
+    "Camera": "1080p live-view and nozzle cameras, 1600 x 1200 toolhead camera; BirdsEye on Laser Edition",
+    "Connectivity": "Wi-Fi (2.4 / 5 GHz); USB port; 8 GB eMMC; no Ethernet",
+    "Weight": "32.5 kg",
+    "Best for": "pro / small business"
+   },
+   "in_box": [
+    "H2C (or H2C Laser Edition)",
+    "Build plate",
+    "Spool holder",
+    "4x 0.4 mm, 1x 0.2 mm and 1x 0.6 mm induction hotends",
+    "2x 0.4 mm hardened steel hotends",
+    "4-in-1 PTFE adapter II",
+    "Accessory box",
+    "AMS 2 Pro",
+    "Laser Full Combo adds: 10W or 40W laser module, cutting module with pen holder, laser and cutting platforms, emergency stop button"
+   ],
+   "qa": [
+    [
+     "What makes the H2C different from the H2D?",
+     "Its right side uses the Vortek system, which swaps between several induction-heated hotends automatically, so color changes waste much less filament."
+    ],
+    [
+     "Can I upgrade my H2D to an H2C?",
+     "Bambu offers a Vortek upgrade kit, but warns the job is long and complex; buying the H2C outright is the easier route."
+    ],
+    [
+     "Can I mix nozzle sizes?",
+     "Not yet. Firmware currently requires the same diameter across nozzles, though you can mix standard-flow and high-flow types of the same size."
+    ],
+    [
+     "Do H2D build plates fit?",
+     "No. The hotend rack takes space, so the H2C bed is a bit smaller and needs its own plates. Laser platform, cutting mats and calibration plates do carry over."
+    ]
+   ],
+   "expert_reviews": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/h2c"
+   ],
+   "keywords": "3d printer printers fdm filament pro / small business",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "H2C AMS Combo (standard; no printer-only option)",
+      "price": 2199
+     },
+     {
+      "name": "H2C Vortek Ultimate Bundle",
+      "price": 2499
+     },
+     {
+      "name": "H2C Laser Full Combo 10W",
+      "price": 2599
+     },
+     {
+      "name": "H2C Laser Full Combo 40W",
+      "price": 3149
+     }
+    ]
+   },
+   "rank": 9
+  },
+  {
+   "id": "prusa-core-one-plus",
+   "name": "Prusa CORE One+ 3D Printer",
+   "brand": "Prusa Research",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#fa6831",
+   "price": 925,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "Prusa's enclosed CoreXY printer with a 250 x 220 x 270 mm build area, a 290 C hotend and load-cell first-layer calibration. It suits makers who want an open-source, repairable machine that handles both everyday PLA and engineering plastics."
+   ],
+   "summary": "Prusa's enclosed CoreXY printer with a 250 x 220 x 270 mm build area, a 290 C hotend and load-cell first-layer calibration. It suits makers who want an open-source, repairable machine that handles both everyday PLA and engineering plastics.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "250 × 220 × 270 mm",
+    "Multi-color": "MMU3 add-on (up to 5 filaments); INDX toolchanger listed as coming soon (up to 8)",
+    "Enclosure": "Enclosed",
+    "Auto leveling": "Automatic first-layer calibration with a load-cell sensor in the nozzle",
+    "Max nozzle temperature": "290 °C",
+    "Max bed temperature": "120 °C",
+    "Materials": "PLA, PETG, TPU/Flex, PVA, PC, PP, CPE, PVB, ABS, ASA, HIPS, PA (nylon), PC/PCCF",
+    "Connectivity": "Ethernet, USB, Wi-Fi (NFC-assisted setup); Prusa Connect remote management",
+    "Weight": "22.5 kg",
+    "Best for": "hobbyist"
+   },
+   "in_box": [
+    "Printer (assembled or as kit)",
+    "1 kg Prusament PLA",
+    "Two 25 g Prusament samples",
+    "Smooth PEI print sheet",
+    "3D Printing Handbook",
+    "USB drive with sample prints",
+    "Alcohol wipes",
+    "Acupuncture needle (nozzle cleaning)",
+    "Tool set"
+   ],
+   "qa": [
+    [
+     "Is the CORE One+ fully enclosed?",
+     "Yes. It is a CoreXY machine built inside a steel-framed enclosed chamber, which is why Prusa lists ABS, ASA and nylon among its supported materials."
+    ],
+    [
+     "Can it print in multiple colors?",
+     "Not out of the box. Prusa offers the MMU3 add-on for up to five filaments, and lists an INDX toolchanger upgrade (up to eight) as coming soon."
+    ],
+    [
+     "Should I buy the kit or the assembled version?",
+     "The kit costs less (about $925 vs about $1,299) and comes with a detailed build guide and tools, but expect to spend several hours assembling it. The assembled unit ships ready to calibrate and print."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/prusa-core-one-review",
+     "date": "2025-02",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "Prusa turned its classic i3 into a CoreXY machine with more speed and its usual quality; the enclosure is clever and moddable, though it oddly lacks premium extras like a built-in camera.",
+     "pros": [
+      "CoreXY speed with high-flow nozzle",
+      "Excellent first layer",
+      "Very quiet; available assembled or as a kit"
+     ],
+     "cons": [
+      "Expensive",
+      "Chamber is only heated by the bed"
+     ],
+     "quote": "all the outstanding quality we expect from an industry leader",
+     "model_reviewed": "Review of the original Prusa CORE One (the CORE One+ is its updated version)"
+    },
+    {
+     "publication": "PCMag",
+     "url": "https://www.pcmag.com/reviews/prusa-core-one",
+     "date": "2025-08",
+     "score_text": "3.5/5",
+     "score_5": 3.5,
+     "verdict": "Prints beautifully with excellent community support, but quirks, build-quality issues and a high price make it mainly for committed Prusa fans.",
+     "pros": [
+      "Outstanding print quality and first layers",
+      "Enclosed, heated chamber",
+      "Repairable and upgradable"
+     ],
+     "cons": [
+      "Expensive",
+      "Relatively small build volume",
+      "Steep learning curve for beginners"
+     ],
+     "quote": "best for die-hard Prusa fans",
+     "model_reviewed": "Review of the original Prusa CORE One (the CORE One+ is its updated version)"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/original-prusa-core-one-3d-printer-review",
+     "date": "2025-01",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Recommended",
+     "verdict": "A refined, fully enclosed CoreXY machine with MK4S-level quality and a strong upgrade path, which TechRadar sees as the best choice for professionals.",
+     "pros": [
+      "Fully enclosed",
+      "Temperature-controlled chamber",
+      "Upgrade and expansion options"
+     ],
+     "cons": [
+      "Slightly noisier than some rivals",
+      "Pricier than the competition"
+     ],
+     "quote": "the best choice for any professional looking for a 3D print solution",
+     "model_reviewed": "Review of the original Prusa CORE One (the CORE One+ is its updated version)"
+    }
+   ],
+   "source_urls": [
+    "https://www.prusa3d.com/product/prusa-core-one/"
+   ],
+   "keywords": "3d printer printers fdm filament hobbyist",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "CORE One+ kit (self-assembly)",
+      "price": 925
+     },
+     {
+      "name": "CORE One+ assembled",
+      "price": 1299
+     }
+    ]
+   }
+  },
+  {
+   "id": "prusa-mini-plus",
+   "name": "Prusa MINI+ 3D Printer",
+   "brand": "Prusa Research",
+   "cat": "3d-printers",
+   "kind": "printer",
+   "art": "#fa6831",
+   "price": 459,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Small (up to 180 mm)",
+    "Multi-color": "No",
+    "Enclosure": "Open frame"
+   },
+   "highlights": [
+    "A compact, budget Prusa with a 180 mm cube build volume, a Bowden extruder and automatic mesh bed leveling. It is a good first printer for people who want Prusa's support and reliability without paying for a large machine."
+   ],
+   "summary": "A compact, budget Prusa with a 180 mm cube build volume, a Bowden extruder and automatic mesh bed leveling. It is a good first printer for people who want Prusa's support and reliability without paying for a large machine.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "180 × 180 × 180 mm",
+    "Multi-color": "none",
+    "Enclosure": "Open frame",
+    "Auto leveling": "SuperPINDA probe runs automatic mesh bed leveling before each print",
+    "Max nozzle temperature": "280 °C",
+    "Max bed temperature": "100 °C",
+    "Materials": "PLA, PETG, ASA, ABS, PC, CPE, PVA/BVOH, PVB, HIPS, PP, Flex, Nylon, Wood-filled",
+    "Connectivity": "USB port and Ethernet (RJ-45); Wi-Fi needs the separately sold ESP-01S module; Prusa Connect supported",
+    "Weight": "4.5 kg",
+    "Best for": "beginner"
+   },
+   "in_box": [
+    "Printer (semi-assembled)",
+    "Smooth PEI print sheet",
+    "Filament sensor",
+    "US power cable",
+    "Printed handbook (EN)",
+    "Access to an online beginner 3D printing course"
+   ],
+   "qa": [
+    [
+     "How big can I print on the MINI+?",
+     "The build area is a cube of 180 x 180 x 180 mm, which covers most toys, gadgets and household parts but not large single-piece items."
+    ],
+    [
+     "Does the MINI+ have Wi-Fi?",
+     "Not by default. It ships with USB and Ethernet; Prusa sells a small ESP-01S Wi-Fi module as an upgrade."
+    ],
+    [
+     "How much assembly is required?",
+     "It arrives semi-assembled. You attach a few main sub-assemblies following the handbook, which typically takes well under an hour."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/reviews/prusa-mini-plus-3d-printer",
+     "date": "2021-05",
+     "score_text": "4/5",
+     "score_5": 4.0,
+     "verdict": "Delivers professional-quality results on a small scale and stays approachable for newcomers, backed by a strong community.",
+     "pros": [
+      "Easy to set up",
+      "High-quality prints",
+      "Magnetic removable sheets and auto-leveling"
+     ],
+     "cons": [
+      "Small build volume",
+      "Expensive for its size"
+     ],
+     "quote": "professional quality for 3D printing at home on a small scale"
+    },
+    {
+     "publication": "Tom's Guide",
+     "url": "https://www.tomsguide.com/reviews/prusa-mini-plus-3d-printer",
+     "date": "2022-11",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "Costs more than bargain printers but is more capable, reliable and better at printing than most entry-level machines.",
+     "pros": [
+      "Simple assembly and setup",
+      "Excellent software",
+      "Strong print quality"
+     ],
+     "cons": [
+      "Pricier than many beginner printers",
+      "No remote control or monitoring"
+     ],
+     "quote": "more capable, reliable, and produces better quality than most entry-level printers"
+    },
+    {
+     "publication": "PCMag",
+     "url": "https://www.pcmag.com/reviews/original-prusa-mini",
+     "date": "2020-11",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editors' Choice",
+     "verdict": "Needs some assembly and careful calibration, but this compact open-frame printer consistently produces superb parts for a good price.",
+     "pros": [
+      "Top-notch print quality",
+      "Supports many filament types",
+      "Good software and support resources"
+     ],
+     "cons": [
+      "First-layer calibration can be tricky",
+      "Only starter filament included"
+     ],
+     "quote": "consistently produces superb-quality output for a great price",
+     "model_reviewed": "Reviewed: Original Prusa MINI (predecessor of MINI+)"
+    }
+   ],
+   "source_urls": [
+    "https://www.prusa3d.com/en/product/original-prusa-mini-3/",
+    "https://www.prusa3d.com/product/original-prusa-mini-semi-assembled-3d-printer-9/"
+   ],
+   "keywords": "3d printer printers fdm filament beginner",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "MINI+ semi-assembled",
+      "price": 459
+     },
+     {
+      "name": "MINI+ semi-assembled - Enclosure Bundle",
+      "price": 508.33
+     }
+    ]
+   }
+  },
+  {
+   "id": "creality-k2-plus",
+   "name": "Creality K2 Plus 3D Printer",
+   "brand": "Creality",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#1f6fd1",
+   "price": 999,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Large (over 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "Creality's large-format flagship: a 350 mm cube enclosed CoreXY with servo-driven motion, a heated chamber and a 350 C hotend. The Combo adds a 4-slot CFS for multicolor printing that can expand to 16 colors."
+   ],
+   "summary": "Creality's large-format flagship: a 350 mm cube enclosed CoreXY with servo-driven motion, a heated chamber and a 350 C hotend. The Combo adds a 4-slot CFS for multicolor printing that can expand to 16 colors.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "350 × 350 × 350 mm",
+    "Max speed": "600 mm/s",
+    "Multi-color": "4 colors with the included CFS; up to 16 colors with 4 CFS units",
+    "Enclosure": "Enclosed",
+    "Auto leveling": "Fully automatic calibration; dual AI cameras assist flow calibration and failure detection",
+    "Max nozzle temperature": "350 °C",
+    "Max bed temperature": "120 °C",
+    "Materials": "PLA, PETG, PET, ABS, ASA, PLA-CF, PA-CF, PPA-CF",
+    "Connectivity": "Dual-band Wi-Fi (2.4/5 GHz), Ethernet, USB drive; Creality Cloud; 32 GB onboard storage",
+    "Weight": "35 kg",
+    "Best for": "pro"
+   },
+   "in_box": [],
+   "qa": [
+    [
+     "How many colors can the K2 Plus Combo print?",
+     "The combo includes one CFS unit with four slots, so four colors or materials per print. Creality says you can chain up to four CFS units for 16."
+    ],
+    [
+     "Can it print engineering filaments like carbon-fiber nylon?",
+     "Yes. It has a hardened steel nozzle rated to 350 C, a 120 C bed and an actively heated enclosed chamber, and Creality lists PA-CF and PPA-CF as supported."
+    ],
+    [
+     "Can the CFS feed TPU?",
+     "No. Creality's FAQ says the CFS handles most rigid filaments but not flexible TPU or damp PVA/BVOH; those should be fed directly."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/creality-k2-plus-review",
+     "date": "2025-01",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "More than a Bambu X1C clone: Tom's Hardware rates it better, citing a larger build, heated chamber, easier multi-spool unit and higher acceleration.",
+     "pros": [
+      "Four-color printing",
+      "Large build volume",
+      "Heated chamber and high speed"
+     ],
+     "cons": [
+      "Long preheat for some prints",
+      "Color unit wastes more than rivals"
+     ],
+     "quote": "isn’t a mere clone of the Bambu Lab X1C - it's better",
+     "model_reviewed": "Reviewed: Creality K2 Plus"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/creality-k2-plus-review",
+     "date": "2025-03",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Recommended",
+     "verdict": "A well-built, feature-packed machine with outstanding prints and broad material support; multicolor printing slows it down but it remains quick versus rivals.",
+     "pros": [
+      "Very large build area",
+      "Ultra-fast CoreXY",
+      "Respectable multicolor speed"
+     ],
+     "cons": [
+      "Multicolor printing still relatively slow",
+      "Large footprint"
+     ],
+     "quote": "Again Creality impresses with an outstanding machine.",
+     "model_reviewed": "Reviewed: Creality K2 Plus"
+    }
+   ],
+   "source_urls": [
+    "https://store.creality.com/products/creality-k2-plus-combo-3d-printer",
+    "https://store.creality.com/collections/k2-series",
+    "https://www.creality.com/support/creality-k2-plus-cfs-combo",
+    "https://www.creality.com/products/creality-k2-plus-cfs-combo"
+   ],
+   "keywords": "3d printer printers fdm filament pro",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "K2 Plus (no CFS)",
+      "price": 999
+     },
+     {
+      "name": "K2 Plus Combo (1x CFS, 4 colors)",
+      "price": 1199
+     },
+     {
+      "name": "K2 Plus with CFS x2 Advanced Combo",
+      "price": 1497
+     },
+     {
+      "name": "K2 Plus with CFS x4 High-End Combo (16 colors)",
+      "price": 2019.8
+     }
+    ]
+   }
+  },
+  {
+   "id": "creality-k1c",
+   "name": "Creality K1C 3D Printer",
+   "brand": "Creality",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#1f6fd1",
+   "price": 499,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "A compact enclosed CoreXY printer with a 220 x 220 x 250 mm build area, 600 mm/s top speed and an AI camera. It is a good step up for hobbyists who want to print abrasive carbon-fiber filaments."
+   ],
+   "summary": "A compact enclosed CoreXY printer with a 220 x 220 x 250 mm build area, 600 mm/s top speed and an AI camera. It is a good step up for hobbyists who want to print abrasive carbon-fiber filaments.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "220 × 220 × 250 mm",
+    "Max speed": "600 mm/s",
+    "Multi-color": "Optional CFS-C upgrade (sold separately) for 4-color printing",
+    "Enclosure": "Enclosed",
+    "Auto leveling": "Hands-free auto leveling with one-tap auto calibration",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "100 °C",
+    "Materials": "PLA, PETG, ABS, ASA, TPU 95A, PLA-CF, PA-CF",
+    "Connectivity": "Wi-Fi/LAN, USB drive, Creality Cloud; 8 GB storage",
+    "Weight": "12.4 kg",
+    "Noise": "45 dB",
+    "Best for": "hobbyist"
+   },
+   "in_box": [],
+   "qa": [
+    [
+     "Can the K1C print carbon-fiber filament?",
+     "Yes. It ships with a hardened steel tri-metal nozzle and an all-metal hotend rated to 300 C, and Creality lists PLA-CF and PA-CF as supported."
+    ],
+    [
+     "Is it loud?",
+     "Creality rates its silent mode at about 45 dB measured from 1 m; normal high-speed printing is louder."
+    ],
+    [
+     "Can I add multicolor later?",
+     "Yes. Creality sells the CFS-C 4-color system as an upgrade for K1-series printers including the K1C."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/creality-k1c-review",
+     "date": "2024-04",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "Delivers what the original K1 promised: fixes to the toolhead and a standard AI camera in a fast, enclosed, Klipper-based CoreXY that undercuts rivals.",
+     "pros": [
+      "Fast enclosed CoreXY",
+      "Klipper firmware",
+      "Cheaper than competitors"
+     ],
+     "cons": [
+      "Poor filament path",
+      "Build plate needs glue stick"
+     ],
+     "quote": "This improved model fixes issues with the tool head"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/creality-k1c-review",
+     "date": "2024-05",
+     "award": "Recommended",
+     "verdict": "Comes close to ticking every box, with build quality beyond its price class and a spec sheet that suits education, business and enthusiasts alike.",
+     "pros": [
+      "High-quality build",
+      "Fast printing",
+      "Improved AI camera"
+     ],
+     "cons": [
+      "Print quality suffers at top speeds"
+     ],
+     "quote": "Few machines tick all the boxes, but the Creality K1C comes close."
+    }
+   ],
+   "source_urls": [
+    "https://store.creality.com/products/k1c-3d-printer",
+    "https://www.creality.com/support/k1c-carbon-3d-printer",
+    "https://store.creality.com/blogs/all/creality-k1c"
+   ],
+   "keywords": "3d printer printers fdm filament hobbyist"
+  },
+  {
+   "id": "creality-ender-3-v3-se",
+   "name": "Creality Ender-3 V3 SE 3D Printer",
+   "brand": "Creality",
+   "cat": "3d-printers",
+   "kind": "printer",
+   "art": "#1f6fd1",
+   "price": 179,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "No",
+    "Enclosure": "Open frame"
+   },
+   "highlights": [
+    "Creality's entry-level bed-slinger with a 220 x 220 x 250 mm build area, a direct-drive Sprite extruder and automatic leveling. It is the cheapest way into the Creality lineup for PLA, PETG and TPU printing."
+   ],
+   "summary": "Creality's entry-level bed-slinger with a 220 x 220 x 250 mm build area, a direct-drive Sprite extruder and automatic leveling. It is the cheapest way into the Creality lineup for PLA, PETG and TPU printing.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "220 × 220 × 250 mm",
+    "Max speed": "250 mm/s",
+    "Multi-color": "none",
+    "Enclosure": "Open frame",
+    "Auto leveling": "CR Touch auto bed leveling plus strain-sensor auto Z-offset",
+    "Max nozzle temperature": "260 °C",
+    "Max bed temperature": "100 °C",
+    "Materials": "PLA, PETG, TPU 95A",
+    "Connectivity": "SD card (no Wi-Fi)",
+    "Best for": "beginner"
+   },
+   "in_box": [],
+   "qa": [
+    [
+     "Is the Ender-3 V3 SE good for a first printer?",
+     "Yes, it is aimed at beginners: it arrives mostly pre-assembled, levels its own bed and sets its own Z-offset, and is tuned for PLA, PETG and TPU."
+    ],
+    [
+     "Can I print over Wi-Fi?",
+     "No. Files go to the printer on an SD card."
+    ],
+    [
+     "Can it print ABS or nylon?",
+     "It is not designed for them. The hotend tops out at 260 C and it has no enclosure, so Creality only lists PLA, PETG and TPU."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/reviews/creality-ender-3-v3-se",
+     "date": "2023-09",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "A beginner's dream that adds features once considered luxuries while keeping the price extremely low.",
+     "pros": [
+      "Very affordable",
+      "Easy assembly",
+      "Excellent auto bed leveling and direct drive"
+     ],
+     "cons": [
+      "Bed plate coating is only PC"
+     ],
+     "model_reviewed": "Reviewed: Creality Ender-3 V3 SE"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/creality-ender-3-v3-se-3d-printer-review",
+     "date": "2023-12",
+     "award": "Recommended",
+     "verdict": "An affordable entry-level printer that doesn't try to innovate but shows how refined and mature Creality's well-established design has become.",
+     "pros": [
+      "Affordable",
+      "Reliable performance",
+      "User-friendly"
+     ],
+     "cons": [
+      "No touchscreen",
+      "No filament run-out sensor",
+      "No camera"
+     ],
+     "quote": "demonstrates the refinement and maturity of a well-established design",
+     "model_reviewed": "Reviewed: Creality Ender-3 V3 SE"
+    }
+   ],
+   "source_urls": [
+    "https://store.creality.com/products/ender-3-v3-se-3d-printer",
+    "https://www.creality.com/support/creality-ender-3-v3-se",
+    "https://www.creality.com/products/creality-ender-3-v3-se"
+   ],
+   "keywords": "3d printer printers fdm filament beginner"
+  },
+  {
+   "id": "elegoo-centauri-carbon-2",
+   "name": "Elegoo Centauri Carbon 2 3D Printer",
+   "brand": "Elegoo",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#2b6ce0",
+   "price": 349,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "An enclosed CoreXY printer with a 256 mm cube build volume, a 350 C hardened nozzle and a built-in camera; the Combo adds the CANVAS system for 4-color printing. It is one of the lowest-priced enclosed multicolor printers available."
+   ],
+   "summary": "An enclosed CoreXY printer with a 256 mm cube build volume, a 350 C hardened nozzle and a built-in camera; the Combo adds the CANVAS system for 4-color printing. It is one of the lowest-priced enclosed multicolor printers available.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "256 × 256 × 256 mm",
+    "Max speed": "500 mm/s",
+    "Multi-color": "4 colors with the included CANVAS unit (same material type per print)",
+    "Enclosure": "Enclosed",
+    "Auto leveling": "121-point auto leveling, auto Z-offset and full auto calibration",
+    "Max nozzle temperature": "350 °C",
+    "Max bed temperature": "110 °C",
+    "Materials": "PLA, PETG, ABS, ASA, TPU (adapter needed on Combo), PC, PA, PET, Fiber-reinforced",
+    "Connectivity": "Wi-Fi, USB; ELEGOO Matrix app for remote monitoring",
+    "Weight": "19.35 kg",
+    "Noise": "45 dB",
+    "Best for": "beginner"
+   },
+   "in_box": [
+    "Centauri Carbon 2 printer",
+    "Touch screen",
+    "Power cord",
+    "4-pin cable",
+    "Unclogging pin",
+    "Allen key",
+    "Screwdriver",
+    "Filament sample",
+    "Spare nozzle wiper",
+    "User manual",
+    "USB flash drive",
+    "Scraper blade",
+    "Spool holder module x4",
+    "Filament hub",
+    "CANVAS mounting bracket",
+    "Thermal cover",
+    "PTFE tube x4",
+    "Nozzle wiper assembly"
+   ],
+   "qa": [
+    [
+     "Can it print different materials in one job?",
+     "No. Elegoo says the Combo does multiple colors but not mixed filament types in the same print."
+    ],
+    [
+     "Does it have a heated chamber?",
+     "Not an active one. It is enclosed with a thermal cover and an auto-controlled grille, and the 110 C bed warms the chamber."
+    ],
+    [
+     "Can I use TPU on the Combo?",
+     "Yes, but not through CANVAS. Install the included flexible-filament adapter model and disconnect the CANVAS cable before printing."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/elegoo-centauri-carbon-review",
+     "date": "2025-02",
+     "score_text": "4/5",
+     "score_5": 4.0,
+     "award": "Editor's Choice",
+     "verdict": "The best out-of-box experience Tom's Hardware has had from an Elegoo FDM printer, with speed and precision at a hard-to-beat price.",
+     "pros": [
+      "Enclosed CoreXY at a low price",
+      "Fast",
+      "No cloud account required"
+     ],
+     "cons": [
+      "No heated chamber",
+      "Weak chamber lighting",
+      "Cool plate isn't very sticky"
+     ],
+     "quote": "the best out-of-the-box experience we’ve had with an Elegoo FDM Printer",
+     "model_reviewed": "Review of the original Elegoo Centauri Carbon (this is its successor, the Centauri Carbon 2)"
+    },
+    {
+     "publication": "PCMag",
+     "url": "https://www.pcmag.com/reviews/elegoo-centauri-carbon",
+     "date": "2025-08",
+     "score_text": "4.0/5",
+     "score_5": 4.0,
+     "verdict": "An excellent, reasonably priced beginner printer that is easy to learn, has a large bed, and is enclosed for materials like ABS.",
+     "pros": [
+      "Simple setup and calibration",
+      "Enclosed frame for ABS and lower noise",
+      "Very good print quality"
+     ],
+     "cons": [
+      "Vibrates a lot while printing",
+      "Tall prints need supports",
+      "No multicolor support"
+     ],
+     "quote": "an excellent, reasonably priced 3D printer for beginners",
+     "model_reviewed": "Review of the original Elegoo Centauri Carbon (this is its successor, the Centauri Carbon 2)"
+    },
+    {
+     "publication": "3D Printing Industry",
+     "url": "https://3dprintingindustry.com/news/review-high-speed-3d-printing-for-under-300-with-the-elegoo-centauri-carbon-240126/",
+     "date": "2025-06",
+     "score_text": "No overall score (benchmark: 95.65/100 in Balanced mode)",
+     "verdict": "After about 180 hours of testing, 3DPI found it a top choice for fast printing without sacrificing quality, with benchmark results among the best it has recorded.",
+     "pros": [
+      "Benchmark scores among the best 3DPI has measured",
+      "Accurate functional parts",
+      "Easy out-of-box setup"
+     ],
+     "cons": [
+      "Slicer lacks a print queue",
+      "Camera offers no failure detection",
+      "Slight over-extrusion on round holes"
+     ],
+     "quote": "a top choice for users seeking high-speed 3D printing without compromising 3D print quality",
+     "model_reviewed": "Review of the original Elegoo Centauri Carbon (this is its successor, the Centauri Carbon 2)"
+    }
+   ],
+   "source_urls": [
+    "https://us.elegoo.com/products/centauri-carbon-2-combo",
+    "https://us.elegoo.com/products/centauri-carbon-2",
+    "https://us.elegoo.com/collections/3d-printers"
+   ],
+   "keywords": "3d printer printers fdm filament beginner",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Centauri Carbon 2 (no CANVAS)",
+      "price": 349
+     },
+     {
+      "name": "Centauri Carbon 2 Combo (with CANVAS)",
+      "price": 399
+     }
+    ]
+   }
+  },
+  {
+   "id": "elegoo-neptune-4-pro",
+   "name": "Elegoo Neptune 4 Pro 3D Printer",
+   "brand": "Elegoo",
+   "cat": "3d-printers",
+   "kind": "printer",
+   "art": "#2b6ce0",
+   "price": 229,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "No",
+    "Enclosure": "Open frame"
+   },
+   "highlights": [
+    "A budget open-frame bed-slinger running Klipper, with a 225 x 225 x 265 mm build area, 300 C hotend and segmented heated bed. Good value for tinkerers who want speed without spending much."
+   ],
+   "summary": "A budget open-frame bed-slinger running Klipper, with a 225 x 225 x 265 mm build area, 300 C hotend and segmented heated bed. Good value for tinkerers who want speed without spending much.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "225 × 225 × 265 mm",
+    "Max speed": "500 mm/s",
+    "Multi-color": "none",
+    "Enclosure": "Open frame",
+    "Auto leveling": "121-point (11 x 11) auto bed leveling",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "110 °C",
+    "Materials": "PLA, PETG, TPU, ABS, ASA, Nylon",
+    "Connectivity": "LAN (web interface), USB",
+    "Weight": "8.9 kg",
+    "Best for": "hobbyist"
+   },
+   "in_box": [
+    "Base unit",
+    "Gantry frame unit",
+    "Spool holder arm",
+    "Touch screen",
+    "Spiral cable",
+    "Screen support block",
+    "Filament detector",
+    "Spool holder",
+    "Rear cooling fan",
+    "Printhead",
+    "Power cable",
+    "Fasteners",
+    "Tools",
+    "User manual"
+   ],
+   "qa": [
+    [
+     "What firmware does it run?",
+     "It ships with Klipper pre-installed, which enables input shaping and pressure advance for fast, clean prints."
+    ],
+    [
+     "How fast does it really print?",
+     "Elegoo quotes up to 500 mm/s with 20,000 mm/s^2 acceleration, but recommends around 250 mm/s for everyday quality."
+    ],
+    [
+     "Does it need assembly?",
+     "Some. The base and gantry come as separate units that you bolt together, along with the screen and spool holder."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/reviews/elegoo-neptune-4-pro-3d-printer-review",
+     "date": "2023-11",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "Builds on the Neptune 3 Pro with stronger cooling, Klipper firmware and linear rods while keeping the price surprisingly low.",
+     "pros": [
+      "Strong direct-drive extruder",
+      "Powerful part cooling",
+      "Textured PEI plate with great adhesion"
+     ],
+     "cons": [
+      "Bed leveling needs manual input"
+     ],
+     "quote": "while keeping the price surprisingly low"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/elegoo-neptune-4-pro-3d-printer-review",
+     "date": "2023-08",
+     "score_text": "4/5",
+     "score_5": 4.0,
+     "verdict": "A strong performer with a friendly design that TechRadar ranks among the best beginner printers, with quick assembly and consistent results.",
+     "pros": [
+      "Fast and precise",
+      "User-friendly design",
+      "Reliable print quality"
+     ],
+     "cons": [
+      "Limited filament compatibility",
+      "Initial setup can be fiddly"
+     ],
+     "quote": "one of the best 3D printers for beginners"
+    }
+   ],
+   "source_urls": [
+    "https://us.elegoo.com/products/elegoo-neptune-4-pro-fdm-3d-printer"
+   ],
+   "keywords": "3d printer printers fdm filament hobbyist",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Ribbon-Cable Version",
+      "price": 229
+     },
+     {
+      "name": "Type-C Version",
+      "price": 235
+     }
+    ]
+   }
+  },
+  {
+   "id": "anycubic-kobra-s1",
+   "name": "Anycubic Kobra S1 3D Printer",
+   "brand": "Anycubic",
+   "cat": "3d-printers",
+   "kind": "printerBox",
+   "art": "#2d9bf0",
+   "price": 349,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Medium (up to 260 mm)",
+    "Multi-color": "Yes (bundle or add-on)",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "An enclosed CoreXY printer with a 250 mm cube build area and 320 C hotend, bundled with the ACE 2 Pro unit for 4-color printing and filament drying. Weight is 18 kg for the printer plus 3.7 kg for the ACE 2 Pro."
+   ],
+   "summary": "An enclosed CoreXY printer with a 250 mm cube build area and 320 C hotend, bundled with the ACE 2 Pro unit for 4-color printing and filament drying. Weight is 18 kg for the printer plus 3.7 kg for the ACE 2 Pro.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "250 × 250 × 250 mm",
+    "Max speed": "600 mm/s",
+    "Multi-color": "4 colors with the included ACE 2 Pro; expandable to 16",
+    "Enclosure": "Enclosed",
+    "Auto leveling": "LeviQ 3.0 auto leveling with auto Z-offset, plus pressure advance/flow calibration",
+    "Max nozzle temperature": "320 °C",
+    "Max bed temperature": "120 °C",
+    "Materials": "PLA, PETG, ABS, ASA, TPU 95A (single color, fed directly)",
+    "Connectivity": "Wi-Fi via Anycubic app/cloud and LAN mode in Anycubic Slicer Next; USB (print only)",
+    "Weight": "18 kg",
+    "Noise": "46 dB",
+    "Best for": "beginner"
+   },
+   "in_box": [
+    "Kobra S1 printer",
+    "ACE 2 Pro",
+    "Spool holder",
+    "Signal cable",
+    "Filament tubes x4",
+    "Screws",
+    "Grease",
+    "Hex keys (2.5/2.0/1.5)",
+    "Nozzle cleaner",
+    "Filament sample",
+    "Power cords x2",
+    "Activated carbon",
+    "Anti-blocking module",
+    "Nozzle silicone part",
+    "Cable organizers x2",
+    "Nozzle cleaning module"
+   ],
+   "qa": [
+    [
+     "Does the ACE 2 Pro dry filament?",
+     "Yes. It can actively dry loaded spools at up to 65 C while storing them."
+    ],
+    [
+     "How quiet is it?",
+     "Anycubic rates it at 46 dB or less in standard mode and 44 dB or less in quiet mode, measured from 1 m."
+    ],
+    [
+     "Can I print TPU in multicolor?",
+     "No. TPU 95A works only for single-color jobs, fed straight into the printer rather than through the ACE 2 Pro."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/anycubic-kobra-s1-review",
+     "date": "2025-05",
+     "score_text": "3.5/5",
+     "score_5": 3.5,
+     "verdict": "A dependable CoreXY multicolor machine with an excellent heated spool unit, let down by a slicer that won't show how much filament a multicolor print will waste.",
+     "pros": [
+      "CoreXY speed with high-flow hotend",
+      "Four-color ACE unit with built-in dryer",
+      "Enclosed with carbon filtration"
+     ],
+     "cons": [
+      "Purge amount isn't shown",
+      "Purge only adjustable mid-print",
+      "Filament loading can be a chore"
+     ],
+     "quote": "the machine is very dependable"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/anycubic-kobra-s1-combo-review",
+     "date": "2025-03",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Recommended",
+     "verdict": "Combines build quality, value and precision; multicolor printing is still slow, but single-material printing is fast and very precise across many materials.",
+     "pros": [
+      "Outstanding value",
+      "High precision",
+      "Good multicolor output"
+     ],
+     "cons": [
+      "Needs two power supplies",
+      "Limited to eight filaments"
+     ],
+     "quote": "outstanding multi-filament printer",
+     "model_reviewed": "Reviewed: Anycubic Kobra S1 Combo"
+    }
+   ],
+   "source_urls": [
+    "https://store.anycubic.com/products/kobra-s1-ace-2-pro-combo-3d-printer",
+    "https://store.anycubic.com/products/kobra-s1"
+   ],
+   "keywords": "3d printer printers fdm filament beginner",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "Kobra S1 printer only",
+      "price": 349
+     },
+     {
+      "name": "Kobra S1 ACE 2 Pro Combo (4 colors)",
+      "price": 499
+     },
+     {
+      "name": "Kobra S1 ACE 2 Pro Combo + extra ACE 2 Pro (8 colors)",
+      "price": 718
+     }
+    ]
+   }
+  },
+  {
+   "id": "sovol-sv08",
+   "name": "Sovol SV08 3D Printer",
+   "brand": "Sovol",
+   "cat": "3d-printers",
+   "kind": "printer",
+   "art": "#d33a3a",
+   "price": 549,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "Large (over 260 mm)",
+    "Multi-color": "No",
+    "Enclosure": "Open frame"
+   },
+   "highlights": [
+    "A large 350 x 350 x 345 mm open-frame CoreXY printer with a 700 mm/s quoted top speed and four independent Z motors. It suits tinkerers who want a big, fast, hackable machine for the money."
+   ],
+   "summary": "A large 350 x 350 x 345 mm open-frame CoreXY printer with a 700 mm/s quoted top speed and four independent Z motors. It suits tinkerers who want a big, fast, hackable machine for the money.",
+   "specs": {
+    "Printer type": "FDM (filament)",
+    "Build volume": "350 × 350 × 345 mm",
+    "Max speed": "700 mm/s",
+    "Multi-color": "none",
+    "Enclosure": "Open frame",
+    "Auto leveling": "Inductive sensor plus pressure sensor; four independent Z motors",
+    "Max nozzle temperature": "300 °C",
+    "Max bed temperature": "100 °C",
+    "Materials": "PLA, PETG, TPU, ABS, PETG-CF",
+    "Connectivity": "Wi-Fi (2.4 GHz) and Ethernet; camera with remote control; open-source firmware",
+    "Best for": "hobbyist"
+   },
+   "in_box": [],
+   "qa": [
+    [
+     "Is the SV08 enclosed?",
+     "Not as standard. It is an open CoreXY frame; Sovol sells it with an optional enclosure kit, which reduces Z height to 330 mm."
+    ],
+    [
+     "How long does setup take?",
+     "Sovol says it arrives about 90% pre-assembled and takes roughly an hour to finish."
+    ],
+    [
+     "Can I modify it?",
+     "Yes. It runs open-source firmware and Sovol encourages upgrades and mods."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/sovol-sv08-review",
+     "date": "2024-05",
+     "score_text": "4/5",
+     "score_5": 4.0,
+     "verdict": "A Voron 2.4-inspired CoreXY with a large 350 x 350 mm bed and very high speeds, ideal for makers who want Voron-style quality without building one from scratch.",
+     "pros": [
+      "Klipper and CoreXY",
+      "Linear rails and auto bed leveling",
+      "No cloud required"
+     ],
+     "cons": [
+      "Takes an afternoon to assemble",
+      "Basic touchscreen"
+     ],
+     "quote": "the perfect printer for makers who want to sample Voron quality",
+     "model_reviewed": "Reviewed: Sovol SV08"
+    }
+   ],
+   "source_urls": [
+    "https://www.sovol3d.com/products/sovol-sv08-3d-printer"
+   ],
+   "keywords": "3d printer printers fdm filament hobbyist",
+   "options": {
+    "label": "Bundle",
+    "choices": [
+     {
+      "name": "SV08",
+      "price": 549
+     },
+     {
+      "name": "SV08 + Hardened Steel Nozzle Kit (0.4 mm)",
+      "price": 579
+     },
+     {
+      "name": "SV08 + Open Enclosure",
+      "price": 728
+     }
+    ]
+   }
+  },
+  {
+   "id": "elegoo-saturn-4-ultra-16k",
+   "name": "Elegoo Saturn 4 Ultra 16K Resin 3D Printer",
+   "brand": "Elegoo",
+   "cat": "3d-printers",
+   "kind": "resin",
+   "art": "#2b6ce0",
+   "price": 499,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "Resin (MSLA)",
+    "Multi-color": "No",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "A 10-inch 16K resin printer with 14 x 19 micron pixels, a heated vat, tilt-release peeling and an AI camera. A good fit for miniature and detail-focused hobbyists who want hands-off monitoring."
+   ],
+   "summary": "A 10-inch 16K resin printer with 14 x 19 micron pixels, a heated vat, tilt-release peeling and an AI camera. A good fit for miniature and detail-focused hobbyists who want hands-off monitoring.",
+   "specs": {
+    "Printer type": "Resin (MSLA)",
+    "Build volume": "211.68 × 118.37 × 220 mm",
+    "Enclosure": "Enclosed",
+    "Auto leveling": "Automatic leveling (no manual plate leveling)",
+    "Materials": "Standard resin, ABS-like resin, Water-washable resin, 8K/high-detail resins",
+    "Connectivity": "USB and built-in dual-band Wi-Fi; AI camera with light for monitoring and time-lapse",
+    "Weight": "16.1 kg",
+    "Best for": "hobbyist",
+    "Lcd": "10-inch 16K mono (15120 x 6230)",
+    "Xy resolution (µm)": "14 x 19",
+    "Max speed mm h": "150",
+    "Light source": "COB + Fresnel collimating lens",
+    "Vat heating": "Smart tank heating to about 30 C",
+    "Release": "Tilt release"
+   },
+   "in_box": [
+    "Printer",
+    "Build plate",
+    "Resin tank",
+    "Funnel",
+    "Resin tray",
+    "USB flash disk",
+    "Gloves",
+    "Mask",
+    "Backup screws",
+    "Scraper",
+    "Power adapter",
+    "Tool kit",
+    "User manual"
+   ],
+   "qa": [
+    [
+     "Why does it heat the resin?",
+     "Warm resin flows better. The tank heater holds it around 30 C, which Elegoo says reduces bubbles and layer separation."
+    ],
+    [
+     "How fast is it?",
+     "Up to 150 mm/h in fast mode, roughly 5.5 seconds per layer with Chitubox defaults, using tilt release to peel layers quickly."
+    ],
+    [
+     "What does the camera do?",
+     "It watches the print, warns about an empty plate or a warped model, and can record time-lapses."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/elegoo-saturn-4-ultra-review",
+     "date": "2024-05",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editor's Choice",
+     "verdict": "An affordable resin printer with genuinely new features, including a tilting vat and camera, and very sharp prints.",
+     "pros": [
+      "Very sharp 12K prints",
+      "Auto leveling and tilting vat",
+      "Fast printing and built-in camera"
+     ],
+     "cons": [
+      "No handle on the lid",
+      "Camera only works with Chitubox"
+     ],
+     "quote": "impressive with never seen before features and quality prints",
+     "model_reviewed": "Reviewed: Elegoo Saturn 4 Ultra (12K)"
+    },
+    {
+     "publication": "PCMag",
+     "url": "https://www.pcmag.com/reviews/elegoo-saturn-4-ultra-16k",
+     "date": "2026-01",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Editors' Choice",
+     "verdict": "Elegoo's confident move into mainstream resin printing: very detailed, highly reliable output plus useful touches like a built-in resin heater.",
+     "pros": [
+      "Exceptionally crisp 16K detail",
+      "Resin heater improves consistency",
+      "Reliable tilt mechanism and faster modes"
+     ],
+     "cons": [
+      "Camera not useful until the plate rises",
+      "No active air filtration",
+      "No failed-print detection"
+     ],
+     "quote": "Elegoo’s confident leap into mainstream resin 3D printing",
+     "model_reviewed": "Reviewed: Elegoo Saturn 4 Ultra 16K"
+    }
+   ],
+   "source_urls": [
+    "https://us.elegoo.com/products/saturn-4-ultra-16k-10inch-monochrome-lcd-resin-3d-printer",
+    "https://us.elegoo.com/collections/3d-printers"
+   ],
+   "keywords": "3d printer printers resin msla sla hobbyist"
+  },
+  {
+   "id": "anycubic-photon-mono-m7-pro",
+   "name": "Anycubic Photon Mono M7 Pro Resin 3D Printer",
+   "brand": "Anycubic",
+   "cat": "3d-printers",
+   "kind": "resin",
+   "art": "#2d9bf0",
+   "price": 489,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Printer type": "Resin (MSLA)",
+    "Multi-color": "No",
+    "Enclosure": "Enclosed"
+   },
+   "highlights": [
+    "A 10.1-inch 14K resin printer with a 223 x 126 x 230 mm build area, a heated vat and an automatic resin refill unit. Suited to hobbyists printing miniatures and detailed parts in larger batches."
+   ],
+   "summary": "A 10.1-inch 14K resin printer with a 223 x 126 x 230 mm build area, a heated vat and an automatic resin refill unit. Suited to hobbyists printing miniatures and detailed parts in larger batches.",
+   "specs": {
+    "Printer type": "Resin (MSLA)",
+    "Build volume": "223 × 126 × 230 mm",
+    "Enclosure": "Enclosed",
+    "Auto leveling": "Leveling-free design",
+    "Materials": "Standard resin, High-speed resin, Water-washable resin, ABS-like resin, Plant-based resin",
+    "Connectivity": "USB, Wi-Fi, LAN; Anycubic app",
+    "Weight": "12.8 kg",
+    "Best for": "hobbyist",
+    "Lcd": "10.1-inch 14K mono",
+    "Xy resolution (µm)": "16.8 x 24.8",
+    "Max speed mm h": "130",
+    "Max speed note": "Up to 170 mm/h with Anycubic high-speed resin",
+    "Light source": "COB + Fresnel lens (LighTurbo 3.0)",
+    "Vat heating": "Dynamic temperature-controlled vat",
+    "Extras": "Resin auto-fill unit"
+   },
+   "in_box": [
+    "Photon Mono M7 Pro",
+    "Print platform",
+    "Resin vat",
+    "Wi-Fi antenna",
+    "Hex key set",
+    "Protective equipment",
+    "Filters x5",
+    "Scrapers x2",
+    "Leveling paper",
+    "Manual",
+    "USB drive",
+    "Power cord",
+    "Screen protector kit",
+    "Auto-fill unit"
+   ],
+   "qa": [
+    [
+     "Do I have to level the build plate?",
+     "No. Anycubic markets it as leveling-free, though a sheet of leveling paper is included."
+    ],
+    [
+     "What is the auto-fill unit for?",
+     "It tops up the vat from a resin bottle during long prints so you do not have to refill by hand."
+    ],
+    [
+     "Does it resume after a power cut?",
+     "No. Anycubic's spec sheet lists power-loss resume as not supported."
+    ]
+   ],
+   "expert_reviews": [
+    {
+     "publication": "Tom's Hardware",
+     "url": "https://www.tomshardware.com/3d-printing/anycubic-photon-mono-m7-pro-review",
+     "date": "2024-08",
+     "score_text": "4/5",
+     "score_5": 4.0,
+     "award": "Editor's Choice",
+     "verdict": "A fast, high-resolution resin printer with a roomy build volume and easy operation.",
+     "pros": [
+      "Very sharp 14K prints",
+      "High-speed printing",
+      "Heated vat and auto resin refill"
+     ],
+     "cons": [
+      "Heater makes the vat awkward to handle"
+     ],
+     "quote": "exceptionally fast high resolution printing"
+    },
+    {
+     "publication": "TechRadar",
+     "url": "https://www.techradar.com/pro/anycubic-photon-mono-m7-pro-3d-printer-review",
+     "date": "2024-06",
+     "score_text": "4.5/5",
+     "score_5": 4.5,
+     "award": "Recommended",
+     "verdict": "High resolution, good speed, auto resin refill and temperature control make it worth the higher price for serious hobbyists and professionals.",
+     "pros": [
+      "Exceptional resolution",
+      "Auto resin refill and temperature control",
+      "High-speed printing"
+     ],
+     "cons": [
+      "High upfront cost",
+      "Dated, less ergonomic design"
+     ],
+     "quote": "It justifies its price for serious hobbyists and professionals"
+    }
+   ],
+   "source_urls": [
+    "https://store.anycubic.com/products/photon-mono-m7-pro"
+   ],
+   "keywords": "3d printer printers resin msla sla hobbyist"
+  },
+  {
+   "id": "bambu-ams-lite",
+   "name": "Bambu Lab AMS lite",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "ams",
+   "art": "#00ae42",
+   "price": 199,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Multi-color unit"
+   },
+   "highlights": [
+    "An open, four-spool feeder that gives A-series printers automatic multicolor printing and backup spools. It has no enclosure or drying, so it suits PLA and PETG in normal room humidity; it cannot feed TPU or abrasive carbon-fiber filaments."
+   ],
+   "summary": "An open, four-spool feeder that gives A-series printers automatic multicolor printing and backup spools. It has no enclosure or drying, so it suits PLA and PETG in normal room humidity; it cannot feed TPU or abrasive carbon-fiber filaments.",
+   "specs": {
+    "Net weight": "1.6 kg",
+    "Slots": "4",
+    "Works with": "A1 mini, A1, A2L",
+    "Drying": "No"
+   },
+   "in_box": [
+    "AMS lite body with 4-pin cable",
+    "AMS lite stand and screws",
+    "4 rotary spool holders",
+    "Mounting hardware and PTFE tubes (exact contents per wiki packing guide)"
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/ams-lite",
+    "https://wiki.bambulab.com/en/a1-mini/manual/acc-in-the-box"
+   ],
+   "keywords": "ams multi-color multicolor unit colors"
+  },
+  {
+   "id": "bambu-ams-2-pro",
+   "name": "Bambu Lab AMS 2 Pro",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "ams",
+   "art": "#00ae42",
+   "price": 299,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Multi-color unit"
+   },
+   "highlights": [
+    "A sealed four-spool unit that both feeds and dries filament, with RFID spool recognition and humidity readouts. It is the default multicolor unit for enclosed printers; some setups need extra adapters or a separate power supply for drying."
+   ],
+   "summary": "A sealed four-spool unit that both feeds and dries filament, with RFID spool recognition and humidity readouts. It is the default multicolor unit for enclosed printers; some setups need extra adapters or a separate power supply for drying.",
+   "specs": {
+    "Net weight": "2.5 kg",
+    "Slots": "4",
+    "Works with": "A1 mini (via AMS HUB), A1 (via AMS HUB), A2L, P1S, P2S, X2D, H2S, H2D, H2C, X1 series",
+    "Drying": "Yes, up to 65 °C"
+   },
+   "in_box": [
+    "AMS 2 Pro unit",
+    "Desiccant",
+    "Cable bag (6-pin cable)",
+    "PTFE tube",
+    "Instruction manual"
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/ams-2-pro",
+    "https://wiki.bambulab.com/en/ams-2-pro/manual/unboxing-and-setup"
+   ],
+   "keywords": "ams multi-color multicolor unit colors"
+  },
+  {
+   "id": "bambu-ams-ht",
+   "name": "Bambu Lab AMS HT",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "ams",
+   "art": "#00ae42",
+   "price": 139,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Multi-color unit"
+   },
+   "highlights": [
+    "A single-spool, high-temperature drying and feeding unit for moisture-sensitive engineering filaments such as nylon or PC. It adds one slot per unit, so it is best combined with AMS 2 Pro units rather than used for many colors."
+   ],
+   "summary": "A single-spool, high-temperature drying and feeding unit for moisture-sensitive engineering filaments such as nylon or PC. It adds one slot per unit, so it is best combined with AMS 2 Pro units rather than used for many colors.",
+   "specs": {
+    "Net weight": "1.21 kg",
+    "Slots": "1",
+    "Works with": "A1 series (via AMS HUB), A2L, P1S, P2S, X2D, H2S, H2D, H2C, X1 series",
+    "Drying": "Yes, up to 85 °C"
+   },
+   "in_box": [
+    "AMS HT unit",
+    "6-pin cable",
+    "Power cable",
+    "PTFE tube",
+    "Desiccant",
+    "Instruction manual"
+   ],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/ams-ht",
+    "https://wiki.bambulab.com/en/ams-ht/manual/unboxing-and-setup"
+   ],
+   "keywords": "ams multi-color multicolor unit colors"
+  },
+  {
+   "id": "bambu-pla-basic",
+   "name": "Bambu PLA Basic Filament",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#00ae42",
+   "price": 18.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "Jade White",
+     "hex": "#FFFFFF"
+    },
+    {
+     "name": "Black",
+     "hex": "#000000"
+    },
+    {
+     "name": "Gray",
+     "hex": "#8E9089"
+    },
+    {
+     "name": "Red",
+     "hex": "#C12E1F"
+    },
+    {
+     "name": "Orange",
+     "hex": "#FF6A13"
+    },
+    {
+     "name": "Sunflower Yellow",
+     "hex": "#FEC600"
+    },
+    {
+     "name": "Bambu Green",
+     "hex": "#00AE42"
+    },
+    {
+     "name": "Blue",
+     "hex": "#0A2989"
+    },
+    {
+     "name": "Cyan",
+     "hex": "#0086D6"
+    },
+    {
+     "name": "Hot Pink",
+     "hex": "#F5547C"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "The everyday material: easy to print, inexpensive and available in about 30 colors. It softens in heat (cars, sun), so it is better for models and indoor parts than functional outdoor pieces."
+   ],
+   "summary": "The everyday material: easy to print, inexpensive and available in about 30 colors. It softens in heat (cars, sun), so it is better for models and indoor parts than functional outdoor pieces.",
+   "specs": {
+    "Print temperature": "190, 230",
+    "Bed temperature": "35, 45",
+    "Net weight": "1 kg",
+    "Needs an enclosed printer": "No",
+    "Works with AMS": "Yes"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/pla-basic-filament",
+    "https://store.bblcdn.com/s1/default/58b85d0f3db94878854a28fdb8a0006e/Bambu_PLA_Basic_Technical_Data_Sheet.pdf",
+    "https://store.bblcdn.com/s7/default/1084369ef84345bbaa5d704a492954e0/Bambu_PLA_Basic_Hex_Code.pdf"
+   ],
+   "keywords": "filament spool 1kg pla petg",
+   "options": {
+    "label": "Spool",
+    "choices": [
+     {
+      "name": "1 kg with spool",
+      "price": 18.99
+     },
+     {
+      "name": "1 kg refill (no spool)",
+      "price": 15.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-pla-matte",
+   "name": "Bambu PLA Matte Filament",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#00ae42",
+   "price": 18.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "Ivory White",
+     "hex": "#FFFFFF"
+    },
+    {
+     "name": "Charcoal",
+     "hex": "#000000"
+    },
+    {
+     "name": "Ash Gray",
+     "hex": "#9B9EA0"
+    },
+    {
+     "name": "Scarlet Red",
+     "hex": "#DE4343"
+    },
+    {
+     "name": "Mandarin Orange",
+     "hex": "#F99963"
+    },
+    {
+     "name": "Lemon Yellow",
+     "hex": "#F7D959"
+    },
+    {
+     "name": "Grass Green",
+     "hex": "#61C680"
+    },
+    {
+     "name": "Marine Blue",
+     "hex": "#0078BF"
+    },
+    {
+     "name": "Sakura Pink",
+     "hex": "#E8AFCF"
+    },
+    {
+     "name": "Desert Tan",
+     "hex": "#E8DBB7"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "Same easy handling as PLA Basic but with a flat, non-shiny finish that hides layer lines well, popular for figurines and décor. Strength and heat resistance are similar to regular PLA."
+   ],
+   "summary": "Same easy handling as PLA Basic but with a flat, non-shiny finish that hides layer lines well, popular for figurines and décor. Strength and heat resistance are similar to regular PLA.",
+   "specs": {
+    "Print temperature": "190, 230",
+    "Bed temperature": "35, 45",
+    "Net weight": "1 kg",
+    "Needs an enclosed printer": "No",
+    "Works with AMS": "Yes"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/pla-matte",
+    "https://store.bblcdn.com/s7/default/5b061f2feeac4ba88f355a33248bbda7/Bambu_PLA_Matte_Technical_Data_Sheet.pdf",
+    "https://cdn.shopify.com/s/files/1/0584/7236/6216/files/Bambu_PLA_Matte_Hex_Code.pdf"
+   ],
+   "keywords": "filament spool 1kg pla petg",
+   "options": {
+    "label": "Spool",
+    "choices": [
+     {
+      "name": "1 kg with spool",
+      "price": 18.99
+     },
+     {
+      "name": "1 kg refill (no spool)",
+      "price": 15.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-petg-hf",
+   "name": "Bambu PETG HF Filament",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#00ae42",
+   "price": 18.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "White",
+     "hex": "#FFFFFF"
+    },
+    {
+     "name": "Black",
+     "hex": "#000000"
+    },
+    {
+     "name": "Gray",
+     "hex": "#ADB1B2"
+    },
+    {
+     "name": "Red",
+     "hex": "#EB3A3A"
+    },
+    {
+     "name": "Orange",
+     "hex": "#F75403"
+    },
+    {
+     "name": "Yellow",
+     "hex": "#FFD00B"
+    },
+    {
+     "name": "Green",
+     "hex": "#00AE42"
+    },
+    {
+     "name": "Forest Green",
+     "hex": "#39541A"
+    },
+    {
+     "name": "Lake Blue",
+     "hex": "#1F79E5"
+    },
+    {
+     "name": "Blue",
+     "hex": "#002E96"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "A fast-printing PETG that is tougher and more heat- and weather-tolerant than PLA, good for brackets, outdoor items and functional parts. Bambu advises drying it before use."
+   ],
+   "summary": "A fast-printing PETG that is tougher and more heat- and weather-tolerant than PLA, good for brackets, outdoor items and functional parts. Bambu advises drying it before use.",
+   "specs": {
+    "Print temperature": "230, 260",
+    "Bed temperature": "65, 75",
+    "Net weight": "1 kg",
+    "Needs an enclosed printer": "No",
+    "Works with AMS": "Yes"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/petg-hf",
+    "https://store.bblcdn.com/3a230e260a3a47c2b0db0156e07eef91.pdf",
+    "https://store.bblcdn.com/s7/default/f9b2b5ac54aa4aabaf2d725e6a830045/PETG_HF_Hex_Code_Table.pdf"
+   ],
+   "keywords": "filament spool 1kg pla petg",
+   "options": {
+    "label": "Spool",
+    "choices": [
+     {
+      "name": "1 kg with spool",
+      "price": 18.99
+     },
+     {
+      "name": "1 kg refill (no spool)",
+      "price": 15.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-abs",
+   "name": "Bambu ABS Filament",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#00ae42",
+   "price": 18.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "White",
+     "hex": "#FFFFFF"
+    },
+    {
+     "name": "Black",
+     "hex": "#000000"
+    },
+    {
+     "name": "Silver",
+     "hex": "#87909A"
+    },
+    {
+     "name": "Red",
+     "hex": "#D32941"
+    },
+    {
+     "name": "Orange",
+     "hex": "#FF6A13"
+    },
+    {
+     "name": "Tangerine Yellow",
+     "hex": "#FFC72C"
+    },
+    {
+     "name": "Bambu Green",
+     "hex": "#00AE42"
+    },
+    {
+     "name": "Azure",
+     "hex": "#489FDF"
+    },
+    {
+     "name": "Navy Blue",
+     "hex": "#0C2340"
+    },
+    {
+     "name": "Blue",
+     "hex": "#0A2CA5"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "A durable, heat-resistant plastic for functional and automotive parts. It needs an enclosed printer to avoid warping and cracking, and it is not compatible with the AMS lite (AMS, AMS 2 Pro and AMS HT are fine)."
+   ],
+   "summary": "A durable, heat-resistant plastic for functional and automotive parts. It needs an enclosed printer to avoid warping and cracking, and it is not compatible with the AMS lite (AMS, AMS 2 Pro and AMS HT are fine).",
+   "specs": {
+    "Print temperature": "240, 270",
+    "Bed temperature": "80, 100",
+    "Net weight": "1 kg",
+    "Needs an enclosed printer": "Yes",
+    "Works with AMS": "Yes"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/abs-filament",
+    "https://store.bblcdn.com/s7/default/23b4cf2b83d5470bb96d19970b5f3ae8/Bambu_ABS_Technical_Data_Sheet_V3.pdf",
+    "https://store.bblcdn.com/s7/default/a7d9f82d874c453cbbc1bb0efb82dd42/Bambu_ABS_Hex_Code_(1).pdf"
+   ],
+   "keywords": "filament spool 1kg pla petg",
+   "options": {
+    "label": "Spool",
+    "choices": [
+     {
+      "name": "1 kg with spool",
+      "price": 18.99
+     },
+     {
+      "name": "1 kg refill (no spool)",
+      "price": 15.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-tpu-95a-hf",
+   "name": "Bambu TPU 95A HF Filament",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#00ae42",
+   "price": 41.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "Black",
+     "hex": "#101820"
+    },
+    {
+     "name": "White",
+     "hex": "#FFFFFF"
+    },
+    {
+     "name": "Gray",
+     "hex": "#898D8D"
+    },
+    {
+     "name": "Red",
+     "hex": "#C8102E"
+    },
+    {
+     "name": "Yellow",
+     "hex": "#F3E600"
+    },
+    {
+     "name": "Blue",
+     "hex": "#0072CE"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "A rubbery, flexible filament tuned for faster printing than ordinary TPU, used for phone cases, gaskets and grips. It must be fed from an external spool (no AMS) and should be dried first; only six colors are offered."
+   ],
+   "summary": "A rubbery, flexible filament tuned for faster printing than ordinary TPU, used for phone cases, gaskets and grips. It must be fed from an external spool (no AMS) and should be dried first; only six colors are offered.",
+   "specs": {
+    "Print temperature": "220, 240",
+    "Bed temperature": "30, 35",
+    "Net weight": "1 kg",
+    "Needs an enclosed printer": "No",
+    "Works with AMS": "No"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/tpu-95a-hf",
+    "https://store.bblcdn.com/58df32731eab4c90a7dac9b12e13ba88.pdf",
+    "https://store.bblcdn.com/s7/default/6ec4738ccb144e8880cfec81a4cb6665/TPU_95A_HF_Hex_Code_Table.pdf"
+   ],
+   "keywords": "filament spool 1kg pla petg",
+   "options": {
+    "label": "Spool",
+    "choices": [
+     {
+      "name": "1 kg with spool",
+      "price": 41.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-support-for-pla-petg",
+   "name": "Bambu Support for PLA/PETG Filament",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#00ae42",
+   "price": 34.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "Nature",
+     "hex": "#E8E4D8"
+    },
+    {
+     "name": "Black",
+     "hex": "#000000"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "A special material printed only at the contact layer between a model and its supports so they snap off cleanly without tools. It is sold in 0.5 kg spools and is meant to be paired with PLA or PETG via an AMS or second nozzle, not printed on its own."
+   ],
+   "summary": "A special material printed only at the contact layer between a model and its supports so they snap off cleanly without tools. It is sold in 0.5 kg spools and is meant to be paired with PLA or PETG via an AMS or second nozzle, not printed on its own.",
+   "specs": {
+    "Print temperature": "190, 240",
+    "Bed temperature": "35, 60",
+    "Net weight": "0.5 kg",
+    "Needs an enclosed printer": "No",
+    "Works with AMS": "Yes"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/support-for-pla-petg",
+    "https://store.bblcdn.com/d09d55778d42495db121e28a3b04a4c5.pdf"
+   ],
+   "keywords": "filament spool 1kg pla petg",
+   "options": {
+    "label": "Spool",
+    "choices": [
+     {
+      "name": "0.5 kg with spool",
+      "price": 34.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-textured-pei-plate",
+   "name": "Bambu Textured PEI Plate",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "plate",
+   "art": "#00ae42",
+   "price": 19.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Build plate"
+   },
+   "highlights": [
+    "The default double-sided textured plate that ships with most Bambu printers; parts release easily once cool and get a grainy underside. A spare is handy for swapping plates between jobs. Size must match the printer family."
+   ],
+   "summary": "The default double-sided textured plate that ships with most Bambu printers; parts release easily once cool and get a grainy underside. A spare is handy for swapping plates between jobs. Size must match the printer family.",
+   "specs": {
+    "Fits": "A1 mini, A1, A2L, P1S, P2S, X2D, H2S, H2D, H2C, X1 series"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/bambu-textured-pei-plate"
+   ],
+   "keywords": "build plate bed pei",
+   "options": {
+    "label": "Size",
+    "choices": [
+     {
+      "name": "A1 mini",
+      "price": 19.99
+     },
+     {
+      "name": "A1 / P1 / P2S / X2D / X1",
+      "price": 34.99
+     },
+     {
+      "name": "A2L",
+      "price": 54.99
+     },
+     {
+      "name": "H2C",
+      "price": 54.99
+     },
+     {
+      "name": "H2D / H2S",
+      "price": 59.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-dual-texture-pei-plate",
+   "name": "Bambu Dual-Texture PEI Plate",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "plate",
+   "art": "#00ae42",
+   "price": 24.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Build plate"
+   },
+   "highlights": [
+    "One side textured, one side smooth PEI, so you can choose a glossy or grainy bottom finish without buying two plates. Not offered in H2 or A2L sizes."
+   ],
+   "summary": "One side textured, one side smooth PEI, so you can choose a glossy or grainy bottom finish without buying two plates. Not offered in H2 or A2L sizes.",
+   "specs": {
+    "Fits": "A1 mini, A1, P1S, P2S, X2D, X1 series"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/bambu-dual-texture-pei-plate"
+   ],
+   "keywords": "build plate bed pei",
+   "options": {
+    "label": "Size",
+    "choices": [
+     {
+      "name": "A1 mini",
+      "price": 24.99
+     },
+     {
+      "name": "A1 / P1 / P2S / X2D / X1",
+      "price": 37.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-cool-plate-supertack",
+   "name": "Bambu Cool Plate SuperTack",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "plate",
+   "art": "#00ae42",
+   "price": 34.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Build plate"
+   },
+   "highlights": [
+    "A very grippy plate for PLA and similar low-temperature filaments that holds parts without glue, even at low bed temperatures. The A2L and H2C SuperTack Pro sizes were listed as sold out at check time."
+   ],
+   "summary": "A very grippy plate for PLA and similar low-temperature filaments that holds parts without glue, even at low bed temperatures. The A2L and H2C SuperTack Pro sizes were listed as sold out at check time.",
+   "specs": {
+    "Fits": "A1, P1S, P2S, X2D, X1 series, H2S, H2D, A2L, H2C"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/bambu-cool-plate-supertack"
+   ],
+   "keywords": "build plate bed pei",
+   "options": {
+    "label": "Size",
+    "choices": [
+     {
+      "name": "A1 / P1 / P2S / X2D / X1",
+      "price": 34.99
+     },
+     {
+      "name": "H2D / H2S (SuperTack Pro)",
+      "price": 59.99
+     },
+     {
+      "name": "A2L / H2C (SuperTack Pro)",
+      "price": 54.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-smooth-pei-plate-a1-mini",
+   "name": "Bambu Smooth PEI Plate (A1 mini)",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "plate",
+   "art": "#00ae42",
+   "price": 21.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Build plate"
+   },
+   "highlights": [
+    "A smooth PEI sheet sized for the A1 mini that gives prints a glossy underside. It is the most common second plate for mini owners alongside the included textured plate."
+   ],
+   "summary": "A smooth PEI sheet sized for the A1 mini that gives prints a glossy underside. It is the most common second plate for mini owners alongside the included textured plate.",
+   "specs": {
+    "Fits": "A1 mini"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/bambu-smooth-pei-plate"
+   ],
+   "keywords": "build plate bed pei"
+  },
+  {
+   "id": "bambu-engineering-plate",
+   "name": "Bambu Engineering Plate",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "plate",
+   "art": "#00ae42",
+   "price": 29.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Build plate"
+   },
+   "highlights": [
+    "A plate intended for engineering plastics such as ABS, ASA, PC and nylon, normally used with glue stick. Glue bundles are offered at a discount."
+   ],
+   "summary": "A plate intended for engineering plastics such as ABS, ASA, PC and nylon, normally used with glue stick. Glue bundles are offered at a discount.",
+   "specs": {
+    "Fits": "A1, A2L, P1S, P2S, X2D, H2S, H2D, H2C, X1C"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/bambu-engineering-plate"
+   ],
+   "keywords": "build plate bed pei",
+   "options": {
+    "label": "Size",
+    "choices": [
+     {
+      "name": "A1 / P1 / P2S / X2D / X1C",
+      "price": 29.99
+     },
+     {
+      "name": "A2L / H2C",
+      "price": 54.99
+     },
+     {
+      "name": "H2D / H2S",
+      "price": 59.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-high-flow-hotend",
+   "name": "Bambu High-Flow Hotend (Hardened Steel)",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "nozzle",
+   "art": "#00ae42",
+   "price": 49.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Nozzle or hotend"
+   },
+   "highlights": [
+    "A hardened steel, high-flow hotend in 0.4, 0.6 or 0.8 mm that lets newer printers push more plastic per second for faster large prints, and handles abrasive filaments. Not for A1, A2L or P1S."
+   ],
+   "summary": "A hardened steel, high-flow hotend in 0.4, 0.6 or 0.8 mm that lets newer printers push more plastic per second for faster large prints, and handles abrasive filaments. Not for A1, A2L or P1S.",
+   "specs": {
+    "Fits": "P2S, X2D, H2S, H2D, H2C"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/bambu-high-flow-hotend-h2-p2s-x2d"
+   ],
+   "keywords": "nozzle hotend hardened steel",
+   "options": {
+    "label": "Size",
+    "choices": [
+     {
+      "name": "P2S / X2D / H2S / H2D / H2C left",
+      "price": 49.99
+     },
+     {
+      "name": "H2C right (induction)",
+      "price": 69.99
+     }
+    ]
+   }
+  },
+  {
+   "id": "bambu-multi-size-hotends-kit",
+   "name": "Bambu Multi-Size Hotends Kit (spare hotends)",
+   "brand": "Bambu Lab",
+   "cat": "3d-supplies",
+   "kind": "nozzle",
+   "art": "#00ae42",
+   "price": 22.78,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Nozzle or hotend"
+   },
+   "highlights": [
+    "Bundles of quick-swap spare hotends in different nozzle sizes: 0.2 mm for fine detail, 0.6/0.8 mm for fast, strong parts. Larger 3- and 4-hotend kits are also sold; hotends are family-specific."
+   ],
+   "summary": "Bundles of quick-swap spare hotends in different nozzle sizes: 0.2 mm for fine detail, 0.6/0.8 mm for fast, strong parts. Larger 3- and 4-hotend kits are also sold; hotends are family-specific.",
+   "specs": {
+    "Fits": "A1 mini, A1, A2L, P1S, P2S, X2D, H2S, H2D, H2C"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.store.bambulab.com/products/multi-size-hotends-kit"
+   ],
+   "keywords": "nozzle hotend hardened steel",
+   "options": {
+    "label": "Size",
+    "choices": [
+     {
+      "name": "A1 series / A2L, 0.2+0.6 mm",
+      "price": 22.78
+     },
+     {
+      "name": "X1/P1, 0.2+0.6 mm",
+      "price": 28.48
+     },
+     {
+      "name": "X2D/P2S or H2 left, 0.2+0.6 mm",
+      "price": 34.18
+     },
+     {
+      "name": "H2C right induction, 0.2+0.6 mm",
+      "price": 75.98
+     }
+    ]
+   }
+  },
+  {
+   "id": "creality-cfs",
+   "name": "Creality CFS (Creality Filament System)",
+   "brand": "Creality",
+   "cat": "3d-supplies",
+   "kind": "ams",
+   "art": "#1f6fd1",
+   "price": 319,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "facets": {
+    "Supply type": "Multi-color unit"
+   },
+   "highlights": [
+    "A 4-slot sealed filament box that feeds and switches spools automatically for multicolor printing. Up to four units can be chained for 16 colors. Creality's listing says it currently works with the K2 series and Creality Hi; K1-series printers use the separate CFS-C."
+   ],
+   "summary": "A 4-slot sealed filament box that feeds and switches spools automatically for multicolor printing. Up to four units can be chained for 16 colors. Creality's listing says it currently works with the K2 series and Creality Hi; K1-series printers use the separate CFS-C.",
+   "specs": {},
+   "in_box": [],
+   "source_urls": [
+    "https://store.creality.com/products/cfs-creality-filament-system",
+    "https://www.creality.com/products/creality-k2-plus-cfs-combo"
+   ],
+   "keywords": "ams multi-color multicolor unit colors"
+  },
+  {
+   "id": "elegoo-standard-resin-1kg",
+   "name": "Elegoo Standard Resin 1 kg",
+   "brand": "Elegoo",
+   "cat": "3d-supplies",
+   "kind": "bottle",
+   "art": "#2b6ce0",
+   "price": 18.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "Grey",
+     "hex": "#808080"
+    },
+    {
+     "name": "Black",
+     "hex": "#1A1A1A"
+    },
+    {
+     "name": "Translucent",
+     "hex": "#E8E8E0"
+    },
+    {
+     "name": "Blue",
+     "hex": "#1F4FA8"
+    },
+    {
+     "name": "Clear Blue",
+     "hex": "#6FA8DC"
+    },
+    {
+     "name": "Clear Green",
+     "hex": "#7CC47C"
+    },
+    {
+     "name": "Clear Red",
+     "hex": "#D9534F"
+    },
+    {
+     "name": "Beige",
+     "hex": "#E8D3B0"
+    }
+   ],
+   "facets": {
+    "Supply type": "Resin"
+   },
+   "highlights": [
+    "Elegoo's basic photopolymer resin for 405 nm LCD printers, sold in 1 kg bottles. Also offered in Maroon and Yellow, and in 2 kg, 5 kg and 12 kg sizes."
+   ],
+   "summary": "Elegoo's basic photopolymer resin for 405 nm LCD printers, sold in 1 kg bottles. Also offered in Maroon and Yellow, and in 2 kg, 5 kg and 12 kg sizes.",
+   "specs": {
+    "Net weight": "1 kg"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.elegoo.com/products/elegoo-standard-resin"
+   ],
+   "keywords": "resin bottle"
+  },
+  {
+   "id": "polymaker-polylite-pla-1kg",
+   "name": "Polymaker PolyLite PLA 1 kg Filament",
+   "brand": "Polymaker",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#e8e2d0",
+   "price": 19.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "Black",
+     "hex": "#111111"
+    },
+    {
+     "name": "White",
+     "hex": "#F5F5F5"
+    },
+    {
+     "name": "Grey",
+     "hex": "#8A8A8A"
+    },
+    {
+     "name": "Red",
+     "hex": "#C62828"
+    },
+    {
+     "name": "Orange",
+     "hex": "#F57C00"
+    },
+    {
+     "name": "Yellow",
+     "hex": "#FBC02D"
+    },
+    {
+     "name": "Blue",
+     "hex": "#1E5BB8"
+    },
+    {
+     "name": "Polymaker Teal",
+     "hex": "#008B8B"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "Polymaker's everyday PLA in 1.75 mm, 1 kg spools (also 3 kg and 5 kg in some colors). Polymaker suggests a 190-230 C nozzle and a 25-60 C bed. Note: PolyTerra PLA now redirects to Polymaker's Panchroma Matte PLA line."
+   ],
+   "summary": "Polymaker's everyday PLA in 1.75 mm, 1 kg spools (also 3 kg and 5 kg in some colors). Polymaker suggests a 190-230 C nozzle and a 25-60 C bed. Note: PolyTerra PLA now redirects to Polymaker's Panchroma Matte PLA line.",
+   "specs": {
+    "Print temperature": "190-230 °C",
+    "Net weight": "1 kg"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://us.polymaker.com/products/polylite-pla"
+   ],
+   "keywords": "filament spool 1kg pla petg"
+  },
+  {
+   "id": "esun-pla-plus-1kg",
+   "name": "eSUN PLA+ 1 kg Filament",
+   "brand": "eSUN",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#f2c94c",
+   "price": 16.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "Black",
+     "hex": "#111111"
+    },
+    {
+     "name": "Cold White",
+     "hex": "#F4F7FA"
+    },
+    {
+     "name": "Grey",
+     "hex": "#7F7F7F"
+    },
+    {
+     "name": "Fire Engine Red",
+     "hex": "#CE2029"
+    },
+    {
+     "name": "Blue",
+     "hex": "#1F4E9C"
+    },
+    {
+     "name": "Pine Green",
+     "hex": "#01796F"
+    },
+    {
+     "name": "Orange",
+     "hex": "#F57F17"
+    },
+    {
+     "name": "Yellow",
+     "hex": "#F9D71C"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "A tougher modified PLA in 1.75 mm (+/-0.03 mm) on 1 kg spools of about 340-350 m, offered in about 49 colors. eSUN's store lists multi-spool discounts. The product page gives no print temperature."
+   ],
+   "summary": "A tougher modified PLA in 1.75 mm (+/-0.03 mm) on 1 kg spools of about 340-350 m, offered in about 49 colors. eSUN's store lists multi-spool discounts. The product page gives no print temperature.",
+   "specs": {
+    "Net weight": "1 kg"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://esun3dstore.com/products/pla-pro"
+   ],
+   "keywords": "filament spool 1kg pla petg"
+  },
+  {
+   "id": "prusament-pla-1kg",
+   "name": "Prusament PLA 1 kg Filament",
+   "brand": "Prusa Research",
+   "cat": "3d-supplies",
+   "kind": "spool",
+   "art": "#fa6831",
+   "price": 29.99,
+   "stock": "in",
+   "real": true,
+   "features": [],
+   "colors": [
+    {
+     "name": "Galaxy Black",
+     "hex": "#1C1C24"
+    },
+    {
+     "name": "Prusa Orange",
+     "hex": "#FA6831"
+    },
+    {
+     "name": "Jet Black",
+     "hex": "#0A0A0A"
+    },
+    {
+     "name": "Azure Blue",
+     "hex": "#2A7FD4"
+    },
+    {
+     "name": "Lipstick Red",
+     "hex": "#C1121F"
+    },
+    {
+     "name": "Vanilla White",
+     "hex": "#F3EFE0"
+    },
+    {
+     "name": "Gentleman's Grey",
+     "hex": "#4A4F55"
+    },
+    {
+     "name": "Galaxy Purple",
+     "hex": "#4B2A6B"
+    }
+   ],
+   "facets": {
+    "Supply type": "Filament"
+   },
+   "highlights": [
+    "Prusa's in-house PLA, made in Prague and measured for diameter and ovality along every spool (+/-0.02 mm). Prusa recommends a 215 C nozzle and a 50-60 C bed. $29.99 is the 1 kg Galaxy Black price; other colors may differ."
+   ],
+   "summary": "Prusa's in-house PLA, made in Prague and measured for diameter and ovality along every spool (+/-0.02 mm). Prusa recommends a 215 C nozzle and a 50-60 C bed. $29.99 is the 1 kg Galaxy Black price; other colors may differ.",
+   "specs": {
+    "Print temperature": "215 °C",
+    "Net weight": "1 kg"
+   },
+   "in_box": [],
+   "source_urls": [
+    "https://www.prusa3d.com/product/prusament-pla-prusa-galaxy-black-1kg/"
+   ],
+   "keywords": "filament spool 1kg pla petg"
+  },
+  {
+   "id": "auralis-pro-anc",
+   "name": "Auralis Pro ANC Wireless Over-Ear Headphones",
+   "brand": "Auralis",
+   "cat": "headphones",
+   "kind": "overear",
+   "price": 279.99,
+   "was": 349.99,
+   "rating": 4.7,
+   "reviews": 2841,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "over-ear",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    },
+    {
+     "name": "Desert Sand",
+     "hex": "#c9b496"
+    }
+   ],
+   "highlights": [
+    "Adaptive noise cancelling with 8 microphones",
+    "Up to 40 hours of battery life",
+    "Multipoint Bluetooth for two devices"
+   ],
+   "specs": {
+    "Form factor": "Over-ear",
+    "Noise cancelling": "Adaptive ANC",
+    "Battery life": "40 hours",
+    "Charging": "USB-C, 5 min = 4 hrs",
+    "Bluetooth": "5.4, multipoint",
+    "Weight": "254 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "sonique-studio-q8",
+   "name": "Sonique Studio Q8 Noise Cancelling Headphones",
+   "brand": "Sonique",
+   "cat": "headphones",
+   "kind": "overear",
+   "price": 349.99,
+   "rating": 4.8,
+   "reviews": 1932,
+   "stock": "low",
+   "left": 2,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "over-ear",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    },
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    },
+    {
+     "name": "Deep Navy",
+     "hex": "#1e2f5c"
+    }
+   ],
+   "highlights": [
+    "Dual-processor noise cancelling",
+    "Spatial audio with head tracking",
+    "Plush memory-foam ear cushions"
+   ],
+   "specs": {
+    "Form factor": "Over-ear",
+    "Noise cancelling": "Dual-processor ANC",
+    "Battery life": "30 hours",
+    "Charging": "USB-C",
+    "Bluetooth": "5.3, multipoint",
+    "Weight": "250 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "pulsewave-airbuds-2",
+   "name": "Pulsewave AirBuds 2 Noise Cancelling Earbuds",
+   "brand": "Pulsewave",
+   "cat": "headphones",
+   "kind": "earbuds",
+   "price": 129.99,
+   "was": 179.99,
+   "rating": 4.4,
+   "reviews": 3120,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "earbuds",
+    "water-resistant",
+    "wireless-charging"
+   ],
+   "colors": [
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Lilac",
+     "hex": "#b9a6dc"
+    }
+   ],
+   "highlights": [
+    "Hybrid ANC with transparency mode",
+    "IPX5 sweat and water resistant",
+    "Wireless charging case"
+   ],
+   "specs": {
+    "Form factor": "True wireless earbuds",
+    "Noise cancelling": "Hybrid ANC",
+    "Battery life": "8 hrs (32 hrs with case)",
+    "Charging": "USB-C, Qi wireless",
+    "Bluetooth": "5.3",
+    "Weight": "5.1 g per bud",
+    "Water resistance": "IPX5"
+   }
+  },
+  {
+   "id": "kestrel-trail-sport",
+   "name": "Kestrel Trail Sport Wireless Earbuds",
+   "brand": "Kestrel",
+   "cat": "headphones",
+   "kind": "earbuds",
+   "price": 79.99,
+   "rating": 4.2,
+   "reviews": 860,
+   "stock": "in",
+   "features": [
+    "wireless",
+    "earbuds",
+    "water-resistant"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Coral",
+     "hex": "#f07a62"
+    },
+    {
+     "name": "Sage Green",
+     "hex": "#8fa58a"
+    }
+   ],
+   "highlights": [
+    "Secure ear-hook fit for running",
+    "IP67 dust and water proof",
+    "Ambient sound mode"
+   ],
+   "specs": {
+    "Form factor": "Sport earbuds with ear hooks",
+    "Noise cancelling": "None (passive isolation)",
+    "Battery life": "10 hrs (30 hrs with case)",
+    "Charging": "USB-C",
+    "Bluetooth": "5.3",
+    "Weight": "7.4 g per bud",
+    "Water resistance": "IP67"
+   }
+  },
+  {
+   "id": "auralis-lite-on-ear",
+   "name": "Auralis Lite On-Ear Wireless Headphones",
+   "brand": "Auralis",
+   "cat": "headphones",
+   "kind": "overear",
+   "price": 59.99,
+   "was": 79.99,
+   "rating": 3.9,
+   "reviews": 1204,
+   "stock": "in",
+   "features": [
+    "wireless",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Cobalt Blue",
+     "hex": "#2f5bd3"
+    },
+    {
+     "name": "Coral",
+     "hex": "#f07a62"
+    }
+   ],
+   "highlights": [
+    "Foldable lightweight design",
+    "50 hours of playback",
+    "Built-in mic for calls"
+   ],
+   "specs": {
+    "Form factor": "On-ear",
+    "Noise cancelling": "None",
+    "Battery life": "50 hours",
+    "Charging": "USB-C",
+    "Bluetooth": "5.3",
+    "Weight": "180 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "sonique-buds-pro",
+   "name": "Sonique Buds Pro ANC Earbuds",
+   "brand": "Sonique",
+   "cat": "headphones",
+   "kind": "earbuds",
+   "price": 199.99,
+   "rating": 4.6,
+   "reviews": 2210,
+   "stock": "out",
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "earbuds",
+    "water-resistant",
+    "wireless-charging"
+   ],
+   "colors": [
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    },
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    }
+   ],
+   "highlights": [
+    "Industry-leading call clarity",
+    "Personalized ear-tip fit test",
+    "IPX4 splash resistant"
+   ],
+   "specs": {
+    "Form factor": "True wireless earbuds",
+    "Noise cancelling": "Adaptive ANC",
+    "Battery life": "8 hrs (24 hrs with case)",
+    "Charging": "USB-C, Qi wireless",
+    "Bluetooth": "5.3, multipoint",
+    "Weight": "5.9 g per bud",
+    "Water resistance": "IPX4"
+   }
+  },
+  {
+   "id": "kestrel-monitor-x",
+   "name": "Kestrel Monitor X Wired Studio Headphones",
+   "brand": "Kestrel",
+   "cat": "headphones",
+   "kind": "overear",
+   "price": 149.99,
+   "rating": 4.5,
+   "reviews": 512,
+   "stock": "in",
+   "features": [
+    "wired",
+    "over-ear"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "highlights": [
+    "Flat studio reference tuning",
+    "Detachable coiled and straight cables",
+    "45 mm neodymium drivers"
+   ],
+   "specs": {
+    "Form factor": "Over-ear, closed back",
+    "Noise cancelling": "None (passive isolation)",
+    "Battery life": "Not applicable",
+    "Charging": "Not applicable",
+    "Bluetooth": "None (3.5 mm wired)",
+    "Weight": "285 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "pulsewave-quietmax",
+   "name": "Pulsewave QuietMax Over-Ear Noise Cancelling Headphones",
+   "brand": "Pulsewave",
+   "cat": "headphones",
+   "kind": "overear",
+   "price": 229.99,
+   "was": 299.99,
+   "rating": 4.3,
+   "reviews": 978,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "noise-cancelling",
+    "wireless",
+    "over-ear",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Deep Navy",
+     "hex": "#1e2f5c"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Desert Sand",
+     "hex": "#c9b496"
+    }
+   ],
+   "highlights": [
+    "Six-level noise cancelling",
+    "60 hours with ANC off",
+    "Low-latency game mode"
+   ],
+   "specs": {
+    "Form factor": "Over-ear",
+    "Noise cancelling": "6-level ANC",
+    "Battery life": "45 hrs ANC on / 60 hrs off",
+    "Charging": "USB-C",
+    "Bluetooth": "5.3",
+    "Weight": "268 g",
+    "Water resistance": "None"
+   }
+  },
+  {
+   "id": "lumora-c5-oled",
+   "name": "Lumora C5 4K OLED 120Hz Smart TV",
+   "brand": "Lumora",
+   "cat": "tvs",
+   "kind": "tv",
+   "price": 1799.99,
+   "was": 2199.99,
+   "rating": 4.8,
+   "reviews": 1543,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "4k",
+    "120hz",
+    "oled",
+    "hdr",
+    "smart-tv"
+   ],
+   "options": {
+    "label": "Screen size",
+    "choices": [
+     {
+      "name": "55 inch",
+      "price": 1299.99,
+      "was": 1599.99
+     },
+     {
+      "name": "65 inch",
+      "price": 1799.99,
+      "was": 2199.99
+     },
+     {
+      "name": "77 inch",
+      "price": 2799.99,
+      "was": 3299.99
+     }
+    ]
+   },
+   "defOption": 1,
+   "highlights": [
+    "Self-lit OLED pixels with perfect black",
+    "120Hz with VRR for gaming",
+    "Dolby-style HDR and spatial audio"
+   ],
+   "specs": {
+    "Display type": "OLED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "120Hz native",
+    "HDR": "HDR10, HLG, Dynamic HDR",
+    "HDMI ports": "4 (HDMI 2.1)",
+    "Smart platform": "LumaOS",
+    "Speakers": "40 W, 2.2 channel"
+   }
+  },
+  {
+   "id": "vistaline-q7-qled",
+   "name": "Vistaline Q7 4K QLED 120Hz Smart TV",
+   "brand": "Vistaline",
+   "cat": "tvs",
+   "kind": "tv",
+   "price": 699.99,
+   "was": 899.99,
+   "rating": 4.5,
+   "reviews": 2210,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "4k",
+    "120hz",
+    "hdr",
+    "smart-tv"
+   ],
+   "options": {
+    "label": "Screen size",
+    "choices": [
+     {
+      "name": "55 inch",
+      "price": 699.99,
+      "was": 899.99
+     },
+     {
+      "name": "65 inch",
+      "price": 899.99,
+      "was": 1099.99
+     },
+     {
+      "name": "75 inch",
+      "price": 1199.99,
+      "was": 1399.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "Quantum-dot color",
+    "120Hz motion rate with game bar",
+    "Hands-free voice control"
+   ],
+   "specs": {
+    "Display type": "QLED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "120Hz native",
+    "HDR": "HDR10+",
+    "HDMI ports": "4 (2 x HDMI 2.1)",
+    "Smart platform": "Vista Home",
+    "Speakers": "20 W, 2 channel"
+   }
+  },
+  {
+   "id": "orbix-u50-led",
+   "name": "Orbix U50 50\" 4K LED Smart TV",
+   "brand": "Orbix",
+   "cat": "tvs",
+   "kind": "tv",
+   "price": 299.99,
+   "rating": 4.2,
+   "reviews": 4120,
+   "stock": "in",
+   "features": [
+    "4k",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Great value 4K picture",
+    "Built-in streaming apps",
+    "Slim bezel design"
+   ],
+   "specs": {
+    "Display type": "LED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "60Hz",
+    "HDR": "HDR10",
+    "HDMI ports": "3",
+    "Smart platform": "Orbix TV",
+    "Speakers": "16 W, 2 channel"
+   }
+  },
+  {
+   "id": "lumora-g5-oled-77",
+   "name": "Lumora G5 77\" Gallery 4K OLED 144Hz Smart TV",
+   "brand": "Lumora",
+   "cat": "tvs",
+   "kind": "tv",
+   "price": 3499.99,
+   "rating": 4.9,
+   "reviews": 388,
+   "stock": "low",
+   "left": 2,
+   "features": [
+    "4k",
+    "120hz",
+    "oled",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Brightest Lumora OLED panel",
+    "Flush gallery wall-mount design",
+    "144Hz for PC gaming"
+   ],
+   "specs": {
+    "Display type": "OLED (brightness booster)",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "144Hz native",
+    "HDR": "HDR10, HLG, Dynamic HDR",
+    "HDMI ports": "4 (HDMI 2.1)",
+    "Smart platform": "LumaOS",
+    "Speakers": "60 W, 4.2 channel"
+   }
+  },
+  {
+   "id": "vistaline-m9-miniled",
+   "name": "Vistaline M9 75\" Mini-LED 4K 120Hz Smart TV",
+   "brand": "Vistaline",
+   "cat": "tvs",
+   "kind": "tv",
+   "price": 1299.99,
+   "was": 1699.99,
+   "rating": 4.6,
+   "reviews": 702,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "4k",
+    "120hz",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Over 1,000 local dimming zones",
+    "Peak brightness for bright rooms",
+    "Anti-glare matte screen"
+   ],
+   "specs": {
+    "Display type": "Mini-LED QLED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "120Hz native",
+    "HDR": "HDR10+, HLG",
+    "HDMI ports": "4 (2 x HDMI 2.1)",
+    "Smart platform": "Vista Home",
+    "Speakers": "40 W, 2.1 channel"
+   }
+  },
+  {
+   "id": "orbix-f43-fhd",
+   "name": "Orbix F43 43\" Full HD LED Smart TV",
+   "brand": "Orbix",
+   "cat": "tvs",
+   "kind": "tv",
+   "price": 179.99,
+   "was": 219.99,
+   "rating": 4,
+   "reviews": 1876,
+   "stock": "in",
+   "features": [
+    "smart-tv"
+   ],
+   "highlights": [
+    "Ideal for bedrooms and dorms",
+    "Built-in streaming apps",
+    "Lightweight and easy to mount"
+   ],
+   "specs": {
+    "Display type": "LED",
+    "Resolution": "Full HD (1920 x 1080)",
+    "Refresh rate": "60Hz",
+    "HDR": "None",
+    "HDMI ports": "2",
+    "Smart platform": "Orbix TV",
+    "Speakers": "10 W, 2 channel"
+   }
+  },
+  {
+   "id": "vistaline-h32",
+   "name": "Vistaline H32 32\" HD Smart TV",
+   "brand": "Vistaline",
+   "cat": "tvs",
+   "kind": "tv",
+   "price": 129.99,
+   "rating": 3.8,
+   "reviews": 954,
+   "stock": "out",
+   "features": [
+    "smart-tv"
+   ],
+   "highlights": [
+    "Compact size for kitchens",
+    "Voice remote included",
+    "Energy efficient"
+   ],
+   "specs": {
+    "Display type": "LED",
+    "Resolution": "HD (1366 x 768)",
+    "Refresh rate": "60Hz",
+    "HDR": "None",
+    "HDMI ports": "2",
+    "Smart platform": "Vista Home",
+    "Speakers": "8 W, 2 channel"
+   }
+  },
+  {
+   "id": "lumora-q85-qled",
+   "name": "Lumora Q85 85\" 4K QLED 120Hz Smart TV",
+   "brand": "Lumora",
+   "cat": "tvs",
+   "kind": "tv",
+   "price": 1999.99,
+   "was": 2499.99,
+   "rating": 4.4,
+   "reviews": 431,
+   "stock": "in",
+   "features": [
+    "4k",
+    "120hz",
+    "hdr",
+    "smart-tv"
+   ],
+   "highlights": [
+    "Huge 85-inch screen",
+    "120Hz with motion smoothing",
+    "Object-tracking sound"
+   ],
+   "specs": {
+    "Display type": "QLED",
+    "Resolution": "4K UHD (3840 x 2160)",
+    "Refresh rate": "120Hz native",
+    "HDR": "HDR10+",
+    "HDMI ports": "4 (HDMI 2.1)",
+    "Smart platform": "LumaOS",
+    "Speakers": "40 W, 2.2 channel"
+   }
+  },
+  {
+   "id": "nimbus-air-14",
+   "name": "Nimbus Air 14\" Ultralight Laptop",
+   "brand": "Nimbus",
+   "cat": "laptops",
+   "kind": "laptop",
+   "price": 999.99,
+   "was": 1199.99,
+   "rating": 4.7,
+   "reviews": 1650,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "lightweight",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    },
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    },
+    {
+     "name": "Sage Green",
+     "hex": "#8fa58a"
+    }
+   ],
+   "options": {
+    "label": "Memory / storage",
+    "choices": [
+     {
+      "name": "16GB / 512GB",
+      "price": 999.99,
+      "was": 1199.99
+     },
+     {
+      "name": "24GB / 1TB",
+      "price": 1299.99,
+      "was": 1499.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "Just 1.1 kg (2.4 lb)",
+    "Up to 20 hours of battery",
+    "Fanless, silent design"
+   ],
+   "specs": {
+    "Processor": "Nimbus N3 8-core",
+    "Memory": "16GB unified",
+    "Storage": "512GB SSD",
+    "Display": "14.2\" 2560 x 1664, 500 nits",
+    "Graphics": "Integrated 10-core",
+    "Battery life": "Up to 20 hours",
+    "Weight": "1.1 kg (2.4 lb)",
+    "Operating system": "NimbusOS"
+   }
+  },
+  {
+   "id": "corvid-blade-16",
+   "name": "Corvid Blade 16\" Gaming Laptop",
+   "brand": "Corvid",
+   "cat": "laptops",
+   "kind": "laptop",
+   "price": 1899.99,
+   "rating": 4.6,
+   "reviews": 742,
+   "stock": "low",
+   "left": 2,
+   "features": [
+    "gaming",
+    "120hz"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "options": {
+    "label": "Memory / storage",
+    "choices": [
+     {
+      "name": "32GB / 1TB",
+      "price": 1899.99
+     },
+     {
+      "name": "32GB / 2TB",
+      "price": 2099.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "240Hz QHD+ display",
+    "12GB dedicated graphics",
+    "Per-key RGB keyboard"
+   ],
+   "specs": {
+    "Processor": "Stratus X9 16-core",
+    "Memory": "32GB DDR5",
+    "Storage": "1TB SSD",
+    "Display": "16\" 2560 x 1600, 240Hz",
+    "Graphics": "Vortek GX 12GB",
+    "Battery life": "Up to 6 hours",
+    "Weight": "2.4 kg (5.3 lb)",
+    "Operating system": "Windows 11 Home"
+   }
+  },
+  {
+   "id": "stratus-flip-14",
+   "name": "Stratus Flip 14\" 2-in-1 Touchscreen Laptop",
+   "brand": "Stratus",
+   "cat": "laptops",
+   "kind": "laptop",
+   "price": 749.99,
+   "was": 899.99,
+   "rating": 4.3,
+   "reviews": 1120,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "touchscreen",
+    "2-in-1",
+    "lightweight",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    },
+    {
+     "name": "Cobalt Blue",
+     "hex": "#2f5bd3"
+    }
+   ],
+   "highlights": [
+    "360-degree hinge, tablet mode",
+    "Active pen included",
+    "Fast charge 50% in 30 minutes"
+   ],
+   "specs": {
+    "Processor": "Stratus X5 10-core",
+    "Memory": "16GB LPDDR5",
+    "Storage": "512GB SSD",
+    "Display": "14\" 1920 x 1200 touch",
+    "Graphics": "Integrated",
+    "Battery life": "Up to 13 hours",
+    "Weight": "1.4 kg (3.1 lb)",
+    "Operating system": "Windows 11 Home"
+   }
+  },
+  {
+   "id": "nimbus-pro-16",
+   "name": "Nimbus Pro 16\" Creator Laptop",
+   "brand": "Nimbus",
+   "cat": "laptops",
+   "kind": "laptop",
+   "price": 2499.99,
+   "rating": 4.9,
+   "reviews": 610,
+   "stock": "in",
+   "features": [
+    "120hz",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    },
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    }
+   ],
+   "options": {
+    "label": "Memory / storage",
+    "choices": [
+     {
+      "name": "36GB / 1TB",
+      "price": 2499.99
+     },
+     {
+      "name": "48GB / 2TB",
+      "price": 3099.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "Mini-LED XDR-class display",
+    "Pro N3 Max chip",
+    "Six-speaker sound system"
+   ],
+   "specs": {
+    "Processor": "Nimbus N3 Max 14-core",
+    "Memory": "36GB unified",
+    "Storage": "1TB SSD",
+    "Display": "16.2\" 3456 x 2234, 120Hz Mini-LED",
+    "Graphics": "Integrated 30-core",
+    "Battery life": "Up to 22 hours",
+    "Weight": "2.1 kg (4.7 lb)",
+    "Operating system": "NimbusOS"
+   }
+  },
+  {
+   "id": "corvid-swift-15",
+   "name": "Corvid Swift 15.6\" Everyday Laptop",
+   "brand": "Corvid",
+   "cat": "laptops",
+   "kind": "laptop",
+   "price": 449.99,
+   "was": 549.99,
+   "rating": 4.1,
+   "reviews": 2380,
+   "stock": "in",
+   "features": [
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    }
+   ],
+   "highlights": [
+    "Full-size keyboard with number pad",
+    "Fast SSD storage",
+    "Webcam privacy shutter"
+   ],
+   "specs": {
+    "Processor": "Stratus X3 8-core",
+    "Memory": "8GB DDR4",
+    "Storage": "512GB SSD",
+    "Display": "15.6\" 1920 x 1080",
+    "Graphics": "Integrated",
+    "Battery life": "Up to 9 hours",
+    "Weight": "1.7 kg (3.7 lb)",
+    "Operating system": "Windows 11 Home"
+   }
+  },
+  {
+   "id": "stratus-chromo-11",
+   "name": "Stratus Chromo 11.6\" Student Laptop",
+   "brand": "Stratus",
+   "cat": "laptops",
+   "kind": "laptop",
+   "price": 199.99,
+   "rating": 3.9,
+   "reviews": 1430,
+   "stock": "in",
+   "features": [
+    "lightweight"
+   ],
+   "colors": [
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    },
+    {
+     "name": "Cobalt Blue",
+     "hex": "#2f5bd3"
+    }
+   ],
+   "highlights": [
+    "Spill-resistant keyboard",
+    "Durable rubberized edges",
+    "12-hour battery"
+   ],
+   "specs": {
+    "Processor": "Stratus E2 4-core",
+    "Memory": "4GB",
+    "Storage": "64GB eMMC",
+    "Display": "11.6\" 1366 x 768",
+    "Graphics": "Integrated",
+    "Battery life": "Up to 12 hours",
+    "Weight": "1.1 kg (2.5 lb)",
+    "Operating system": "CloudOS"
+   }
+  },
+  {
+   "id": "corvid-zen-oled-13",
+   "name": "Corvid Zen 13.3\" OLED Laptop",
+   "brand": "Corvid",
+   "cat": "laptops",
+   "kind": "laptop",
+   "price": 1149.99,
+   "rating": 4.5,
+   "reviews": 389,
+   "stock": "out",
+   "features": [
+    "oled",
+    "lightweight",
+    "touchscreen",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Deep Navy",
+     "hex": "#1e2f5c"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    }
+   ],
+   "highlights": [
+    "2.8K OLED touch display",
+    "Under 1 kg",
+    "Thunderbolt-class USB-C ports"
+   ],
+   "specs": {
+    "Processor": "Stratus X7 12-core",
+    "Memory": "16GB LPDDR5X",
+    "Storage": "1TB SSD",
+    "Display": "13.3\" 2880 x 1800 OLED touch",
+    "Graphics": "Integrated",
+    "Battery life": "Up to 14 hours",
+    "Weight": "0.99 kg (2.2 lb)",
+    "Operating system": "Windows 11 Home"
+   }
+  },
+  {
+   "id": "nimbus-studio-book-15",
+   "name": "Nimbus StudioBook 15\" Laptop",
+   "brand": "Nimbus",
+   "cat": "laptops",
+   "kind": "laptop",
+   "price": 1299.99,
+   "rating": 4.6,
+   "reviews": 905,
+   "stock": "in",
+   "features": [
+    "lightweight",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    },
+    {
+     "name": "Champagne Gold",
+     "hex": "#d8bf8c"
+    },
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    }
+   ],
+   "highlights": [
+    "Large 15.3\" Liquid display",
+    "Six-speaker sound",
+    "18-hour battery"
+   ],
+   "specs": {
+    "Processor": "Nimbus N3 8-core",
+    "Memory": "16GB unified",
+    "Storage": "512GB SSD",
+    "Display": "15.3\" 2880 x 1864",
+    "Graphics": "Integrated 10-core",
+    "Battery life": "Up to 18 hours",
+    "Weight": "1.5 kg (3.3 lb)",
+    "Operating system": "NimbusOS"
+   }
+  },
+  {
+   "id": "halo-9-pro",
+   "name": "Halo 9 Pro 5G Unlocked Phone",
+   "brand": "Halo",
+   "cat": "phones",
+   "kind": "phone",
+   "price": 999.99,
+   "rating": 4.7,
+   "reviews": 3410,
+   "stock": "in",
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    },
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    },
+    {
+     "name": "Sage Green",
+     "hex": "#8fa58a"
+    }
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "128GB",
+      "price": 999.99
+     },
+     {
+      "name": "256GB",
+      "price": 1099.99
+     },
+     {
+      "name": "512GB",
+      "price": 1299.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "Triple 50 MP camera with 5x zoom",
+    "6.3\" 120Hz LTPO display",
+    "Titanium frame"
+   ],
+   "specs": {
+    "Display": "6.3\" OLED, 120Hz",
+    "Processor": "Halo H9 Pro",
+    "Rear camera": "50 MP + 48 MP + 50 MP (5x)",
+    "Battery": "4,800 mAh",
+    "Charging": "45 W wired, 25 W wireless",
+    "Water resistance": "IP68",
+    "Network": "5G (sub-6 and mmWave)"
+   }
+  },
+  {
+   "id": "halo-9",
+   "name": "Halo 9 5G Unlocked Phone",
+   "brand": "Halo",
+   "cat": "phones",
+   "kind": "phone",
+   "price": 699.99,
+   "was": 799.99,
+   "rating": 4.5,
+   "reviews": 2620,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Coral",
+     "hex": "#f07a62"
+    },
+    {
+     "name": "Cobalt Blue",
+     "hex": "#2f5bd3"
+    }
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "128GB",
+      "price": 699.99,
+      "was": 799.99
+     },
+     {
+      "name": "256GB",
+      "price": 799.99,
+      "was": 899.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "Dual 50 MP camera",
+    "6.2\" 120Hz display",
+    "All-day battery"
+   ],
+   "specs": {
+    "Display": "6.2\" OLED, 120Hz",
+    "Processor": "Halo H9",
+    "Rear camera": "50 MP + 12 MP ultrawide",
+    "Battery": "4,500 mAh",
+    "Charging": "30 W wired, 15 W wireless",
+    "Water resistance": "IP68",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "vexa-nova-s",
+   "name": "Vexa Nova S 5G Unlocked Phone",
+   "brand": "Vexa",
+   "cat": "phones",
+   "kind": "phone",
+   "price": 899.99,
+   "rating": 4.6,
+   "reviews": 1980,
+   "stock": "low",
+   "left": 2,
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Lilac",
+     "hex": "#b9a6dc"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    }
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "256GB",
+      "price": 899.99
+     },
+     {
+      "name": "512GB",
+      "price": 1019.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "200 MP main camera",
+    "Built-in on-device AI assistant",
+    "7 years of updates"
+   ],
+   "specs": {
+    "Display": "6.7\" AMOLED, 120Hz",
+    "Processor": "Vexa Nova Gen 4",
+    "Rear camera": "200 MP + 12 MP + 10 MP (3x)",
+    "Battery": "5,000 mAh",
+    "Charging": "45 W wired, 15 W wireless",
+    "Water resistance": "IP68",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "vexa-nova-lite",
+   "name": "Vexa Nova Lite 5G Unlocked Phone",
+   "brand": "Vexa",
+   "cat": "phones",
+   "kind": "phone",
+   "price": 349.99,
+   "was": 399.99,
+   "rating": 4.3,
+   "reviews": 2870,
+   "stock": "in",
+   "features": [
+    "5g",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Cobalt Blue",
+     "hex": "#2f5bd3"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "128GB",
+      "price": 349.99,
+      "was": 399.99
+     },
+     {
+      "name": "256GB",
+      "price": 409.99,
+      "was": 459.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "Two-day battery life",
+    "6.6\" 120Hz display",
+    "Expandable storage"
+   ],
+   "specs": {
+    "Display": "6.6\" AMOLED, 120Hz",
+    "Processor": "Vexa Core 6",
+    "Rear camera": "50 MP + 8 MP",
+    "Battery": "5,000 mAh",
+    "Charging": "25 W wired",
+    "Water resistance": "IP67",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "orbix-one-5g",
+   "name": "Orbix One 5G Unlocked Phone",
+   "brand": "Orbix",
+   "cat": "phones",
+   "kind": "phone",
+   "price": 549.99,
+   "rating": 4.2,
+   "reviews": 744,
+   "stock": "in",
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Sage Green",
+     "hex": "#8fa58a"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "highlights": [
+    "Clean, ad-free software",
+    "Wireless charging",
+    "Headphone jack"
+   ],
+   "specs": {
+    "Display": "6.4\" OLED, 90Hz",
+    "Processor": "Orbix S1",
+    "Rear camera": "64 MP + 13 MP",
+    "Battery": "4,600 mAh",
+    "Charging": "33 W wired, 15 W wireless",
+    "Water resistance": "IP54",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "halo-fold-2",
+   "name": "Halo Fold 2 5G Foldable Phone",
+   "brand": "Halo",
+   "cat": "phones",
+   "kind": "phone",
+   "price": 1799.99,
+   "was": 1999.99,
+   "rating": 4.4,
+   "reviews": 512,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    },
+    {
+     "name": "Champagne Gold",
+     "hex": "#d8bf8c"
+    }
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "256GB",
+      "price": 1799.99,
+      "was": 1999.99
+     },
+     {
+      "name": "512GB",
+      "price": 1919.99,
+      "was": 2119.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "7.6\" folding inner display",
+    "Hands-free Flex mode",
+    "Slimmest Halo fold yet"
+   ],
+   "specs": {
+    "Display": "7.6\" foldable OLED + 6.3\" cover, 120Hz",
+    "Processor": "Halo H9 Pro",
+    "Rear camera": "50 MP + 12 MP + 10 MP (3x)",
+    "Battery": "4,400 mAh",
+    "Charging": "25 W wired, 15 W wireless",
+    "Water resistance": "IPX8",
+    "Network": "5G (sub-6 and mmWave)"
+   }
+  },
+  {
+   "id": "vexa-flip-5",
+   "name": "Vexa Flip 5 5G Flip Phone",
+   "brand": "Vexa",
+   "cat": "phones",
+   "kind": "phone",
+   "price": 999.99,
+   "rating": 4.1,
+   "reviews": 980,
+   "stock": "out",
+   "features": [
+    "5g",
+    "wireless-charging",
+    "unlocked",
+    "120hz",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Lilac",
+     "hex": "#b9a6dc"
+    },
+    {
+     "name": "Sage Green",
+     "hex": "#8fa58a"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "highlights": [
+    "3.4\" cover screen",
+    "Pocket-sized flip design",
+    "Hands-free selfies"
+   ],
+   "specs": {
+    "Display": "6.7\" foldable AMOLED, 120Hz",
+    "Processor": "Vexa Nova Gen 4",
+    "Rear camera": "50 MP + 12 MP",
+    "Battery": "3,700 mAh",
+    "Charging": "25 W wired, 15 W wireless",
+    "Water resistance": "IPX8",
+    "Network": "5G (sub-6)"
+   }
+  },
+  {
+   "id": "orbix-a3",
+   "name": "Orbix A3 Unlocked Phone",
+   "brand": "Orbix",
+   "cat": "phones",
+   "kind": "phone",
+   "price": 179.99,
+   "rating": 3.9,
+   "reviews": 1650,
+   "stock": "in",
+   "features": [
+    "unlocked",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Cobalt Blue",
+     "hex": "#2f5bd3"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "highlights": [
+    "Big 6.5\" display",
+    "3-day battery saver",
+    "Dual SIM"
+   ],
+   "specs": {
+    "Display": "6.5\" LCD, 90Hz",
+    "Processor": "Orbix Lite 2",
+    "Rear camera": "50 MP",
+    "Battery": "5,000 mAh",
+    "Charging": "18 W wired",
+    "Water resistance": "IP52",
+    "Network": "4G LTE"
+   }
+  },
+  {
+   "id": "domio-hub-speaker",
+   "name": "Domio Hub Smart Speaker with Voice Assistant",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "kind": "speaker",
+   "price": 79.99,
+   "was": 99.99,
+   "rating": 4.6,
+   "reviews": 5210,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "voice-assistant",
+    "wireless",
+    "works-with-hub"
+   ],
+   "colors": [
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    },
+    {
+     "name": "Sage Green",
+     "hex": "#8fa58a"
+    }
+   ],
+   "highlights": [
+    "Room-filling 360 degree sound",
+    "Built-in smart home hub",
+    "Mic-off privacy switch"
+   ],
+   "specs": {
+    "Device type": "Smart speaker",
+    "Connectivity": "Wi-Fi 6, Bluetooth 5.2, Thread",
+    "Power": "AC adapter",
+    "Voice assistant": "Domio Voice",
+    "Dimensions": "10 x 10 x 14 cm"
+   }
+  },
+  {
+   "id": "domio-doorbell-2k",
+   "name": "Domio Video Doorbell 2K",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "kind": "doorbell",
+   "price": 129.99,
+   "rating": 4.4,
+   "reviews": 3020,
+   "stock": "in",
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "water-resistant"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    }
+   ],
+   "highlights": [
+    "2K HDR head-to-toe video",
+    "Package detection",
+    "Battery or wired install"
+   ],
+   "specs": {
+    "Device type": "Video doorbell",
+    "Connectivity": "Wi-Fi 6 (2.4/5 GHz)",
+    "Power": "Rechargeable battery or wired",
+    "Video": "2K HDR, 160 degree field of view",
+    "Dimensions": "13 x 4.5 x 2.5 cm"
+   }
+  },
+  {
+   "id": "lumora-glow-bulbs-4",
+   "name": "Lumora Glow Smart Color Bulbs (4-Pack)",
+   "brand": "Lumora",
+   "cat": "smart-home",
+   "kind": "bulb",
+   "price": 49.99,
+   "was": 69.99,
+   "rating": 4.3,
+   "reviews": 2760,
+   "stock": "in",
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "voice-assistant"
+   ],
+   "highlights": [
+    "16 million colors",
+    "No hub required",
+    "Schedules and scenes"
+   ],
+   "specs": {
+    "Device type": "Smart bulb (A19)",
+    "Connectivity": "Wi-Fi, Bluetooth",
+    "Power": "9 W (60 W equivalent)",
+    "Brightness": "800 lumens",
+    "Pack size": "4 bulbs"
+   }
+  },
+  {
+   "id": "hearth-smart-thermostat",
+   "name": "Hearth Smart Thermostat",
+   "brand": "Hearth",
+   "cat": "smart-home",
+   "kind": "thermostat",
+   "price": 179.99,
+   "rating": 4.5,
+   "reviews": 1890,
+   "stock": "low",
+   "left": 2,
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "voice-assistant"
+   ],
+   "colors": [
+    {
+     "name": "Silver",
+     "hex": "#c3c8d1"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Champagne Gold",
+     "hex": "#d8bf8c"
+    }
+   ],
+   "highlights": [
+    "Learns your schedule",
+    "Energy savings reports",
+    "Works with most HVAC systems"
+   ],
+   "specs": {
+    "Device type": "Smart thermostat",
+    "Connectivity": "Wi-Fi, Thread",
+    "Power": "C-wire or power adapter",
+    "Display": "2.5\" color",
+    "Dimensions": "8.4 cm diameter"
+   }
+  },
+  {
+   "id": "domio-indoor-cam",
+   "name": "Domio Indoor Cam 2K Pan/Tilt",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "kind": "camera",
+   "price": 39.99,
+   "was": 59.99,
+   "rating": 4.2,
+   "reviews": 4410,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "wireless",
+    "works-with-hub"
+   ],
+   "colors": [
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "highlights": [
+    "360 degree pan, 180 degree tilt",
+    "Pet and person detection",
+    "Two-way talk"
+   ],
+   "specs": {
+    "Device type": "Indoor security camera",
+    "Connectivity": "Wi-Fi (2.4 GHz)",
+    "Power": "USB-C adapter",
+    "Video": "2K, night vision",
+    "Dimensions": "7 x 7 x 11 cm"
+   }
+  },
+  {
+   "id": "domio-mesh-6e-3",
+   "name": "Domio Mesh Wi-Fi 6E System (3-Pack)",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "kind": "router",
+   "price": 299.99,
+   "rating": 4.6,
+   "reviews": 1320,
+   "stock": "in",
+   "features": [
+    "wifi-6e",
+    "works-with-hub"
+   ],
+   "highlights": [
+    "Covers up to 6,000 sq ft",
+    "Tri-band with 6 GHz",
+    "Parental controls"
+   ],
+   "specs": {
+    "Device type": "Mesh Wi-Fi router",
+    "Connectivity": "Wi-Fi 6E tri-band, 2 x 2.5 GbE",
+    "Power": "AC adapter",
+    "Coverage": "Up to 6,000 sq ft",
+    "Pack size": "3 units"
+   }
+  },
+  {
+   "id": "hearth-smart-plug-4",
+   "name": "Hearth Mini Smart Plug (4-Pack)",
+   "brand": "Hearth",
+   "cat": "smart-home",
+   "kind": "plug",
+   "price": 24.99,
+   "rating": 4.4,
+   "reviews": 6830,
+   "stock": "in",
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "voice-assistant"
+   ],
+   "highlights": [
+    "Control lamps and fans by voice",
+    "Energy monitoring",
+    "Compact, will not block outlets"
+   ],
+   "specs": {
+    "Device type": "Smart plug",
+    "Connectivity": "Wi-Fi (2.4 GHz), Matter",
+    "Power": "15 A max",
+    "Dimensions": "5 x 3.8 x 3.3 cm",
+    "Pack size": "4 plugs"
+   }
+  },
+  {
+   "id": "domio-robovac-s7",
+   "name": "Domio RoboVac S7 Self-Emptying Robot Vacuum",
+   "brand": "Domio",
+   "cat": "smart-home",
+   "kind": "vacuum",
+   "price": 449.99,
+   "was": 599.99,
+   "rating": 4.3,
+   "reviews": 870,
+   "stock": "out",
+   "features": [
+    "wireless",
+    "works-with-hub",
+    "voice-assistant"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    }
+   ],
+   "highlights": [
+    "Self-empties for 60 days",
+    "Lidar room mapping",
+    "Vacuum and mop in one pass"
+   ],
+   "specs": {
+    "Device type": "Robot vacuum and mop",
+    "Connectivity": "Wi-Fi",
+    "Power": "Rechargeable, 180 min runtime",
+    "Suction": "6,000 Pa",
+    "Dimensions": "35 x 35 x 9.7 cm"
+   }
+  },
+  {
+   "id": "arcadia-nexus",
+   "name": "Arcadia Nexus Console – 1TB",
+   "brand": "Arcadia",
+   "cat": "gaming",
+   "kind": "console",
+   "price": 499.99,
+   "rating": 4.8,
+   "reviews": 6120,
+   "stock": "low",
+   "left": 2,
+   "features": [
+    "4k",
+    "120hz",
+    "gaming",
+    "hdr"
+   ],
+   "colors": [
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "highlights": [
+    "4K gaming at up to 120 fps",
+    "Ultra-fast 1TB SSD",
+    "Haptic wireless controller included"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus",
+    "Storage": "1TB SSD",
+    "Max resolution": "4K (8K capable)",
+    "Max frame rate": "120 fps",
+    "Disc drive": "Ultra HD Blu-ray",
+    "Included": "1 wireless controller, HDMI 2.1 cable"
+   }
+  },
+  {
+   "id": "arcadia-nexus-digital",
+   "name": "Arcadia Nexus Digital Edition Console",
+   "brand": "Arcadia",
+   "cat": "gaming",
+   "kind": "console",
+   "price": 399.99,
+   "was": 449.99,
+   "rating": 4.7,
+   "reviews": 3240,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "4k",
+    "120hz",
+    "gaming",
+    "hdr"
+   ],
+   "colors": [
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    }
+   ],
+   "highlights": [
+    "Same power, no disc drive",
+    "825GB SSD",
+    "Download games instantly"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus",
+    "Storage": "825GB SSD",
+    "Max resolution": "4K",
+    "Max frame rate": "120 fps",
+    "Disc drive": "None (digital only)",
+    "Included": "1 wireless controller, HDMI 2.1 cable"
+   }
+  },
+  {
+   "id": "vortek-pro-controller",
+   "name": "Vortek Pro Wireless Controller",
+   "brand": "Vortek",
+   "cat": "gaming",
+   "kind": "controller",
+   "price": 69.99,
+   "rating": 4.5,
+   "reviews": 2890,
+   "stock": "in",
+   "features": [
+    "wireless",
+    "gaming",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    },
+    {
+     "name": "Volt Red",
+     "hex": "#d33a3a"
+    },
+    {
+     "name": "Cobalt Blue",
+     "hex": "#2f5bd3"
+    }
+   ],
+   "highlights": [
+    "Hall-effect sticks, no drift",
+    "Remappable back paddles",
+    "40-hour battery"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus, PC, mobile",
+    "Connectivity": "2.4 GHz, Bluetooth, USB-C",
+    "Battery life": "40 hours",
+    "Weight": "265 g",
+    "Included": "USB-C cable"
+   }
+  },
+  {
+   "id": "vortek-gx-handheld",
+   "name": "Vortek GX Handheld Gaming PC – 512GB",
+   "brand": "Vortek",
+   "cat": "gaming",
+   "kind": "handheld",
+   "price": 549.99,
+   "rating": 4.4,
+   "reviews": 1120,
+   "stock": "in",
+   "features": [
+    "gaming",
+    "120hz",
+    "touchscreen",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    }
+   ],
+   "options": {
+    "label": "Storage",
+    "choices": [
+     {
+      "name": "512GB",
+      "price": 549.99
+     },
+     {
+      "name": "1TB",
+      "price": 649.99
+     }
+    ]
+   },
+   "defOption": 0,
+   "highlights": [
+    "7.4\" 120Hz OLED touchscreen",
+    "Plays your PC game library",
+    "Docks to your TV"
+   ],
+   "specs": {
+    "Platform": "PC handheld",
+    "Storage": "512GB SSD",
+    "Max resolution": "1920 x 1200 (handheld)",
+    "Max frame rate": "120 fps",
+    "Disc drive": "None",
+    "Included": "Charger, carrying case"
+   }
+  },
+  {
+   "id": "pulsewave-h7-headset",
+   "name": "Pulsewave H7 Wireless Gaming Headset",
+   "brand": "Pulsewave",
+   "cat": "gaming",
+   "kind": "overear",
+   "price": 129.99,
+   "was": 159.99,
+   "rating": 4.3,
+   "reviews": 1460,
+   "stock": "in",
+   "features": [
+    "wireless",
+    "gaming",
+    "noise-cancelling",
+    "over-ear",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    }
+   ],
+   "highlights": [
+    "Low-latency 2.4 GHz wireless",
+    "Noise cancelling boom mic",
+    "3D spatial audio"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus, PC, mobile",
+    "Connectivity": "2.4 GHz dongle, Bluetooth",
+    "Battery life": "50 hours",
+    "Weight": "310 g",
+    "Included": "USB-C dongle, cable"
+   }
+  },
+  {
+   "id": "vortek-27-qhd-monitor",
+   "name": "Vortek 27\" QHD 165Hz Gaming Monitor",
+   "brand": "Vortek",
+   "cat": "gaming",
+   "kind": "monitor",
+   "price": 329.99,
+   "was": 399.99,
+   "rating": 4.6,
+   "reviews": 980,
+   "stock": "in",
+   "deal": true,
+   "features": [
+    "gaming",
+    "hdr",
+    "120hz"
+   ],
+   "highlights": [
+    "165Hz IPS panel, 1 ms response",
+    "Adaptive sync",
+    "Height-adjustable stand"
+   ],
+   "specs": {
+    "Platform": "PC and consoles",
+    "Max resolution": "2560 x 1440 (QHD)",
+    "Max frame rate": "165 Hz",
+    "Connectivity": "2 x HDMI 2.1, DisplayPort 1.4",
+    "Included": "DisplayPort cable, stand"
+   }
+  },
+  {
+   "id": "arcadia-apex-racing-wheel",
+   "name": "Arcadia Apex Direct-Drive Racing Wheel",
+   "brand": "Arcadia",
+   "cat": "gaming",
+   "kind": "wheel",
+   "price": 249.99,
+   "rating": 4.5,
+   "reviews": 340,
+   "stock": "out",
+   "features": [
+    "gaming",
+    "wired"
+   ],
+   "highlights": [
+    "Direct-drive force feedback",
+    "Magnetic paddle shifters",
+    "Three-pedal set included"
+   ],
+   "specs": {
+    "Platform": "Arcadia Nexus, PC",
+    "Connectivity": "USB",
+    "Force feedback": "5 Nm direct drive",
+    "Weight": "4.2 kg",
+    "Included": "Wheel, base, pedals"
+   }
+  },
+  {
+   "id": "vortek-k75-keyboard",
+   "name": "Vortek K75 Wireless Mechanical Gaming Keyboard",
+   "brand": "Vortek",
+   "cat": "gaming",
+   "kind": "keyboard",
+   "price": 99.99,
+   "rating": 4.4,
+   "reviews": 1210,
+   "stock": "in",
+   "features": [
+    "wireless",
+    "gaming",
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    }
+   ],
+   "highlights": [
+    "Hot-swappable linear switches",
+    "75% compact layout",
+    "RGB per-key lighting"
+   ],
+   "specs": {
+    "Platform": "PC, Mac",
+    "Connectivity": "2.4 GHz, Bluetooth, USB-C",
+    "Battery life": "200 hours (RGB off)",
+    "Weight": "820 g",
+    "Included": "USB-C cable, keycap puller"
+   }
+  },
+  {
+   "id": "ess-hdmi-21-6ft",
+   "name": "Voltline Essentials 8K HDMI 2.1 Cable (6 ft)",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "kind": "cable",
+   "price": 24.99,
+   "rating": 4.7,
+   "reviews": 2140,
+   "stock": "in",
+   "features": [],
+   "highlights": [
+    "48 Gbps for 4K 120Hz and 8K",
+    "Braided jacket",
+    "Lifetime warranty"
+   ],
+   "specs": {
+    "Type": "HDMI 2.1 Ultra High Speed",
+    "Length": "6 ft (1.8 m)",
+    "Bandwidth": "48 Gbps"
+   }
+  },
+  {
+   "id": "ess-tilt-wall-mount",
+   "name": "Voltline Essentials Tilting TV Wall Mount (32\"-85\")",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "kind": "mount",
+   "price": 69.99,
+   "was": 89.99,
+   "rating": 4.6,
+   "reviews": 1830,
+   "stock": "in",
+   "features": [],
+   "highlights": [
+    "Fits most 32\" to 85\" TVs",
+    "Holds up to 150 lb",
+    "12-degree tilt"
+   ],
+   "specs": {
+    "Type": "Tilting wall mount",
+    "TV size": "32\" to 85\"",
+    "Max weight": "150 lb (68 kg)"
+   }
+  },
+  {
+   "id": "ess-headphone-case",
+   "name": "Voltline Essentials Hardshell Headphone Case",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "kind": "case",
+   "price": 19.99,
+   "rating": 4.5,
+   "reviews": 690,
+   "stock": "in",
+   "features": [],
+   "colors": [
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    },
+    {
+     "name": "Deep Navy",
+     "hex": "#1e2f5c"
+    }
+   ],
+   "highlights": [
+    "Fits most over-ear headphones",
+    "Cable pocket",
+    "Carabiner loop"
+   ],
+   "specs": {
+    "Type": "Hardshell case",
+    "Compatibility": "Over-ear headphones",
+    "Material": "EVA with nylon shell"
+   }
+  },
+  {
+   "id": "ess-65w-gan-charger",
+   "name": "Voltline Essentials 65W USB-C GaN Charger",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "kind": "charger",
+   "price": 39.99,
+   "rating": 4.6,
+   "reviews": 1520,
+   "stock": "in",
+   "features": [
+    "usb-c"
+   ],
+   "colors": [
+    {
+     "name": "Glacier White",
+     "hex": "#e8ebf0"
+    },
+    {
+     "name": "Midnight Black",
+     "hex": "#1f2229"
+    }
+   ],
+   "highlights": [
+    "Charges a laptop, phone and earbuds",
+    "2 x USB-C, 1 x USB-A",
+    "Folding prongs"
+   ],
+   "specs": {
+    "Type": "Wall charger",
+    "Output": "65 W max",
+    "Ports": "2 x USB-C, 1 x USB-A"
+   }
+  },
+  {
+   "id": "ess-clear-phone-case",
+   "name": "Voltline Essentials Clear MagSnap Phone Case",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "kind": "phonecase",
+   "price": 24.99,
+   "rating": 4.3,
+   "reviews": 980,
+   "stock": "in",
+   "features": [
+    "wireless-charging"
+   ],
+   "highlights": [
+    "Built-in magnet ring",
+    "Anti-yellowing",
+    "10 ft drop tested"
+   ],
+   "specs": {
+    "Type": "Phone case",
+    "Compatibility": "Halo, Vexa and Orbix 6.1\"-6.7\" phones",
+    "Drop protection": "10 ft (3 m)"
+   }
+  },
+  {
+   "id": "ess-screen-protector",
+   "name": "Voltline Essentials Tempered Glass Screen Protector (2-Pack)",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "kind": "protector",
+   "price": 19.99,
+   "rating": 4.2,
+   "reviews": 1270,
+   "stock": "in",
+   "features": [],
+   "highlights": [
+    "9H hardness glass",
+    "Bubble-free install frame",
+    "Case friendly"
+   ],
+   "specs": {
+    "Type": "Screen protector",
+    "Compatibility": "Most 6.1\"-6.7\" phones",
+    "Pack size": "2"
+   }
+  },
+  {
+   "id": "ess-laptop-sleeve-14",
+   "name": "Voltline Essentials 14\" Laptop Sleeve",
+   "brand": "Voltline Essentials",
+   "cat": "accessories",
+   "kind": "sleeve",
+   "price": 29.99,
+   "rating": 4.4,
+   "reviews": 540,
+   "stock": "in",
+   "features": [],
+   "colors": [
+    {
+     "name": "Graphite",
+     "hex": "#3a3f4a"
+    },
+    {
+     "name": "Sage Green",
+     "hex": "#8fa58a"
+    }
+   ],
+   "highlights": [
+    "Water-repellent shell",
+    "Front accessory pocket",
+    "Fits 13\" to 14\" laptops"
+   ],
+   "specs": {
+    "Type": "Laptop sleeve",
+    "Compatibility": "13\" to 14\" laptops",
+    "Material": "Recycled polyester"
+   }
+  }
+ ],
+ "boughtTogether": {
+  "3d-printers": [
+   "bambu-pla-basic",
+   "bambu-textured-pei-plate"
+  ],
+  "3d-supplies": [
+   "bambu-pla-basic",
+   "bambu-petg-hf"
+  ],
+  "tvs": [
+   "ess-tilt-wall-mount",
+   "ess-hdmi-21-6ft"
+  ],
+  "headphones": [
+   "ess-headphone-case",
+   "ess-65w-gan-charger"
+  ],
+  "laptops": [
+   "ess-laptop-sleeve-14",
+   "ess-65w-gan-charger"
+  ],
+  "phones": [
+   "ess-clear-phone-case",
+   "ess-screen-protector"
+  ],
+  "smart-home": [
+   "hearth-smart-plug-4",
+   "lumora-glow-bulbs-4"
+  ],
+  "gaming": [
+   "vortek-pro-controller",
+   "ess-hdmi-21-6ft"
+  ],
+  "accessories": [
+   "ess-65w-gan-charger",
+   "ess-hdmi-21-6ft"
+  ]
+ },
+ "stores": [
+  {
+   "name": "Voltline Mission Bay",
+   "distance": "1.2 mi",
+   "hours": "Open until 9 PM"
+  },
+  {
+   "name": "Voltline Daly City",
+   "distance": "8.4 mi",
+   "hours": "Open until 9 PM"
+  },
+  {
+   "name": "Voltline Emeryville",
+   "distance": "11.0 mi",
+   "hours": "Open until 10 PM"
+  }
+ ]
+}

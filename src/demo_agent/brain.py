@@ -24,14 +24,15 @@ MODEL = (
 )
 
 
-def make_session() -> AgentSession:
+def make_session(language: str | None = None) -> AgentSession:
+    """language (BCP-47, Gemini only): keep the voice in that language; unset, it follows the customer."""
     if IS_GEMINI:  # ScreenVideoInput paces the frames, so the session's own video sampler is off
-        return AgentSession(llm=gemini_live(), vad=silero.VAD.load(), video_sampler=None)
+        return AgentSession(llm=gemini_live(language), vad=silero.VAD.load(), video_sampler=None)
     stall_watchdog()
     return AgentSession(llm=inference_realtime(), vad=silero.VAD.load())
 
 
-def gemini_live():
+def gemini_live(language: str | None = None):
     from google.genai import types as gt
     from livekit.plugins import google
 
@@ -58,6 +59,7 @@ def gemini_live():
             )
         ),
         session_resumption=gt.SessionResumptionConfig(),
+        **({"language": language} if language else {}),
         **auth,
     )
 

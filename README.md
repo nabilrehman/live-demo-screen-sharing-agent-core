@@ -115,34 +115,42 @@ key `deploy.sh` fills it from your local `gcloud auth application-default login`
 `FAAN_STORAGE_STATE_B64`, and optionally the Anam and log-upload keys. LiveKit injects the LiveKit credentials itself.
 Each worker takes one call at a time, because each call runs its own Chromium (`src/cloud_main.py`).
 
-## Kai inside a store page (`src/shop_agent.py`)
+## A shopping guide inside a store page (`src/shop_agent.py`)
 
-A second, separate agent: a voice shopping guide that works inside a web page we host (the fictional Voltline store), with
-no shared browser. The page connects to a room with livekit-client and keeps that one connection across its hash-router
+A second, separate agent: a voice shopping guide that works inside a web page we host (today the demo store Voltline and
+its guide Kai), with no shared browser. Nothing about the store is in the code: the store's name, the assistant's name and
+greeting, its domain advice and every product come from the store's own `catalog.json`. The page connects to a room with livekit-client and keeps that one connection across its hash-router
 route changes.
 
-- **Page -> Kai:** on connect and on every route, variant, cart or product click/hover change, the page sends a compact JSON
+- **Page -> agent:** on connect and on every route, variant, cart or product click/hover change, the page sends a compact JSON
   snapshot on the `page_context` text stream (debounced 150 ms): route, page type, open product and variant, the listed
-  products in order (max 12), filters, sort, last interaction, cart. Kai keeps the newest and gives it to the model as a
+  products in order (max 12), filters, sort, last interaction, cart. The agent keeps the newest and gives it to the model as a
   `<page_now>` note (Gemini: a context item; Grok: part of the instructions) whenever it changes.
-- **Kai -> page:** the tools are thin wrappers over `perform_rpc` to the shopper (3 s timeout, one retry). The page registers
+- **Agent -> page:** the tools are thin wrappers over `perform_rpc` to the shopper (3 s timeout, one retry). The page registers
   `get_context`, `search`, `apply_filter`, `clear_filters`, `sort`, `open_product`, `select_variant`, `add_to_cart`,
   `remove_from_cart`, `update_qty`, `show_cart`, `compare`, `highlight`, `go_to_checkout` before connecting; each returns
   the fresh snapshot, or an `RpcError` naming the closest matches. Nothing ever takes payment.
 - **"This one":** `src/inpage/page.py` resolves the shopper's words: the open product, then the product just clicked or
-  hovered (10 s), a position in the list ("the second one"), an attribute that fits one listed product ("the lilac one"),
-  then the last product Kai named; otherwise Kai asks.
-- **Catalog and prompt:** `knowledge/shop/` (the catalog is exported from the store's `catalog.js`).
+  hovered (10 s), a position ("the second one": the second product the agent just named out loud, else number 2 on
+  screen), an attribute that fits one listed product ("the lilac one"), then the last product it named; otherwise it
+  asks. When the shopper just said a position, a price ceiling ("under 300 dollars") or a color, their words win over
+  what the model passed.
+- **Catalog and prompt:** the catalog is fetched from `CATALOG_URL` (the store's `catalog.json`, the file its pages render)
+  at the start of each call, so products change without a redeploy; `knowledge/shop/catalog.json` is the fallback copy.
+  The prompt is `knowledge/shop/prompt.md`, filled in from the catalog's `store` section (name, assistant, about, guide,
+  language) and its products, expert-review summaries, Q&A and what's in the box.
 
-Run locally: `AGENT_NAME=<unique name> BRAIN=gemini-live|grok uv run src/shop_agent.py dev` (port `WORKER_PORT`, default
+Run locally: `AGENT_NAME=<unique name> BRAIN=gemini-live|grok CATALOG_URL=<store>/store/catalog.json uv run src/shop_agent.py dev` (port `WORKER_PORT`, default
 8095). Deploy as its own agent from `shop.Dockerfile` (no Chromium): `docker build -f shop.Dockerfile -t live-demo-shop .`,
 then `lk agent create --image live-demo-shop:latest --secrets-file shop.secrets` (one agent per brain). Secrets:
-`AGENT_NAME` (`live-demo-shop-gemini` or `live-demo-shop-grok`), `BRAIN` (`gemini-live` or `grok`), and for Gemini
-`GOOGLE_API_KEY`. Grok runs on LiveKit Inference and needs no extra key.
+`AGENT_NAME` (`live-demo-shop-gemini` or `live-demo-shop-grok`), `BRAIN` (`gemini-live` or `grok`), `CATALOG_URL`, and for
+Gemini `GOOGLE_API_KEY`. Grok runs on LiveKit Inference and needs no extra key.
 
-Measured on the spoken flow (search, compare question, open the second one, color question, pick a color, add to cart,
-show cart, make it two; 3 clean runs per brain): from the end of the shopper's speech to the page change, Gemini Live median
-1.25 s (p90 1.8 s), Grok Voice median 1.8 s (p90 2.1 s), including the models' end-of-speech wait.
+Measured on spoken flows with a fake microphone in Chrome, from the end of the shopper's speech to the page change
+(including the models' end-of-speech wait). Headphones flow (search, compare question, open the second one, colors, add,
+cart, make it two): Gemini Live median 1.25 s, Grok Voice 1.8 s. 3D printer flow (search, A1 mini vs A1, open, multi-color
+question, add it with a spool of black PLA, cart, what reviewers say): Gemini Live median 1.2 s (p90 2.3 s), Grok Voice
+2.0 s (p90 2.6 s); spoken answers start about 1.2-2.5 s after the question.
 
 ## Checking the claims
 

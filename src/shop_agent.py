@@ -1,5 +1,6 @@
-"""Kai, a voice shopping guide inside the shopper's own web page (the Voltline demo store). No shared browser: the page
-sends its state up as a page_context text stream and registers RPC methods that Kai's tools call to act on it.
+"""A voice shopping guide inside the shopper's own web page. No shared browser: the page sends its state up as a
+page_context text stream and registers RPC methods that the agent's tools call to act on it. The store, its products and
+the assistant's name all come from the store's catalog (CATALOG_URL, see inpage/catalog.py).
 
   uv run src/shop_agent.py dev        (AGENT_NAME, BRAIN=gemini-live|grok, WORKER_PORT; see brain.py for the models)
 """
@@ -19,11 +20,10 @@ from livekit import rtc
 from livekit.agents import Agent, AgentServer, JobContext, ToolError, cli, function_tool
 
 from demo_agent.brain import BRAIN, IS_GEMINI, MODEL, make_session
-from inpage.catalog import PRODUCTS, prompt
+from inpage.catalog import Catalog, load
 from inpage.page import DEICTIC, PageState
 
 log = logging.getLogger("shop")
-PROMPT = prompt()
 RPC_TIMEOUT_S = 3.0
 CONFIRM_OVER = 1000.0  # confirm cart lines above this many dollars
 RETRYABLE = {
@@ -31,17 +31,14 @@ RETRYABLE = {
     rtc.RpcError.ErrorCode.RESPONSE_TIMEOUT,
     rtc.RpcError.ErrorCode.SEND_FAILED,
 }
-GREETING = (
-    "Greet the shopper in one short sentence as Kai from Voltline: say you can see their page and help them find "
-    "something, and ask what they're shopping for today."
-)
 Sort = Literal["best", "price-asc", "price-desc", "rating"]
 
 
-class ShopKai(Agent):
-    def __init__(self, room: rtc.Room, page: PageState):
-        super().__init__(instructions=PROMPT)
-        self.room, self.page = room, page
+class ShopGuide(Agent):
+    def __init__(self, room: rtc.Room, page: PageState, catalog: Catalog):
+        self.base_prompt = catalog.prompt()
+        super().__init__(instructions=self.base_prompt)
+        self.room, self.page, self.catalog, self.products = room, page, catalog, catalog.products
         self.acting = 0  # page actions in flight; their results carry the new page state
         self.posted = ""  # signature of the page state the model last got
         self.changed = asyncio.Event()
@@ -91,7 +88,9 @@ class ShopKai(Agent):
             ctx.add_message(role="user", content=self.page.note())
             await self.update_chat_ctx(ctx)
         else:
-            await self.update_instructions(PROMPT + "\n\n# What the shopper's page shows now\n" + self.page.note())
+            await self.update_instructions(
+                self.base_prompt + "\n\n# What the shopper's page shows now\n" + self.page.note()
+            )
 
     async def feed(self):
         """Keep the model's view of the page current between turns (at most every 0.6 s)."""
@@ -108,7 +107,7 @@ class ShopKai(Agent):
 
     def pick(self, product: str) -> str:
         """The product the shopper means. When they just named a position ("open the second one"), their words win
-        over the model's choice: models tend to count on screen, not in the order Kai said the products."""
+        over the model's choice: models tend to count on screen, not in the order the assistant said the products."""
         pid, why = self.page.resolve(product)
         heard = self.page.position_heard()
         if heard and heard != pid:
@@ -130,19 +129,14 @@ class ShopKai(Agent):
         pid = self.pick(item)
         same = [l for l in lines if l["id"] == pid]
         if not same:
-            raise ToolError(f"{PRODUCTS[pid]['name']} isn't in their cart.")
+            raise ToolError(f"{self.products[pid]['name']} isn't in their cart.")
         return same[0]
 
     def unit_price(self, pid: str, option: str | None) -> float:
-        p = PRODUCTS[pid]
-        if p["options"]:
-            want, open_p = option, self.page.ctx.get("product") or {}
-            if not want and open_p.get("id") == pid:  # what's selected on its page
-                want = (open_p.get("variant") or {}).get("option")
-            for c in p["options"]["choices"]:
-                if want and c["name"].lower() == want.lower():
-                    return c["price"]
-        return p["price"]
+        open_p = self.page.ctx.get("product") or {}
+        if not option and open_p.get("id") == pid:  # what's selected on its page
+            option = (open_p.get("variant") or {}).get("option")
+        return self.catalog.price_of(pid, option)
 
     # ---------- tools ----------
     @function_tool
@@ -153,20 +147,24 @@ class ShopKai(Agent):
         min_price: float | None = None,
         brand: str | None = None,
         feature: str | None = None,
+        attribute: str | None = None,
         on_sale: bool = False,
         sort: Sort = "best",
     ) -> str:
         """Search the store and show the results on the shopper's page.
 
         Args:
-            query: What to look for, e.g. "noise cancelling headphones", "65 inch tv".
+            query: What to look for, in the shopper's terms (a product type, a model, a need).
             max_price: Only show products up to this price in dollars ("under 300" -> 300).
             min_price: Only show products from this price in dollars.
             brand: Only this brand.
-            feature: Only products with this feature, e.g. "noise-cancelling", "water-resistant", "oled".
+            feature: Only products with this feature (one of the catalog's features).
+            attribute: Only products with this attribute, as "name: value" from the catalog's filters.
             on_sale: Only products on sale.
             sort: Order of the results.
         """
+        if max_price is None:  # the shopper's own "under $300" still applies
+            max_price = self.page.max_price_heard()
         note = await self.rpc(
             "search",
             query=query,
@@ -174,6 +172,7 @@ class ShopKai(Agent):
             price_min=min_price,
             brand=brand,
             feature=feature,
+            attribute=attribute,
             deals=on_sale,
             sort=sort if sort != "best" else None,
         )
@@ -186,6 +185,7 @@ class ShopKai(Agent):
         min_price: float | None = None,
         brand: str | None = None,
         feature: str | None = None,
+        attribute: str | None = None,
         category: str | None = None,
         four_stars_and_up: bool = False,
         on_sale: bool = False,
@@ -196,8 +196,9 @@ class ShopKai(Agent):
             max_price: Up to this price in dollars.
             min_price: From this price in dollars.
             brand: Only this brand.
-            feature: Only products with this feature, e.g. "noise-cancelling", "wireless", "4k".
-            category: tvs, laptops, headphones, phones, smart-home, gaming or accessories.
+            feature: Only products with this feature (one of the catalog's features).
+            attribute: Only products with this attribute, as "name: value" from the catalog's filters.
+            category: A category id from the catalog.
             four_stars_and_up: Only products rated 4 stars and up.
             on_sale: Only products on sale.
         """
@@ -207,6 +208,7 @@ class ShopKai(Agent):
             price_min=min_price,
             brand=brand,
             feature=feature,
+            attribute=attribute,
             category=category,
             rating=4 if four_stars_and_up else None,
             deals=on_sale,
@@ -232,9 +234,9 @@ class ShopKai(Agent):
         """Open a product's page for the shopper.
 
         Args:
-            product: The product id, or the shopper's words for it ("the second one", "the QuietMax", "this one").
+            product: The product id, or the shopper's words for it ("the second one", a model name, "this one").
             color: A color to show it in, if they asked for one.
-            option: A size or configuration, if they asked for one (e.g. "65 inch", "256GB").
+            option: A size, bundle or configuration from the product's options, if they asked for one.
         """
         pid = self.pick(product)
         return "Done; it's open.\n" + await self.rpc("open_product", id=pid, color=color, option=option)
@@ -246,13 +248,14 @@ class ShopKai(Agent):
         """Select a color, size or configuration on a product page.
 
         Args:
-            color: The exact color name from the catalog, e.g. "Deep Navy".
-            option: The exact option name from the catalog, e.g. "65 inch", "256GB".
+            color: The exact color name from the catalog.
+            option: The exact option name from the catalog (size, bundle or configuration).
             product: Which product; defaults to the one open.
         """
         if not color and not option:
             raise ToolError("Say which color or option to select.")
         pid = self.pick(product)
+        color = color or (None if option else self.page.color_heard(pid))
         return "Done; selected.\n" + await self.rpc("select_variant", id=pid, color=color, option=option)
 
     @function_tool
@@ -264,7 +267,8 @@ class ShopKai(Agent):
         option: str | None = None,
         confirmed: bool = False,
     ) -> str:
-        """Add a product to the shopper's cart. Without a color or option, it adds what's selected on its page.
+        """Add a product to the shopper's cart. Without a color or option, it adds what's selected on its page: call it
+        rather than asking which option they want. Works for any product by id; there's no need to open it first.
 
         Args:
             product: The product id, or the shopper's words for it; defaults to the one open.
@@ -274,7 +278,8 @@ class ShopKai(Agent):
             confirmed: True only after the shopper said yes to your confirmation question.
         """
         pid = self.pick(product)
-        p = PRODUCTS[pid]
+        p = self.products[pid]
+        color = color or self.page.color_heard(pid)
         total = self.unit_price(pid, option) * quantity
         if not confirmed and (quantity > 1 or total > CONFIRM_OVER):
             return (
@@ -354,14 +359,16 @@ server = AgentServer(port=int(os.getenv("WORKER_PORT", 8095)))
 
 @server.rtc_session(agent_name=os.getenv("AGENT_NAME", "live-demo-shop"))
 async def entrypoint(ctx: JobContext):
-    page = PageState()
-    session = make_session()
-    kai = ShopKai(ctx.room, page)
+    catalog = await load()
+    log.info("catalog: %d products from %s", len(catalog.products), catalog.source)
+    page = PageState(catalog)
+    session = make_session(language=catalog.store.get("language"))
+    guide = ShopGuide(ctx.room, page, catalog)
 
     def on_page(reader: rtc.TextStreamReader, _from: str):
         async def read():
             if page.update_json(await reader.read_all()):
-                kai.changed.set()
+                guide.changed.set()
 
         asyncio.create_task(read())
 
@@ -378,14 +385,14 @@ async def entrypoint(ctx: JobContext):
     await ctx.connect()
     await ctx.wait_for_participant()
     log.info("call %s: brain %s (%s)", ctx.room.name, BRAIN, MODEL)
-    await session.start(agent=kai, room=ctx.room)
+    await session.start(agent=guide, room=ctx.room)
     try:  # the page's state before the greeting, in case its first snapshot came before we listened
-        await kai.rpc("get_context")
-        await kai.post_page()
+        await guide.rpc("get_context")
+        await guide.post_page()
     except Exception as e:
         log.warning("no page context at start: %s", e)
-    asyncio.create_task(kai.feed())
-    session.generate_reply(instructions=GREETING)
+    asyncio.create_task(guide.feed())
+    session.generate_reply(instructions=catalog.greeting())
 
 
 if __name__ == "__main__":

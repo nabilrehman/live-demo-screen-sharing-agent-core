@@ -2,8 +2,10 @@
 
 import time
 
-from inpage.catalog import PRODUCTS, mentioned, model_name, prompt
+from inpage.catalog import Catalog, load_local
 from inpage.page import PageState
+
+CATALOG = load_local()
 
 RESULTS = {
     "seq": 3,
@@ -35,7 +37,7 @@ RESULTS = {
 
 
 def page(**extra) -> PageState:
-    p = PageState()
+    p = PageState(CATALOG)
     p.update({**RESULTS, **extra})
     return p
 
@@ -87,13 +89,29 @@ def test_note_and_signature():
 
 
 def test_catalog_prompt_and_mentions():
-    assert len(PRODUCTS) > 40 and "{catalog}" not in prompt()
-    assert model_name(PRODUCTS["sonique-studio-q8"]) == "Studio Q8"
-    assert mentioned("The Halo 9 Pro beats the Sonique Studio Q8 and the QuietMax.") == [
+    assert len(CATALOG.products) > 40 and "{catalog}" not in CATALOG.prompt()
+    assert CATALOG.mentioned("The Halo 9 Pro beats the Sonique Studio Q8 and the QuietMax.") == [
         "halo-9-pro",
         "sonique-studio-q8",
         "pulsewave-quietmax",
     ]
+    assert CATALOG.mentioned("the Halo 9 or the Auralis Pro, rated 4.9") == ["halo-9", "auralis-pro-anc"]
+    assert CATALOG.mentioned("the second one") == []
+
+
+def test_aliases_come_from_the_names():
+    cat = Catalog(
+        {
+            "products": [
+                {"id": "a1", "name": "Bambu Lab A1 3D Printer", "brand": "Bambu Lab", "cat": "p", "price": 1},
+                {"id": "a1m", "name": "Bambu Lab A1 mini 3D Printer", "brand": "Bambu Lab", "cat": "p", "price": 1},
+                {"id": "p1s", "name": "Bambu Lab P1S 3D Printer", "brand": "Bambu Lab", "cat": "p", "price": 1},
+                {"id": "one", "name": "Orbix One Phone", "brand": "Orbix", "cat": "x", "price": 1},
+            ]
+        }
+    )
+    assert cat.mentioned("The A1 mini has a smaller bed than the A1; the P1S is enclosed.") == ["a1m", "a1", "p1s"]
+    assert cat.mentioned("the Orbix One, or the second one") == ["one"]
 
 
 def test_positions_follow_what_kai_just_named():
@@ -137,3 +155,30 @@ def test_shopper_position_words_win():
     p.shopper_said("Open the second one.")
     p.heard_at -= 16
     assert p.position_heard() is None
+
+
+def test_price_ceiling_from_the_shoppers_words():
+    p = page()
+    p.shopper_said("I'm a beginner. I want a small 3D printer under $300.")
+    assert p.max_price_heard() == 300
+    p.shopper_said("Something below 1,000 dollars please")
+    assert p.max_price_heard() == 1000
+    p.shopper_said("Open the second one.")
+    assert p.max_price_heard() is None
+
+
+def test_color_from_the_shoppers_words():
+    p = page()
+    p.shopper_said("Add it with a spool of black PLA.")
+    assert p.color_heard("pulsewave-airbuds-2") == "Midnight Black"
+    assert p.color_heard("kestrel-monitor-x") == "Midnight Black"
+    p.shopper_said("Add it to my cart.")
+    assert p.color_heard("pulsewave-airbuds-2") is None
+
+
+def test_price_of_with_and_without_options():
+    assert CATALOG.price_of("pulsewave-quietmax") == CATALOG.products["pulsewave-quietmax"]["price"]
+    with_opts = next(p for p in CATALOG.products.values() if p.get("options"))
+    last = with_opts["options"]["choices"][-1]
+    assert CATALOG.price_of(with_opts["id"], last["name"]) == last["price"]
+    assert CATALOG.price_of(with_opts["id"], "no such option") == with_opts["options"]["choices"][0]["price"]

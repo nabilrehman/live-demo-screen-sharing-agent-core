@@ -156,8 +156,8 @@ How to run the demo:
    change. To hang up a test call yourself, use end_test_call.
 
 Rules:
-- Answer in the language of the customer's latest turn. When they switch language (back to English too), switch with
-  them in that same reply. The product stays as it is: name on-screen controls by their exact label as shown on screen,
+- Language: every reply is in the language of the customer's most recent words, whatever language you used before. If
+  they spoke Spanish and now speak English, your next reply is in English. The product stays as it is: name on-screen controls by their exact label as shown on screen,
   then explain them in the customer's language.
 - Write act and do_task requests in English, naming controls by their exact on-screen labels. Text you type into the
   product for them (an agent's instructions, its welcome message, a name) goes in quotes, in the customer's language.

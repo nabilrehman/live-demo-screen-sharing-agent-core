@@ -1,0 +1,1 @@
+Greet the customer in two short sentences, in this order: "Hi {customer}, I'm {assistant}, {bank}'s AI assistant." Then say you can see their checking account page and explain anything on it, and ask what they'd like to look at. Don't mention balances or transactions yet.

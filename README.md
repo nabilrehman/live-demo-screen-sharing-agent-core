@@ -144,6 +144,35 @@ Measured on the spoken flow (search, compare question, open the second one, colo
 show cart, make it two; 3 clean runs per brain): from the end of the shopper's speech to the page change, Gemini Live median
 1.25 s (p90 1.8 s), Grok Voice median 1.8 s (p90 2.1 s), including the models' end-of-speech wait.
 
+## Kai inside a bank account page (`src/bank_agent.py`)
+
+A third agent on the same in-page pattern: an AI account assistant on one checking-account page we host for a fictional
+bank (Harborline Bank, customer Alex Rivera). The customer asks about what's on the page and Kai answers from it and
+points at it. No shared browser, no screen share.
+
+- **Page -> Kai:** the page sends a `page_context` snapshot (tab, balances, filters, the listed transactions, the open
+  transaction and whether its dispute panel is open, alert switches, highlighted items, the row just clicked) on connect
+  and on every change. `src/inpage/bank.py` turns it into the `<page_now>` note; `src/inpage/live.py` is the shared
+  RPC/feed loop (`PageAgent`).
+- **Kai -> page:** `filter_activity`, `clear_filters`, `open_transaction`, `close_details`, `highlight` (several rows or a
+  fee section at once), `switch_tab`, `set_alert` (a demo switch, nothing is sent) and `dispute_info` (explains the steps;
+  files nothing). There is no tool that moves money, changes settings or files a dispute.
+- **Knowledge:** `knowledge/bank/` holds everything bank-specific: the persona and rules (`kai_prompt.md`), the greeting
+  with its AI disclosure (`greeting.md`) and the page's data (`harborline_account.json`: transactions with running
+  balances, fee rules, limits, rates, statements, alerts). The page's `data.js` is that same JSON
+  (`window.HARBOR_DATA = ...`). `BANK_KNOWLEDGE` points at another folder to swap the bank.
+
+Run locally: `AGENT_NAME=<unique name> BRAIN=gemini-live|grok uv run src/bank_agent.py dev` (port `WORKER_PORT`, default
+8097). Deploy as its own agent from `bank.Dockerfile`: `docker build -f bank.Dockerfile -t live-demo-bank .`, then
+`lk agent create --image live-demo-bank:latest --secrets-file bank.secrets` (one agent per brain). Secrets: `AGENT_NAME`
+(`live-demo-bank-gemini` or `live-demo-bank-grok`), `BRAIN` (`gemini-live` or `grok`), and for Gemini `GOOGLE_API_KEY`.
+The page asks `/api/token?code=open&brain=bank-gemini|bank-grok`.
+
+Measured on the spoken flow (why was I charged twelve dollars, is yesterday's coffee a duplicate, how do I avoid the
+monthly fee, the foreign fee on the Lisbon purchase, set a low balance alert at 100, only restaurants this month; 3 runs
+per brain, 18/18 steps each): from the end of the customer's speech to the page change, Gemini Live median 1.11 s (p90
+1.43 s), Grok Voice median 1.26 s (p90 1.62 s); to Kai's first words, Gemini 2.0 s (p90 2.5 s), Grok 2.3 s (p90 2.9 s).
+
 ## Checking the claims
 
 Every call writes `sessions/<room>/events.jsonl`. In LiveKit Cloud the agent uploads it during and after the call (`LOG_URL`).

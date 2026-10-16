@@ -1,0 +1,653 @@
+{
+ "bank": "Harborline Bank",
+ "assistant": "Kai",
+ "as_of": "2026-10-16",
+ "as_of_label": "Friday, October 16, 2026",
+ "customer": {
+  "name": "Alex Rivera",
+  "member_since": "2019"
+ },
+ "account": {
+  "product": "Harborline Everyday Checking",
+  "mask": "••4821",
+  "current_balance": 1450.72,
+  "pending_total": -45.37,
+  "available_balance": 1405.35,
+  "pending_count": 2,
+  "linked_savings": "Harborline Savings ••7730",
+  "card": "Debit card ••9012"
+ },
+ "categories": [
+  "Bills",
+  "Cash",
+  "Fees",
+  "Groceries",
+  "Health",
+  "Housing",
+  "Income",
+  "Insurance",
+  "Restaurants",
+  "Shopping",
+  "Subscriptions",
+  "Transfers",
+  "Transportation",
+  "Utilities"
+ ],
+ "types": {
+  "card": "Card purchase",
+  "direct_deposit": "Direct deposit",
+  "ach": "Automatic payment (ACH)",
+  "bill_pay": "Bill Pay",
+  "zelle": "Zelle",
+  "atm": "ATM",
+  "transfer": "Transfer",
+  "fee": "Fee"
+ },
+ "transactions": [
+  {
+   "id": "t1016-harvest",
+   "date": "2026-10-16",
+   "time": "09:41",
+   "merchant": "Harvest Lane Market",
+   "descriptor": "HARVEST LANE MKT #112 OAKLAND CA",
+   "amount": -38.62,
+   "status": "pending",
+   "category": "Groceries",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "note": "Pending: authorized today, usually posts in 1 to 2 business days."
+  },
+  {
+   "id": "t1015-coffee-b",
+   "date": "2026-10-15",
+   "time": "08:15",
+   "merchant": "Driftwood Coffee Co.",
+   "descriptor": "DRIFTWOOD COFFEE CO OAKLAND CA",
+   "amount": -6.75,
+   "status": "pending",
+   "category": "Restaurants",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "flag": "possible_duplicate",
+   "related": [
+    "t1015-coffee-a"
+   ],
+   "note": "Pending: the merchant's authorization hold, not final yet. It's the same merchant and amount as a posted charge 3 minutes earlier, so it may be a duplicate. Pending holds that don't go through usually drop off within 1 to 3 business days. If it posts as a second charge, you can request a review."
+  },
+  {
+   "id": "t1015-coffee-a",
+   "date": "2026-10-15",
+   "time": "08:12",
+   "merchant": "Driftwood Coffee Co.",
+   "descriptor": "DRIFTWOOD COFFEE CO OAKLAND CA",
+   "amount": -6.75,
+   "status": "posted",
+   "category": "Restaurants",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1450.72,
+   "flag": "possible_duplicate",
+   "related": [
+    "t1015-coffee-b"
+   ],
+   "note": "Same merchant and amount as a pending charge 3 minutes later."
+  },
+  {
+   "id": "t1014-transit",
+   "date": "2026-10-14",
+   "time": "08:03",
+   "merchant": "Bay Transit Card reload",
+   "descriptor": "BAYTRANSIT CARD RELOAD",
+   "amount": -40.0,
+   "status": "posted",
+   "category": "Transportation",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1457.47
+  },
+  {
+   "id": "t1013-parcel",
+   "date": "2026-10-13",
+   "time": "15:37",
+   "merchant": "Parcelpoint Online",
+   "descriptor": "PARCELPOINT*ORDER 4471 WA",
+   "amount": -64.99,
+   "status": "posted",
+   "category": "Shopping",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1497.47
+  },
+  {
+   "id": "t1011-noodle",
+   "date": "2026-10-11",
+   "time": "13:02",
+   "merchant": "Noodle Harbor",
+   "descriptor": "NOODLE HARBOR OAKLAND CA",
+   "amount": -27.8,
+   "status": "posted",
+   "category": "Restaurants",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1562.46
+  },
+  {
+   "id": "t1010-gym",
+   "date": "2026-10-10",
+   "time": "06:00",
+   "merchant": "Pier Fitness",
+   "descriptor": "PIER FITNESS MONTHLY",
+   "amount": -39.0,
+   "status": "posted",
+   "category": "Subscriptions",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1590.26,
+   "note": "Recurring monthly charge. Same as last month."
+  },
+  {
+   "id": "t1009-fuel",
+   "date": "2026-10-09",
+   "time": "17:20",
+   "merchant": "Coastline Fuel",
+   "descriptor": "COASTLINE FUEL #08 EMERYVILLE CA",
+   "amount": -51.3,
+   "status": "posted",
+   "category": "Transportation",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1629.26
+  },
+  {
+   "id": "t1007-saffron",
+   "date": "2026-10-07",
+   "time": "19:48",
+   "merchant": "Saffron & Salt",
+   "descriptor": "SAFFRON AND SALT BERKELEY CA",
+   "amount": -48.75,
+   "status": "posted",
+   "category": "Restaurants",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1680.56
+  },
+  {
+   "id": "t1005-savings",
+   "date": "2026-10-05",
+   "time": "07:00",
+   "merchant": "Transfer to Harborline Savings ••7730",
+   "descriptor": "ONLINE TRANSFER TO SAV ••7730",
+   "amount": -200.0,
+   "status": "posted",
+   "category": "Transfers",
+   "type": "transfer",
+   "balance_after": 1729.31,
+   "note": "Your own linked savings account. A monthly transfer of $100 or more earns the bonus savings rate."
+  },
+  {
+   "id": "t1003-harvest",
+   "date": "2026-10-03",
+   "time": "11:26",
+   "merchant": "Harvest Lane Market",
+   "descriptor": "HARVEST LANE MKT #112 OAKLAND CA",
+   "amount": -112.09,
+   "status": "posted",
+   "category": "Groceries",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1929.31
+  },
+  {
+   "id": "t1002-payroll",
+   "date": "2026-10-02",
+   "time": "05:00",
+   "merchant": "Northwind Logistics payroll",
+   "descriptor": "NORTHWIND LOGISTICS DIR DEP PPD",
+   "amount": 2140.55,
+   "status": "posted",
+   "category": "Income",
+   "type": "direct_deposit",
+   "balance_after": 2041.4,
+   "note": "Direct deposit. October's $500 direct deposit requirement for the fee waiver is already met."
+  },
+  {
+   "id": "t1001-od-fee",
+   "date": "2026-10-01",
+   "time": "23:59",
+   "merchant": "Overdraft fee",
+   "descriptor": "OVERDRAFT ITEM FEE",
+   "amount": -12.0,
+   "status": "posted",
+   "category": "Fees",
+   "type": "fee",
+   "balance_after": -99.15,
+   "related": [
+    "t1001-meridian"
+   ],
+   "rule": "overdraft",
+   "note": "Charged because the Meridian Auto Insurance payment ($142.60) posted when your balance was $55.45, leaving it at -$87.15 at the end of Oct 1. That's overdrawn by more than $50, so the $12 fee applied. Your Oct 2 paycheck brought the balance back up."
+  },
+  {
+   "id": "t1001-meridian",
+   "date": "2026-10-01",
+   "time": "04:30",
+   "merchant": "Meridian Auto Insurance",
+   "descriptor": "MERIDIAN AUTO INS PREM ACH",
+   "amount": -142.6,
+   "status": "posted",
+   "category": "Insurance",
+   "type": "ach",
+   "balance_after": -87.15,
+   "related": [
+    "t1001-od-fee"
+   ],
+   "note": "Automatic payment. It posted when your balance was $55.45, which overdrew the account by $87.15."
+  },
+  {
+   "id": "t0930-maint",
+   "date": "2026-09-30",
+   "time": "23:59",
+   "merchant": "Monthly maintenance fee (waived)",
+   "descriptor": "MONTHLY MAINTENANCE FEE WAIVED",
+   "amount": 0.0,
+   "status": "posted",
+   "category": "Fees",
+   "type": "fee",
+   "balance_after": 55.45,
+   "waived": 5.0,
+   "rule": "maintenance",
+   "note": "The $5.00 September fee was waived: you had $4,281.10 in direct deposits in September, over the $500 needed."
+  },
+  {
+   "id": "t0930-rent",
+   "date": "2026-09-30",
+   "time": "08:00",
+   "merchant": "Bayview Apartments rent",
+   "descriptor": "BILL PAY BAYVIEW APARTMENTS",
+   "amount": -1650.0,
+   "status": "posted",
+   "category": "Housing",
+   "type": "bill_pay",
+   "balance_after": 55.45,
+   "note": "October rent, sent through Harborline Bill Pay."
+  },
+  {
+   "id": "t0929-lumen",
+   "date": "2026-09-29",
+   "time": "06:12",
+   "merchant": "Lumen Mobile",
+   "descriptor": "LUMEN MOBILE AUTOPAY",
+   "amount": -65.0,
+   "status": "posted",
+   "category": "Bills",
+   "type": "ach",
+   "balance_after": 1705.45,
+   "note": "Autopay."
+  },
+  {
+   "id": "t0928-power",
+   "date": "2026-09-28",
+   "time": "06:10",
+   "merchant": "East Bay Power & Light",
+   "descriptor": "EAST BAY POWER LIGHT AUTOPAY",
+   "amount": -96.72,
+   "status": "posted",
+   "category": "Utilities",
+   "type": "ach",
+   "balance_after": 1770.45,
+   "note": "Autopay."
+  },
+  {
+   "id": "t0927-atm-fee",
+   "date": "2026-09-27",
+   "time": "22:46",
+   "merchant": "Out-of-network ATM fee",
+   "descriptor": "NON-HARBORLINE ATM FEE",
+   "amount": -3.0,
+   "status": "posted",
+   "category": "Fees",
+   "type": "fee",
+   "balance_after": 1867.17,
+   "related": [
+    "t0927-atm"
+   ],
+   "rule": "atm",
+   "note": "Harborline's $3.00 fee for using an ATM outside the Harborline network. The $2.50 ATM owner surcharge is in the withdrawal amount."
+  },
+  {
+   "id": "t0927-atm",
+   "date": "2026-09-27",
+   "time": "22:46",
+   "merchant": "ATM withdrawal, non-Harborline ATM",
+   "descriptor": "ATM W/D 2140 TELEGRAPH AVE OAKLAND CA",
+   "amount": -62.5,
+   "status": "posted",
+   "category": "Cash",
+   "type": "atm",
+   "method": "Debit card ••9012",
+   "balance_after": 1870.17,
+   "related": [
+    "t0927-atm-fee"
+   ],
+   "note": "$60.00 cash plus a $2.50 surcharge set by the ATM's owner. The ATM is outside the Harborline network."
+  },
+  {
+   "id": "t0925-pharmacy",
+   "date": "2026-09-25",
+   "time": "16:03",
+   "merchant": "Bayside Pharmacy",
+   "descriptor": "BAYSIDE PHARMACY #31 OAKLAND CA",
+   "amount": -23.18,
+   "status": "posted",
+   "category": "Health",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1932.67
+  },
+  {
+   "id": "t0923-fx-fee",
+   "date": "2026-09-23",
+   "time": "21:17",
+   "merchant": "Foreign transaction fee",
+   "descriptor": "FOREIGN TRANSACTION FEE",
+   "amount": -2.59,
+   "status": "posted",
+   "category": "Fees",
+   "type": "fee",
+   "balance_after": 1955.85,
+   "related": [
+    "t0923-lisbon"
+   ],
+   "rule": "foreign",
+   "note": "3% of the $86.40 Tasca do Cais purchase in Lisbon ($86.40 × 3% = $2.59)."
+  },
+  {
+   "id": "t0923-lisbon",
+   "date": "2026-09-23",
+   "time": "21:17",
+   "merchant": "Tasca do Cais, Lisbon, Portugal",
+   "descriptor": "TASCA DO CAIS LISBOA PRT",
+   "amount": -86.4,
+   "status": "posted",
+   "category": "Restaurants",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 1958.44,
+   "flag": "foreign",
+   "foreign": {
+    "local": "€74.20 EUR",
+    "rate": "1 EUR = 1.1644 USD"
+   },
+   "related": [
+    "t0923-fx-fee"
+   ],
+   "note": "Card purchase abroad, converted to US dollars. A 3% foreign transaction fee ($2.59) was charged separately."
+  },
+  {
+   "id": "t0921-zelle",
+   "date": "2026-09-21",
+   "time": "13:05",
+   "merchant": "Zelle to Jordan Lee",
+   "descriptor": "ZELLE TO JORDAN LEE CONF# H7Q2M4",
+   "amount": -45.0,
+   "status": "posted",
+   "category": "Transfers",
+   "type": "zelle",
+   "balance_after": 2044.84,
+   "note": "Memo: Concert tickets. Zelle payments go straight to the recipient's bank and usually can't be canceled once sent."
+  },
+  {
+   "id": "t0919-ostra",
+   "date": "2026-09-19",
+   "time": "20:31",
+   "merchant": "Ostra Kitchen",
+   "descriptor": "OSTRA KITCHEN OAKLAND CA",
+   "amount": -62.4,
+   "status": "posted",
+   "category": "Restaurants",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 2089.84
+  },
+  {
+   "id": "t0918-streambox",
+   "date": "2026-09-18",
+   "time": "09:14",
+   "merchant": "StreamBox Premium",
+   "descriptor": "STREAMBOX*PREMIUM 888-555-0142 CA",
+   "amount": -15.99,
+   "status": "posted",
+   "category": "Subscriptions",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 2152.24,
+   "flag": "price_increase",
+   "note": "Price went up: last month's charge (Aug 18) was $13.99, so this is $2.00 more. Recurring monthly charge on your debit card."
+  },
+  {
+   "id": "t0918-payroll",
+   "date": "2026-09-18",
+   "time": "05:00",
+   "merchant": "Northwind Logistics payroll",
+   "descriptor": "NORTHWIND LOGISTICS DIR DEP PPD",
+   "amount": 2140.55,
+   "status": "posted",
+   "category": "Income",
+   "type": "direct_deposit",
+   "balance_after": 2168.23,
+   "note": "Direct deposit. Counts toward the $500 monthly maintenance fee waiver."
+  },
+  {
+   "id": "t0917-transit",
+   "date": "2026-09-17",
+   "time": "07:58",
+   "merchant": "Bay Transit Card reload",
+   "descriptor": "BAYTRANSIT CARD RELOAD",
+   "amount": -40.0,
+   "status": "posted",
+   "category": "Transportation",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 27.68
+  },
+  {
+   "id": "t0916-harvest",
+   "date": "2026-09-16",
+   "time": "18:42",
+   "merchant": "Harvest Lane Market",
+   "descriptor": "HARVEST LANE MKT #112 OAKLAND CA",
+   "amount": -84.27,
+   "status": "posted",
+   "category": "Groceries",
+   "type": "card",
+   "method": "Debit card ••9012",
+   "balance_after": 67.68
+  }
+ ],
+ "maintenance_status": {
+  "september": "Waived. $4,281.10 in direct deposits in September (Sep 4 and Sep 18), over the $500 needed. Shown as a $0.00 line on Sep 30.",
+  "october": "On track to be waived. The Oct 2 direct deposit of $2,140.55 already meets the $500 requirement. The fee is assessed on Oct 31, the last day of the statement period."
+ },
+ "statements": [
+  {
+   "period": "October 2026 (in progress)",
+   "dates": "Oct 1 – Oct 31",
+   "opening": 55.45,
+   "closing": null,
+   "deposits": 2140.55,
+   "withdrawals": null,
+   "fees": 12.0,
+   "note": "Current cycle. Fees so far: $12.00 overdraft fee (Oct 1)."
+  },
+  {
+   "period": "September 2026",
+   "dates": "Sep 1 – Sep 30",
+   "opening": 488.21,
+   "closing": 55.45,
+   "deposits": 4281.1,
+   "withdrawals": 4713.86,
+   "fees": 5.59,
+   "note": "Fees: $2.59 foreign transaction fee, $3.00 out-of-network ATM fee. Monthly maintenance fee waived."
+  },
+  {
+   "period": "August 2026",
+   "dates": "Aug 1 – Aug 31",
+   "opening": 731.64,
+   "closing": 488.21,
+   "deposits": 4281.1,
+   "withdrawals": 4524.53,
+   "fees": 0.0,
+   "note": "No fees. Monthly maintenance fee waived."
+  },
+  {
+   "period": "July 2026",
+   "dates": "Jul 1 – Jul 31",
+   "opening": 1022.08,
+   "closing": 731.64,
+   "deposits": 4281.1,
+   "withdrawals": 4571.54,
+   "fees": 0.0,
+   "note": "No fees. Monthly maintenance fee waived."
+  }
+ ],
+ "fee_rules": [
+  {
+   "id": "maintenance",
+   "title": "Monthly maintenance fee",
+   "fee": "$5.00 per statement period",
+   "lines": [
+    "Waived for the statement period when you have direct deposits totaling $500 or more during it.",
+    "Also waived when you keep a $1,500 minimum daily balance, or when the primary owner is under 25.",
+    "Assessed on the last day of each statement period (the calendar month)."
+   ]
+  },
+  {
+   "id": "overdraft",
+   "title": "Overdraft fee",
+   "fee": "$12.00 per item",
+   "lines": [
+    "Charged when we pay an item that overdraws your account.",
+    "No fee if your account is overdrawn by $50.00 or less at the end of the business day.",
+    "Maximum 2 overdraft fees per day ($24.00).",
+    "No fee on items of $5.00 or less."
+   ]
+  },
+  {
+   "id": "protection",
+   "title": "Overdraft protection options",
+   "fee": "Choose one",
+   "lines": [
+    "Overdraft Transfer: we move money from your linked Harborline Savings to cover the shortfall. No transfer fee.",
+    "Standard overdraft coverage (your current setting): we may pay the item and charge the $12.00 overdraft fee.",
+    "Decline instead: card purchases and ATM withdrawals that would overdraw are declined, with no fee.",
+    "Change your option in the app or by calling us; Kai can't change it for you."
+   ]
+  },
+  {
+   "id": "foreign",
+   "title": "Foreign transaction fee",
+   "fee": "3% of the US dollar amount",
+   "lines": [
+    "Applies to debit card purchases and ATM withdrawals made in a foreign currency or processed outside the US.",
+    "Shown as a separate line on the same day as the purchase."
+   ]
+  },
+  {
+   "id": "atm",
+   "title": "ATM fees",
+   "fee": "$3.00 out-of-network",
+   "lines": [
+    "Free at 32,000+ Harborline and partner ATMs (find them in the app).",
+    "$3.00 Harborline fee for each withdrawal, transfer or balance inquiry at other ATMs.",
+    "The ATM's owner may add its own surcharge.",
+    "Reimbursements: Everyday Checking reimburses up to 2 out-of-network Harborline fees per statement period when you have $2,500+ in direct deposits that period. ATM owner surcharges aren't reimbursed on Everyday Checking.",
+    "International ATM withdrawals: $3.00 fee plus the 3% foreign transaction fee."
+   ]
+  },
+  {
+   "id": "wires",
+   "title": "Wire transfers",
+   "fee": "From $0",
+   "lines": [
+    "Incoming domestic wire: $15.00.",
+    "Outgoing domestic wire: $25.00.",
+    "Incoming international wire: $15.00.",
+    "Outgoing international wire: $45.00."
+   ]
+  },
+  {
+   "id": "limits",
+   "title": "Daily debit card and ATM limits",
+   "fee": "Limits",
+   "lines": [
+    "Debit card purchases: up to $3,000 per day.",
+    "ATM cash withdrawals: up to $500 per day.",
+    "Limits reset at midnight Pacific time. Temporary increases are reviewed by phone."
+   ]
+  },
+  {
+   "id": "zelle",
+   "title": "Zelle limits",
+   "fee": "No fee",
+   "lines": [
+    "Send up to $1,000 per day and $5,000 per rolling 30 days.",
+    "Money sent to an enrolled recipient usually arrives in minutes and generally can't be canceled."
+   ]
+  },
+  {
+   "id": "savings",
+   "title": "Linked savings rates (Harborline Savings ••7730)",
+   "fee": "APY",
+   "lines": [
+    "Standard rate: 0.01% APY.",
+    "Bonus rate: 3.80% APY on balances up to $50,000 for any month you transfer $100 or more into savings and make no more than 2 withdrawals.",
+    "Balances over $50,000 earn 0.01% APY. Rates are variable and can change. APYs as of Oct 16, 2026 (fictional demo rates).",
+    "Your Oct 5 transfer of $200 qualifies October for the bonus rate."
+   ]
+  },
+  {
+   "id": "pending",
+   "title": "Pending vs. posted",
+   "fee": "How it works",
+   "lines": [
+    "Pending: the merchant has authorized the amount and it's held from your available balance, but it isn't final. The amount can change or the hold can drop off.",
+    "Posted: final and included in your current balance.",
+    "A pending hold that matches a posted charge often drops off within 1 to 3 business days. If both post, you can request a review."
+   ]
+  },
+  {
+   "id": "disputes",
+   "title": "Disputing a charge",
+   "fee": "No fee",
+   "lines": [
+    "Wait until the charge has posted; pending charges can't be disputed yet.",
+    "Contact the merchant first if you can; many fix duplicate charges quickly.",
+    "Then request a review in the app (Activity > the charge > Report a problem) or call 1-800-555-0199, within 60 days of the statement it first appeared on.",
+    "We usually reply within 10 business days and may give a temporary credit while we review. A refund isn't guaranteed."
+   ]
+  }
+ ],
+ "alerts": [
+  {
+   "id": "low_balance",
+   "label": "Low balance",
+   "help": "When your available balance drops below an amount",
+   "on": false,
+   "threshold": 100
+  },
+  {
+   "id": "large_purchase",
+   "label": "Large purchase",
+   "help": "When a card purchase is over an amount",
+   "on": false,
+   "threshold": 250
+  },
+  {
+   "id": "deposits",
+   "label": "Deposits",
+   "help": "When a deposit posts to your account",
+   "on": true,
+   "threshold": null
+  }
+ ]
+}

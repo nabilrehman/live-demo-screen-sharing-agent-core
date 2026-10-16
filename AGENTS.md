@@ -12,6 +12,8 @@ A LiveKit Agents project (Python, `uv`). See README.md for what it does.
 - `knowledge/`: the product. Product-specific text belongs here, not in code.
 - `src/shop_agent.py` + `src/inpage/`: a separate agent, Kai inside a store page (page_context text stream up, RPC
   actions down; no browser). Its prompt and catalog are in `knowledge/shop/`; deploy it from `shop.Dockerfile`.
+- `src/bank_agent.py` + `src/inpage/live.py`, `src/inpage/bank.py`: Kai inside a bank account page, same in-page pattern.
+  The bank, persona, greeting, account data and fee rules are in `knowledge/bank/`; deploy it from `bank.Dockerfile`.
 
 ## Run and test
 

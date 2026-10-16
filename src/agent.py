@@ -9,6 +9,7 @@ This file is the LiveKit worker: it wires the browser, the screen share, the ses
 """
 
 import asyncio
+import difflib
 import io
 import logging
 import os
@@ -37,7 +38,7 @@ from demo_agent.hands import agent_slug, fast_hands, parse_typing
 from demo_agent.nudges import answer_if_ignored, missed_turn, watch_late_change
 from demo_agent.planner import Planner
 from demo_agent.prompts import PRODUCT, PROMPT, compose_debrief, update_profile
-from demo_agent.screen import TOP_LAYER, ScreenText, no_effect, no_effect_reason, screen_summary
+from demo_agent.screen import TOP_LAYER, ScreenText, no_effect, no_effect_reason, quiet_network, screen_summary
 from demo_agent.sesslog import SessionLog, upload_log
 from demo_agent.voicebridge import BrowserAudioBridge, RoomAudioRouter
 
@@ -94,6 +95,12 @@ class Kai(Agent):
                 except Exception as e:
                     ok, err = False, f"{type(e).__name__}: {e}"[:160]
             txt = await screen_summary(self.bc.page)
+            if ok and "a new page opened" in self.last_change:
+                # a new page fills in its data a moment later: report the screen once its requests are done
+                t1 = time.perf_counter()
+                await quiet_network(self.bc.page)
+                txt = await screen_summary(self.bc.page)
+                self.slog.event("settle", s=round(time.perf_counter() - t1, 2))
             if how == "jev-click":
                 change = self.last_change
             elif ok and str(how).startswith(("type", "jev-type")):
@@ -281,6 +288,11 @@ async def entrypoint(ctx: JobContext):
         if it.role == "user" and text.startswith("(Note from the demo system"):  # our own notes, not the customer
             slog.event("say_note", text=text[:200])
             return
+        if it.role == "user" and is_echo(text, feed.agent_lines):
+            # Gemini Live sometimes transcribes a short reply ("Okay.") as one of Kai's own lines, even an old one.
+            # The customer didn't say it: keep it out of the profile, the nudges and the turn count.
+            slog.event("user_transcript_echo", text=text[:200])
+            return
         slog.event("user" if it.role == "user" else "agent", text=text)
         if it.role == "assistant":
             feed.agent_lines.append(text)
@@ -374,6 +386,12 @@ async def entrypoint(ctx: JobContext):
     await browser
     if os.getenv("VOICE_BRIDGE", "1") == "1":
         await voice_bridge(ctx, session, kai, bc, slog)
+
+
+def is_echo(text: str, agent_lines: list[str]) -> bool:
+    """A customer line that is nearly the same as something Kai said."""
+    low = text.lower()
+    return any(difflib.SequenceMatcher(None, low, a.lower()).ratio() > 0.8 for a in agent_lines)
 
 
 def _session_log(room: str) -> SessionLog:

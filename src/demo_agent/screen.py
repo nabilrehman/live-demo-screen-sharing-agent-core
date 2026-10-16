@@ -15,6 +15,7 @@ from demo_agent.prompts import PROMPT, feature_cards, storyline
 log = logging.getLogger("agent.screen")
 
 SCREEN_CHARS = int(os.getenv("SCREEN_TEXT_CHARS", 1500))
+SETTLE_S = float(os.getenv("SETTLE_S", 2.0))  # after a click opens a new page: wait at most this long for its data
 
 # The top layer: an open dialog or menu hides the page behind it, so only it counts.
 TOP_LAYER = "[role=dialog]:visible, [aria-modal=true]:visible, [role=menu]:visible, [role=listbox]:visible"
@@ -141,6 +142,26 @@ async def until_changed(page, before: str, limit: float = 1.0, busy_limit: float
         except Exception:
             pass
     return None
+
+
+async def quiet_network(page, limit: float = SETTLE_S, quiet: float = 0.4):
+    """Wait until the page has had no fetch/XHR in flight for `quiet` s, at most `limit` s. (Playwright's networkidle
+    only covers full navigations, not a single-page app's route change.)"""
+    if not hasattr(page, "_inflight"):
+        page._inflight = set()
+        page.on("request", lambda r: r.resource_type in ("fetch", "xhr") and page._inflight.add(r))
+        page.on("requestfinished", lambda r: page._inflight.discard(r))
+        page.on("requestfailed", lambda r: page._inflight.discard(r))
+        await asyncio.sleep(0.15)  # requests already in flight weren't seen: give new ones a moment to start
+    t, idle = time.perf_counter(), None
+    while time.perf_counter() - t < limit:
+        if page._inflight:
+            idle = None
+        elif idle is None:
+            idle = time.perf_counter()
+        elif time.perf_counter() - idle >= quiet:
+            return
+        await asyncio.sleep(0.05)
 
 
 def no_effect(what: str) -> bool:

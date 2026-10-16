@@ -124,8 +124,9 @@ Every call writes `sessions/<room>/events.jsonl`. In LiveKit Cloud the agent upl
 
 ## Honest limits
 
-- **Latency.** Turns where Gemini also calls a tool take about 1–1.5 s before it speaks. A multi-step task (e.g. creating an
-  agent) takes about 15–25 s of clicking, while the agent keeps talking.
+- **Latency** (measured). Gemini Live: talk-only replies median 0.62 s; turns with a tool call median 2.0 s, p90 5.4 s.
+  Grok Voice: talk-only replies median 0.91 s. A multi-step task (e.g. creating an agent) takes about 15–25 s of clicking,
+  while the agent keeps talking.
 - **Labelled web UIs work best.** Jev and the screen summary rely on the accessibility tree. Canvas-only UIs are seen in the
   video but can't be clicked precisely.
 - **Credentials.** Gemini Live needs a GCP project with Vertex AI. `BRAIN=grok` runs the same hands with Grok Voice through

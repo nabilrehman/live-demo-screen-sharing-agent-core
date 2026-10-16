@@ -175,7 +175,8 @@ async def fast_hands(kai, goal: str, _retry: bool = True):
         bit = "bit" in g or "little" in g
         await kai.bc.scroll((-1 if up else 1) * (3000 if far else 300 if bit else 600))
         return "scroll"
-    if re.search(r"\bgo back\b|\bback\b$|previous page", g):
+    # "go back" uses browser Back, but "click the breadcrumb to go back to ..." names something to click
+    if re.search(r"\bgo back\b|\bback\b$|previous page", g) and not re.match(r"\s*(click|select|open|press|tap)\b", g):
         kai.chooser = "rule"
         await kai.bc.go_back()
         return "back"

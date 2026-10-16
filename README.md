@@ -5,8 +5,8 @@ talks with the prospect, and drives the product while it explains it. Built on *
 
 **Gemini sees, Jev clicks.**
 
-- **Gemini Live** (Vertex AI) is the brain and the voice. It hears the prospect, **sees the shared screen as live video**, and
-  decides what to show and say.
+- **Gemini Live** (Gemini API or Vertex AI) is the brain and the voice. It hears the prospect, **sees the shared screen
+  as live video**, and decides what to show and say.
 - **Jev** is the hands. Gemini (or the planner, for multi-step tasks) says what to do in plain words, e.g. "open the
   Settings tab". Jev picks the exact element on the live page, then the agent clicks it.
 - The code knows how to operate *a* web app; nothing about the product's pages is hard-coded. The product (who Kai is,
@@ -54,15 +54,11 @@ talks with the prospect, and drives the product while it explains it. Built on *
 
 ### Safety
 
-- **Blocked in code.** Controls whose label matches `BLOCK_CLICKS` are never offered to Jev and never clicked by the
-  exact-name rule. The default blocks delete, remove, destroy, buy, purchase, pay, checkout, upgrade, publish, "Deploy" /
-  "Deploy agent" / "deploy to production", and confirming a rental or purchase. "Deploy new agent" (opens a menu) and
-  "Rent a number" (opens a dialog) stay clickable. Each blocked attempt is logged as a `click_blocked` event. Set
-  `BLOCK_CLICKS` to your own regex, or to an empty value to turn it off.
-- **Relies on the prompt.** The planner and the voice prompt tell the model never to delete, deploy to production, buy or
-  rent anything, and to stop at the first screen that satisfies a request. A label the regex doesn't match (a paid action
-  worded differently) is only covered by these instructions.
-- Text fields are never blocked: what gets typed is up to the model and the prompt.
+- **Prompt-based only.** The voice prompt and the planner prompt tell the model never to delete, deploy to production,
+  buy or rent anything (point such buttons out instead), and to stop at the first screen that satisfies a request. The
+  knowledge marks such steps as point-out-only.
+- Nothing in code prevents a click: if the model ignores these instructions, the hands will click whatever it asks for.
+  Run the demo in a project where a stray click can't do lasting harm.
 
 ## Dev setup
 
@@ -73,8 +69,13 @@ lk cloud auth
 lk app env --write --destination .env.local     # LiveKit URL and keys; fill in the rest of .env.local from .env.example
 uv sync
 uv run playwright install chromium
-gcloud auth application-default login           # Gemini Live on Vertex AI, your GCP project
 ```
+
+Gemini Live needs one of:
+
+- `GOOGLE_API_KEY`: a Gemini API key (AI Studio). With it set, `brain.py` uses the Gemini API.
+- Otherwise Vertex AI: `GOOGLE_CLOUD_PROJECT` (and `GOOGLE_CLOUD_LOCATION`) plus `gcloud auth application-default login`.
+  That login is personal and expires; re-login (and redeploy) when it does.
 
 The browser needs to be logged in to the product: set `FAAN_STORAGE_STATE` to a Playwright `storage_state` JSON captured
 once from a logged-in session.
@@ -108,8 +109,9 @@ lk agent create --secrets-file my.secrets .     # first time; afterwards: lk age
 Or `./deploy.sh` (builds the secrets file from `.env.local`, creates or deploys), or the GitHub workflow
 `.github/workflows/deploy.yml` (Actions → "Deploy to LiveKit Cloud").
 
-Secrets: `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, `GOOGLE_CREDENTIALS_JSON_B64` (a base64 service-account key with
-Vertex AI access; `entrypoint.sh` turns it into a credentials file), `JEV_OPENROUTER_API_KEY`, `DEMO_START_URL`,
+Secrets: `GOOGLE_API_KEY` (Gemini API key), or for Vertex AI instead `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION` and
+`GOOGLE_CREDENTIALS_JSON_B64` (base64 Google credentials; `entrypoint.sh` turns it into a credentials file; without an API
+key `deploy.sh` fills it from your local `gcloud auth application-default login` file), `JEV_OPENROUTER_API_KEY`, `DEMO_START_URL`,
 `FAAN_STORAGE_STATE_B64`, and optionally the Anam and log-upload keys. LiveKit injects the LiveKit credentials itself.
 Each worker takes one call at a time, because each call runs its own Chromium (`src/cloud_main.py`).
 
@@ -129,5 +131,5 @@ Every call writes `sessions/<room>/events.jsonl`. In LiveKit Cloud the agent upl
   while the agent keeps talking.
 - **Labelled web UIs work best.** Jev and the screen summary rely on the accessibility tree. Canvas-only UIs are seen in the
   video but can't be clicked precisely.
-- **Credentials.** Gemini Live needs a GCP project with Vertex AI. `BRAIN=grok` runs the same hands with Grok Voice through
+- **Credentials.** Gemini Live needs a Gemini API key or a GCP project with Vertex AI. `BRAIN=grok` runs the same hands with Grok Voice through
   LiveKit Inference instead (no Google credentials, but it reads the screen as text only).

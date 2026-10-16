@@ -3,7 +3,6 @@ running and no test call has the floor before it asks Kai to speak."""
 
 import asyncio
 import os
-import re
 import time
 
 from demo_agent.screen import SIGNATURE_JS, describe_change
@@ -53,7 +52,7 @@ async def watch_late_change(kai, before: str, what: str, secs: float = 15.0):
 async def answer_if_ignored(kai, text: str, secs: float = 3.0):
     """A bare acknowledgement ("okay", "got it") can be taken as a backchannel and get no reply. If it gets none within
     `secs`, have Kai answer (for an acknowledgement: carry on with the demo). Longer turns always get an answer."""
-    if len(re.findall(r"[A-Za-z']+", text)) > 4:
+    if len(text.split()) > 4:
         return
     n_agent, n_user = len(kai.feed.agent_lines), kai.feed.user_turns
     await asyncio.sleep(secs)

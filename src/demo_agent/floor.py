@@ -22,8 +22,10 @@ def say_verbatim(session, line: str):
     """Make the realtime model say one exact line. Some models ignore per-response instructions, so the line also goes in
     as a conversation item (a NOTE, which callers must not treat as customer speech)."""
     session.generate_reply(
-        user_input=f'{NOTE}say exactly this to the customer now, word for word, and nothing else: "{line}")',
-        instructions=f'Say exactly this, word for word, and nothing else: "{line}"',
+        user_input=f"{NOTE}say exactly this to the customer now, word for word (translated if they speak another "
+        f'language), and nothing else: "{line}")',
+        instructions=f"Say exactly this, word for word (translated if the customer speaks another language), and nothing "
+        f'else: "{line}"',
     )
 
 

@@ -340,7 +340,9 @@ class BrowserController:
                     await self.page.keyboard.press("Backspace")
         except Exception:
             pass
-        if len(text) > 60 or "\n" in text:
+        # code editors get the text in one go: typed key by key they can re-render mid-way (autocomplete, autosave)
+        editor = await loc.evaluate("e => !!e.closest('.monaco-editor,.cm-editor,.ProseMirror')")
+        if editor or len(text) > 60 or "\n" in text:
             await self.page.keyboard.insert_text(text)
         else:
             await self.page.keyboard.type(text, delay=35)

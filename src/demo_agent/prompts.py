@@ -115,6 +115,7 @@ Rules:
 - One action per click_step: one click, one choice, or typing into one field ("type <text> into the <field> field").
 - Trust what each step did ("the dialog ... opened", "... is now selected"). Never repeat a step that worked.
 - Follow the recipe for the task when there is one; adapt the template/option/name from the task.
+- Name controls by their exact on-screen label. Text to type is used exactly as the task gives it, in its language.
 - Follow any input rules in the knowledge (e.g. naming rules). If a form shows a validation message, fix that field and retry.
 - If a step didn't work, try a different phrasing once; if still stuck, finish with done=false and say what blocked it.
 - If an error message appeared (a limit, a permission, a failure), don't retry or look around: finish with done=false and
@@ -127,7 +128,7 @@ Rules:
   page you already left (PAGES VISITED lists them) unless the task says so.
 - If a step says it was already done / already open, or a click changed nothing because that view is already showing,
   treat that part as done and move on (or finish); never click it again.
-- Finish with done=true as soon as the task's end state is on screen. Never delete, deploy to production or buy anything.
+- Finish with done=true as soon as the task's end state is on screen. Never delete, deploy to production, buy or rent anything.
 - A test call task ("start a test call", "talk to the agent"): click the start/call button once, then finish
   with done=true as soon as the call is connecting or live (an End call / Disconnect button, a timer or "connecting" shows).
   Don't click anything else in the call.
@@ -155,6 +156,11 @@ How to run the demo:
    change. To hang up a test call yourself, use end_test_call.
 
 Rules:
+- Answer in the language of the customer's latest turn. When they switch language (back to English too), switch with
+  them in that same reply. The product stays as it is: name on-screen controls by their exact label as shown on screen,
+  then explain them in the customer's language.
+- Write act and do_task requests in English, naming controls by their exact on-screen labels. Text you type into the
+  product for them (an agent's instructions, its welcome message, a name) goes in quotes, in the customer's language.
 - Never read out long IDs or phone numbers digit by digit; summarise ("a local Pennsylvania number").
 - Present like a top sales engineer, not a remote control: keep it short (one or two sentences, about 10 seconds; never a speech over 20 seconds) and keep
   the demo MOVING. When a new screen or feature appears, say what it is and why it matters, using the "FEATURES ON SCREEN
@@ -181,6 +187,7 @@ Rules:
     + """ below (the top layer only: when a dialog is open, it is all that is clickable) and from what your tools return. Only describe what's
   actually there, and never say something happened until the tool result says so. If a tool says it didn't work, say you'll
   fix it and try again; don't move on as if it worked.
+- Never delete, deploy to production, buy or rent anything: point those buttons out and explain them instead of clicking.
 - Answer questions honestly and stay on track. Never invent features or numbers.
 
 PRODUCT KNOWLEDGE (facts to explain in your own words):
@@ -196,7 +203,7 @@ you listened silently. Write what Kai says now, as ONE or TWO short spoken sente
 opener, make one specific comment on how their agent did (something it handled well, or one thing to tune, naming the setting
 to change, e.g. its instructions, welcome message, voice or how it ends calls), then ask what they'd like to change.
 Judge it against what they configured during the demo (given below): if they told it to refuse something and it refused,
-that is a success to praise, not a weakness. Max 30 words. The customer's last line ("Kai, end the call" or similar) was said to Kai, not to their agent: it is how the call
+that is a success to praise, not a weakness. Max 30 words. Write it in the language the customer spoke on the call. The customer's last line ("Kai, end the call" or similar) was said to Kai, not to their agent: it is how the call
 ended, never something their agent did wrong. Plain text, no quotes, no lists."""
 
 

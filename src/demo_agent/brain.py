@@ -1,6 +1,7 @@
 """The realtime model that hears, talks and calls tools.
 
-BRAIN=gemini-live (default): Gemini Live on Vertex AI through the Google plugin. It also watches the shared browser as video.
+BRAIN=gemini-live (default): Gemini Live through the Google plugin, with a Gemini API key (GOOGLE_API_KEY) or else on
+Vertex AI (GOOGLE_CLOUD_PROJECT and Application Default Credentials). It also watches the shared browser as video.
 BRAIN=grok: MIN_RT_MODEL through LiveKit Inference. It knows the screen only as text (the screen summary).
 """
 
@@ -34,7 +35,15 @@ def gemini_live():
     from google.genai import types as gt
     from livekit.plugins import google
 
-    vertex = bool(os.getenv("GOOGLE_CLOUD_PROJECT")) and not os.getenv("GOOGLE_API_KEY")
+    key = os.getenv("GOOGLE_API_KEY")
+    if key:  # the Gemini API; Vertex AI doesn't take API keys
+        auth = {"api_key": key, "vertexai": False}
+    else:
+        auth = {
+            "vertexai": True,
+            "project": os.getenv("GOOGLE_CLOUD_PROJECT"),
+            "location": os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1"),
+        }
     return google.realtime.RealtimeModel(
         model=MODEL,
         voice=os.getenv("GEMINI_VOICE", "Puck"),  # male, to match the avatar
@@ -49,15 +58,7 @@ def gemini_live():
             )
         ),
         session_resumption=gt.SessionResumptionConfig(),
-        vertexai=vertex,
-        **(
-            {
-                "project": os.getenv("GOOGLE_CLOUD_PROJECT"),
-                "location": os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1"),
-            }
-            if vertex
-            else {}
-        ),
+        **auth,
     )
 
 

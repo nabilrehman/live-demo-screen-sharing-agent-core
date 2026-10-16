@@ -2,7 +2,7 @@
 
 After each line it waits until the agent has answered (spoken, then listening for QUIET_S), max 60 s. A line may carry
 options as a third element: {"wait_floor": "demo_app", "after_s": 6} waits (max 150 s) until the agent's 'faan.floor'
-attribute has that value, then after_s more, before speaking. Saves end-state screen-share frames and a mixed recording.
+attribute has that value, then after_s more, before speaking; {"lang": "es"} speaks the line in that language (default en). Saves end-state screen-share frames and a mixed recording.
 Rooms are named faan-livevoice-*; the agent treats them as voice-only. The call log is in sessions/<room>/events.jsonl.
 
   set -a && . ./.env.local && set +a && \
@@ -32,9 +32,9 @@ REQS = (
 )
 
 
-async def synth(text):
+async def synth(text, lang="en"):
     t = inference.TTS(
-        model="cartesia/sonic-3", voice="9626c31c-bec5-4cca-baa8-f8ba9e84c8bc", language="en", sample_rate=SR
+        model="cartesia/sonic-3", voice="9626c31c-bec5-4cca-baa8-f8ba9e84c8bc", language=lang, sample_rate=SR
     )
     f = rtc.combine_audio_frames([f.frame async for f in t.synthesize(text)])
     a = np.frombuffer(f.data, np.int16).astype(
@@ -45,7 +45,7 @@ async def synth(text):
 
 
 async def transcribe(pcm):
-    s = inference.STT(model="deepgram/nova-3", language="en")
+    s = inference.STT(model="deepgram/nova-3", language="multi")
     st = s.stream()
     out = []
 
@@ -71,7 +71,7 @@ async def transcribe(pcm):
 async def main():
     async with aiohttp.ClientSession():
         utils.http_context._new_session_ctx()
-        clips = [await synth(r[0]) for r in REQS]
+        clips = [await synth(r[0], (r[2] if len(r) > 2 else {}).get("lang", "en")) for r in REQS]
         room_name = "faan-livevoice-" + uuid.uuid4().hex[:5]
         lk = api.LiveKitAPI()
         tok = (

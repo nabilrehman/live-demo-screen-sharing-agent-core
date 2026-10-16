@@ -10,26 +10,7 @@ import re
 import time
 from dataclasses import dataclass, field
 
-# Labels of controls the hands never click (delete, buy, deploy to production, ...). BLOCK_CLICKS="" turns it off.
-# "Deploy new agent" (opens a menu) and "Rent a number" (opens a dialog) stay clickable.
-DEFAULT_BLOCK = (
-    r"\b(delete|remove|destroy|buy|purchase|pay|checkout|upgrade|publish)\b|^deploy( agent)?$|deploy to production"
-    r"|^rent( it| now)?$|^confirm (rental|purchase)"
-)
-_block = os.getenv("BLOCK_CLICKS", DEFAULT_BLOCK)
-BLOCKED = re.compile(_block, re.I) if _block else None
 TEXT_KINDS = ("text field", "search box", "password field", "text area", "combo box", "dropdown")
-
-
-def is_blocked(el: dict) -> bool:
-    """A control (not a text field) whose label matches BLOCK_CLICKS."""
-    return bool(BLOCKED and el.get("kind") not in TEXT_KINDS and BLOCKED.search(el.get("label", "")))
-
-
-def blocked_for(goal: str, labels: list[str]) -> list[str]:
-    """The blocked labels a step names, for the click_blocked event."""
-    g = " ".join(goal.lower().split())
-    return [label for label in labels if " ".join(label.lower().split()) in g]
 
 
 @dataclass
@@ -142,7 +123,6 @@ class JevEngine:
         self.model = os.getenv("JEV_MODEL", "jev-latest")
         self._http = None
         self.last_source = "jev"  # "jev", or "lexical (<error>)" when the call failed
-        self.last_blocked: list[str] = []  # labels left out of the last decision by BLOCK_CLICKS
 
     async def _post(self, body):
         import aiohttp
@@ -166,13 +146,9 @@ class JevEngine:
         if text_candidates:
             criteria["press_enter"] = "Press Enter to submit what was just typed"
         criteria.update(NAV_ACTIONS)
-        self.last_blocked = []
         for e in snap["elements"]:
             if len(criteria) >= BUDGET - 1:
                 break
-            if is_blocked(e):
-                self.last_blocked.append(e["label"])
-                continue
             desc = (
                 f'{e["kind"]}: "{e["label"]}"'
                 + (f" ({e['extra']})" if e["extra"] else "")
@@ -255,8 +231,6 @@ class JevEngine:
                     snap = await bc.snapshot(240, focus)
             sig0 = await _sig(bc)
             d, ms = await self.decide(goal, all_steps, idx, snap, history, tc)
-            if (hit := blocked_for(goal, self.last_blocked)) and getattr(bc, "trace", None):
-                bc.trace("click_blocked", goal=goal, labels=hit[:5], by="jev-agent")
             r.steps += 1
             act = d["action"]
             m = re.match(r"^(click|type)_(.+)$", act)

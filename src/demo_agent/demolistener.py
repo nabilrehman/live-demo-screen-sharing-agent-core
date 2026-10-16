@@ -29,7 +29,7 @@ HI_END = re.compile(r"\b(?:hi|hey)\b[ ,.!?-]*(?:can you |could you |please )*(?:
 
 class DemoCallListener:
     def __init__(
-        self, log: Callable, on_wake: Callable[[str], None], model: str = "deepgram/nova-3", language: str = "en"
+        self, log: Callable, on_wake: Callable[[str], None], model: str = "deepgram/nova-3", language: str = "multi"
     ):
         self.log, self.on_wake = log, on_wake
         self.model, self.language = model, language

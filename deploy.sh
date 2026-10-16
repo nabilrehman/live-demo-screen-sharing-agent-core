@@ -14,7 +14,7 @@ SENT=(
   GOOGLE_CLOUD_LOCATION MIN_RT_MODEL MIN_RT_VOICE
   JEV_OPENROUTER_API_KEY TYPESAFE_API_KEY JEV_MODEL JEV_CALL_TIMEOUT JEV_SETTLE_MS PLANNER_MODEL PLANNER_SCREEN_CHARS
   DEBRIEF_MODEL
-  DEMO_START_URL TOUR_START_URL DEMO_PROJECT_URL FAAN_STORAGE_STATE_B64 FAAN_DEFAULT_MODE CLEAN_AT_START BLOCK_CLICKS
+  DEMO_START_URL TOUR_START_URL DEMO_PROJECT_URL FAAN_STORAGE_STATE_B64 FAAN_DEFAULT_MODE CLEAN_AT_START
   ACT_RUN_MAX MISSED_TURN_S SETTLE_S SCREEN_TEXT_CHARS SCREEN_TO_MODEL_FPS SCREEN_W SCREEN_H SCREENCAST_NTH
   HOVER_S CURSOR_SPEED CURSOR_MS_A CURSOR_MS_B CURSOR_MS_MIN CURSOR_MS_MAX CURSOR_SETTLE_MS DEBUG_SHOTS
   VOICE_BRIDGE FLOOR_AUTO_HANDOVER WEBRTC_IP_POLICY MAX_JOBS_PER_WORKER JOB_MEMORY_WARN_MB LOG_URL LOG_SECRET
@@ -31,8 +31,9 @@ done
 # files the agent needs, sent as base64 secrets
 login_file=$(grep -E '^FAAN_STORAGE_STATE=' .env.local | cut -d= -f2- || true)
 [ -n "$login_file" ] && [ -f "$login_file" ] && echo "FAAN_STORAGE_STATE_B64=$(base64 < "$login_file" | tr -d '\n')" >> "$secrets"
+# Gemini on Vertex AI without an API key: send the local Google login (Application Default Credentials)
 gcp_file=${GOOGLE_APPLICATION_CREDENTIALS:-$HOME/.config/gcloud/application_default_credentials.json}
-if ! grep -q '^GOOGLE_CREDENTIALS_JSON_B64=' "$secrets" && [ -f "$gcp_file" ]; then
+if ! grep -q -E '^(GOOGLE_API_KEY|GOOGLE_CREDENTIALS_JSON_B64)=' "$secrets" && [ -f "$gcp_file" ]; then
   echo "GOOGLE_CREDENTIALS_JSON_B64=$(base64 < "$gcp_file" | tr -d '\n')" >> "$secrets"
 fi
 echo "Secrets sent: $(cut -d= -f1 "$secrets" | tr '\n' ' ')"

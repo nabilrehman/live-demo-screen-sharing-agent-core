@@ -51,7 +51,7 @@
     "url_hint": "/travel/flights",
     "parent": "flights_home",
     "how_to_reach": ["click '1 passenger'"],
-    "layout": {"top": null, "left": null, "main": "Adults, Children Aged 2 to 11, Infants In seat, Infants On lap, each with 'Add ...' and 'Remove ...' buttons", "right": "'Done', 'Cancel'"},
+    "layout": {"top": null, "left": null, "main": "Adults, Children Aged 2 to 11, Infants In seat, Infants On lap, each row with a count between 'Remove ...' and 'Add ...' buttons; set a row with 'set Adults to 2' (one step per row), then click 'Done'", "right": "'Done', 'Cancel'"},
     "controls": [
      {"label": "Add adult", "kind": "button", "position": "Adults row", "needs_scroll": false, "leads_to": null, "opens": null},
      {"label": "Done", "kind": "button", "position": "dialog bottom", "needs_scroll": false, "leads_to": "flights_home", "opens": null}

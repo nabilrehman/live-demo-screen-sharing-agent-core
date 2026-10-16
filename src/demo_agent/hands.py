@@ -204,20 +204,27 @@ async def set_slider(page, name: str, target: float) -> str | None:
     s = s.first
     await s.focus()
     now = await s.evaluate(SLIDER_VALUE_JS)
+    at_end = False
     for _ in range(200):
         if now == target:
             break
         down = now > target
         await page.keyboard.press("ArrowLeft" if down else "ArrowRight")
         new = await s.evaluate(SLIDER_VALUE_JS)
-        if new == now or (new <= target if down else new >= target):  # the end of its range, or there
+        if new == now:  # the end of its range
+            at_end = True
             break
         now = new
+        if new <= target if down else new >= target:
+            break
     await quiet_network(page, 1.5)
     shown = await s.evaluate(
         "e => e.getAttribute('aria-valuetext') || (e.matches('input') ? e.value : e.getAttribute('aria-valuenow'))"
     )
-    return shown or str(now)
+    shown = shown or str(now)
+    if at_end:
+        shown += f" (that is as {'low' if now > target else 'high'} as this slider goes; don't try again)"
+    return shown
 
 
 async def _escape(kai) -> str:

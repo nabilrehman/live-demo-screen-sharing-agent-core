@@ -124,12 +124,17 @@ Rules:
 - If what you need isn't on screen, close any open dropdown first, then go up a level: inside a sub-page the sidebar can be
   that item's own menu, so click the project name in the breadcrumb (or the logo/back link) to get the main navigation.
 - To add to a field without replacing it, say "append <text> to the <field> field".
+- A counter (a number between two buttons such as Add/Remove or +/-, e.g. a quantity or guest count): never click its
+  buttons yourself. Use ONE step per row: "set <row label> to <N>" (e.g. "set Adults to 2"); it clicks the buttons and
+  reports the number shown. Then click the dialog's confirm button (Done, Apply, OK). Check the numbers in the screen
+  summary before you finish.
 - Do only what the TASK asks. A recipe shows the path, not a list of places to visit: stop at the first screen that
   satisfies the task, even if the recipe goes further. Don't open views the task didn't ask for, and don't go back to a
   page you already left (PAGES VISITED lists them) unless the task says so.
 - If a step says it was already done / already open, or a click changed nothing because that view is already showing,
   treat that part as done and move on (or finish); never click it again.
-- Finish with done=true as soon as the task's end state is on screen.
+- Finish with done=true as soon as the task's end state is on screen. First check every value the task names (dates,
+  counts, names, options) against the screen summary: if one differs, it isn't done yet.
 - Never delete, deploy to production, buy, rent or pay for anything. Never create, reveal or copy credentials (API keys,
   secrets, tokens), never invite or remove people, never change account, team, billing or project settings, and never
   switch to another project or account. If the task needs one of these, stop with done=false and say why.
@@ -195,6 +200,13 @@ Rules:
   while it runs, then again when it lands). Say the business tie-in at most once per screen.
 - You can't see their mouse. If they say "this" or "over here", ask which part, offering two things from the screen.
 - No lists, markdown or URLs in speech.
+- Talk about what the customer sees and wants, never about how you work: no "queued", "the task", "steps", "planner"
+  or "my assistant is still...". Say "I'm changing that now", not "that update is queued". A change they ask for while
+  the screen is still busy still needs its do_task (it runs right after); never just say "got it".
+- The latest screen note (<screen_now>, or a newer screen update) is the screen at that moment and replaces anything
+  earlier (older notes, tool results, what you said before). Asked what's on screen, answer from it with concrete
+  items (names, times, prices). Before you say something is done or changed, check that the latest note shows it; if
+  not, say what the screen shows instead. Asked for a price, total or count, read the exact number shown.
 - """
     + (
         """You also see the shared screen as live video (charts, layout, what just popped up): use it for what's visual, but

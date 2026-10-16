@@ -48,10 +48,15 @@ class Planner:
         return self.task is not None and not self.task.done()
 
     def start(self, request: str):
-        self.kai.feed.task_line = ""
-        self.request, self.history, self.status, self.pages = request, [], "starting", []
+        self.request, self.history, self.pages = request, [], []
         self.said_from = len(self.kai.feed.agent_lines)
+        self._set("starting")
         self.task = asyncio.create_task(self._run())
+
+    def enqueue(self, request: str):
+        """Run this right after the current task (the status line shows it as next)."""
+        self.queued = request
+        self._set(self.status)
 
     def on_app_live(self):
         """The test call went live: a 'start a test call' task ends here, silently (FloorControl speaks next)."""
@@ -82,8 +87,11 @@ class Planner:
 
     def _set(self, status: str):
         self.status = status
+        nxt = f" | after it: {self.queued}" if self.queued else ""
         self.kai.feed.task_line = (
-            f"TASK RUNNING (your assistant is doing it; don't click): {self.request} | now: {status}" if status else ""
+            f"TASK RUNNING (your assistant is doing it; don't click): {self.request} | now: {status}{nxt}"
+            if status
+            else ""
         )
         self.kai.feed.kick()
 
@@ -149,6 +157,7 @@ class Planner:
         # the result stays in the screen feed: a reply to the customer may come before ours, and must know it
         k.feed.task_line = (
             f"LAST SCREEN TASK ({'done' if done else 'NOT completed'}): {self.request[:120]} -> {outcome}"
+            + (f" (Their next request, '{self.queued}', was not started.)" if self.queued and not done else "")
         )
         k.feed.kick()
         k.slog.event(
@@ -167,7 +176,7 @@ class Planner:
         nxt, self.queued = self.queued, None
         if nxt and done:  # the queued task starts now; one short line covers both
             self.start(nxt)
-            self._say(
+            await self._say(
                 f"Your assistant finished: {outcome} It is now doing what they asked next: {nxt}. Say both in one short "
                 "sentence; don't call do_task."
             )
@@ -181,29 +190,31 @@ class Planner:
             if us != "speaking" and getattr(k.session, "agent_state", "") != "speaking":
                 break
             await asyncio.sleep(0.2)
-        if user_spoke or k.feed.user_turns != n_user:  # the customer talked: Kai's answer to them carries the result
+        # the customer talked (also just before the task ended): Kai's answer to them carries the result, and a
+        # task reply now would replace that answer
+        if user_spoke or k.feed.user_turns != n_user or time.perf_counter() - k.feed.user_at < 6:
             k.slog.event("task_reply_skipped", why="customer spoke")
             return
+        # always say how it landed: what Kai said while it ran was about the request, not the result
         said = len(k.feed.agent_lines) > self.said_from
-        if done and len(" ".join(k.feed.agent_lines[self.said_from :]).split()) >= 15:
-            # Kai already explained it while it ran; the result is in the screen feed for his next turn
-            k.slog.event("task_reply_skipped", why="already explained")
-            return
         text = (
             f"Your assistant finished the screen task ({'done' if done else 'not completed'}): {outcome} "
+            "Check it against the screen note and say what the screen actually shows now (e.g. the top results with "
+            "their real numbers), not what was planned, in one or two short sentences, then lead to the next step."
             + (
-                "You were already talking while it ran: don't restate anything you said and don't make another business "
-                "tie-in. In ONE short sentence, "
+                " You were already talking while it ran: don't restate anything you said and don't make another "
+                "business tie-in."
                 if said
-                else "In one or two short sentences, "
+                else ""
             )
-            + "say what's on screen now that you haven't mentioned, then lead to the next step."
         )
         if nxt and not done:
             text += f" (Their next request, '{nxt}', was not started because this one didn't complete.)"
-        self._say(text)
+        await self._say(text)
 
-    def _say(self, text: str):
+    async def _say(self, text: str):
+        await self.kai.feed.note("task_done")  # the reply reads the screen as it is now
+        self.kai.slog.event("task_reply")
         if self.kai.turns is not None:
             self.kai.turns.request("task", text)  # fires when nobody is speaking, never during a test call
         else:

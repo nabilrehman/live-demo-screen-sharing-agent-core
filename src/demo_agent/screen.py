@@ -17,6 +17,8 @@ log = logging.getLogger("agent.screen")
 
 SCREEN_CHARS = int(os.getenv("SCREEN_TEXT_CHARS", 1500))
 SETTLE_S = float(os.getenv("SETTLE_S", 2.0))  # after a click opens a new page: wait at most this long for its data
+# a turn's screen note reads the screen afresh for at most this long, else it uses the latest summary
+TURN_SCREEN_S = float(os.getenv("TURN_SCREEN_S", 0.3))
 
 # The top layer: an open dialog or menu hides the page behind it, so only it counts.
 TOP_LAYER = "[role=dialog]:visible, [aria-modal=true]:visible, [role=menu]:visible, [role=listbox]:visible"
@@ -192,7 +194,11 @@ def no_effect_reason(what: str, screen: str) -> str:
 class ScreenText:
     """Keeps the voice model up to date with the screen. When the screen summary changes, it sends the summary, the
     knowledge cards of the features on screen, the area's storyline, the running task and the customer profile.
-    Gemini gets it as a context item; the Inference model gets it folded into its instructions."""
+    Gemini gets it as a context item; the Inference model gets it folded into its instructions.
+
+    On top of that, note() sends a fresh <screen_now> (the screen and the task status at that moment) when the customer
+    starts talking and before a self-prompted reply, so every answer is about the current screen rather than an
+    earlier update, a tool result or something Kai said before."""
 
     HDR = "\n\nWHAT IS ON YOUR SHARED SCREEN RIGHT NOW (page text):\n"
 
@@ -204,10 +210,13 @@ class ScreenText:
         self.vin = None  # ScreenVideoInput (Gemini only)
         self.agent_lines: list[str] = []  # what Kai said, so a task-done reply doesn't repeat it
         self.user_turns = 0
+        self.user_at = 0.0  # when the customer's latest line came in (perf_counter)
         self.area = None  # demo area of the features on screen
         self.cards = feature_cards()
         self._posted_area = self._posted_profile = self._posted_today = None
         self._posted_task = ""
+        self.latest = ""  # the latest screen summary
+        self._noting = False
 
     def kick(self):
         self._kick.set()
@@ -256,18 +265,68 @@ class ScreenText:
         return len(body)
 
     async def post_instructions(self, txt: str, cards: str) -> int:
-        """Inference realtime: the instructions are the base prompt plus the current state of the screen."""
+        """Inference realtime: the instructions are the base prompt plus the current state of the screen (last, as a
+        <screen_now> block)."""
         await self.agent.update_instructions(
             PROMPT
             + (f"\n\n{today_line()}" if today_line() else "")
             + (f"\n\nWHAT YOU KNOW ABOUT THEM: {self.profile_line}" if self.profile_line else "")
-            + (f"\n\n{self.task_line}" if self.task_line else "")
             + (f"\n\nFEATURES ON SCREEN NOW (talk about these specifically):\n{cards}" if cards else "")
             + storyline(self.area)
-            + self.HDR
-            + txt
+            + "\n\n"
+            + self.now_block(txt)
         )
         return len(PROMPT) + len(txt)
+
+    async def fresh(self) -> str:
+        """The screen summary now, or the latest one when reading it takes longer than TURN_SCREEN_S."""
+        try:
+            self.latest = await asyncio.wait_for(screen_summary(self.bc.page), TURN_SCREEN_S)
+            return self.latest
+        except TimeoutError:
+            return self.latest
+
+    def now_block(self, txt: str | None) -> str:
+        """The screen and the task status right now; txt=None when the screen is the same as in the last update."""
+        return (
+            "<screen_now>(From the demo system, not the customer: the screen and task status right now. It replaces "
+            "anything earlier: older screen notes, tool results, what you said before.)\n"
+            + (self.task_line or "No screen task is running now.")
+            + (self.HDR + txt if txt is not None else "\nThe screen is the same as in your last screen update.")
+            + "\n</screen_now>"
+        )
+
+    async def note(self, why: str):
+        """Bring the model up to date right now, with a fresh read of the screen (the feed may be up to 2 s behind).
+        Gemini gets a <screen_now> context item (just the status line when the screen hasn't changed since the last
+        update: it can't remove items, so they add up); the Inference model gets its instructions rebuilt."""
+        if self._noting or not self.agent or not self.bc.page:
+            return
+        self._noting = True
+        try:
+            t = time.perf_counter()
+            txt = await self.fresh()
+            read_ms = round((time.perf_counter() - t) * 1000)
+            sig = re.sub(r"\d", "", txt) + self.task_line + self.profile_line
+            if IS_GEMINI:
+                ctx = self.agent.chat_ctx.copy()
+                ctx.add_message(role="user", content=self.now_block(None if sig == self._last else txt))
+                await self.agent.update_chat_ctx(ctx)
+            else:
+                await self.post_instructions(txt, self.on_screen(txt))
+                self._last = sig
+            self.slog.event(
+                "screen_now",
+                why=why,
+                page=txt.split("\n", 1)[0][:80],
+                read_ms=read_ms,
+                ms=round((time.perf_counter() - t) * 1000),
+                task=self.task_line[:160],
+            )
+        except Exception as e:
+            log.warning("screen note: %s", e)
+        finally:
+            self._noting = False
 
     async def run(self):
         while True:
@@ -280,7 +339,7 @@ class ScreenText:
             if not self.agent or not self.bc.page:
                 continue
             try:
-                txt = await screen_summary(self.bc.page)
+                txt = self.latest = await screen_summary(self.bc.page)
                 # timers and metrics alone don't re-send
                 sig = re.sub(r"\d", "", txt) + self.task_line + self.profile_line
                 if sig == self._last or txt.startswith("(page text failed"):

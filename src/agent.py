@@ -170,11 +170,11 @@ class Kai(Agent):
         if g := self._floor_guard():
             return g
         if self.planner.running:  # never drop it: it starts when the current task is done
-            self.planner.queued = request
+            self.planner.enqueue(request)
             self.slog.event("task_queued", request=request)
             return (
-                f"Queued: your assistant starts it as soon as the current task ({self.planner.status}) is done. Say that in a "
-                "few words; don't call do_task again."
+                "Noted: your assistant does it right after what's on screen now finishes. Tell them in a few words that "
+                "you'll do it next, without talking about queues or tasks; don't call do_task again."
             )
         # a new item's name gets a random 3-digit suffix (names of earlier, even deleted, items can't be reused)
         if PRODUCT.get("unique_names"):
@@ -302,6 +302,7 @@ async def entrypoint(ctx: JobContext):
         if kai.floor is not None:
             kai.floor.on_customer_line(text)
         feed.user_turns += 1
+        feed.user_at = time.perf_counter()
         asyncio.create_task(answer_if_ignored(kai, text))
         if len(text.split()) >= 5:
             said.append(text)
@@ -316,6 +317,10 @@ async def entrypoint(ctx: JobContext):
         slog.event("user_state", state=ev.new_state)
         if ev.new_state == "speaking":
             user_spoke_at[0] = time.perf_counter()
+            # The realtime model detects the end of the turn and answers by itself (on_user_turn_completed never
+            # runs), so the turn's screen note goes in while the customer is still talking.
+            if not (kai.floor is not None and kai.floor.busy):
+                asyncio.create_task(feed.note("turn"))
         elif IS_GEMINI and ev.old_state == "speaking" and time.perf_counter() - user_spoke_at[0] > 0.25:
             asyncio.create_task(missed_turn(kai, feed.user_turns))
 

@@ -227,6 +227,89 @@ async def set_slider(page, name: str, target: float) -> str | None:
     return shown
 
 
+# "set Adults to 2", "set the number of guests to 3": a counter with -/+ buttons
+STEPPER_RE = (
+    r"\bset\s+(?:the\s+)?(?:number\s+of\s+)?['\"]?(.+?)['\"]?\s+(?:count\s+)?to\s+(\d+)"
+    r"(?=\s*$|\s*[.,;]|\s+(?:in|on|and|then|using|with)\b)"
+)
+
+# The counter row whose label starts with the given text: the nearest ancestor of the label holding exactly two buttons
+# (- and +), in the top layer. A label that matches no row is shortened word by word while that finds exactly one row
+# (the page may word it differently: "Children Aged 2 to 11" vs "Children Aged 2-11"). Marks the row and its buttons
+# and returns the mark, or null.
+STEPPER_JS = r"""(label) => {
+  const vis = e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
+  const layers = [...document.querySelectorAll('[role=dialog],[aria-modal=true],[role=menu],[role=listbox]')].filter(vis);
+  const root = layers.length ? layers[layers.length - 1] : document.body;
+  const txt = e => (e.innerText || e.getAttribute('aria-label') || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const btns = e => [...e.querySelectorAll('button,[role=button]')].filter(vis);
+  const rows = L => { const out = new Set();
+    for (const h of root.querySelectorAll('*')) {
+      if (!vis(h) || h.closest('button,[role=button]') || !txt(h).startsWith(L) || [...h.children].some(c => txt(c).startsWith(L))) continue;
+      let row = h;
+      while (row && row !== root.parentElement && btns(row).length < 2) row = row.parentElement;
+      if (row && btns(row).length === 2) out.add(row); }
+    return [...out]; };
+  const words = label.trim().toLowerCase().split(/\s+/);
+  for (let k = words.length; k > 0; k--) {
+    const found = rows(words.slice(0, k).join(' '));
+    if (!found.length || (k < words.length && found.length > 1)) continue;
+    const row = found[0], isDec = e => /remove|decrease|minus|fewer|less|subtract|^[-\u2212\u2013]$/i.test(txt(e));
+    let [dec, inc] = btns(row);  // the usual order is "- count +"
+    if (isDec(inc) && !isDec(dec)) [dec, inc] = [inc, dec];
+    const id = 's' + Math.random().toString(36).slice(2, 7);
+    row.setAttribute('data-kai-row', id); dec.setAttribute('data-kai-dec', id); inc.setAttribute('data-kai-inc', id);
+    return id; }
+  return null; }"""
+
+# The number a counter row shows: its input or spinbutton, else the last bare number outside its buttons.
+COUNT_JS = r"""(row) => { const vis = e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
+  const sp = row.querySelector('input,[role=spinbutton]');
+  if (sp) return parseFloat(sp.matches('input') ? sp.value : sp.getAttribute('aria-valuenow'));
+  const n = [...row.querySelectorAll('*')].filter(e => vis(e) && !e.children.length && !e.closest('button,[role=button]')
+    && /^\d+$/.test((e.innerText || '').trim()));
+  return n.length ? parseInt(n[n.length - 1].innerText) : null; }"""
+
+
+async def set_stepper(page, label: str, target: int) -> str | None:
+    """Set a counter (a number between - and + buttons) by clicking its buttons, as a person would, checking the number
+    after every click. Returns what it shows then, or None when there is no such counter."""
+    sid = await page.evaluate(STEPPER_JS, label)
+    if not sid:
+        return None
+    row = page.locator(f'[data-kai-row="{sid}"]')
+    now = await row.evaluate(COUNT_JS)
+    if now is None:
+        return None
+    for _ in range(20):
+        if now == target:
+            break
+        try:
+            await page.locator(f'[data-kai-{"dec" if now > target else "inc"}="{sid}"]').click(timeout=1000)
+        except Exception:  # a disabled button: the end of its range
+            break
+        await asyncio.sleep(0.25)
+        new = await row.evaluate(COUNT_JS)
+        if new == now:
+            break
+        now = new
+    return f"{now}" if now == target else f"{now} (it doesn't go to {target}; don't try again)"
+
+
+async def set_steppers(page, goal: str) -> list[str] | None:
+    """Every counter a step sets ("set Adults to 2 and Children to 1"): what each shows after, or None if none."""
+    m = re.search(r"\bset\s+(.+)", goal, re.I)  # also "click Add child to set Children to 1"
+    if not m:
+        return None
+    shown = []
+    for part in re.split(r",\s*(?:and\s+)?|\s+and\s+", m.group(1)):
+        if (c := re.search(STEPPER_RE, "set " + part, re.I)) and (
+            n := await set_stepper(page, c.group(1), int(c.group(2)))
+        ):
+            shown.append(f"'{c.group(1)}' now shows {n}")
+    return shown or None
+
+
 async def _escape(kai) -> str:
     """Close the top layer with Escape and say whether it worked."""
     page = kai.bc.page
@@ -283,6 +366,12 @@ async def fast_hands(kai, goal: str, _retry: bool = True):
         kai.chooser = "exact-name"
         kai.last_change = f"Moved the '{m.group(1)}' slider; it now shows: {shown}."
         kai.changes.append(f"set {m.group(1)}: {shown}")
+        return "jev-click"
+
+    if shown := await set_steppers(page, goal):
+        kai.chooser = "exact-name"
+        kai.last_change = "Used the counters' buttons: " + "; ".join(shown) + "."
+        kai.changes += [f"set {x}" for x in shown]
         return "jev-click"
 
     # typing: the text goes into the field the step names, never into another box

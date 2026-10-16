@@ -9,3 +9,10 @@ __pycache__/
 *.secrets
 web/node_modules
 web/.vercel
+livekit.*.toml
+
+# outputs of tests/voice_flow.py
+e2e_*
+.pytest_cache/
+.ruff_cache/
+*.egg-info/

@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "live-demo-screen-sharing-agent"
+version = "1.0.0"
+description = "A voice sales engineer that gives a live demo of a web product in a shared browser, built with LiveKit Agents"
+requires-python = ">=3.12, <3.14"
+
+dependencies = [
+    "livekit-agents~=1.8",
+    "livekit-plugins-silero~=1.8",
+    "livekit-plugins-google~=1.8",
+    "livekit-plugins-anam~=1.8",
+    "playwright~=1.64",
+    "pillow",
+    "numpy",
+    "openai",
+    "aiohttp",
+    "python-dotenv",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.package-data]
+demo_agent = ["*.js"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "C4", "UP", "SIM", "RUF"]
+ignore = [
+    "E501",    # line length: handled by the formatter
+    "E402",    # .env.local is loaded before the demo_agent modules read their settings
+    "E741",    # short loop names (l) in list comprehensions
+    "RUF001",  # typographic quotes in regexes that match them on purpose
+    "RUF006",  # fire-and-forget background tasks
+    "RUF012",  # constant dicts as class attributes
+    "SIM105",  # try/except/pass reads plainly here
+    "SIM115",  # small one-shot file reads
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

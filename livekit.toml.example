@@ -1,0 +1,6 @@
+# Created by `lk agent create` (or the first "create" run of the GitHub workflow). Commit it so later deploys update the same agent.
+[project]
+  subdomain = "<your-project-subdomain>"
+
+[agent]
+  id = "<agent-id>"

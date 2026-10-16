@@ -1,5 +1,5 @@
-// Mints a join token for a fresh demo room (same shape as ../web/make_link.py).
-// Env: LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET, DEMO_PASSCODE, AGENT_NAME (default faan-live-b).
+// Mints a join token for a fresh demo room and dispatches the agent to it.
+// Env: LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET, DEMO_PASSCODE, AGENT_NAME (default live-demo-lean).
 //   GET/POST /api/token?code=<passcode>          -> 200 {url, token, room}
 //   GET      /api/token?code=<passcode>&check=1  -> 200 {ok: true}, validates the code only (no room)
 // 401 on a missing/wrong code (when DEMO_PASSCODE is set), 429 when the per-IP limit is hit.

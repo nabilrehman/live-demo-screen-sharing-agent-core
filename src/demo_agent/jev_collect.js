@@ -13,7 +13,7 @@
       const t = byId.split(/\s+/).map((i) => (el.getRootNode().getElementById?.(i) || document.getElementById(i))?.innerText || "").join(" ").trim();
       if (t) return t;
     }
-    // faan addition: radios/checkboxes without aria-label take the text of their wrapping <label>/card
+    // addition to jev-guide: radios/checkboxes without aria-label take the text of their wrapping <label>/card
     function wrapText(e) {
       if (e.tagName !== "INPUT" || !/^(radio|checkbox)$/.test(e.type)) return "";
       let p = e.closest("label") || e.parentElement;

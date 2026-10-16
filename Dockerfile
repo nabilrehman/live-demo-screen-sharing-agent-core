@@ -1,24 +1,34 @@
 # syntax=docker/dockerfile:1
-# Live demo agent: Gemini Live (sees the shared screen as video) + Jev (picks every click) + headless Chromium, on LiveKit Agents.
-# Optional Anam avatar. No secrets baked in: credentials come from LiveKit Cloud agent secrets.
-FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
-ENV PYTHONUNBUFFERED=1 UV_COMPILE_BYTECODE=1 UV_SYSTEM_PYTHON=1 UV_NO_CACHE=1 \
-    PLAYWRIGHT_BROWSERS_PATH=/ms-playwright AGENT_NAME=live-demo-lean WORKER_PORT=8081
+# The live demo agent on LiveKit Cloud: the agent worker plus headless Chromium (Playwright) and ffmpeg.
+# No secrets are baked in: credentials come from LiveKit Cloud agent secrets.
+ARG PYTHON_VERSION=3.13
+FROM ghcr.io/astral-sh/uv:python${PYTHON_VERSION}-bookworm-slim AS base
+ENV PYTHONUNBUFFERED=1 \
+    UV_COMPILE_BYTECODE=1 \
+    HF_HOME=/app/.cache/huggingface \
+    PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
+# --- Build stage: dependencies from uv.lock, then the app ---
+FROM base AS build
+RUN apt-get update && apt-get install -y gcc g++ python3-dev && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-# ffmpeg: demo_agent/sesslog.py records screen.mp4 for every session
+COPY pyproject.toml uv.lock ./
+RUN mkdir -p src && uv sync --locked --no-dev --no-install-project
+RUN uv run --no-sync --module livekit.agents download-files
+COPY . .
+RUN uv sync --locked --no-dev
+
+# --- Production stage ---
+FROM base
+ENV PATH="/app/.venv/bin:$PATH" AGENT_NAME=live-demo-lean WORKER_PORT=8081
+# ffmpeg records sessions/<room>/screen.mp4; Chromium and its system libraries for the shared browser
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg ca-certificates && rm -rf /var/lib/apt/lists/*
-COPY requirements.cloud.txt .
-RUN uv pip install --system -r requirements.cloud.txt \
- && python -m playwright install --with-deps chromium \
- && rm -rf /var/lib/apt/lists/*
-RUN useradd -m -u 10001 agent && chmod -R a+rx /ms-playwright
-USER agent
-RUN python -m livekit.agents download-files || true
-USER root
-COPY --chown=agent:agent agent.py cloud_main.py entrypoint.sh ./
-COPY --chown=agent:agent demo_agent ./demo_agent
-COPY --chown=agent:agent knowledge ./knowledge
-RUN mkdir -p sessions && chown agent:agent sessions
-USER agent
+ARG UID=10001
+RUN adduser --disabled-password --gecos "" --home /app --shell /sbin/nologin --uid "${UID}" appuser
+COPY --from=build --chown=appuser:appuser /app /app
+WORKDIR /app
+RUN python -m playwright install --with-deps chromium && rm -rf /var/lib/apt/lists/* && chmod -R a+rx /ms-playwright
+RUN mkdir -p sessions && chown appuser:appuser sessions
+USER appuser
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["start"]

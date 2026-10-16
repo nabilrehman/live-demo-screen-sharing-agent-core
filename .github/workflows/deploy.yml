@@ -1,0 +1,42 @@
+# One-click deploy to LiveKit Cloud: GitHub -> Actions -> "Deploy to LiveKit Cloud" -> Run workflow.
+# Repository secrets needed (Settings -> Secrets and variables -> Actions):
+#   LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET   the LiveKit Cloud project to deploy into
+#   AGENT_SECRETS     the agent's own secrets, comma separated KEY=VALUE (see .env.example), e.g.
+#                     GOOGLE_CLOUD_PROJECT=...,GOOGLE_CLOUD_LOCATION=us-central1,GOOGLE_CREDENTIALS_JSON_B64=...,
+#                     JEV_OPENROUTER_API_KEY=...,DEMO_START_URL=...,FAAN_STORAGE_STATE_B64=...
+# The first run creates the agent; commit the livekit.toml it prints (or set LIVEKIT_AGENT_ID) so later runs deploy updates.
+name: Deploy to LiveKit Cloud
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "create (first time) or deploy (update)"
+        required: true
+        default: deploy
+        type: choice
+        options: [deploy, create]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency: { group: livekit-deploy, cancel-in-progress: false }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy agent
+        uses: livekit/deploy-action@v2.12.2
+        env:
+          LIVEKIT_URL: ${{ secrets.LIVEKIT_URL }}
+          LIVEKIT_API_KEY: ${{ secrets.LIVEKIT_API_KEY }}
+          LIVEKIT_API_SECRET: ${{ secrets.LIVEKIT_API_SECRET }}
+          SECRET_LIST: ${{ secrets.AGENT_SECRETS }}
+        with:
+          OPERATION: ${{ inputs.operation }}
+          WORKING_DIRECTORY: .
+      - name: Status
+        uses: livekit/deploy-action@v2.12.2
+        env:
+          LIVEKIT_URL: ${{ secrets.LIVEKIT_URL }}
+          LIVEKIT_API_KEY: ${{ secrets.LIVEKIT_API_KEY }}
+          LIVEKIT_API_SECRET: ${{ secrets.LIVEKIT_API_SECRET }}
+        with:
+          OPERATION: status-retry
+          WORKING_DIRECTORY: .

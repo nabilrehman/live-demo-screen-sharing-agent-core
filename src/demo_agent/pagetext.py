@@ -1,5 +1,6 @@
 """Rich, compact DOM text of the shared browser for the voice LLM: headings, dialog, selected tabs,
 toggles/checkboxes with ON/OFF, inputs/selects with values, field labels, visible buttons and short body text."""
+
 JS = r"""(maxChars) => {
   const vis = e => { if (!e || !e.getBoundingClientRect) return false; const r = e.getBoundingClientRect();
     if (r.width <= 0 || r.height <= 0 || r.bottom < 0 || r.top > innerHeight * 1.5) return false;
@@ -36,6 +37,7 @@ JS = r"""(maxChars) => {
   const room = maxChars - s.length - 20; if (room > 200) s += '\nVISIBLE TEXT: ' + body.slice(0, room);
   return s.slice(0, maxChars);
 }"""
+
 
 async def page_text(page, max_chars: int = 2400) -> str:
     try:

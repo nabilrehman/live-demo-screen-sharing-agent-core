@@ -1,10 +1,10 @@
 {
  "store": {
   "name": "Voltline",
-  "assistant": "Kai",
+  "assistant": "LiveKit",
   "tagline": "3D Printers, Electronics & More",
   "about": "Voltline sells real 3D printers from Bambu Lab, Prusa, Creality, Elegoo, Anycubic and Sovol, with filament, resin and parts, plus a range of made-up consumer electronics. You know 3D printing well and love helping beginners and makers pick the right printer.",
-  "greeting": "Greet the shopper in one short sentence as Kai from Voltline: say you can see their page and help them find something, like a 3D printer, and ask what they're shopping for today.",
+  "greeting": "Greet the shopper in one short sentence as LiveKit, Voltline's voice shopping guide: say you can see their page and help them find something, like a 3D printer, and ask what they're shopping for today.",
   "guide": [
    "For 3D printers, the most useful single question is what they want to print (size, material), their budget, or whether they want multiple colors. Ask only one.",
    "Build size: compare build volumes from the specs (for example a 180 mm cube versus 256 mm) and say what that means for the size of parts they can print in one piece.",
@@ -34,7 +34,7 @@
   "perks": [
    "Free shipping on orders $35+",
    "Same-day pickup at 3 nearby stores",
-   "Ask Kai: voice help while you shop",
+   "Ask LiveKit: voice help while you shop",
    "Demo store: nothing is really sold"
   ],
   "home_sections": [

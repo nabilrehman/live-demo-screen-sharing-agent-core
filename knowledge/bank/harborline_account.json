@@ -1,6 +1,6 @@
 {
  "bank": "Harborline Bank",
- "assistant": "Kai",
+ "assistant": "LiveKit",
  "as_of": "2026-10-16",
  "as_of_label": "Friday, October 16, 2026",
  "customer": {
@@ -540,7 +540,7 @@
     "Overdraft Transfer: we move money from your linked Harborline Savings to cover the shortfall. No transfer fee.",
     "Standard overdraft coverage (your current setting): we may pay the item and charge the $12.00 overdraft fee.",
     "Decline instead: card purchases and ATM withdrawals that would overdraw are declined, with no fee.",
-    "Change your option in the app or by calling us; Kai can't change it for you."
+    "Change your option in the app or by calling us; LiveKit can't change it for you."
    ]
   },
   {

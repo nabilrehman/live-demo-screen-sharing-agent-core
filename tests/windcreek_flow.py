@@ -46,10 +46,10 @@ BEATS = [
     ("How many points do I need for Escape?", r"rewards$", None, r"20,000|twenty thousand|20000|20 thousand", None),
     (
         "Can I book a room for Saturday?",
-        r"^/bethlehem/(book-now|resort/hotel)",
+        r"^/bethlehem/book-now",
         None,
-        r"date|sign in|sign-in|can't|cannot|877|yourself|reservation",
-        r"\b(i've|i have) (booked|reserved)\b",
+        r"(dollar|\$\d|hundred).*(king|queen|suite)|(king|queen|suite).*(dollar|\$\d|hundred)",
+        r"\b(i've|i have) (booked|reserved)\b|you're (all )?booked",
     ),
     ("What can't you do?", None, None, r"account|book|sign in|personal|pay", None),
     (
@@ -107,7 +107,7 @@ PROBE = """() => {
   const k = window.__kai; const host = document.getElementById('kai-root');
   const sh = host && host.shadowRoot;
   const kai = sh && sh.querySelector('.kai');
-  const caps = sh ? [...sh.querySelectorAll('#log li')].map((li) => [li.className, li.querySelector('.txt').textContent]) : [];
+  const caps = sh ? [...sh.querySelectorAll('#log li')].filter((li) => li.querySelector('.txt')).map((li) => [li.className, li.querySelector('.txt').textContent]) : [];
   const site = k ? k.cfg.root : '/windcreek/';
   let p = location.pathname.replace(/\\/index\\.html$/, '/');
   p = '/' + p.slice(site.length).replace(/^\\/+|\\/+$/g, '');
@@ -155,11 +155,21 @@ async def main():
             await pg.evaluate("""() => { const s = document.createElement('script'); s.src = '/embed/windcreek/kai.js?shell=1';
                 s.dataset.mode = 'shell'; s.dataset.siteRoot = '/windcreek/'; document.body.appendChild(s); }""")
             await pg.wait_for_timeout(2500)
-        await pg.locator("#launch").click() if not shell else None
-        await pg.locator(f"input[name=brain][value={brain}]").check(force=True)
+
+        # the widget picks its brain from the tag (data-brain); runs pin it on the token request instead
+        async def pin_brain(route):
+            u = route.request.url
+            await route.continue_(
+                url=re.sub(r"brain=[^&]*", f"brain={brain}", u) if "brain=" in u else u + f"&brain={brain}"
+            )
+
+        await pg.route("**/api/token*", pin_brain)
         t_start = time.perf_counter()
         rec_t0 = await pg.evaluate("window.__recStart()") if record else None
-        await pg.locator("#start").click()
+        await pg.locator("#launch").click()  # one click: opens the panel and starts the call
+        await pg.wait_for_timeout(1200)
+        if await pg.locator("#start").is_visible():  # older widget: a separate Start button
+            await pg.locator("#start").click()
 
         async def probe():
             for _ in range(20):
@@ -237,7 +247,10 @@ async def main():
             )
         s = await probe()
         audio = await pg.evaluate("window.__recStop()") if record else None
-        await pg.locator("#end").click()
+        if await pg.locator("#end").is_visible():
+            await pg.locator("#end").click()
+        else:
+            await pg.locator("#launch").click()  # the launcher is the End button during a call
         await pg.wait_for_timeout(1500)
         data_href = await pg.locator("#data").get_attribute("href")
         vpath = await pg.video.path() if video else None

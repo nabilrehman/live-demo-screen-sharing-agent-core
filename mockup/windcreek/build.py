@@ -712,6 +712,97 @@ def promo_card(p):
 <p class="when">{E(p["when"])}</p><p class="tag">{E(p["tag"])}</p><a class="btn-red" href="{link("/bethlehem/promotions/" + p["slug"])}">Learn More</a></div></article>"""
 
 
+SVG = {
+    "cal": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 9h16M8 3v4M16 3v4" stroke="currentColor" stroke-width="2"/><path d="M8 13h2M11 13h2M14 13h2" stroke="currentColor" stroke-width="2"/></svg>',
+    "bed": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18V8m0 6h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="7" cy="11" r="2" fill="currentColor"/></svg>',
+    "check": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 10 17l9-10" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>',
+    "bag": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="7" width="12" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 7V4h6v3M10 11v6M14 11v6" stroke="currentColor" stroke-width="2"/></svg>',
+    "arrow": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>',
+    "back": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>',
+    "x": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4"/></svg>',
+    "pen": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z" fill="currentColor"/></svg>',
+    "access": '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2" fill="currentColor"/><path d="M5 8h14M12 8v6m0 0-3 8m3-8 3 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+}
+STEPS = [
+    ("dates", "Dates of Stay", "cal"),
+    ("rooms", "Accommodations", "bed"),
+    ("confirm", "Confirm", "check"),
+    ("booked", "Booked!", "bag"),
+]
+ON = ' class="on current"'
+STEPPER = (
+    '<ol class="wcb-stepper" aria-label="Booking steps">'
+    + "".join(
+        f'<li data-step="{k}"{ON if k == "dates" else ""}><span class="ico">{SVG[i]}</span><span class="lbl">{E(t)}</span></li>'
+        for k, t, i in STEPS
+    )
+    + "</ol>"
+)
+STAY_FIELDS = f"""<div class="wcb-field"><span class="lab">Check-In</span><span class="val wcb-in ph">mm/dd/yyyy</span>{SVG["cal"]}</div>
+<span class="wcb-arrow">{SVG["arrow"]}</span>
+<div class="wcb-field"><span class="lab">Check-Out</span><span class="val wcb-out ph">mm/dd/yyyy</span>{SVG["cal"]}</div>"""
+BOOKING_BODY = f"""<div class="wcb" data-kai-region="booking">
+{STEPPER}
+<section class="wcb-step" id="wcb-dates">
+  <div class="wcb-cols">
+    <div class="wcb-main">
+      <h1 class="wcb-h">Select the Dates of Your Stay</h1>
+      <div class="wcb-boxes"><div class="wcb-box wcb-dates">{STAY_FIELDS}</div>
+        <div class="wcb-box"><div class="wcb-field wide"><span class="lab">Discount Code</span><span class="val ph">Enter Code</span></div></div></div>
+      <div class="wcb-row"><button type="button" class="wcb-text" id="wcb-clear">{SVG["x"]} Clear Selection</button>
+        <button type="button" class="wcb-primary" id="wcb-next" disabled>Next {SVG["arrow"]}</button></div>
+      <div class="wcb-cal" aria-label="Calendar">
+        <div class="wcb-cal-head"><button type="button" id="wcb-prev" aria-label="Previous month">&#8249;</button><h2 id="wcb-month">October 2026</h2><button type="button" id="wcb-nextm" aria-label="Next month">&#8250;</button></div>
+        <div class="wcb-dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div class="wcb-days" id="wcb-days"></div>
+      </div>
+      <p class="wcb-fine">Prices shown are the "from" nightly prices on Wind Creek's booking engine on Oct 20, 2026, reproduced for this demo.</p>
+    </div>
+    <aside class="wcb-rewards" aria-label="Rewards sign-in (demo only)">
+      <p>Are you a rewards member?</p>
+      <h2>Sign in to be eligible for an award upon checkin</h2>
+      <button type="button" class="wcb-outline" data-demo>Sign in using your PIN instead</button>
+      <div class="wcb-fake"><span class="lab">Email</span><span class="input">Email</span></div>
+      <div class="wcb-fake"><span class="lab">Password</span><span class="input">Enter Password</span></div>
+      <button type="button" class="wcb-primary sm" data-demo>Sign In</button>
+      <button type="button" class="wcb-plain" data-demo>Forgot Password?</button>
+      <p class="wcb-fine">Demo only: sign-in is not part of this mockup and Kai never uses it.</p>
+    </aside>
+  </div>
+</section>
+<section class="wcb-step" id="wcb-rooms" hidden>
+  <button type="button" class="wcb-text wcb-back" data-to="dates">{SVG["back"]} Back</button>
+  <div class="wcb-cols">
+    <div class="wcb-main">
+      <h1 class="wcb-h">Select a Room</h1><p class="wcb-count" id="wcb-count">9 MATCHES</p>
+      <div id="wcb-roomlist"></div>
+    </div>
+    <aside class="wcb-stay" aria-label="Your stay">
+      <div class="wcb-stay-head"><h2>Your Stay</h2><button type="button" class="wcb-outline" id="wcb-change" data-to="dates">{SVG["pen"]} Change Dates</button></div>
+      <div class="wcb-stay-box">{STAY_FIELDS}</div>
+      <h3 class="wcb-lab">Number of Guests</h3>
+      <div class="wcb-stepnum"><button type="button" id="wcb-minus" aria-label="Fewer guests">&minus;</button><span id="wcb-guests">1</span><button type="button" id="wcb-plus" aria-label="More guests">+</button></div>
+      <h3 class="wcb-lab">Preferred Room Type</h3>
+      <select id="wcb-type" aria-label="Preferred room type"><option>All</option><option>King</option><option>Queen</option><option>Suite</option></select>
+      <label class="wcb-check"><input type="checkbox" id="wcb-accessible"> Accessible {SVG["access"]}</label>
+    </aside>
+  </div>
+</section>
+<section class="wcb-step" id="wcb-confirm" hidden>
+  <button type="button" class="wcb-text wcb-back" data-to="rooms">{SVG["back"]} Back</button>
+  <div class="wcb-cols"><div class="wcb-main"><h1 class="wcb-h">Confirm Your Stay</h1><div class="wcb-summary" id="wcb-summary"></div>
+    <p class="wcb-fine">Demo mockup: on windcreek.com you'd enter guest and payment details here. This page collects nothing.</p>
+    <button type="button" class="wcb-primary" id="wcb-book">Complete Reservation (demo) {SVG["arrow"]}</button></div>
+    <aside class="wcb-rewards"><p>Questions about your stay?</p><h2>Call 877-726-3777</h2></aside></div>
+</section>
+<section class="wcb-step" id="wcb-booked" hidden>
+  <div class="wcb-done"><span class="ico">{SVG["bag"]}</span><h1 class="wcb-h">Booked!</h1><p>Demo confirmation <strong id="wcb-conf"></strong>. No reservation was made and nothing was charged.</p>
+  <a class="wcb-outline" href="{BASE}/bethlehem">Back to Wind Creek Bethlehem</a></div>
+</section>
+</div>
+<script src="{BASE}/assets/booking-data.js"></script><script src="{BASE}/assets/bookflow.js" defer></script>"""
+
+
 def build() -> list[tuple[str, str]]:
     pages = []
     add = lambda *a, **k: pages.append(page(*a, **k))  # noqa: E731
@@ -908,24 +999,7 @@ def build() -> list[tuple[str, str]]:
         + f'<section class="wrap"><div class="cards">{pk}</div><p class="fine">Prices are per night, as published on windcreek.com; Chop House is closed Mondays and Urban Table Mondays and Tuesdays.</p></section>',
         prop=True,
     )
-    options = "".join(
-        f'<article class="room-opt"><img src="{p}" alt=""><div><h3>{E(n)}</h3><p class="meta">{E(m)}</p><p>{E(d)}</p></div><div class="opt-cta"><p class="fine">Rates shown after you choose dates. Sign in as a Rewards Member for member rates.</p><button type="button" class="btn-outline" data-demo>Select Room</button></div></article>'
-        for n, m, p, d in ROOMS[:6]
-    )
-    add(
-        "/bethlehem/book-now",
-        "Book Now",
-        f"""<section class="wrap"><p class="eyebrow">Wind Creek Bethlehem</p><h1 class="page-title">Book Now</h1>
-<p>Your luxury getaway awaits at our AAA Four-Diamond casino hotel. Enter the dates of your stay to get started; sign in as a Rewards Member to be eligible for hotel discounts.</p>
-<div class="booking" aria-label="Check availability (demo)"><h2>Check Availability</h2>
-<div class="bk-fields"><div class="bk"><span>Check-in</span><strong>Select date</strong></div><div class="bk"><span>Check-out</span><strong>Select date</strong></div><div class="bk"><span>Guests</span><strong>2 Adults · 1 Room</strong></div><div class="bk"><span>Promo / Offer Code</span><strong>Optional</strong></div>
-<button type="button" class="btn-red" data-demo>Check Availability</button></div>
-<p class="fine">Demo mockup: the real page uses Wind Creek's booking engine. Nothing here books, signs in or collects details.</p></div>
-<h2>Room Options</h2><div class="room-opts">{options}</div>
-<div class="reserve"><button type="button" class="btn-red" disabled aria-disabled="true">Complete reservation (demo)</button><button type="button" class="btn-outline" data-demo>Sign in as a Rewards Member</button></div>
-<p>Prefer to talk to someone? Call 877-726-3777. Looking for a deal? See <a href="{link("/bethlehem/resort/hotel-packages")}">Hotel Packages</a>.</p></section>""",
-        prop=True,
-    )
+    add("/bethlehem/book-now", "Book Now", BOOKING_BODY, prop=True)
     add(
         "/bethlehem/resort/spa",
         "Spa at Wind Creek",
@@ -1169,6 +1243,13 @@ def main():
         with open(os.path.join(d, "index.html"), "w") as f:
             f.write(doc)
     os.makedirs(os.path.join(out, "assets"), exist_ok=True)
+    here = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(here, "bookflow.js")) as f, open(os.path.join(out, "assets", "bookflow.js"), "w") as g:
+        g.write(f.read())
+    with open(os.path.join(here, "..", "..", "knowledge", "windcreek", "booking.json")) as f:
+        data = f.read()
+    with open(os.path.join(out, "assets", "booking-data.js"), "w") as g:
+        g.write("window.WC_BOOKING = " + data.strip() + ";\n")
     src = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site.css")
     with open(src) as f, open(os.path.join(out, "assets", "site.css"), "w") as g:
         g.write(f.read())

@@ -38,7 +38,8 @@ if IS_GEMINI:  # a slow import (PIL): do it when the job process starts, not on 
 log = logging.getLogger("site")
 AWAY_S = float(os.getenv("AWAY_S", 30))  # how long the session waits for the visitor to come back from a page load
 NAV_WAIT_S = 15.0  # how long navigate waits for the new page's first snapshot
-VISITOR_WAIT_S = 10.0  # how long an action waits for the visitor to rejoin (they may be mid page load)
+VISITOR_WAIT_S = 10.0
+SETTLE_S = 0.6  # after a new page's first snapshot, a moment for its scripts to register site actions  # how long an action waits for the visitor to rejoin (they may be mid page load)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -91,6 +92,7 @@ class SiteKai(PageAgent):
         if self.page.ctx.get("navigating"):  # the page is loading the new one; it rejoins from there
             if not await self.page.next_load(NAV_WAIT_S):
                 return "The new page is still loading; tell them it's on its way.\n" + note
+            await asyncio.sleep(SETTLE_S)  # the page registers its own actions just after it loads
             note = self.page.note(full=True)
             self.on_change()
         return "Done; the page is open.\n" + note
@@ -137,6 +139,24 @@ class SiteKai(PageAgent):
             heading: The heading's words as shown on the page.
         """
         return await self.act("read_section", heading=heading)
+
+    @function_tool
+    async def site_action(self, name: str, args_json: str = "{}") -> str:
+        """Run one of the actions the current page offers (listed under "Site actions on this page"), for example
+        select_dates on the hotel booking page. Only listed actions exist.
+
+        Args:
+            name: The action's name as listed.
+            args_json: Its arguments as a JSON object, as the listing describes, e.g. {"check_in": "2026-10-24", "check_out": "2026-10-25"}.
+        """
+        try:
+            args = json.loads(args_json or "{}")
+        except ValueError as e:
+            raise ToolError("args_json must be a JSON object.") from e
+        listed = {a.get("name") for a in self.page.ctx.get("site_actions") or []}
+        if name not in listed:
+            raise ToolError(f"This page has no action '{name}'. Actions: {', '.join(sorted(listed)) or 'none'}.")
+        return "Done.\n" + await self.act("site_action", name=name, args=args)
 
     @function_tool
     async def clear_highlight(self) -> str:

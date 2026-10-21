@@ -145,6 +145,15 @@ class SitePage:
             lines.append(
                 "Links in view: " + "; ".join(f"{l.get('label')} -> {l.get('href')}" for l in links[:NOTE_LINKS])
             )
+        if acts := c.get("site_actions"):
+            lines.append(
+                "Site actions on this page (call with site_action): "
+                + "; ".join(f"{a['name']}: {a.get('description', '')}" for a in acts)
+            )
+        if sc := c.get("site_context"):
+            lines.append("Site data: " + json.dumps(sc)[:1500])
+        if c.get("action_result"):
+            lines.append(f"Action result: {c['action_result']}")
         if t := self.clicked():
             lines.append(f"They just clicked: {t}")
         return "<page_now>\n" + "\n".join(lines) + "\n</page_now>"

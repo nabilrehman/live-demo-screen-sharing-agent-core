@@ -1,0 +1,1364 @@
+{
+ "brand": "Lakeline Hotels",
+ "assistant": "Kai",
+ "currency": "USD",
+ "images_note": "Images generated with Gemini.",
+ "brands": [
+  {
+   "id": "lakeline",
+   "name": "Lakeline Hotels",
+   "style": "Upscale city hotels"
+  },
+  {
+   "id": "collection",
+   "name": "Lakeline Collection",
+   "style": "Small design-led hotels"
+  },
+  {
+   "id": "resorts",
+   "name": "Lakeline Resorts",
+   "style": "Resorts with pools, spas and kids' clubs"
+  }
+ ],
+ "cities": [
+  {
+   "id": "austin",
+   "name": "Austin",
+   "label": "Austin, TX",
+   "full": "Austin, Texas",
+   "aliases": [
+    "austin",
+    "texas",
+    "atx",
+    "austin texas",
+    "austin tx"
+   ],
+   "timezone": "America/Chicago",
+   "center": "downtown Austin",
+   "blurb": "Live music, Lady Bird Lake and Tex-Mex",
+   "coming_soon": true,
+   "photo": "gen/city-austin.jpg"
+  },
+  {
+   "id": "new-york",
+   "name": "New York",
+   "label": "New York, NY",
+   "full": "New York, New York",
+   "aliases": [
+    "new york",
+    "nyc",
+    "new york city",
+    "manhattan",
+    "brooklyn",
+    "ny"
+   ],
+   "timezone": "America/New_York",
+   "center": "Midtown Manhattan",
+   "blurb": "Broadway, Central Park and the skyline",
+   "photo": "gen/city-new-york.jpg"
+  },
+  {
+   "id": "cancun",
+   "name": "Cancún",
+   "label": "Cancún, Mexico",
+   "full": "Cancún, Quintana Roo, Mexico",
+   "aliases": [
+    "cancun",
+    "cancún",
+    "mexico",
+    "riviera maya",
+    "hotel zone"
+   ],
+   "timezone": "America/Cancun",
+   "center": "downtown Cancún",
+   "blurb": "White sand and turquoise water",
+   "coming_soon": true,
+   "photo": "gen/city-cancun.jpg"
+  }
+ ],
+ "home_tabs": [
+  {
+   "id": "explore",
+   "label": "Explore"
+  },
+  {
+   "id": "member",
+   "label": "Member offers"
+  },
+  {
+   "id": "together",
+   "label": "Travel together"
+  },
+  {
+   "id": "wellness",
+   "label": "Wellness"
+  },
+  {
+   "id": "unique",
+   "label": "Unique stays"
+  }
+ ],
+ "rates": [
+  {
+   "id": "flexible",
+   "name": "Flexible Rate",
+   "factor": 1.0,
+   "badge": "Free cancellation",
+   "refundable": true,
+   "cancellation": "Free cancellation until 11:59 PM hotel time, 2 days before arrival ({deadline}). After that, the first night plus tax is charged.",
+   "payment": "Pay at the hotel. A card holds the booking.",
+   "explain": "the standard rate: free cancellation until two days before arrival, pay at the hotel"
+  },
+  {
+   "id": "member",
+   "name": "Lakeline Circle Member Rate",
+   "factor": 0.91,
+   "badge": "Members save 9%",
+   "refundable": true,
+   "cancellation": "Free cancellation until 11:59 PM hotel time, 2 days before arrival ({deadline}). After that, the first night plus tax is charged.",
+   "payment": "Pay at the hotel. Free membership: join or sign in when you book (not part of this demo).",
+   "explain": "9% off with the same free cancellation as the flexible rate; it needs a free Lakeline Circle membership, which the guest joins or signs in to themselves when they book"
+  },
+  {
+   "id": "prepaid",
+   "name": "Pay Now and Save",
+   "factor": 0.86,
+   "badge": "Non-refundable",
+   "refundable": false,
+   "cancellation": "Non-refundable. No changes or refunds after booking.",
+   "payment": "Charged in full when you book.",
+   "explain": "14% off, but paid in full when booked and it can't be cancelled, changed or refunded"
+  }
+ ],
+ "weekend_nights": [
+  "Fri",
+  "Sat"
+ ],
+ "limits": {
+  "max_nights": 14,
+  "max_adults": 4,
+  "max_children": 3
+ },
+ "policies": [
+  {
+   "id": "children",
+   "title": "Children",
+   "text": "Children under 12 stay free in the room's existing beds. Every guest, adult or child, counts toward the room's maximum. Cribs are free on request; a rollaway is 35 USD per night, only in rooms that list one."
+  },
+  {
+   "id": "fees",
+   "title": "Taxes and fees",
+   "text": "Rates are per room per night in US dollars, before taxes and fees. Each hotel's taxes and fees are shown on its page, in every total and at checkout."
+  },
+  {
+   "id": "cancellation",
+   "title": "Cancellation",
+   "text": "Flexible and member rates can be cancelled free until 11:59 PM hotel time, 2 days before arrival; after that the first night plus tax is charged. Pay Now and Save rates are non-refundable."
+  },
+  {
+   "id": "club",
+   "title": "Club lounge",
+   "text": "Club rooms and suites include the club lounge: breakfast 6:30 to 10:30 AM, snacks all day, and evening drinks and hors d'oeuvres 5 to 7 PM."
+  },
+  {
+   "id": "checkin",
+   "title": "Check-in",
+   "text": "The guest checking in must be 21 or older (18 in Mexico) with a photo ID and a card for incidentals."
+  },
+  {
+   "id": "smoking",
+   "title": "Smoking",
+   "text": "All rooms are non-smoking."
+  }
+ ],
+ "room_requests": [
+  "High floor",
+  "Low floor",
+  "Near elevator",
+  "Away from elevator",
+  "Crib",
+  "Rollaway bed",
+  "Roll-in shower",
+  "Late arrival",
+  "Early check-in",
+  "Quiet room",
+  "Feather-free bedding"
+ ],
+ "hotel_messages": [
+  "Early departure fee: leaving before your booked check-out date may be charged one night's room rate plus tax.",
+  "Check-in is from {check_in}; check-out is by {check_out}.",
+  "Parking: {parking}."
+ ],
+ "demo_guest": {
+  "first": "Demo",
+  "last": "Guest",
+  "email": "guest@example.com",
+  "phone_cc": "+1",
+  "phone": "555 0100",
+  "country": "United States",
+  "address1": "123 Demo St",
+  "address2": "",
+  "city": "Springfield",
+  "state": "IL",
+  "zip": "62701",
+  "card": "4242 4242 4242 4242 (demo)",
+  "expiry": "12/30",
+  "cvv": "•••",
+  "card_zip": "62701"
+ },
+ "hold_minutes": 15,
+ "room_sets": {
+  "new-york": [
+   {
+    "id": "deluxe-2doubles",
+    "name": "Deluxe Room 2 Doubles, Guest room, 2 Double, No view",
+    "short": "Deluxe Two Doubles",
+    "bed": "2 Double",
+    "size_sqft": 340,
+    "view": "No view (courtyard)",
+    "max_guests": 4,
+    "bath": "Shower and bathtub",
+    "extra_bed": "Free crib on request; no room for a rollaway",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "49-inch TV",
+     "Work desk",
+     "Mini fridge",
+     "Espresso machine"
+    ],
+    "summary": "Two double beds and a bathtub, facing the quiet courtyard.",
+    "aliases": [
+     "two doubles",
+     "2 doubles",
+     "the two doubles",
+     "double",
+     "doubles",
+     "two beds",
+     "two double beds",
+     "double room",
+     "the two queens",
+     "two queens",
+     "queens"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/pa-deluxe-doubles-noview-1.jpg",
+      "thumb": "newyork/pa-deluxe-doubles-noview-1-s.jpg",
+      "kind": "bed",
+      "caption": "Deluxe 2 Doubles – Bedroom"
+     },
+     {
+      "file": "newyork/pa-deluxe-doubles-noview-2.jpg",
+      "thumb": "newyork/pa-deluxe-doubles-noview-2-s.jpg",
+      "kind": "bed",
+      "caption": "Deluxe 2 Doubles – Beds"
+     },
+     {
+      "file": "newyork/pa-deluxe-doubles-noview-3.jpg",
+      "thumb": "newyork/pa-deluxe-doubles-noview-3-s.jpg",
+      "kind": "desk",
+      "caption": "Deluxe 2 Doubles – Desk"
+     },
+     {
+      "file": "newyork/pa-deluxe-doubles-noview-4.jpg",
+      "thumb": "newyork/pa-deluxe-doubles-noview-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Deluxe 2 Doubles – Bathroom"
+     },
+     {
+      "file": "newyork/pa-deluxe-doubles-noview-5.jpg",
+      "thumb": "newyork/pa-deluxe-doubles-noview-5-s.jpg",
+      "kind": "window nook",
+      "caption": "Deluxe 2 Doubles – Window Nook"
+     },
+     {
+      "file": "newyork/pa-deluxe-doubles-noview-6.jpg",
+      "thumb": "newyork/pa-deluxe-doubles-noview-6-s.jpg",
+      "kind": "welcome amenity",
+      "caption": "Deluxe 2 Doubles – Welcome Amenity"
+     }
+    ]
+   },
+   {
+    "id": "deluxe-king",
+    "name": "Deluxe King, Guest room, 1 King, City view",
+    "short": "Deluxe King",
+    "bed": "1 King",
+    "size_sqft": 330,
+    "view": "City view",
+    "max_guests": 3,
+    "bath": "Walk-in rain shower",
+    "extra_bed": "Fits a rollaway (35 USD per night) or a free crib",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "55-inch TV",
+     "Work desk",
+     "Mini fridge",
+     "Espresso machine"
+    ],
+    "summary": "A king bed, a reading chair and Park Avenue city views.",
+    "aliases": [
+     "king",
+     "the king",
+     "king room",
+     "deluxe king",
+     "one king",
+     "1 king",
+     "standard king",
+     "king bed"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/pa-deluxe-king-city-1.jpg",
+      "thumb": "newyork/pa-deluxe-king-city-1-s.jpg",
+      "kind": "bed",
+      "caption": "Deluxe King City – Bedroom"
+     },
+     {
+      "file": "newyork/pa-deluxe-king-city-2.jpg",
+      "thumb": "newyork/pa-deluxe-king-city-2-s.jpg",
+      "kind": "bed",
+      "caption": "Deluxe King City – Bed"
+     },
+     {
+      "file": "newyork/pa-deluxe-king-city-3.jpg",
+      "thumb": "newyork/pa-deluxe-king-city-3-s.jpg",
+      "kind": "lounge chair",
+      "caption": "Deluxe King City – Lounge Chair"
+     },
+     {
+      "file": "newyork/pa-deluxe-king-city-4.jpg",
+      "thumb": "newyork/pa-deluxe-king-city-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Deluxe King City – Bathroom"
+     },
+     {
+      "file": "newyork/pa-deluxe-king-city-5.jpg",
+      "thumb": "newyork/pa-deluxe-king-city-5-s.jpg",
+      "kind": "view",
+      "caption": "Deluxe King City – City View"
+     },
+     {
+      "file": "newyork/pa-deluxe-king-city-6.jpg",
+      "thumb": "newyork/pa-deluxe-king-city-6-s.jpg",
+      "kind": "minibar",
+      "caption": "Deluxe King City – Minibar"
+     }
+    ]
+   },
+   {
+    "id": "accessible-king",
+    "name": "Accessible King, Roll-in shower, 1 King, City view",
+    "short": "Accessible King",
+    "bed": "1 King",
+    "size_sqft": 360,
+    "view": "City view",
+    "max_guests": 3,
+    "bath": "Roll-in shower with fold-down seat",
+    "extra_bed": "Free crib on request",
+    "accessibility": "Mobility accessible: curbless roll-in shower with a fold-down seat, grab bars and a handheld shower; 32-inch doorways; 60-inch turning space; bed 23 inches high with open frame; lowered sink, closet rod, peephole and thermostat; visual alarms and doorbell",
+    "features": [
+     "55-inch TV with captions",
+     "Lowered work desk",
+     "Mini fridge",
+     "Near the elevators"
+    ],
+    "summary": "A king room built for wheelchair users, with a curbless roll-in shower.",
+    "aliases": [
+     "accessible",
+     "accessible king",
+     "ada",
+     "wheelchair",
+     "roll-in shower",
+     "roll in shower",
+     "mobility"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/pa-accessible-king-1.jpg",
+      "thumb": "newyork/pa-accessible-king-1-s.jpg",
+      "kind": "bed",
+      "caption": "Accessible King – Bedroom"
+     },
+     {
+      "file": "newyork/pa-accessible-king-2.jpg",
+      "thumb": "newyork/pa-accessible-king-2-s.jpg",
+      "kind": "bed",
+      "caption": "Accessible King – Bed"
+     },
+     {
+      "file": "newyork/pa-accessible-king-3.jpg",
+      "thumb": "newyork/pa-accessible-king-3-s.jpg",
+      "kind": "work seating",
+      "caption": "Accessible King – Work & Seating"
+     },
+     {
+      "file": "newyork/pa-accessible-king-4.jpg",
+      "thumb": "newyork/pa-accessible-king-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Accessible King – Roll-in Shower"
+     },
+     {
+      "file": "newyork/pa-accessible-king-5.jpg",
+      "thumb": "newyork/pa-accessible-king-5-s.jpg",
+      "kind": "bathroom",
+      "caption": "Accessible King – Vanity"
+     },
+     {
+      "file": "newyork/pa-accessible-king-6.jpg",
+      "thumb": "newyork/pa-accessible-king-6-s.jpg",
+      "kind": "accessibility details",
+      "caption": "Accessible King – Accessibility Details"
+     }
+    ]
+   },
+   {
+    "id": "park-king",
+    "name": "Park View King, Guest room, 1 King, Park view",
+    "short": "Park View King",
+    "bed": "1 King",
+    "size_sqft": 360,
+    "view": "Park view",
+    "max_guests": 2,
+    "bath": "Walk-in rain shower",
+    "extra_bed": "Free crib on request",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "Floor-to-ceiling windows",
+     "55-inch TV",
+     "Espresso machine"
+    ],
+    "summary": "A king room with big windows over the park.",
+    "aliases": [
+     "park view king",
+     "park king",
+     "park view",
+     "view king",
+     "view room"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/pa-park-view-king-1.jpg",
+      "thumb": "newyork/pa-park-view-king-1-s.jpg",
+      "kind": "bed",
+      "caption": "Park View King – Bedroom"
+     },
+     {
+      "file": "newyork/pa-park-view-king-2.jpg",
+      "thumb": "newyork/pa-park-view-king-2-s.jpg",
+      "kind": "bed",
+      "caption": "Park View King – Bed"
+     },
+     {
+      "file": "newyork/pa-park-view-king-3.jpg",
+      "thumb": "newyork/pa-park-view-king-3-s.jpg",
+      "kind": "living room",
+      "caption": "Park View King – Sitting Area"
+     },
+     {
+      "file": "newyork/pa-park-view-king-4.jpg",
+      "thumb": "newyork/pa-park-view-king-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Park View King – Bathroom"
+     },
+     {
+      "file": "newyork/pa-park-view-king-5.jpg",
+      "thumb": "newyork/pa-park-view-king-5-s.jpg",
+      "kind": "view",
+      "caption": "Park View King – Park View"
+     },
+     {
+      "file": "newyork/pa-park-view-king-6.jpg",
+      "thumb": "newyork/pa-park-view-king-6-s.jpg",
+      "kind": "turndown",
+      "caption": "Park View King – Turndown"
+     }
+    ]
+   },
+   {
+    "id": "grand-club-suite",
+    "name": "Grand Park Club Suite, Club lounge access, 1-Bedroom Suite, 1 King, Park view",
+    "short": "Grand Park Club Suite",
+    "bed": "1 King",
+    "size_sqft": 620,
+    "view": "Park view",
+    "max_guests": 3,
+    "bath": "Soaking tub and separate shower",
+    "extra_bed": "Fits a rollaway (35 USD per night) or a free crib",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "Club lounge access (breakfast, snacks, evening drinks)",
+     "Separate bedroom",
+     "Living room",
+     "Two TVs"
+    ],
+    "summary": "A one-bedroom suite with park views and the club lounge.",
+    "aliases": [
+     "grand club suite",
+     "grand park club suite",
+     "club suite",
+     "grand suite"
+    ],
+    "club": true,
+    "photos": [
+     {
+      "file": "newyork/pa-grand-park-club-suite-1.jpg",
+      "thumb": "newyork/pa-grand-park-club-suite-1-s.jpg",
+      "kind": "living room",
+      "caption": "Grand Park Club Suite – Living Room"
+     },
+     {
+      "file": "newyork/pa-grand-park-club-suite-2.jpg",
+      "thumb": "newyork/pa-grand-park-club-suite-2-s.jpg",
+      "kind": "bed",
+      "caption": "Grand Park Club Suite – Bedroom"
+     },
+     {
+      "file": "newyork/pa-grand-park-club-suite-3.jpg",
+      "thumb": "newyork/pa-grand-park-club-suite-3-s.jpg",
+      "kind": "bar cabinet",
+      "caption": "Grand Park Club Suite – Bar Cabinet"
+     },
+     {
+      "file": "newyork/pa-grand-park-club-suite-4.jpg",
+      "thumb": "newyork/pa-grand-park-club-suite-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Grand Park Club Suite – Bathroom"
+     },
+     {
+      "file": "newyork/pa-grand-park-club-suite-5.jpg",
+      "thumb": "newyork/pa-grand-park-club-suite-5-s.jpg",
+      "kind": "view",
+      "caption": "Grand Park Club Suite – Corner View"
+     },
+     {
+      "file": "newyork/pa-grand-park-club-suite-6.jpg",
+      "thumb": "newyork/pa-grand-park-club-suite-6-s.jpg",
+      "kind": "club lounge",
+      "caption": "Grand Park Club Suite – Club Lounge Library"
+     }
+    ]
+   },
+   {
+    "id": "premiere-suite",
+    "name": "Premiere Park View Suite, 1-Bedroom Suite, 1 King, Sofa bed, Park view",
+    "short": "Premiere Park View Suite",
+    "bed": "1 King, 1 Queen sofa bed",
+    "size_sqft": 700,
+    "view": "Park view",
+    "max_guests": 4,
+    "bath": "Soaking tub and separate shower",
+    "extra_bed": "Queen sofa bed included; free crib on request",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "Separate bedroom",
+     "Living room with sofa bed",
+     "Dining table for four",
+     "Two TVs"
+    ],
+    "summary": "A one-bedroom suite with a sofa bed and a dining table, facing the park.",
+    "aliases": [
+     "premiere suite",
+     "premiere park view suite",
+     "park view suite",
+     "suite",
+     "sofa bed"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/pa-premiere-park-view-suite-1.jpg",
+      "thumb": "newyork/pa-premiere-park-view-suite-1-s.jpg",
+      "kind": "living room",
+      "caption": "Premiere Park View Suite – Living Room"
+     },
+     {
+      "file": "newyork/pa-premiere-park-view-suite-2.jpg",
+      "thumb": "newyork/pa-premiere-park-view-suite-2-s.jpg",
+      "kind": "dining",
+      "caption": "Premiere Park View Suite – Dining Room"
+     },
+     {
+      "file": "newyork/pa-premiere-park-view-suite-3.jpg",
+      "thumb": "newyork/pa-premiere-park-view-suite-3-s.jpg",
+      "kind": "dining",
+      "caption": "Premiere Park View Suite – Dining Detail"
+     },
+     {
+      "file": "newyork/pa-premiere-park-view-suite-4.jpg",
+      "thumb": "newyork/pa-premiere-park-view-suite-4-s.jpg",
+      "kind": "bed",
+      "caption": "Premiere Park View Suite – Bedroom"
+     },
+     {
+      "file": "newyork/pa-premiere-park-view-suite-5.jpg",
+      "thumb": "newyork/pa-premiere-park-view-suite-5-s.jpg",
+      "kind": "bathroom",
+      "caption": "Premiere Park View Suite – Bathroom"
+     },
+     {
+      "file": "newyork/pa-premiere-park-view-suite-6.jpg",
+      "thumb": "newyork/pa-premiere-park-view-suite-6-s.jpg",
+      "kind": "view",
+      "caption": "Premiere Park View Suite – Park View"
+     }
+    ]
+   },
+   {
+    "id": "premiere-club-suite",
+    "name": "Premiere Park Club Suite, Club lounge access, 1 King, Sofa bed",
+    "short": "Premiere Park Club Suite",
+    "bed": "1 King, 1 Queen sofa bed",
+    "size_sqft": 760,
+    "view": "Park view",
+    "max_guests": 4,
+    "bath": "Soaking tub and separate shower",
+    "extra_bed": "Queen sofa bed included; free crib on request",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "Club lounge access (breakfast, snacks, evening drinks)",
+     "Separate bedroom",
+     "Living and dining room",
+     "Wet bar"
+    ],
+    "summary": "The premiere suite on the club floors, with the club lounge included.",
+    "aliases": [
+     "premiere club suite",
+     "premiere park club suite",
+     "club premiere"
+    ],
+    "club": true,
+    "photos": [
+     {
+      "file": "newyork/pa-premiere-park-club-suite-1.jpg",
+      "thumb": "newyork/pa-premiere-park-club-suite-1-s.jpg",
+      "kind": "living room",
+      "caption": "Premiere Park Club Suite – Living Room"
+     },
+     {
+      "file": "newyork/pa-premiere-park-club-suite-2.jpg",
+      "thumb": "newyork/pa-premiere-park-club-suite-2-s.jpg",
+      "kind": "bed",
+      "caption": "Premiere Park Club Suite – Bedroom"
+     },
+     {
+      "file": "newyork/pa-premiere-park-club-suite-3.jpg",
+      "thumb": "newyork/pa-premiere-park-club-suite-3-s.jpg",
+      "kind": "writing desk",
+      "caption": "Premiere Park Club Suite – Writing Desk"
+     },
+     {
+      "file": "newyork/pa-premiere-park-club-suite-4.jpg",
+      "thumb": "newyork/pa-premiere-park-club-suite-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Premiere Park Club Suite – Bathroom"
+     },
+     {
+      "file": "newyork/pa-premiere-park-club-suite-5.jpg",
+      "thumb": "newyork/pa-premiere-park-club-suite-5-s.jpg",
+      "kind": "view",
+      "caption": "Premiere Park Club Suite – Park View"
+     },
+     {
+      "file": "newyork/pa-premiere-park-club-suite-6.jpg",
+      "thumb": "newyork/pa-premiere-park-club-suite-6-s.jpg",
+      "kind": "club lounge",
+      "caption": "Premiere Park Club Suite – Club Lounge"
+     }
+    ]
+   },
+   {
+    "id": "gallery-suite",
+    "name": "The Gallery Suite, Club lounge access, 1-Bedroom Signature Suite, 1 King, Low floor",
+    "short": "The Gallery Suite",
+    "bed": "1 King, 1 Queen sofa bed",
+    "size_sqft": 1150,
+    "view": "Park Avenue, low floor",
+    "max_guests": 4,
+    "bath": "Freestanding tub, steam shower, double vanity",
+    "extra_bed": "Queen sofa bed included; free crib on request",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "Club lounge access (breakfast, snacks, evening drinks)",
+     "Private art collection",
+     "Living and dining room",
+     "Library",
+     "Steam shower"
+    ],
+    "summary": "The signature suite: a gallery-like one-bedroom with its own art collection.",
+    "aliases": [
+     "gallery suite",
+     "the gallery",
+     "signature suite",
+     "best suite"
+    ],
+    "club": true,
+    "photos": [
+     {
+      "file": "newyork/pa-gallery-suite-1.jpg",
+      "thumb": "newyork/pa-gallery-suite-1-s.jpg",
+      "kind": "living room",
+      "caption": "The Gallery Suite – Living Area"
+     },
+     {
+      "file": "newyork/pa-gallery-suite-2.jpg",
+      "thumb": "newyork/pa-gallery-suite-2-s.jpg",
+      "kind": "living room",
+      "caption": "The Gallery Suite – Sitting Room"
+     },
+     {
+      "file": "newyork/pa-gallery-suite-3.jpg",
+      "thumb": "newyork/pa-gallery-suite-3-s.jpg",
+      "kind": "bed",
+      "caption": "The Gallery Suite – Bedroom"
+     },
+     {
+      "file": "newyork/pa-gallery-suite-4.jpg",
+      "thumb": "newyork/pa-gallery-suite-4-s.jpg",
+      "kind": "dining",
+      "caption": "The Gallery Suite – Dining Area"
+     },
+     {
+      "file": "newyork/pa-gallery-suite-5.jpg",
+      "thumb": "newyork/pa-gallery-suite-5-s.jpg",
+      "kind": "bathroom",
+      "caption": "The Gallery Suite – Master Bathroom"
+     },
+     {
+      "file": "newyork/pa-gallery-suite-6.jpg",
+      "thumb": "newyork/pa-gallery-suite-6-s.jpg",
+      "kind": "art details",
+      "caption": "The Gallery Suite – Art Details"
+     },
+     {
+      "file": "newyork/pa-club-lounge-1.jpg",
+      "thumb": "newyork/pa-club-lounge-1-s.jpg",
+      "kind": "club lounge",
+      "caption": "Club Lounge – Library"
+     }
+    ]
+   },
+   {
+    "id": "corner-king",
+    "name": "Corner King, Guest room, 1 King, Skyline view",
+    "short": "Corner King",
+    "bed": "1 King",
+    "size_sqft": 380,
+    "view": "Skyline view, corner windows",
+    "max_guests": 3,
+    "bath": "Walk-in rain shower",
+    "extra_bed": "Fits a rollaway (35 USD per night) or a free crib",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "Corner windows",
+     "55-inch TV",
+     "Espresso machine",
+     "Tea service"
+    ],
+    "summary": "A corner king high in the tower with skyline views on two sides.",
+    "aliases": [
+     "corner king",
+     "corner",
+     "skyline king",
+     "king",
+     "the king",
+     "king room"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/mt-corner-king-1.jpg",
+      "thumb": "newyork/mt-corner-king-1-s.jpg",
+      "kind": "bed",
+      "caption": "Corner King – Bedroom"
+     },
+     {
+      "file": "newyork/mt-corner-king-2.jpg",
+      "thumb": "newyork/mt-corner-king-2-s.jpg",
+      "kind": "bed",
+      "caption": "Corner King – Bed"
+     },
+     {
+      "file": "newyork/mt-corner-king-3.jpg",
+      "thumb": "newyork/mt-corner-king-3-s.jpg",
+      "kind": "lounge corner",
+      "caption": "Corner King – Lounge Corner"
+     },
+     {
+      "file": "newyork/mt-corner-king-4.jpg",
+      "thumb": "newyork/mt-corner-king-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Corner King – Bathroom"
+     },
+     {
+      "file": "newyork/mt-corner-king-5.jpg",
+      "thumb": "newyork/mt-corner-king-5-s.jpg",
+      "kind": "view",
+      "caption": "Corner King – Skyline View"
+     },
+     {
+      "file": "newyork/mt-corner-king-6.jpg",
+      "thumb": "newyork/mt-corner-king-6-s.jpg",
+      "kind": "tech tea",
+      "caption": "Corner King – Tech & Tea"
+     }
+    ]
+   },
+   {
+    "id": "two-queens",
+    "name": "Two Queens, Guest room, 2 Queen, City view",
+    "short": "Two Queens",
+    "bed": "2 Queen",
+    "size_sqft": 390,
+    "view": "City view",
+    "max_guests": 4,
+    "bath": "Shower and bathtub",
+    "extra_bed": "Free crib on request; no room for a rollaway",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "55-inch TV",
+     "Work desk",
+     "Family amenity kit"
+    ],
+    "summary": "Two queen beds and a city view, good for families.",
+    "aliases": [
+     "two queens",
+     "2 queens",
+     "the two queens",
+     "queen",
+     "queens",
+     "queen room",
+     "two beds",
+     "two queen beds",
+     "family room",
+     "double queen"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/mt-two-queens-1.jpg",
+      "thumb": "newyork/mt-two-queens-1-s.jpg",
+      "kind": "bed",
+      "caption": "Two Queens – Bedroom"
+     },
+     {
+      "file": "newyork/mt-two-queens-2.jpg",
+      "thumb": "newyork/mt-two-queens-2-s.jpg",
+      "kind": "bed",
+      "caption": "Two Queens – Beds"
+     },
+     {
+      "file": "newyork/mt-two-queens-3.jpg",
+      "thumb": "newyork/mt-two-queens-3-s.jpg",
+      "kind": "desk window",
+      "caption": "Two Queens – Desk & Window"
+     },
+     {
+      "file": "newyork/mt-two-queens-4.jpg",
+      "thumb": "newyork/mt-two-queens-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Two Queens – Bathroom"
+     },
+     {
+      "file": "newyork/mt-two-queens-5.jpg",
+      "thumb": "newyork/mt-two-queens-5-s.jpg",
+      "kind": "view",
+      "caption": "Two Queens – City View"
+     },
+     {
+      "file": "newyork/mt-two-queens-6.jpg",
+      "thumb": "newyork/mt-two-queens-6-s.jpg",
+      "kind": "family amenity",
+      "caption": "Two Queens – Family Amenity"
+     }
+    ]
+   },
+   {
+    "id": "loft-king",
+    "name": "Loft King, Guest room, 1 King, Mezzanine, Bridge view",
+    "short": "Loft King",
+    "bed": "1 King",
+    "size_sqft": 520,
+    "view": "Bridge and skyline view",
+    "max_guests": 3,
+    "bath": "Walk-in rain shower",
+    "extra_bed": "Fits a rollaway (35 USD per night) or a free crib",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "Mezzanine lounge",
+     "Record player",
+     "Exposed brick",
+     "Espresso machine"
+    ],
+    "summary": "A double-height warehouse loft with a mezzanine and bridge views.",
+    "aliases": [
+     "loft king",
+     "loft",
+     "king",
+     "the king",
+     "mezzanine"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/bk-loft-king-1.jpg",
+      "thumb": "newyork/bk-loft-king-1-s.jpg",
+      "kind": "bed",
+      "caption": "Loft King – Bedroom"
+     },
+     {
+      "file": "newyork/bk-loft-king-2.jpg",
+      "thumb": "newyork/bk-loft-king-2-s.jpg",
+      "kind": "bed",
+      "caption": "Loft King – Bed"
+     },
+     {
+      "file": "newyork/bk-loft-king-3.jpg",
+      "thumb": "newyork/bk-loft-king-3-s.jpg",
+      "kind": "mezzanine",
+      "caption": "Loft King – Mezzanine"
+     },
+     {
+      "file": "newyork/bk-loft-king-4.jpg",
+      "thumb": "newyork/bk-loft-king-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Loft King – Bathroom"
+     },
+     {
+      "file": "newyork/bk-loft-king-5.jpg",
+      "thumb": "newyork/bk-loft-king-5-s.jpg",
+      "kind": "view",
+      "caption": "Loft King – Bridge View"
+     },
+     {
+      "file": "newyork/bk-loft-king-6.jpg",
+      "thumb": "newyork/bk-loft-king-6-s.jpg",
+      "kind": "vinyl corner",
+      "caption": "Loft King – Vinyl Corner"
+     }
+    ]
+   },
+   {
+    "id": "studio-queen",
+    "name": "Studio Queen, Guest room, 1 Queen, Kitchenette",
+    "short": "Studio Queen",
+    "bed": "1 Queen",
+    "size_sqft": 300,
+    "view": "Street view",
+    "max_guests": 2,
+    "bath": "Walk-in shower",
+    "extra_bed": "Free crib on request",
+    "accessibility": "Standard room; hearing-accessible kit on request",
+    "features": [
+     "Kitchenette",
+     "Window seat",
+     "Local goods minibar"
+    ],
+    "summary": "A compact studio with a kitchenette and a window seat.",
+    "aliases": [
+     "studio",
+     "studio queen",
+     "queen",
+     "kitchenette"
+    ],
+    "club": false,
+    "photos": [
+     {
+      "file": "newyork/bk-studio-queen-1.jpg",
+      "thumb": "newyork/bk-studio-queen-1-s.jpg",
+      "kind": "room",
+      "caption": "Studio Queen – Room"
+     },
+     {
+      "file": "newyork/bk-studio-queen-2.jpg",
+      "thumb": "newyork/bk-studio-queen-2-s.jpg",
+      "kind": "bed",
+      "caption": "Studio Queen – Bed"
+     },
+     {
+      "file": "newyork/bk-studio-queen-3.jpg",
+      "thumb": "newyork/bk-studio-queen-3-s.jpg",
+      "kind": "kitchenette",
+      "caption": "Studio Queen – Kitchenette"
+     },
+     {
+      "file": "newyork/bk-studio-queen-4.jpg",
+      "thumb": "newyork/bk-studio-queen-4-s.jpg",
+      "kind": "bathroom",
+      "caption": "Studio Queen – Bathroom"
+     },
+     {
+      "file": "newyork/bk-studio-queen-5.jpg",
+      "thumb": "newyork/bk-studio-queen-5-s.jpg",
+      "kind": "window seat",
+      "caption": "Studio Queen – Window Seat"
+     },
+     {
+      "file": "newyork/bk-studio-queen-6.jpg",
+      "thumb": "newyork/bk-studio-queen-6-s.jpg",
+      "kind": "local goods",
+      "caption": "Studio Queen – Local Goods"
+     }
+    ]
+   }
+  ]
+ },
+ "hotels": [
+  {
+   "id": "nyc-park-avenue",
+   "name": "Lakeline Park Avenue",
+   "brand": "lakeline",
+   "city": "new-york",
+   "area": "Park Avenue, Midtown East",
+   "folder": "newyork",
+   "address": "420 Park Avenue (fictional), New York, NY 10022",
+   "phone": "+1 212 555 0130",
+   "rating": 4.8,
+   "reviews": 2391,
+   "distance_mi": 0.6,
+   "description": "A classic Park Avenue hotel near Central Park, with free breakfast, an indoor pool and spa, a club lounge and park-view suites.",
+   "amenities": {
+    "breakfast": true,
+    "pool": true,
+    "pets": true,
+    "parking": "Valet 79 USD per night",
+    "fitness": true,
+    "spa": true
+   },
+   "check_in": "4:00 PM",
+   "check_out": "12:00 PM",
+   "tax_rate": 0.163,
+   "fee_name": "",
+   "fee": 0,
+   "fee_covers": "",
+   "highlights": [
+    "Free breakfast in the Park Room, 6:30 to 10:30 AM",
+    "Indoor saltwater pool and spa",
+    "Club lounge with evening drinks and canapés",
+    "Pets welcome, no fee"
+   ],
+   "nearby": [
+    "Central Park: 0.5 mi",
+    "Grand Central: 0.4 mi",
+    "Fifth Avenue shops: 0.3 mi",
+    "JFK airport: 16 mi"
+   ],
+   "rooms": {
+    "deluxe-2doubles": [
+     419,
+     446
+    ],
+    "deluxe-king": [
+     437,
+     463
+    ],
+    "accessible-king": [
+     437,
+     463
+    ],
+    "park-king": [
+     489,
+     518
+    ],
+    "grand-club-suite": [
+     568,
+     596
+    ],
+    "premiere-suite": [
+     784,
+     829
+    ],
+    "premiere-club-suite": [
+     912,
+     968
+    ],
+    "gallery-suite": [
+     1389,
+     1450
+    ]
+   },
+   "photos": [
+    {
+     "file": "newyork/pa-exterior-day.jpg",
+     "thumb": "newyork/pa-exterior-day-s.jpg",
+     "kind": "exterior",
+     "caption": "Lakeline Park Avenue – Exterior"
+    },
+    {
+     "file": "newyork/pa-exterior-dusk.jpg",
+     "thumb": "newyork/pa-exterior-dusk-s.jpg",
+     "kind": "exterior",
+     "caption": "Lakeline Park Avenue – Entrance at Dusk"
+    },
+    {
+     "file": "newyork/pa-lobby.jpg",
+     "thumb": "newyork/pa-lobby-s.jpg",
+     "kind": "lobby",
+     "caption": "Grand Lobby"
+    },
+    {
+     "file": "newyork/pa-restaurant.jpg",
+     "thumb": "newyork/pa-restaurant-s.jpg",
+     "kind": "restaurant",
+     "caption": "Restaurant – Park Room"
+    },
+    {
+     "file": "newyork/pa-bar.jpg",
+     "thumb": "newyork/pa-bar-s.jpg",
+     "kind": "bar",
+     "caption": "The Park Bar"
+    },
+    {
+     "file": "newyork/pa-ballroom.jpg",
+     "thumb": "newyork/pa-ballroom-s.jpg",
+     "kind": "ballroom",
+     "caption": "Grand Ballroom"
+    },
+    {
+     "file": "newyork/pa-view-park-autumn.jpg",
+     "thumb": "newyork/pa-view-park-autumn-s.jpg",
+     "kind": "view",
+     "caption": "Park View in Autumn"
+    },
+    {
+     "file": "newyork/pa-view-skyline-night.jpg",
+     "thumb": "newyork/pa-view-skyline-night-s.jpg",
+     "kind": "view",
+     "caption": "Skyline at Night"
+    },
+    {
+     "file": "newyork/pa-club-lounge-1.jpg",
+     "thumb": "newyork/pa-club-lounge-1-s.jpg",
+     "kind": "club lounge",
+     "caption": "Club Lounge – Library"
+    }
+   ]
+  },
+  {
+   "id": "nyc-midtown-tower",
+   "name": "Lakeline Midtown Tower",
+   "brand": "lakeline",
+   "city": "new-york",
+   "area": "Midtown West",
+   "folder": "newyork",
+   "address": "250 W 44th Lantern St, New York, NY 10036",
+   "phone": "+1 212 555 0155",
+   "rating": 4.4,
+   "reviews": 3120,
+   "distance_mi": 0.3,
+   "description": "A sleek tower near Times Square and the theaters, with a sky lobby and a rooftop bar.",
+   "amenities": {
+    "breakfast": false,
+    "pool": false,
+    "pets": false,
+    "parking": "Nearby garage 65 USD per night",
+    "fitness": true,
+    "spa": false
+   },
+   "check_in": "3:00 PM",
+   "check_out": "11:00 AM",
+   "tax_rate": 0.163,
+   "fee_name": "",
+   "fee": 0,
+   "fee_covers": "",
+   "highlights": [
+    "Sky lobby on the 40th floor",
+    "Rooftop bar with skyline views",
+    "Steps from Broadway theaters"
+   ],
+   "nearby": [
+    "Times Square: 0.1 mi",
+    "Broadway theaters: 0.2 mi",
+    "Central Park: 0.8 mi"
+   ],
+   "rooms": {
+    "corner-king": [
+     446,
+     478
+    ],
+    "two-queens": [
+     458,
+     489
+    ],
+    "accessible-king": [
+     428,
+     457
+    ]
+   },
+   "photos": [
+    {
+     "file": "newyork/mt-exterior.jpg",
+     "thumb": "newyork/mt-exterior-s.jpg",
+     "kind": "exterior",
+     "caption": "Lakeline Midtown Tower – Exterior"
+    },
+    {
+     "file": "newyork/mt-sky-lobby.jpg",
+     "thumb": "newyork/mt-sky-lobby-s.jpg",
+     "kind": "lobby",
+     "caption": "Sky Lobby – 40th Floor"
+    },
+    {
+     "file": "newyork/mt-rooftop-bar.jpg",
+     "thumb": "newyork/mt-rooftop-bar-s.jpg",
+     "kind": "bar",
+     "caption": "Rooftop Bar"
+    }
+   ]
+  },
+  {
+   "id": "nyc-brooklyn-loft",
+   "name": "Lakeline Brooklyn Loft",
+   "brand": "collection",
+   "city": "new-york",
+   "area": "DUMBO, Brooklyn",
+   "folder": "newyork",
+   "address": "1 Lantern Wharf, Brooklyn, NY 11201",
+   "phone": "+1 718 555 0122",
+   "rating": 4.6,
+   "reviews": 1104,
+   "distance_mi": 4.6,
+   "description": "A warehouse loft hotel on the Brooklyn waterfront, with free breakfast and Manhattan skyline views.",
+   "amenities": {
+    "breakfast": true,
+    "pool": false,
+    "pets": true,
+    "parking": "Valet 60 USD per night",
+    "fitness": true,
+    "spa": false
+   },
+   "check_in": "3:00 PM",
+   "check_out": "12:00 PM",
+   "tax_rate": 0.163,
+   "fee_name": "",
+   "fee": 0,
+   "fee_covers": "",
+   "highlights": [
+    "Free breakfast in the lobby café",
+    "Rooftop terrace with Manhattan skyline views",
+    "Pets welcome, no fee"
+   ],
+   "nearby": [
+    "Brooklyn Bridge Park: 0.1 mi",
+    "Brooklyn Bridge: 0.3 mi",
+    "Lower Manhattan: 1.5 mi by subway"
+   ],
+   "rooms": {
+    "loft-king": [
+     427,
+     459
+    ],
+    "studio-queen": [
+     409,
+     436
+    ]
+   },
+   "photos": [
+    {
+     "file": "newyork/bk-exterior.jpg",
+     "thumb": "newyork/bk-exterior-s.jpg",
+     "kind": "exterior",
+     "caption": "Lakeline Brooklyn Loft – Exterior"
+    },
+    {
+     "file": "newyork/bk-lobby-cafe.jpg",
+     "thumb": "newyork/bk-lobby-cafe-s.jpg",
+     "kind": "lobby",
+     "caption": "Lobby Café"
+    },
+    {
+     "file": "newyork/bk-rooftop-terrace.jpg",
+     "thumb": "newyork/bk-rooftop-terrace-s.jpg",
+     "kind": "rooftop",
+     "caption": "Rooftop Terrace"
+    }
+   ]
+  }
+ ],
+ "offers": [
+  {
+   "tab": "explore",
+   "kind": "city",
+   "city": "new-york",
+   "title": "New York, New York",
+   "text": "From Park Avenue to the Brooklyn waterfront",
+   "photo": "gen/city-new-york.jpg"
+  },
+  {
+   "tab": "explore",
+   "kind": "offer",
+   "title": "Complimentary breakfast for two",
+   "text": "Free breakfast at Lakeline Austin Downtown, Congress Avenue, Brooklyn Loft and our Cancún beach hotels",
+   "photo": "gen/promo-breakfast-for-two.jpg"
+  },
+  {
+   "tab": "member",
+   "kind": "offer",
+   "title": "Members save 9%",
+   "text": "The Lakeline Circle member rate, with the same free cancellation",
+   "photo": "gen/promo-member-offer.jpg"
+  },
+  {
+   "tab": "member",
+   "kind": "offer",
+   "title": "City break",
+   "text": "Late checkout for members, subject to availability",
+   "photo": "gen/promo-city-break.jpg"
+  },
+  {
+   "tab": "together",
+   "kind": "offer",
+   "title": "Kids stay free",
+   "text": "Children under 12 stay free in the room's existing beds",
+   "photo": "gen/promo-family-travel.jpg"
+  },
+  {
+   "tab": "together",
+   "kind": "offer",
+   "title": "Room for everyone",
+   "text": "Suites with sofa beds, and a Cancún family suite with bunk beds",
+   "photo": "gen/promo-breakfast-for-two.jpg"
+  },
+  {
+   "tab": "wellness",
+   "kind": "offer",
+   "title": "Spa days",
+   "text": "Spas at Hill Country Resort, Park Avenue, Serena and Cancún Oceanfront",
+   "photo": "gen/promo-wellness-spa.jpg"
+  },
+  {
+   "tab": "wellness",
+   "kind": "offer",
+   "title": "Adults-only escape",
+   "text": "Infinity pool and spa at Lakeline Serena, Cancún",
+   "photo": "gen/promo-unique-stays.jpg"
+  },
+  {
+   "tab": "unique",
+   "kind": "offer",
+   "title": "Signature suites",
+   "text": "The Lantern Suite, The Gallery Suite and Casa Marea, with its own plunge pool",
+   "photo": "gen/promo-unique-stays.jpg"
+  },
+  {
+   "tab": "unique",
+   "kind": "city",
+   "city": "new-york",
+   "title": "Loft living",
+   "text": "Warehouse lofts on the Brooklyn waterfront",
+   "photo": "gen/city-new-york.jpg"
+  },
+  {
+   "tab": "unique",
+   "kind": "offer",
+   "title": "Bats over the bridge",
+   "text": "Watch the bats leave Congress Avenue Bridge at dusk, March to October",
+   "photo": "gen/promo-city-break.jpg"
+  }
+ ],
+ "home_hero": "newyork/nyc-bluehour.jpg"
+}

@@ -44,3 +44,16 @@ Seeded from the `demo-gen-v3-test` setup (no secrets in git). Re-deploy code: ta
   builds do not). The `*.vercel.run` URL is served only while a session is up.
 - `GEN_MAX_RUNNING=3` concurrent builds (8 vCPU / 16 GB). Quick ~5-15 min; claude 1-3 h.
 - Generated demos live on the sandbox URL, not on live-demos-sa; promoting one = `deploy.py` (manual, opt-in).
+
+## Button design notes
+Gemini-inspired (references in `landing/ref/`: gemini.google.com + gemini.google overview, captured with Playwright
+10/21/2026): smooth four-point sparkle, blue->violet->rose gradient, soft diffuse ambient glow, pill shape. Fused with
+LiveKit: the gradient starts at LiveKit cyan `#1fd5f9`, sits on the page's near-black panels, Inter type, the same pill
+language as the demo tabs. Animated conic border (6 s), slow light sweep, sparkle rotates 45 deg on hover; all motion
+off under `prefers-reduced-motion`.
+
+## Live
+Deployed onto the existing main page (project `nabil-flights-demo`, alias live-demos-sa.vercel.app) on 10/21/2026.
+The source page is `scratchpad/vflights/public/index.html` (snippet inlined); the pre-change copy is
+`~/Downloads/live-demos-index.before-aigen.html`. Rollback: `vercel rollback` / promote the previous production
+deployment `nabil-flights-demo-h3hvu5lpu-livekit-b9da233b.vercel.app`.

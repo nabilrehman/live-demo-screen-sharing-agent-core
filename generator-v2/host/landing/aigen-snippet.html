@@ -2,21 +2,31 @@
 <style>
   .aigen-row { justify-self: center; display: grid; justify-items: center; gap: 12px; margin-top: -4px; }
   .land.live-on .aigen-row { display: none; }
-  .aigen-btn { --r: 999px; position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px 12px 16px;
-    border-radius: var(--r); border: 0; cursor: pointer; font: 600 15px/1 Inter, ui-sans-serif, system-ui, sans-serif; color: #fff;
-    background: #0b0d12; isolation: isolate; letter-spacing: .005em; }
+  .aigen-btn { --r: 999px; position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px 13px 17px;
+    border-radius: var(--r); border: 0; cursor: pointer; font: 560 15px/1 Inter, ui-sans-serif, system-ui, sans-serif; color: #f4f4f5;
+    background: #0b0d12; isolation: isolate; letter-spacing: -.005em; }
   .aigen-btn::before { content: ""; position: absolute; inset: -1.5px; border-radius: var(--r); z-index: -2;
-    background: conic-gradient(from var(--aig-a, 0deg), #4285f4, #9b72cb, #d96570, #f4b400, #0f9d58, #1fd5f9, #4285f4);
-    animation: aig-spin 4s linear infinite; }
+    background: conic-gradient(from var(--aig-a, 0deg), #1fd5f9, #4285f4, #9b72cb, #d96570, #9b72cb, #4285f4, #1fd5f9);
+    animation: aig-spin 6s linear infinite; }
   .aigen-btn::after { content: ""; position: absolute; inset: 1.5px; border-radius: var(--r); z-index: -1;
-    background: radial-gradient(120% 140% at 0% 0%, rgba(66,133,244,.28), transparent 55%), radial-gradient(120% 140% at 100% 100%, rgba(217,101,112,.22), transparent 55%), #0b0d12; }
-  .aigen-btn .aig-glow { position: absolute; inset: -10px; border-radius: var(--r); z-index: -3; filter: blur(18px); opacity: .55;
-    background: conic-gradient(from var(--aig-a, 0deg), #4285f4, #9b72cb, #d96570, #f4b400, #1fd5f9, #4285f4); animation: aig-spin 4s linear infinite; }
-  .aigen-btn:hover .aig-glow { opacity: .85; } .aigen-btn:hover { transform: translateY(-1px); } .aigen-btn { transition: transform .15s ease; }
+    background: radial-gradient(90% 160% at 0% 0%, rgba(31,213,249,.14), transparent 60%), radial-gradient(90% 160% at 100% 100%, rgba(155,114,203,.16), transparent 60%), linear-gradient(#0f1217, #0a0c10); }
+  .aigen-btn .aig-glow { position: absolute; inset: -10px; border-radius: var(--r); z-index: -3; filter: blur(22px); opacity: .32; transition: opacity .3s ease;
+    background: conic-gradient(from var(--aig-a, 0deg), #1fd5f9, #4285f4, #9b72cb, #d96570, #9b72cb, #4285f4, #1fd5f9); animation: aig-spin 6s linear infinite; }
+  .aigen-btn:hover .aig-glow { opacity: .6; }
+  .aigen-btn::marker { content: none; }
+  .aigen-row::before { content: ""; position: absolute; width: 520px; height: 160px; left: 50%; top: -40px; transform: translateX(-50%); z-index: -1; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(66,133,244,.16), rgba(31,213,249,.06) 55%, transparent); filter: blur(6px); }
+  .aigen-row { position: relative; }
+  .aigen-btn .aig-shine { position: absolute; inset: 0; border-radius: var(--r); overflow: hidden; z-index: 0; pointer-events: none; }
+  .aigen-btn .aig-shine::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; transform: skewX(-20deg);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); animation: aig-sweep 5.5s ease-in-out infinite; }
+  @keyframes aig-sweep { 0%, 60% { left: -60%; } 100% { left: 130%; } }
+  .aigen-btn > svg, .aigen-btn > .aig-t, .aigen-btn > small { position: relative; z-index: 1; }
+  .aigen-btn:hover > svg { transform: rotate(45deg) scale(1.08); animation: none; } .aigen-btn > svg { transition: transform .45s cubic-bezier(.2,.8,.2,1); } .aigen-btn:focus-visible { outline: 2px solid #b07cf0; outline-offset: 3px; } .aigen-btn:hover { transform: translateY(-1px); } .aigen-btn { transition: transform .15s ease; }
   .aigen-btn svg { width: 22px; height: 22px; flex: none; animation: aig-twinkle 2.4s ease-in-out infinite; }
-  .aigen-btn .aig-t { background: linear-gradient(90deg, #8ab4f8, #c58af9, #f28b82, #fdd663, #81c995, #8ab4f8); background-size: 200% 100%;
-    -webkit-background-clip: text; background-clip: text; color: transparent; animation: aig-shift 6s linear infinite; }
-  .aigen-btn small { font-weight: 500; color: #9aa0a6; font-size: 12.5px; margin-left: 2px; }
+  .aigen-btn .aig-t { background: linear-gradient(90deg, #ffffff 0%, #c9f4ff 25%, #d6e2ff 45%, #ead9ff 65%, #ffffff 100%); background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: aig-shift 8s linear infinite; }
+  .aigen-btn small { font-weight: 500; color: #8b8f99; font-size: 12px; margin-left: 4px; padding-left: 10px; border-left: 1px solid #2a2d35; }
   @property --aig-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
   @keyframes aig-spin { to { --aig-a: 360deg; } }
   @keyframes aig-shift { to { background-position: 200% 0; } }
@@ -35,27 +45,35 @@
   .aig-modal { position: fixed; inset: 0; z-index: 60; display: none; align-items: flex-start; justify-content: center; overflow-y: auto;
     background: rgba(3,4,6,.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 40px 16px; }
   .aig-modal.show { display: flex; }
-  .aig-panel { width: min(980px, 100%); background: #0d0f13; border: 1px solid #23252a; border-radius: 18px; position: relative; overflow: hidden;
+  .aig-panel { width: min(1000px, 100%); background: linear-gradient(180deg, #111318, #0c0e12 40%); border: 1px solid #24262d; border-radius: 22px; position: relative; overflow: hidden;
     box-shadow: 0 30px 80px rgba(0,0,0,.6); }
-  .aig-panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, #4285f4, #9b72cb, #d96570, #f4b400, #1fd5f9); }
-  .aig-head { display: flex; align-items: center; gap: 12px; padding: 22px 24px 6px; }
-  .aig-head svg { width: 28px; height: 28px; } .aig-head h2 { margin: 0; font-size: 20px; font-weight: 600; }
-  .aig-head p { margin: 2px 0 0; color: #8a8f98; font-size: 13.5px; }
+  .aig-panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, #1fd5f9 20%, #4285f4 45%, #9b72cb 65%, #d96570 85%, transparent); }
+  .aig-panel::after { content: ""; position: absolute; left: 10%; right: 10%; top: -120px; height: 220px; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(66,133,244,.16), rgba(31,213,249,.05) 60%, transparent); }
+  .aig-head { display: flex; align-items: flex-start; gap: 14px; padding: 28px 30px 8px; position: relative; z-index: 1; }
+  .aig-head svg { width: 30px; height: 30px; margin-top: 2px; } .aig-head h2 { margin: 0; font-size: 23px; font-weight: 600; letter-spacing: -.02em; }
+  .aig-head p { margin: 6px 0 0; color: #9096a0; font-size: 14px; line-height: 1.5; }
   .aig-x { margin-left: auto; background: none; border: 1px solid #2a2d33; color: #aaa; border-radius: 999px; width: 34px; height: 34px; cursor: pointer; font-size: 18px; }
-  .aig-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; padding: 14px 24px 24px; }
+  .aig-body { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 28px; padding: 18px 30px 26px; position: relative; z-index: 1; }
   @media (max-width: 820px) { .aig-body { grid-template-columns: 1fr; } }
-  .aig-form { display: grid; gap: 10px; }
-  .aig-form label { display: grid; gap: 5px; min-width: 0; font-size: 12.5px; color: #a3a7ae; font-weight: 500; }
-  .aig-form input, .aig-form textarea, .aig-form select { background: #07080a; border: 1px solid #2a2d33; color: #eee; border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.4; font-family: inherit; width: 100%; min-width: 0; }
-  .aig-form input:focus, .aig-form textarea:focus, .aig-form select:focus { outline: none; border-color: #9b72cb; box-shadow: 0 0 0 3px rgba(155,114,203,.2); }
+  .aig-form { display: grid; gap: 14px; align-content: start; }
+  .aig-form label { display: grid; gap: 7px; min-width: 0; font-size: 12.5px; color: #b4b8c0; font-weight: 520; letter-spacing: .005em; }
+  .aig-form input, .aig-form textarea, .aig-form select { background: #08090c; border: 1px solid #262930; color: #f1f2f4; border-radius: 12px; padding: 11px 13px; transition: border-color .15s, box-shadow .15s; font-size: 14px; line-height: 1.4; font-family: inherit; width: 100%; min-width: 0; }
+  .aig-form input:focus, .aig-form textarea:focus, .aig-form select:focus { outline: none; border-color: #8f7cf0; box-shadow: 0 0 0 4px rgba(143,124,240,.16); }
+  .aig-form input::placeholder, .aig-form textarea::placeholder { color: #4f545d; }
   .aig-form textarea { min-height: 92px; resize: vertical; }
   .aig-2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: end; gap: 10px; }
   .aig-form .aig-hint { font-size: 11.5px; color: #6f747c; font-weight: 400; }
   .aig-check { display: flex !important; grid-auto-flow: column; align-items: center; gap: 8px !important; }
-  .aig-go { margin-top: 4px; justify-self: start; }
+  .aig-go { margin-top: 6px; justify-self: stretch; justify-content: center; padding: 15px 22px; font-size: 15.5px; }
+  .aig-go:disabled { opacity: .6; cursor: progress; }
   .aig-err { color: #f0566a; font-size: 13px; min-height: 1em; }
-  .aig-side h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: #8a8f98; font-weight: 600; }
-  .aig-status { border: 1px solid #23252a; border-radius: 12px; padding: 12px; background: #07080a; display: none; margin-bottom: 16px; }
+  .aig-side h3 { margin: 0 0 12px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .12em; color: #7d828c; font-weight: 600; }
+  .aig-steps { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 4px; }
+  .aig-steps span { font-size: 11.5px; padding: 4px 9px; border-radius: 999px; border: 1px solid #262930; color: #6c717a; }
+  .aig-steps span.on { color: #e8e3ff; border-color: #6d5fd6; background: rgba(109,95,214,.14); }
+  .aig-steps span.ok { color: #9fe3bf; border-color: #245c41; background: rgba(43,214,123,.08); }
+  .aig-status { border: 1px solid #24262d; border-radius: 16px; padding: 14px 16px; background: #08090c; display: none; margin-bottom: 16px; }
   .aig-status.show { display: block; }
   .aig-status .aig-st { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
   .aig-bar { height: 4px; border-radius: 4px; background: #1a1c21; overflow: hidden; margin: 10px 0; }
@@ -65,19 +83,19 @@
   .aig-log { margin: 0; max-height: 210px; overflow: auto; font: 11.5px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; color: #9aa0a6; white-space: pre-wrap; word-break: break-word; }
   .aig-open { display: inline-flex; gap: 8px; align-items: center; margin-top: 8px; padding: 9px 14px; border-radius: 10px; background: #1fd5f9; color: #001018; font-weight: 600; text-decoration: none; font-size: 14px; }
   .aig-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
-  .aig-card { border: 1px solid #23252a; border-radius: 12px; overflow: hidden; background: #07080a; text-decoration: none; color: inherit; display: grid; cursor: pointer; }
-  .aig-card:hover { border-color: #9b72cb; }
+  .aig-card { border: 1px solid #24262d; border-radius: 14px; transition: border-color .15s, transform .15s; overflow: hidden; background: #07080a; text-decoration: none; color: inherit; display: grid; cursor: pointer; }
+  .aig-card:hover { border-color: #6d5fd6; transform: translateY(-2px); }
   .aig-card .aig-th { aspect-ratio: 16 / 10; background: #121418 center top / cover no-repeat; display: grid; place-items: center; color: #444; font-size: 12px; }
   .aig-card .aig-m { padding: 8px 10px 10px; display: grid; gap: 2px; }
   .aig-card b { font-size: 13.5px; } .aig-card span { font-size: 11.5px; color: #8a8f98; } .aig-card code { font-size: 11px; color: #1fd5f9; }
   .aig-empty { color: #6f747c; font-size: 13px; }
-  .aig-foot { padding: 0 24px 18px; color: #5f646b; font-size: 11.5px; }
+  .aig-foot { padding: 14px 30px 20px; color: #5f646b; font-size: 12px; border-top: 1px solid #1a1c21; position: relative; z-index: 1; }
 </style>
 <div class="aig-modal" id="aig-modal" role="dialog" aria-modal="true" aria-labelledby="aig-title">
   <div class="aig-panel">
     <div class="aig-head">
       <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aig-spark"/></svg>
-      <div><h2 id="aig-title">Generate a demo from any website</h2><p>Paste a site. Claude Code clones it in a Vercel Sandbox and wires in a LiveKit voice agent.</p></div>
+      <div><h2 id="aig-title">Generate a demo from any website</h2><p>Paste a website. Claude Code recreates it in a Vercel Sandbox and wires in a LiveKit voice agent, then it shows up here.</p></div>
       <button class="aig-x" id="aig-x" aria-label="Close">&times;</button>
     </div>
     <div class="aig-body">
@@ -85,22 +103,22 @@
         <label>Website URL<input name="url" type="url" required placeholder="https://hotel.hardrock.com/"></label>
         <div class="aig-2">
           <label>Brand name<input name="brand" required placeholder="Hard Rock Hotels"></label>
-          <label>Slug <span class="aig-hint">(URL name)</span><input name="slug" required pattern="[a-z0-9\-]{2,40}" placeholder="hardrock"></label>
+          <label><span>Slug <span class="aig-hint">(URL name)</span></span><input name="slug" required pattern="[a-z0-9\-]{2,40}" placeholder="hardrock"></label>
         </div>
-        <label>Agent use case <span class="aig-hint">(optional: what should the agent do?)</span>
+        <label><span>Agent use case <span class="aig-hint">(optional: what should the agent do?)</span></span>
           <textarea name="concept" placeholder="e.g. Casino hosts walk the floor managing high rollers; give each host an AI agent on their phone that briefs them on arriving VIPs: gambling profile, authorized comps, preferences, entertainment picks."></textarea></label>
         <div class="aig-2">
-          <label>Mode<select name="mode"><option value="claude">Claude Code (full quality, 1-3 h)</option><option value="quick">Quick (generic builder, ~10 min)</option></select></label>
-          <label>Builder code<input name="build_code" type="password" required placeholder="from Nabil"></label>
+          <label>Mode<select name="mode"><option value="claude">Claude Code · full quality · 1-3 h</option><option value="quick">Quick · ~10 min</option></select></label>
+          <label><span>Builder code <span class="aig-hint">(ask Nabil)</span></span><input name="build_code" type="password" required placeholder="••••••"></label>
         </div>
         <label class="aig-check"><input type="checkbox" name="images" style="width:auto"> Generate Gemini images for gaps</label>
-        <button class="aigen-btn aig-go" type="submit"><span class="aig-glow"></span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aig-spark"/></svg><span class="aig-t">Generate</span></button>
+        <button class="aigen-btn aig-go" type="submit"><span class="aig-glow"></span><span class="aig-shine"></span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aig-spark"/></svg><span class="aig-t">Generate demo</span></button>
         <div class="aig-err" id="aig-err" role="alert"></div>
       </form>
       <div class="aig-side">
         <div class="aig-status" id="aig-status">
           <div class="aig-st"><span id="aig-st-t">Building…</span><span style="margin-left:auto;color:#8a8f98;font-weight:400;font-size:12px" id="aig-st-e"></span></div>
-          <div class="aig-bar"><div></div></div>
+          <div class="aig-steps" id="aig-steps"></div><div class="aig-bar"><div></div></div>
           <div id="aig-st-link"></div>
           <pre class="aig-log" id="aig-log"></pre>
         </div>
@@ -112,8 +130,8 @@
   </div>
 </div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <linearGradient id="aig-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4285f4"/><stop offset=".45" stop-color="#9b72cb"/><stop offset=".75" stop-color="#d96570"/><stop offset="1" stop-color="#f4b400"/></linearGradient>
-  <symbol id="aig-spark" viewBox="0 0 24 24"><path fill="url(#aig-g)" d="M12 1.5c.5 5.6 4.9 10 10.5 10.5-5.6.5-10 4.9-10.5 10.5C11.5 16.9 7.1 12.5 1.5 12 7.1 11.5 11.5 7.1 12 1.5z"/><path fill="url(#aig-g)" opacity=".85" d="M19.5 1.8c.17 1.6 1.4 2.85 3 3-1.6.17-2.83 1.4-3 3-.17-1.6-1.4-2.83-3-3 1.6-.15 2.83-1.4 3-3z"/></symbol>
+  <linearGradient id="aig-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1fd5f9"/><stop offset=".35" stop-color="#4285f4"/><stop offset=".7" stop-color="#9b72cb"/><stop offset="1" stop-color="#d96570"/></linearGradient>
+  <symbol id="aig-spark" viewBox="0 0 24 24"><path fill="url(#aig-g)" d="M12 2c.35 2.6 1.2 4.6 2.6 6.05C16.05 9.45 18.2 10.4 22 11c-3.8.6-5.95 1.55-7.4 2.95C13.2 15.4 12.35 17.4 12 22c-.35-4.6-1.2-6.6-2.6-8.05C7.95 12.55 5.8 11.6 2 11c3.8-.6 5.95-1.55 7.4-2.95C10.8 6.6 11.65 4.6 12 2z"/></symbol>
 </defs></svg>
 <script>
 (() => {
@@ -162,6 +180,11 @@
       const box = $('aig-status'); box.classList.add('show'); box.classList.toggle('done', j.status === 'done'); box.classList.toggle('failed', j.status === 'failed');
       $('aig-st-t').textContent = j.status === 'done' ? `✓ ${j.brand} is ready` : j.status === 'failed' ? `✕ ${j.brand} build failed` : `Building ${j.brand} (${j.mode})…`;
       $('aig-st-e').textContent = fmt(j.elapsed_s || 0);
+      const L = j.log || '', steps = j.mode === 'claude' ? [['Start', /claude build started/], ['Clone site', /capture|playwright|screenshot/i], ['Design + build', /build\.py|site\/index|spec\.md/i], ['Voice test', /run_voice|voice|agent/i], ['Ready', /^\0$/]]
+        : [['Capture', /\$ .*capture\.py/], ['Design', /gemini: spec/], ['Images', /gen\.py|images/], ['Build', /build\.py/], ['Ready', /^\0$/]];
+      let reached = -1; steps.forEach(([, re], i) => { if (re.test(L)) reached = i; });
+      if (j.status === 'done') reached = steps.length - 1;
+      $('aig-steps').innerHTML = steps.map(([n], i) => `<span class="${j.status === 'done' || i < reached ? 'ok' : i === reached ? 'on' : ''}">${n}</span>`).join('');
       $('aig-st-link').innerHTML = j.preview ? `<a class="aig-open" href="${esc(j.preview)}" target="_blank" rel="noopener">Open demo ↗</a> <span style="color:#8a8f98;font-size:12.5px;margin-left:8px">access code <code style="color:#1fd5f9">${esc(j.code)}</code></span>` : '';
       const log = $('aig-log'); const atEnd = log.scrollTop + log.clientHeight >= log.scrollHeight - 8;
       log.textContent = j.log || ''; if (atEnd) log.scrollTop = log.scrollHeight;
@@ -170,7 +193,7 @@
   }
   function watch(slug) { watching = slug; clearInterval(timer); poll(); timer = setInterval(poll, 4000); }
   form.addEventListener('submit', async (e) => {
-    e.preventDefault(); $('aig-err').textContent = '';
+    e.preventDefault(); $('aig-err').textContent = ''; const go = form.querySelector('.aig-go'); go.disabled = true; setTimeout(() => { go.disabled = false; }, 4000);
     const f = Object.fromEntries(new FormData(form)); f.images = !!form.images.checked;
     try { sessionStorage.setItem('aig.code', f.build_code); } catch (e) {}
     try {

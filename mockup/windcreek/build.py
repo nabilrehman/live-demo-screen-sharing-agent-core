@@ -13,7 +13,11 @@ import sys
 
 ACCESS_CODE = "WINDCREEK-DEMO"  # the gate's code: pages show only with ?code=<this> (kept in sessionStorage)
 BASE = "/windcreek"  # where the mockup is served
-EMBED = '<script src="/embed/windcreek/kai.js" data-site-root="/windcreek/" defer></script>'
+# The one-line embed, written by a tiny loader so the presenter can pick the voice model for this tab with
+# ?brain=gemini or ?brain=grok (kept in sessionStorage); the widget defaults to Grok.
+EMBED = """<script>(function(){var q=new URLSearchParams(location.search).get('brain'),b='';
+try{if(q==='gemini'||q==='grok')sessionStorage.setItem('wc-brain','wc-'+q);b=sessionStorage.getItem('wc-brain')||'';}catch(e){}
+document.write('<script src="/embed/windcreek/kai.js" data-site-root="/windcreek/"'+(b?' data-brain="'+b+'"':'')+' defer><\\/script>');})();</script>"""
 E = html.escape
 
 

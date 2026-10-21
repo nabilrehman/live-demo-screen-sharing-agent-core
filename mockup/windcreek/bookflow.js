@@ -130,8 +130,19 @@
     scored.sort((a, b) => b.s - a.s);
     return scored[0] && scored[0].s >= Math.max(1, w.length - 1) ? scored[0].i : -1;
   };
+  // the widget's Kai: this window's, or the presenter shell's when this page is shown in its frame
+  const kaiApi = () => {
+    if (window.Kai && window.Kai.registerAction) return window.Kai;
+    try { if (window.parent !== window && window.parent.Kai && window.parent.Kai.registerAction) return window.parent.Kai; } catch (e) { /* cross-origin */ }
+    return null;
+  };
+  const NAMES = ['select_dates', 'next_step', 'previous_step', 'clear_selection', 'filter_rooms', 'select_room'];
   function register() {
-    if (!(window.Kai && window.Kai.registerAction)) return setTimeout(register, 200);
+    const Kai = kaiApi();
+    if (!Kai) return setTimeout(register, 200);
+    if (Kai !== window.Kai) { // framed: when this page goes away, its actions stop working
+      window.addEventListener('pagehide', () => NAMES.forEach((n) => Kai.registerAction(n, () => { throw new Error('Not available on this page.'); }, '(not available on this page)')));
+    }
     Kai.registerAction('select_dates', ({ check_in, check_out }) => {
       const a = parse(check_in), b = parse(check_out);
       if (!a || !b) throw new Error('Pass check_in and check_out as YYYY-MM-DD.');

@@ -48,7 +48,7 @@ BEATS = [
         "Can I book a room for Saturday?",
         r"^/bethlehem/book-now",
         None,
-        r"(dollar|\$\d|hundred).*(king|queen|suite)|(king|queen|suite).*(dollar|\$\d|hundred)",
+        r"(dollar|\$\d|hundred|seventy|eighty|ninety|sixty|fifty|forty).*(king|queen|suite)|(king|queen|suite).*(dollar|\$\d|hundred|seventy|eighty|ninety|sixty|fifty|forty)",
         r"\b(i've|i have) (booked|reserved)\b|you're (all )?booked",
     ),
     ("What can't you do?", None, None, r"account|book|sign in|personal|pay", None),

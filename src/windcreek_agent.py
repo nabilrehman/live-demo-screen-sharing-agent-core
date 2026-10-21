@@ -38,9 +38,9 @@ if IS_GEMINI:  # a slow import (PIL): do it when the job process starts, not on 
 log = logging.getLogger("site")
 AWAY_S = float(os.getenv("AWAY_S", 30))  # how long the session waits for the visitor to come back from a page load
 NAV_WAIT_S = 15.0  # how long navigate waits for the new page's first snapshot
-VISITOR_WAIT_S = 10.0
-SETTLE_S = 0.6
-QUIET_AFTER_TOOLS_S = 3.0  # Kai silent this long after its last page action: ask for the answer  # after a new page's first snapshot, a moment for its scripts to register site actions  # how long an action waits for the visitor to rejoin (they may be mid page load)
+VISITOR_WAIT_S = 10.0  # how long an action waits for the visitor to rejoin (they may be mid page load)
+SETTLE_S = 0.6  # after a new page's first snapshot, a moment for its scripts to register site actions
+QUIET_AFTER_TOOLS_S = 1.5  # Kai silent this long after its last page action: ask for the answer
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -154,7 +154,12 @@ class SiteKai(PageAgent):
             args = json.loads(args_json or "{}")
         except ValueError as e:
             raise ToolError("args_json must be a JSON object.") from e
-        listed = {a.get("name") for a in self.page.ctx.get("site_actions") or []}
+        listed: set = set()
+        for _ in range(20):  # a page that just loaded may still be registering its actions
+            listed = {a.get("name") for a in self.page.ctx.get("site_actions") or []}
+            if name in listed:
+                break
+            await asyncio.sleep(0.1)
         if name not in listed:
             raise ToolError(f"This page has no action '{name}'. Actions: {', '.join(sorted(listed)) or 'none'}.")
         return "Done.\n" + await self.act("site_action", name=name, args=args)

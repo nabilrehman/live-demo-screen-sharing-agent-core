@@ -82,6 +82,12 @@ call anything you haven't registered:
 window.Kai.registerAction('show_map', ({ venue }) => openPropertyMap(venue), 'Open the property map at a venue');
 ```
 
+This is how the demo's Book Now page lets Kai use the booking engine. The page registers `select_dates`,
+`next_step`, `previous_step`, `clear_selection`, `filter_rooms` (guests, room type, accessible) and `select_room`, which
+only opens Confirm for the guest to review. It doesn't register anything that completes a reservation, signs in or
+takes payment, so Kai can't do those things. If your booking engine runs in its own frame or origin, its team
+registers these actions inside that frame (the widget is loaded there too), or exposes them with `postMessage`.
+
 ## 5. Multi-page behavior, privacy and consent
 - **Across page loads.** The call keeps going when the page changes. The room and token are kept in `sessionStorage`
   (this tab only), the next page rejoins the same conversation, and the agent waits up to 30 seconds. **End** clears

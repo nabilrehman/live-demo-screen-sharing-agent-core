@@ -225,6 +225,23 @@ def scenario_knowledge(model, out, brand, url, sc, panel_path):
     shutil.copy(os.path.join(out, "livekit_prompt.md"), os.path.join(out, "kai_prompt.md"))  # site.py loads kai_prompt.md
 
 
+GENERIC_INSIGHTS = {
+    "intents": {
+        "booking": ["book", "reserve", "reservation", "availability", "buy", "order", "sign up", "schedule", "appointment"],
+        "pricing_offers": ["price", "cost", "how much", "offer", "deal", "discount", "promo", "package", "plan"],
+        "products_services": ["product", "service", "menu", "room", "feature", "option", "compare"],
+        "locations_hours": ["where", "location", "address", "hours", "open", "parking", "directions"],
+        "page_awareness": ["know about this page", "what can you see", "this page"],
+        "governance": ["can't you do", "cannot do", "can you not", "my data", "privacy", "my account"],
+    },
+    "entities": {},
+    "unanswered": ["don't see that on the site", "isn't on the site", "not on the site", "isn't listed", "i don't know", "i'm not sure",
+                   "i couldn't find", "i can't find", "no information about", "don't have that information"],
+    "handoffs": {"finish_yourself": ["finish it yourself", "complete the booking", "you can finish", "can't book", "can't complete"],
+                 "contact_team": ["contact the team", "call the", "customer service", "front desk"]},
+}
+
+
 def knowledge(model, out, slug, brand, url, sc=None, panel_path=None):
     os.makedirs(out, exist_ok=True)
     tpl = os.path.join(HERE, "templates")
@@ -237,6 +254,8 @@ def knowledge(model, out, slug, brand, url, sc=None, panel_path=None):
     shutil.copy(os.path.join(tpl, "livekit_prompt.md"), os.path.join(out, "livekit_prompt.md"))
     shutil.copy(os.path.join(tpl, "greeting.md"), os.path.join(out, "greeting.md"))
     open(os.path.join(out, "SOURCES.md"), "w").write(f"# Sources\n\nCaptured read-only from {url} by generator-v2.\n")
+    if not os.path.exists(os.path.join(out, "insights.json")):  # src/inpage/insights.py needs it; generic vocab
+        json.dump(GENERIC_INSIGHTS, open(os.path.join(out, "insights.json"), "w"), indent=1)
     if sc:
         scenario_knowledge(model, out, brand, url, sc, panel_path)
         open(os.path.join(out, "SOURCES.md"), "a").write("scenario.md is synthetic sample data generated for the demo use case (all fictional).\n")

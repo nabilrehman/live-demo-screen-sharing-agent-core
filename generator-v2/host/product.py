@@ -241,6 +241,8 @@ EV_TYPES = {"open", "hb", "voice_start", "voice_end", "page", "gallery_open", "g
 
 
 async def event(req):
+    if internal(req):
+        return cj({"ok": True, "skipped": "internal"})
     f = await body(req)
     d = verify(f.get("session")) if f.get("session") else None
     uid = d["e"] if d else re.sub(r"[^a-zA-Z0-9_@.+-]", "", str(f.get("uid") or ""))[:120] or "anon"
@@ -261,6 +263,8 @@ async def replay_put(req):
     sid = req.match_info["sid"]
     if not SID_RE.match(sid):
         return cj({"error": "bad sid"}, 400)
+    if internal(req):
+        return cj({"ok": True, "skipped": "internal"})
     raw = await req.read()
     fn = p("replays", sid + ".jsonl")
     if len(raw) > 4 * 1024 * 1024 or (os.path.exists(fn) and os.path.getsize(fn) > REPLAY_CAP):
@@ -526,6 +530,11 @@ async def static_p(req):
 TAG = b'<script src="/p/track.js" defer data-lk-track="1"></script>'
 
 
+def internal(req):
+    """Requests from inside the sandbox (Claude's own Playwright checks hit localhost:8080): no tracker, no events."""
+    return not req.headers.get("X-Forwarded-Host") and (req.host or "").split(":")[0] in ("localhost", "127.0.0.1", "0.0.0.0", "::1")
+
+
 @web.middleware
 async def mw(req, handler):
     if req.method == "POST" and req.path == "/api/generate":
@@ -548,7 +557,7 @@ async def mw(req, handler):
             print("product owner capture:", e, flush=True)
         return resp
     resp = await handler(req)
-    if req.path.startswith("/v2/") and isinstance(resp, web.FileResponse) and resp.status == 200:
+    if req.path.startswith("/v2/") and isinstance(resp, web.FileResponse) and resp.status == 200 and not internal(req):
         fp = str(getattr(resp, "_path", ""))
         if fp.endswith(".html"):
             try:

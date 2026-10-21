@@ -35,9 +35,50 @@ def money(n: float | None) -> str:
     return f"{n:,.2f} USD" if round(n, 2) != int(n) else f"{int(n):,} USD"
 
 
+ONES = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+]
+TENS = ["_", "_", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
+
+
+def _two(n: int) -> str:
+    return ONES[n] if n < 20 else TENS[n // 10] + ("-" + ONES[n % 10] if n % 10 else "")
+
+
+def spoken(n: float) -> str:
+    """How people say a dollar amount: 1356 -> "thirteen fifty-six", 678 -> "six seventy-eight", 2000 -> "two
+    thousand". Given next to totals because the voice model misreads digit strings ("fifteen thirty-six" for 1,356)."""
+    n = round(n)
+    if n < 100 or n >= 10000:
+        return f"{n:,}"
+    hi, lo = divmod(n, 100)
+    if lo == 0:
+        return f"{ONES[n // 1000]} thousand" if n % 1000 == 0 else f"{_two(hi)} hundred"
+    return f"{_two(hi)} {'oh ' + ONES[lo] if lo < 10 else _two(lo)}"
+
+
 def dollars(n: float | None) -> str:
-    """Whole dollars, the way the page's price boxes show them."""
-    return "-" if n is None else f"{round(n):,} USD"
+    """Whole dollars, the way the page's price boxes show them, with how to say it."""
+    return "-" if n is None else f"{round(n):,} USD ({spoken(n)})"
 
 
 def summary(flights: list[dict]) -> str:

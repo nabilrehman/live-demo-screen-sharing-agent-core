@@ -48,7 +48,10 @@ def test_note_shows_results_totals_and_per_adult():
     assert "1. [AU702] AU702, departs 01:20" in n and "per adult" in n
     assert "Fare comparison open for flight 1 [AU702], economy: Economy Convenience" in n
     assert "Date strip" in n
-    assert "Summary: 6 flights. Cheapest economy: #4 AU7712 + AU12" in n and "3 non-stop: #1 AU702 at 01:20 1,583 USD" in n
+    assert (
+        "Summary: 6 flights. Cheapest economy: #4 AU7712 + AU12" in n
+        and "3 non-stop: #1 AU702 at 01:20 1,583 USD (fifteen eighty-three)" in n
+    )
 
 
 def test_note_shows_passengers():
@@ -86,3 +89,12 @@ def test_this_one_and_signature():
     )
     assert p.signature() == sig
     assert not p.update({**SNAP["results"], "seq": 3})
+
+
+def test_spoken_dollars():
+    from inpage.airline import spoken
+
+    assert (
+        spoken(1356) == "thirteen fifty-six" and spoken(678) == "six seventy-eight" and spoken(2000) == "two thousand"
+    )
+    assert spoken(1905) == "nineteen oh five" and spoken(1100) == "eleven hundred" and spoken(12450) == "12,450"

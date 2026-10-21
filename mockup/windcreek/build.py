@@ -80,6 +80,7 @@ LOCS = [
     ("aruba", "Aruba", "The Caribbean", "loc-aruba.jpg"),
     ("curacao", "Curaçao", "The Caribbean", "loc-curacao.jpg"),
     ("chicagosouthland", "Chicago Southland", "United States", "loc-chicago.jpg"),
+    ("miami", "Miami", "United States", "loc-miami.jpg"),
 ]
 
 
@@ -717,7 +718,7 @@ def build() -> list[tuple[str, str]]:
 
     # home
     loc_cards = "".join(
-        f'<a class="loc" href="{link("/" + s)}"><img src="{img(pic)}" alt=""><span class="loc-label"><small>{E(region)}</small><strong>{E(n)}</strong></span></a>'
+        f'<a class="loc" href="{link("/" + s)}"><img src="{img(pic)}" alt=""><span class="loc-label"><small>{E(region)}</small><h3>{E(n)}</h3></span></a>'
         for s, n, region, pic in LOCS
     )
     rewards_band = f"""<section class="rewards-band" style="background-image:url({img("bg-red.jpg")})"><div><h2>Wind Creek Rewards</h2><p class="eyebrow light">More points. More rewards. More Winning Moments.</p>
@@ -743,6 +744,7 @@ def build() -> list[tuple[str, str]]:
         "wetumpka": "Over 2,000 of the newest games, a AAA Four Diamond hotel and FIRE, the top-rated steakhouse in Alabama.",
         "aruba": "Two casinos, Wind Creek Crystal and Wind Creek Seaport, and a private island where flamingos roam free.",
         "curacao": "Casino and resort in Willemstad on the Caribbean coast, with a Renaissance hotel, shopping, bars and restaurants.",
+        "miami": "Magic City Casino: over 800 slot machines, electronic table games, poker and Miami's best outdoor concert venue.",
         "chicagosouthland": "1,400+ slots, table games, a Food Bazaar by Fabio Viviani, Alto Italian steakhouse and more, with a free daily Chinatown shuttle.",
     }
     loc_list = "".join(
@@ -1118,6 +1120,10 @@ def build() -> list[tuple[str, str]]:
             ],
         ),
         "curacao": ("Elevate Your Game to Fabulous", [("Claim the Crown", "Sign-Up Starts September 1st")]),
+        "miami": (
+            "Magic City Casino",
+            [("Claim the Crown", "Sign-Up Starts September 1st"), ("Monster Mash Bash", "October 31st")],
+        ),
     }
     for s, n, _region, pic in LOCS:
         if s == "bethlehem":

@@ -11,7 +11,7 @@ Casinoverse app).
 - Delight: 75,000 to 199,999 Tier-Points
 - Fantasy: 200,000+ Tier-Points
 Points needed to reach a tier = the tier's floor minus the points you have now (Escape needs 20,000 from zero).
-Kai never knows a guest's own points: they're in the guest's signed-in account, the Casinoverse app or Player Services.
+LiveKit never knows a guest's own points: they're in the guest's signed-in account, the Casinoverse app or Player Services.
 
 ## How points are earned (each earns Tier-Points and Base-Points)
 - Every $5 played on slots or electronic bingo: 1 point

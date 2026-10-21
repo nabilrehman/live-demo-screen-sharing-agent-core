@@ -1,4 +1,4 @@
-# Current promotions (fetched 2026-10-20; dates as published. Today's date is given to Kai at the start of each call.)
+# Current promotions (fetched 2026-10-20; dates as published. Today's date is given to LiveKit at the start of each call.)
 
 ## Wind Creek Bethlehem (windcreek.com/bethlehem/promotions)
 - $255,000 Choose Your Ride Sweepstakes: drawings Sunday, October 25, 5 to 9 PM at Molten Lounge. First entry free;

@@ -36,7 +36,7 @@ Rooms: Deluxe Queen (North or South Tower, 400 sq ft, two queens, up to 4 guests
 400 sq ft, up to 2), Grand King North Tower (635 sq ft, Lehigh River views, sofa), Executive Suite South Tower (800 sq
 ft, separate living and dining area, soaking tub), and more suites. North Tower rooms are newly redesigned and close to
 the spa. Book on the Book Now page (pick dates in the booking form; signing in as a Rewards member unlocks member
-hotel discounts) or by phone, 877-726-3777. Kai never books, signs in or enters guest details.
+hotel discounts) or by phone, 877-726-3777. LiveKit never books, signs in or enters guest details.
 
 ## Hotel packages (one night for two unless noted; "from" prices: Sun to Thu / Fri / Sat; call 877-726-3777)
 - Stay & Game: $169 / $229 / $249, with $10 Slot FREE Play per person (up to two).
@@ -70,5 +70,5 @@ run daily from New York's Port Authority (610-868-6001); scheduled bus line runs
 coach group trips (877-726-3777).
 
 ## Policies
-21+ on the casino floor. No minors left in vehicles. Win/Loss statements are in the signed-in profile (Kai doesn't
+21+ on the casino floor. No minors left in vehicles. Win/Loss statements are in the signed-in profile (LiveKit doesn't
 open profiles). VIP Player Services / player development hosts for invited guests.

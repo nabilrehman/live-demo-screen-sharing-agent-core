@@ -1,0 +1,1294 @@
+{
+ "brand": "Aurelian Airways",
+ "assistant": "Kai",
+ "club": "Aurelian Circle",
+ "miles": "Aurels",
+ "suite": "Aurora Suite",
+ "hub": "DOH",
+ "currency": "USD",
+ "promo_code": "AURCIRCLE10",
+ "airports": [
+  {
+   "code": "JFK",
+   "city": "New York",
+   "name": "John F. Kennedy International",
+   "country": "United States",
+   "utc": -4,
+   "lat": 40.64,
+   "lon": -73.78,
+   "aliases": [
+    "new york",
+    "nyc",
+    "jfk",
+    "new york city",
+    "manhattan",
+    "ny"
+   ],
+   "img": "dest-newyork"
+  },
+  {
+   "code": "LHR",
+   "city": "London",
+   "name": "Heathrow",
+   "country": "United Kingdom",
+   "utc": 1,
+   "lat": 51.47,
+   "lon": -0.45,
+   "aliases": [
+    "london",
+    "heathrow",
+    "lhr",
+    "uk",
+    "england"
+   ],
+   "img": "dest-london"
+  },
+  {
+   "code": "CDG",
+   "city": "Paris",
+   "name": "Charles de Gaulle",
+   "country": "France",
+   "utc": 2,
+   "lat": 49.01,
+   "lon": 2.55,
+   "aliases": [
+    "paris",
+    "cdg",
+    "charles de gaulle",
+    "france"
+   ],
+   "img": "dest-paris"
+  },
+  {
+   "code": "MAD",
+   "city": "Madrid",
+   "name": "Adolfo Suárez Madrid-Barajas",
+   "country": "Spain",
+   "utc": 2,
+   "lat": 40.47,
+   "lon": -3.56,
+   "aliases": [
+    "madrid",
+    "mad",
+    "barajas",
+    "spain"
+   ],
+   "img": "dest-madrid"
+  },
+  {
+   "code": "DOH",
+   "city": "Doha",
+   "name": "Hamad International",
+   "country": "Qatar",
+   "utc": 3,
+   "lat": 25.27,
+   "lon": 51.61,
+   "aliases": [
+    "doha",
+    "doh",
+    "hamad",
+    "qatar"
+   ],
+   "img": "dest-doha"
+  },
+  {
+   "code": "DXB",
+   "city": "Dubai",
+   "name": "Dubai International",
+   "country": "United Arab Emirates",
+   "utc": 4,
+   "lat": 25.25,
+   "lon": 55.36,
+   "aliases": [
+    "dubai",
+    "dxb",
+    "uae",
+    "emirates"
+   ],
+   "img": "dest-dubai"
+  },
+  {
+   "code": "SIN",
+   "city": "Singapore",
+   "name": "Changi",
+   "country": "Singapore",
+   "utc": 8,
+   "lat": 1.36,
+   "lon": 103.99,
+   "aliases": [
+    "singapore",
+    "sin",
+    "changi"
+   ],
+   "img": "dest-singapore"
+  },
+  {
+   "code": "HND",
+   "city": "Tokyo",
+   "name": "Haneda",
+   "country": "Japan",
+   "utc": 9,
+   "lat": 35.55,
+   "lon": 139.78,
+   "aliases": [
+    "tokyo",
+    "hnd",
+    "haneda",
+    "japan"
+   ],
+   "img": "dest-tokyo"
+  },
+  {
+   "code": "SYD",
+   "city": "Sydney",
+   "name": "Kingsford Smith",
+   "country": "Australia",
+   "utc": 11,
+   "lat": -33.94,
+   "lon": 151.18,
+   "aliases": [
+    "sydney",
+    "syd",
+    "australia"
+   ],
+   "img": "dest-sydney"
+  },
+  {
+   "code": "BKK",
+   "city": "Bangkok",
+   "name": "Suvarnabhumi",
+   "country": "Thailand",
+   "utc": 7,
+   "lat": 13.69,
+   "lon": 100.75,
+   "aliases": [
+    "bangkok",
+    "bkk",
+    "suvarnabhumi",
+    "thailand"
+   ],
+   "img": "dest-bangkok"
+  },
+  {
+   "code": "CPT",
+   "city": "Cape Town",
+   "name": "Cape Town International",
+   "country": "South Africa",
+   "utc": 2,
+   "lat": -33.97,
+   "lon": 18.6,
+   "aliases": [
+    "cape town",
+    "cpt",
+    "capetown",
+    "south africa"
+   ],
+   "img": "dest-capetown"
+  },
+  {
+   "code": "MLE",
+   "city": "Malé",
+   "name": "Velana International",
+   "country": "Maldives",
+   "utc": 5,
+   "lat": 4.19,
+   "lon": 73.53,
+   "aliases": [
+    "male",
+    "malé",
+    "maldives",
+    "mle"
+   ],
+   "img": "dest-maldives"
+  }
+ ],
+ "aircraft": {
+  "77W": {
+   "name": "Boeing 777-300ER",
+   "business": "Aurora Suite",
+   "wifi": true
+  },
+  "359": {
+   "name": "Airbus A350-900",
+   "business": "Aurora Suite",
+   "wifi": true
+  },
+  "35K": {
+   "name": "Airbus A350-1000",
+   "business": "Aurora Suite",
+   "wifi": true
+  },
+  "789": {
+   "name": "Boeing 787-9",
+   "business": "Business Studio",
+   "wifi": true
+  },
+  "788": {
+   "name": "Boeing 787-8",
+   "business": "Business Studio",
+   "wifi": false
+  },
+  "32N": {
+   "name": "Airbus A320neo",
+   "business": "Business recliner",
+   "wifi": true
+  }
+ },
+ "legs": [
+  {
+   "from": "JFK",
+   "to": "DOH",
+   "miles": 6692,
+   "minutes": 750,
+   "flights": [
+    {
+     "no": "AU702",
+     "dep": "01:20",
+     "ac": "35K"
+    },
+    {
+     "no": "AU704",
+     "dep": "11:20",
+     "ac": "77W"
+    },
+    {
+     "no": "AU706",
+     "dep": "21:40",
+     "ac": "77W",
+     "days": [
+      0,
+      2,
+      3,
+      4,
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "JFK",
+   "miles": 6692,
+   "minutes": 750,
+   "flights": [
+    {
+     "no": "AU701",
+     "dep": "08:05",
+     "ac": "35K"
+    },
+    {
+     "no": "AU703",
+     "dep": "15:30",
+     "ac": "77W"
+    },
+    {
+     "no": "AU705",
+     "dep": "02:10",
+     "ac": "77W",
+     "days": [
+      1,
+      3,
+      4,
+      5,
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "from": "LHR",
+   "to": "DOH",
+   "miles": 3257,
+   "minutes": 385,
+   "flights": [
+    {
+     "no": "AU12",
+     "dep": "08:05",
+     "ac": "35K"
+    },
+    {
+     "no": "AU16",
+     "dep": "15:40",
+     "ac": "77W"
+    },
+    {
+     "no": "AU18",
+     "dep": "21:05",
+     "ac": "359"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "LHR",
+   "miles": 3257,
+   "minutes": 385,
+   "flights": [
+    {
+     "no": "AU11",
+     "dep": "07:30",
+     "ac": "35K"
+    },
+    {
+     "no": "AU15",
+     "dep": "13:55",
+     "ac": "77W"
+    },
+    {
+     "no": "AU17",
+     "dep": "20:40",
+     "ac": "359"
+    }
+   ]
+  },
+  {
+   "from": "CDG",
+   "to": "DOH",
+   "miles": 3088,
+   "minutes": 365,
+   "flights": [
+    {
+     "no": "AU40",
+     "dep": "10:25",
+     "ac": "359"
+    },
+    {
+     "no": "AU42",
+     "dep": "20:50",
+     "ac": "77W"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "CDG",
+   "miles": 3088,
+   "minutes": 365,
+   "flights": [
+    {
+     "no": "AU39",
+     "dep": "02:05",
+     "ac": "359"
+    },
+    {
+     "no": "AU41",
+     "dep": "08:15",
+     "ac": "77W"
+    }
+   ]
+  },
+  {
+   "from": "MAD",
+   "to": "DOH",
+   "miles": 3312,
+   "minutes": 390,
+   "flights": [
+    {
+     "no": "AU150",
+     "dep": "15:20",
+     "ac": "789"
+    },
+    {
+     "no": "AU148",
+     "dep": "23:55",
+     "ac": "359"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "MAD",
+   "miles": 3312,
+   "minutes": 390,
+   "flights": [
+    {
+     "no": "AU149",
+     "dep": "01:40",
+     "ac": "359"
+    },
+    {
+     "no": "AU147",
+     "dep": "08:30",
+     "ac": "789"
+    }
+   ]
+  },
+  {
+   "from": "DXB",
+   "to": "DOH",
+   "miles": 234,
+   "minutes": 60,
+   "flights": [
+    {
+     "no": "AU1001",
+     "dep": "07:00",
+     "ac": "32N"
+    },
+    {
+     "no": "AU1003",
+     "dep": "12:45",
+     "ac": "32N"
+    },
+    {
+     "no": "AU1005",
+     "dep": "18:30",
+     "ac": "32N"
+    },
+    {
+     "no": "AU1007",
+     "dep": "22:15",
+     "ac": "32N"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "DXB",
+   "miles": 234,
+   "minutes": 60,
+   "flights": [
+    {
+     "no": "AU1000",
+     "dep": "05:50",
+     "ac": "32N"
+    },
+    {
+     "no": "AU1002",
+     "dep": "10:35",
+     "ac": "32N"
+    },
+    {
+     "no": "AU1004",
+     "dep": "16:20",
+     "ac": "32N"
+    },
+    {
+     "no": "AU1006",
+     "dep": "20:05",
+     "ac": "32N"
+    }
+   ]
+  },
+  {
+   "from": "SIN",
+   "to": "DOH",
+   "miles": 3856,
+   "minutes": 450,
+   "flights": [
+    {
+     "no": "AU945",
+     "dep": "02:30",
+     "ac": "359"
+    },
+    {
+     "no": "AU947",
+     "dep": "09:15",
+     "ac": "77W"
+    },
+    {
+     "no": "AU949",
+     "dep": "20:30",
+     "ac": "35K"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "SIN",
+   "miles": 3856,
+   "minutes": 450,
+   "flights": [
+    {
+     "no": "AU944",
+     "dep": "02:25",
+     "ac": "35K"
+    },
+    {
+     "no": "AU946",
+     "dep": "08:05",
+     "ac": "77W"
+    },
+    {
+     "no": "AU948",
+     "dep": "20:10",
+     "ac": "359"
+    }
+   ]
+  },
+  {
+   "from": "HND",
+   "to": "DOH",
+   "miles": 5129,
+   "minutes": 585,
+   "flights": [
+    {
+     "no": "AU813",
+     "dep": "00:30",
+     "ac": "77W"
+    },
+    {
+     "no": "AU811",
+     "dep": "22:05",
+     "ac": "35K"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "HND",
+   "miles": 5129,
+   "minutes": 585,
+   "flights": [
+    {
+     "no": "AU812",
+     "dep": "07:10",
+     "ac": "35K"
+    },
+    {
+     "no": "AU810",
+     "dep": "19:15",
+     "ac": "77W"
+    }
+   ]
+  },
+  {
+   "from": "SYD",
+   "to": "DOH",
+   "miles": 7689,
+   "minutes": 860,
+   "flights": [
+    {
+     "no": "AU909",
+     "dep": "06:20",
+     "ac": "359"
+    },
+    {
+     "no": "AU907",
+     "dep": "21:30",
+     "ac": "35K"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "SYD",
+   "miles": 7689,
+   "minutes": 860,
+   "flights": [
+    {
+     "no": "AU908",
+     "dep": "08:00",
+     "ac": "35K"
+    },
+    {
+     "no": "AU906",
+     "dep": "20:20",
+     "ac": "359"
+    }
+   ]
+  },
+  {
+   "from": "BKK",
+   "to": "DOH",
+   "miles": 3281,
+   "minutes": 385,
+   "flights": [
+    {
+     "no": "AU833",
+     "dep": "08:50",
+     "ac": "789"
+    },
+    {
+     "no": "AU831",
+     "dep": "20:15",
+     "ac": "77W"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "BKK",
+   "miles": 3281,
+   "minutes": 385,
+   "flights": [
+    {
+     "no": "AU832",
+     "dep": "02:05",
+     "ac": "77W"
+    },
+    {
+     "no": "AU830",
+     "dep": "08:40",
+     "ac": "789"
+    }
+   ]
+  },
+  {
+   "from": "CPT",
+   "to": "DOH",
+   "miles": 4631,
+   "minutes": 530,
+   "flights": [
+    {
+     "no": "AU1370",
+     "dep": "13:30",
+     "ac": "789"
+    },
+    {
+     "no": "AU1372",
+     "dep": "22:40",
+     "ac": "359",
+     "days": [
+      0,
+      2,
+      4,
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "CPT",
+   "miles": 4631,
+   "minutes": 530,
+   "flights": [
+    {
+     "no": "AU1369",
+     "dep": "02:45",
+     "ac": "359",
+     "days": [
+      0,
+      2,
+      4,
+      6
+     ]
+    },
+    {
+     "no": "AU1371",
+     "dep": "07:55",
+     "ac": "789"
+    }
+   ]
+  },
+  {
+   "from": "MLE",
+   "to": "DOH",
+   "miles": 2058,
+   "minutes": 255,
+   "flights": [
+    {
+     "no": "AU673",
+     "dep": "11:40",
+     "ac": "788"
+    },
+    {
+     "no": "AU675",
+     "dep": "22:30",
+     "ac": "789"
+    }
+   ]
+  },
+  {
+   "from": "DOH",
+   "to": "MLE",
+   "miles": 2058,
+   "minutes": 255,
+   "flights": [
+    {
+     "no": "AU672",
+     "dep": "02:20",
+     "ac": "789"
+    },
+    {
+     "no": "AU674",
+     "dep": "08:10",
+     "ac": "788"
+    }
+   ]
+  },
+  {
+   "from": "JFK",
+   "to": "LHR",
+   "miles": 3443,
+   "minutes": 405,
+   "flights": [
+    {
+     "no": "AU7712",
+     "dep": "18:30",
+     "ac": "789"
+    },
+    {
+     "no": "AU7714",
+     "dep": "21:15",
+     "ac": "77W"
+    }
+   ]
+  },
+  {
+   "from": "LHR",
+   "to": "JFK",
+   "miles": 3443,
+   "minutes": 405,
+   "flights": [
+    {
+     "no": "AU7711",
+     "dep": "11:20",
+     "ac": "789"
+    },
+    {
+     "no": "AU7713",
+     "dep": "16:45",
+     "ac": "77W"
+    }
+   ]
+  },
+  {
+   "from": "JFK",
+   "to": "MAD",
+   "miles": 3581,
+   "minutes": 420,
+   "flights": [
+    {
+     "no": "AU7720",
+     "dep": "19:40",
+     "ac": "789"
+    }
+   ]
+  },
+  {
+   "from": "MAD",
+   "to": "JFK",
+   "miles": 3581,
+   "minutes": 420,
+   "flights": [
+    {
+     "no": "AU7721",
+     "dep": "12:30",
+     "ac": "789"
+    }
+   ]
+  },
+  {
+   "from": "LHR",
+   "to": "MAD",
+   "miles": 774,
+   "minutes": 120,
+   "flights": [
+    {
+     "no": "AU7730",
+     "dep": "07:15",
+     "ac": "32N"
+    },
+    {
+     "no": "AU7732",
+     "dep": "17:40",
+     "ac": "32N"
+    }
+   ]
+  },
+  {
+   "from": "MAD",
+   "to": "LHR",
+   "miles": 774,
+   "minutes": 120,
+   "flights": [
+    {
+     "no": "AU7731",
+     "dep": "09:55",
+     "ac": "32N"
+    },
+    {
+     "no": "AU7733",
+     "dep": "19:50",
+     "ac": "32N"
+    }
+   ]
+  },
+  {
+   "from": "LHR",
+   "to": "CDG",
+   "miles": 216,
+   "minutes": 60,
+   "flights": [
+    {
+     "no": "AU7740",
+     "dep": "08:40",
+     "ac": "32N"
+    },
+    {
+     "no": "AU7742",
+     "dep": "18:10",
+     "ac": "32N"
+    }
+   ]
+  },
+  {
+   "from": "CDG",
+   "to": "LHR",
+   "miles": 216,
+   "minutes": 60,
+   "flights": [
+    {
+     "no": "AU7741",
+     "dep": "10:15",
+     "ac": "32N"
+    },
+    {
+     "no": "AU7743",
+     "dep": "19:20",
+     "ac": "32N"
+    }
+   ]
+  },
+  {
+   "from": "SIN",
+   "to": "SYD",
+   "miles": 3911,
+   "minutes": 455,
+   "flights": [
+    {
+     "no": "AU7750",
+     "dep": "08:00",
+     "ac": "359"
+    },
+    {
+     "no": "AU7752",
+     "dep": "20:55",
+     "ac": "359"
+    }
+   ]
+  },
+  {
+   "from": "SYD",
+   "to": "SIN",
+   "miles": 3911,
+   "minutes": 455,
+   "flights": [
+    {
+     "no": "AU7751",
+     "dep": "11:30",
+     "ac": "359"
+    },
+    {
+     "no": "AU7753",
+     "dep": "15:25",
+     "ac": "359"
+    }
+   ]
+  },
+  {
+   "from": "SIN",
+   "to": "BKK",
+   "miles": 880,
+   "minutes": 130,
+   "flights": [
+    {
+     "no": "AU7760",
+     "dep": "07:40",
+     "ac": "32N"
+    },
+    {
+     "no": "AU7762",
+     "dep": "13:10",
+     "ac": "32N"
+    },
+    {
+     "no": "AU7764",
+     "dep": "19:30",
+     "ac": "32N"
+    }
+   ]
+  },
+  {
+   "from": "BKK",
+   "to": "SIN",
+   "miles": 880,
+   "minutes": 130,
+   "flights": [
+    {
+     "no": "AU7761",
+     "dep": "10:20",
+     "ac": "32N"
+    },
+    {
+     "no": "AU7763",
+     "dep": "16:00",
+     "ac": "32N"
+    },
+    {
+     "no": "AU7765",
+     "dep": "21:15",
+     "ac": "32N"
+    }
+   ]
+  },
+  {
+   "from": "SIN",
+   "to": "HND",
+   "miles": 3293,
+   "minutes": 390,
+   "flights": [
+    {
+     "no": "AU7770",
+     "dep": "09:15",
+     "ac": "789"
+    },
+    {
+     "no": "AU7772",
+     "dep": "22:40",
+     "ac": "789"
+    }
+   ]
+  },
+  {
+   "from": "HND",
+   "to": "SIN",
+   "miles": 3293,
+   "minutes": 390,
+   "flights": [
+    {
+     "no": "AU7771",
+     "dep": "01:05",
+     "ac": "789"
+    },
+    {
+     "no": "AU7773",
+     "dep": "11:15",
+     "ac": "789"
+    }
+   ]
+  }
+ ],
+ "fare_rows": [
+  {
+   "id": "seat_standard",
+   "label": "Standard seat selection",
+   "icon": "seat"
+  },
+  {
+   "id": "seat_preferred",
+   "label": "Preferred seat selection",
+   "icon": "seat-star"
+  },
+  {
+   "id": "checked_bag",
+   "label": "Checked baggage",
+   "icon": "bag"
+  },
+  {
+   "id": "changes",
+   "label": "Flight/route changes",
+   "icon": "change"
+  },
+  {
+   "id": "cancellation",
+   "label": "Flight cancellation",
+   "icon": "cancel"
+  },
+  {
+   "id": "carry_on",
+   "label": "Carry-on baggage",
+   "icon": "carry"
+  },
+  {
+   "id": "upgrade",
+   "label": "Upgrade with Aurels",
+   "icon": "upgrade"
+  }
+ ],
+ "fares": [
+  {
+   "id": "economy-convenience",
+   "cabin": "economy",
+   "name": "Economy Convenience",
+   "short": "Convenience",
+   "mult": 1.0,
+   "earn": 0.5,
+   "rows": {
+    "seat_standard": "For a fee",
+    "seat_preferred": "For a fee",
+    "checked_bag": "1 piece, 23 kg",
+    "changes": "1 change, 150 USD fee + fare difference",
+    "cancellation": "250 USD fee, before departure",
+    "carry_on": "1 piece, 7 kg",
+    "upgrade": "Not available"
+   },
+   "info": {
+    "seat_standard": "Standard seats from 25 USD per flight, or free at online check-in (opens 48 hours before departure).",
+    "changes": "One date or route change before departure; 150 USD per passenger plus any fare difference.",
+    "cancellation": "Refund of the fare minus 250 USD per passenger, if cancelled before departure. No refund after departure (no-show)."
+   }
+  },
+  {
+   "id": "economy-comfort",
+   "cabin": "economy",
+   "name": "Economy Comfort",
+   "short": "Comfort",
+   "mult": 1.42,
+   "earn": 0.75,
+   "rows": {
+    "seat_standard": "No fees",
+    "seat_preferred": "No fees",
+    "checked_bag": "2 pieces, 23 kg each",
+    "changes": "Unlimited, no fee (fare difference applies)",
+    "cancellation": "100 USD fee, before departure",
+    "carry_on": "1 piece, 7 kg",
+    "upgrade": "Available"
+   },
+   "info": {
+    "changes": "Change dates or route as often as needed before departure; only the fare difference applies.",
+    "cancellation": "Refund of the fare minus 100 USD per passenger, if cancelled before departure.",
+    "upgrade": "Upgrade to Business with Aurels from 45,000 Aurels one way, subject to availability."
+   }
+  },
+  {
+   "id": "business-comfort",
+   "cabin": "business",
+   "name": "Business Comfort",
+   "short": "Business Comfort",
+   "mult": 1.0,
+   "earn": 1.5,
+   "rows": {
+    "seat_standard": "No fees",
+    "seat_preferred": "No fees",
+    "checked_bag": "2 pieces, 32 kg each",
+    "changes": "Unlimited, no fee (fare difference applies)",
+    "cancellation": "200 USD fee, before departure",
+    "carry_on": "2 pieces, 15 kg in total",
+    "upgrade": "Not applicable"
+   },
+   "info": {
+    "cancellation": "Refund of the fare minus 200 USD per passenger, if cancelled before departure."
+   }
+  },
+  {
+   "id": "business-elite",
+   "cabin": "business",
+   "name": "Business Elite",
+   "short": "Business Elite",
+   "mult": 1.22,
+   "earn": 2.0,
+   "rows": {
+    "seat_standard": "No fees",
+    "seat_preferred": "No fees",
+    "checked_bag": "3 pieces, 32 kg each",
+    "changes": "Unlimited, no fee (fare difference applies)",
+    "cancellation": "Free, any time before departure",
+    "carry_on": "2 pieces, 15 kg in total",
+    "upgrade": "Not applicable"
+   },
+   "info": {
+    "cancellation": "Full refund if cancelled before departure. Includes chauffeur drive in select cities and an Aurelian Lounge guest pass."
+   }
+  }
+ ],
+ "pricing": {
+  "economy_base": 110,
+  "economy_per_mile": 0.092,
+  "nonstop_factor": 1.08,
+  "connect_factor": 0.9,
+  "business_factor": 5.6,
+  "child_factor": 0.75,
+  "infant_factor": 0.1,
+  "weekday_factor": [
+   0.96,
+   0.9,
+   0.92,
+   1.0,
+   1.1,
+   1.02,
+   1.12
+  ],
+  "lead_factor": [
+   [
+    7,
+    1.32
+   ],
+   [
+    14,
+    1.16
+   ],
+   [
+    30,
+    1.06
+   ],
+   [
+    10000,
+    1.0
+   ]
+  ],
+  "jitter": [
+   0.88,
+   1.16
+  ]
+ },
+ "policies": [
+  {
+   "id": "fare-display",
+   "title": "Prices on the site",
+   "text": "Fares are in US dollars and include taxes and carrier charges. The fares on the results page are the total for all passengers in the search, not per person. Children (2 to 11) pay 75% of the adult fare and infants (under 2, on a lap) 10%."
+  },
+  {
+   "id": "24h",
+   "title": "24-hour free cancellation",
+   "text": "Any booking made at least 7 days before departure can be cancelled for a full refund within 24 hours of booking, whatever the fare family."
+  },
+  {
+   "id": "baggage",
+   "title": "Checked baggage",
+   "text": "Economy Convenience: 1 piece of 23 kg. Economy Comfort: 2 pieces of 23 kg each. Business Comfort: 2 pieces of 32 kg each. Business Elite: 3 pieces of 32 kg each. Each piece up to 158 cm (62 in) length plus width plus height. Infants get 1 piece of 10 kg plus a stroller. An extra 23 kg piece bought online costs 120 USD per flight on long-haul routes (60 USD on flights under 3 hours); at the airport it costs 200 USD."
+  },
+  {
+   "id": "carry-on",
+   "title": "Carry-on baggage",
+   "text": "Economy: 1 bag of 7 kg up to 50 x 37 x 25 cm, plus a small personal item (handbag or laptop bag). Business: 2 bags, 15 kg in total, plus a personal item."
+  },
+  {
+   "id": "changes",
+   "title": "Changes",
+   "text": "Economy Convenience allows one change for 150 USD per passenger plus any fare difference; Economy Comfort and both Business fares allow unlimited changes with no fee, fare difference applies. Name changes are not allowed; spelling corrections are free."
+  },
+  {
+   "id": "cancellation",
+   "title": "Cancellation and refunds",
+   "text": "Economy Convenience: refund minus 250 USD per passenger. Economy Comfort: refund minus 100 USD. Business Comfort: refund minus 200 USD. Business Elite: full refund. Before departure only; refunds go back to the original form of payment within 7 to 20 business days. Unused taxes are always refundable."
+  },
+  {
+   "id": "check-in",
+   "title": "Check-in",
+   "text": "Online check-in opens 48 hours and closes 90 minutes before departure. Airport counters close 60 minutes before departure (90 minutes in New York, London and Sydney). Boarding gates close 20 minutes before departure."
+  },
+  {
+   "id": "seats",
+   "title": "Seat selection",
+   "text": "Economy Convenience: standard seats 25 USD and preferred seats (extra legroom or front of cabin) 85 USD per flight, or a free standard seat at online check-in. Economy Comfort: standard and preferred seats are free. Business: all seats free. Exit-row seats are for adults able to help in an emergency."
+  },
+  {
+   "id": "wifi",
+   "title": "Starlink Wi-Fi",
+   "text": "Free high-speed Starlink Wi-Fi for every passenger, gate to gate, on flights marked Starlink Wi-Fi (Boeing 777, Airbus A350, Boeing 787-9 and A320neo). Streaming quality; no login needed beyond the seat number."
+  },
+  {
+   "id": "aurora",
+   "title": "Aurora Suite",
+   "text": "Aurora Suite is our business class on the Boeing 777-300ER and Airbus A350: a private suite with a sliding door, a 79-inch fully flat bed, a 24-inch screen, and middle suites that join into a double bed or a four-seat quad for families. Business Studio (Boeing 787) has direct aisle access and a flat bed without a door."
+  },
+  {
+   "id": "children",
+   "title": "Children and infants",
+   "text": "Infants under 2 travel on an adult's lap (one infant per adult) and get a bassinet on request in long-haul economy and business. Children 2 to 11 need their own seat. Unaccompanied minors from 7 to 11 need the escort service (150 USD per flight)."
+  },
+  {
+   "id": "lounges",
+   "title": "Lounges",
+   "text": "Business passengers and Aurelian Circle Gold and Platinum members get lounge access, including The Aurelian Lounge at Doha Hamad International. Economy passengers can buy lounge access in Doha for 150 USD (Seats & extras step)."
+  },
+  {
+   "id": "club",
+   "title": "Aurelian Circle and Aurels",
+   "text": "Aurelian Circle is our free loyalty club. Members earn Aurels on every flight (the fare comparison shows how many) and get up to 10% off with this month's promo code AURCIRCLE10. Joining and logging in happen on the member's own account; Book using Aurels needs a logged-in member."
+  },
+  {
+   "id": "special",
+   "title": "Special assistance",
+   "text": "Wheelchair assistance, meet-and-assist and special meals (vegetarian, vegan, kosher, halal, gluten-free, diabetic, child meals) can be requested free up to 24 hours before departure, in Manage booking or at the Seats & extras step."
+  },
+  {
+   "id": "pets",
+   "title": "Pets",
+   "text": "Only trained service dogs fly in the cabin. Other pets travel as checked cargo, booked through the Aurelian Cargo desk, not online."
+  },
+  {
+   "id": "doha-stopover",
+   "title": "Doha stopover",
+   "text": "Connecting through Doha, travelers can add a stopover of 1 to 4 nights with hotel packages from 14 USD per person per night (Stopover & Packages tab). Many nationalities get visa-free entry to Qatar."
+  }
+ ],
+ "extras": [
+  {
+   "id": "bag",
+   "name": "Extra checked bag (23 kg)",
+   "price": 120,
+   "per": "passenger, per flight",
+   "short_haul_price": 60
+  },
+  {
+   "id": "lounge",
+   "name": "The Aurelian Lounge, Doha (3 hours)",
+   "price": 150,
+   "per": "passenger"
+  },
+  {
+   "id": "meal",
+   "name": "Special meal",
+   "price": 0,
+   "per": "passenger"
+  },
+  {
+   "id": "insurance",
+   "name": "Travel protection",
+   "price": 64,
+   "per": "passenger"
+  }
+ ],
+ "inspiration": [
+  {
+   "code": "MLE",
+   "tag": "Island escapes",
+   "blurb": "Overwater villas and house reefs, 4 hours from Doha."
+  },
+  {
+   "code": "LHR",
+   "tag": "City breaks",
+   "blurb": "Theatre, markets and the Thames at dusk."
+  },
+  {
+   "code": "HND",
+   "tag": "Culture",
+   "blurb": "Temples in the morning, omakase at night."
+  },
+  {
+   "code": "CPT",
+   "tag": "Adventure",
+   "blurb": "Table Mountain, penguins and the winelands."
+  },
+  {
+   "code": "SIN",
+   "tag": "Food",
+   "blurb": "Hawker legends and gardens that glow."
+  },
+  {
+   "code": "CDG",
+   "tag": "Romance",
+   "blurb": "Cafés, galleries and long dinners."
+  },
+  {
+   "code": "SYD",
+   "tag": "Beaches",
+   "blurb": "Harbour ferries and Bondi sunrises."
+  },
+  {
+   "code": "BKK",
+   "tag": "Night markets",
+   "blurb": "Riverside temples and street food."
+  }
+ ],
+ "limits": {
+  "max_passengers": 9,
+  "max_adults": 9,
+  "max_children": 8,
+  "max_infants": 4,
+  "days_ahead": 330
+ },
+ "cabins": [
+  {
+   "id": "economy",
+   "name": "Economy"
+  },
+  {
+   "id": "business",
+   "name": "Business"
+  }
+ ]
+}

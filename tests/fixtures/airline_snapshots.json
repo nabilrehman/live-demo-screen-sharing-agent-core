@@ -1,0 +1,217 @@
+{
+ "results": {
+  "seq": 1,
+  "step": "flights",
+  "today": "2026-10-20",
+  "search": {
+   "trip": "one way",
+   "from": "New York JFK",
+   "to": "Doha DOH",
+   "depart": "2026-10-29",
+   "return": null,
+   "adults": 2,
+   "children": 0,
+   "infants": 0,
+   "cabin": "economy"
+  },
+  "results": {
+   "leg": "departure",
+   "route": "New York JFK to Doha DOH",
+   "date": "2026-10-29",
+   "sort": "recommended",
+   "filters": [],
+   "shown": 6,
+   "total": 6,
+   "prices_are": "totals for all 2 passengers, US dollars, taxes included",
+   "flights": [
+    {
+     "n": 1,
+     "id": "AU702",
+     "flights": "AU702",
+     "depart": "01:20",
+     "arrive": "20:50",
+     "duration": "12h 30m",
+     "stops": "non-stop",
+     "aircraft": "Airbus A350-1000",
+     "suite": true,
+     "wifi": true,
+     "economy_total": 1583,
+     "business_total": 9997,
+     "economy_per_adult": 791.32,
+     "business_per_adult": 4998.66
+    },
+    {
+     "n": 2,
+     "id": "AU704",
+     "flights": "AU704",
+     "depart": "11:20",
+     "arrive": "06:50 (+1 day)",
+     "duration": "12h 30m",
+     "stops": "non-stop",
+     "aircraft": "Boeing 777-300ER",
+     "suite": true,
+     "wifi": true,
+     "economy_total": 1976,
+     "business_total": 10229,
+     "economy_per_adult": 987.85,
+     "business_per_adult": 5114.52
+    },
+    {
+     "n": 3,
+     "id": "AU706",
+     "flights": "AU706",
+     "depart": "21:40",
+     "arrive": "17:10 (+1 day)",
+     "duration": "12h 30m",
+     "stops": "non-stop",
+     "aircraft": "Boeing 777-300ER",
+     "suite": true,
+     "wifi": true,
+     "economy_total": 2076,
+     "business_total": 10910,
+     "economy_per_adult": 1037.84,
+     "business_per_adult": 5454.87
+    },
+    {
+     "n": 4,
+     "id": "AU7712-AU12",
+     "flights": "AU7712 + AU12",
+     "depart": "18:30",
+     "arrive": "16:30 (+1 day)",
+     "duration": "15h",
+     "stops": "1 stop in London",
+     "connection": "1h 50m",
+     "aircraft": "Boeing 787-9 + Airbus A350-1000",
+     "suite": false,
+     "wifi": true,
+     "economy_total": 1356,
+     "business_total": 7320,
+     "economy_per_adult": 678,
+     "business_per_adult": 3659.78
+    },
+    {
+     "n": 5,
+     "id": "AU7714-AU16",
+     "flights": "AU7714 + AU16",
+     "depart": "21:15",
+     "arrive": "00:05 (+2 day)",
+     "duration": "19h 50m",
+     "stops": "1 stop in London",
+     "connection": "6h 40m",
+     "aircraft": "Boeing 777-300ER",
+     "suite": true,
+     "wifi": true,
+     "economy_total": 1399,
+     "business_total": 8218,
+     "economy_per_adult": 699.34,
+     "business_per_adult": 4108.87
+    },
+    {
+     "n": 6,
+     "id": "AU7720-AU150",
+     "flights": "AU7720 + AU150",
+     "depart": "19:40",
+     "arrive": "22:50 (+1 day)",
+     "duration": "20h 10m",
+     "stops": "1 stop in Madrid",
+     "connection": "6h 40m",
+     "aircraft": "Boeing 787-9",
+     "suite": false,
+     "wifi": true,
+     "economy_total": 1567,
+     "business_total": 8425,
+     "economy_per_adult": 783.39,
+     "business_per_adult": 4212.62
+    }
+   ],
+   "date_strip": [
+    "Mon, 26 Oct: $1,472",
+    "Tue, 27 Oct: $1,211",
+    "Wed, 28 Oct: $1,249",
+    "Thu, 29 Oct (shown): $1,356",
+    "Fri, 30 Oct: $1,544",
+    "Sat, 31 Oct: $1,363",
+    "Sun, 1 Nov: $1,683",
+    "Mon, 2 Nov: $1,438"
+   ]
+  },
+  "fares_open": {
+   "flight": "AU702",
+   "n": 1,
+   "cabin": "economy",
+   "fares": [
+    {
+     "id": "economy-convenience",
+     "name": "Economy Convenience",
+     "total": 1582.64,
+     "per_adult": 791.32,
+     "seats_left": 5,
+     "earn_aurels": 6690
+    },
+    {
+     "id": "economy-comfort",
+     "name": "Economy Comfort",
+     "total": 2247.36,
+     "per_adult": 1123.68,
+     "seats_left": 8,
+     "earn_aurels": 10040
+    }
+   ]
+  }
+ },
+ "passengers": {
+  "seq": 2,
+  "step": "passengers",
+  "today": "2026-10-20",
+  "search": {
+   "trip": "one way",
+   "from": "New York JFK",
+   "to": "Doha DOH",
+   "depart": "2026-10-29",
+   "return": null,
+   "adults": 2,
+   "children": 0,
+   "infants": 0,
+   "cabin": "economy"
+  },
+  "selected": {
+   "departure": {
+    "flight": "AU702",
+    "flights": "AU702",
+    "date": "2026-10-29",
+    "depart": "01:20",
+    "arrive": "20:50",
+    "fare": "Economy Comfort",
+    "total": 2247.36
+   }
+  },
+  "passengers": [
+   {
+    "n": 1,
+    "label": "Adult 1",
+    "title": "Mr",
+    "first_name": "Nabil",
+    "last_name": "Rehman",
+    "complete": true,
+    "form_open": true
+   },
+   {
+    "n": 2,
+    "label": "Adult 2",
+    "title": null,
+    "first_name": null,
+    "last_name": null,
+    "complete": false
+   }
+  ],
+  "totals": {
+   "fares": 2247.36,
+   "seats": 0,
+   "extras": 0,
+   "grand_total": 2247.36
+  },
+  "highlighted": [
+   "passenger-1"
+  ]
+ }
+}

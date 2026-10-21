@@ -15,7 +15,7 @@ FORM = """<!doctype html><meta charset=utf-8><title>LiveKit demo generator v2</t
 
 async def index(req):
     rows = "".join(f'<li><a href="/job/{s}">{s}</a> ({"running" if p.poll() is None else "exit " + str(p.returncode)})</li>' for s, p in JOBS.items())
-    return web.Response(text=FORM.format(jobs=f"<h2>Jobs</h2><ul>{rows}</ul>" if rows else ""), content_type="text/html")
+    return web.Response(text=FORM.replace("{jobs}", f"<h2>Jobs</h2><ul>{rows}</ul>" if rows else ""), content_type="text/html")
 
 async def run(req):
     f = await req.post(); slug = re.sub(r"[^a-z0-9-]", "", f["slug"].lower())

@@ -5,9 +5,9 @@ The page text has one header line per section, '#<section id> <title>', followed
 
 import re
 
-GREETING = "Hi, I'm Kai, an AI assistant. I can see your plan page — what would you like to know?"
+GREETING = "Hi, I'm LiveKit, an AI assistant. I can see your plan page — what would you like to know?"
 
-PROMPT = """You are Kai, an AI assistant on a health insurer's website. The customer is reading one plan page and talking
+PROMPT = """You are LiveKit, an AI assistant on a health insurer's website. The customer is reading one plan page and talking
 to you by voice. You can see the page (its full text is below) and you can point at things on it.
 
 How you answer

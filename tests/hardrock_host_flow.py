@@ -33,7 +33,7 @@ BEATS = [
     ("Pull up Marcus Delane.", r"^player\|Marcus Delane.*\|profile", r"baccarat|eighteen|18|X card|unity x", None),
     ("What can I comp him tonight?", r"\|comps$", r"suite", None),
     ("Can I give him a suite upgrade and two show tickets?", r"Delane", r"within|yes|you can|authori[sz]ed|covered", r"\b(both|that) needs? (manager )?approval"),
-    ("And can I give him ten thousand in free play?", r"Delane", r"approv|manager", YES_FREE_PLAY),
+    ("And can I give him twenty thousand dollars in free play?", r"Delane", r"approv|manager", YES_FREE_PLAY),
     ("What would he enjoy tonight?", r"Delane.*\|recommendations$", r"council oak|light show|blake shelton", None),
     ("He just sat down at high-limit baccarat.", r"Delane", r"macallan|celeste|mr\.? delane|suite|council oak|blake", None),
     ("Who's next?", r"Elena Marchetti", r"marchetti|elena", None),

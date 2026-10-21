@@ -192,8 +192,11 @@ async def main():
             t0 = time.perf_counter()
             lat, quiet_since, hl, spoke = None, None, [], False
             old = [e for e in (await probe())["events"] if e["kind"] == "highlight"]  # from before this beat
+            last_path, path_t = None, time.perf_counter()
             while time.perf_counter() - t0 < max_s:
                 s = await probe()
+                if s["path"] != last_path:  # after a page load the widget may show "listening" before Kai answers
+                    last_path, path_t = s["path"], time.perf_counter()
                 hl += [e for e in s["events"] if e["kind"] == "highlight" and e not in hl and e not in old]
                 if s["mode"] == "speaking":
                     spoke = True
@@ -202,7 +205,7 @@ async def main():
                         lat = (time.perf_counter() - t_end) * 1000
                 elif s["mode"] == "listening" and spoke and len(s["caps"]) > n_before:
                     quiet_since = quiet_since or time.perf_counter()
-                    if time.perf_counter() - quiet_since > 2.5:
+                    if time.perf_counter() - quiet_since > 2.5 and time.perf_counter() - path_t > 4:
                         return lat, s, hl
                 await pg.wait_for_timeout(100)
             return lat, await probe(), hl

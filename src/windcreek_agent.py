@@ -40,7 +40,7 @@ AWAY_S = float(os.getenv("AWAY_S", 30))  # how long the session waits for the vi
 NAV_WAIT_S = 15.0  # how long navigate waits for the new page's first snapshot
 VISITOR_WAIT_S = 10.0  # how long an action waits for the visitor to rejoin (they may be mid page load)
 SETTLE_S = 0.6  # after a new page's first snapshot, a moment for its scripts to register site actions
-QUIET_AFTER_TOOLS_S = 1.5  # Kai silent this long after its last page action: ask for the answer
+QUIET_AFTER_TOOLS_S = 3.0  # Kai silent this long after its last page action: ask for the answer
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -207,7 +207,14 @@ def track(session, kai: SiteKai, ins: Insights):
         is still quiet a few seconds after its last action, ask for the answer once."""
         await asyncio.sleep(QUIET_AFTER_TOOLS_S)
         state["nudge"] = None
-        if session.agent_state != "speaking" and session.current_speech is None:
+        # Gemini can end its turn silently without returning to listening; Grok can take a while to answer after a
+        # tool result, and a forced reply would cancel that answer, so for it only nudge once it's back to listening
+        quiet = session.current_speech is None and session.user_state != "speaking"
+        if IS_GEMINI:
+            quiet = quiet and session.agent_state != "speaking"
+        else:
+            quiet = quiet and session.agent_state == "listening"
+        if quiet:
             log.info("quiet after page actions; asking for the answer")
             session.generate_reply(
                 instructions="Answer the guest now in one to three sentences from what their screen shows after your "

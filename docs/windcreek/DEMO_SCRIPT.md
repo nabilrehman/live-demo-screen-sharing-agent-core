@@ -7,10 +7,11 @@ embed Wind Creek's web team would add. ~8 minutes.
 - Data viewer (sample session): `https://live-demos-sa.vercel.app/embed/windcreek/insights.html`
 - Optional, on the real site: the presenter bookmarklet (see INTEGRATION.md, "Presenter bookmarklet").
 - Backup: the recorded run, `windcreek-demo.webm`.
+- Naming: on screen the assistant is called **LiveKit** (set in `knowledge/windcreek/site.json`); in the code and these notes it is "Kai".
 
 ## Pre-demo checklist
 - [ ] Chrome, a clean profile, signed out of everything. Zoom 100%. Close other tabs that use the mic.
-- [ ] Open the demo URL with the code. Click "Talk to Kai" once and allow the microphone ("Allow while visiting the site").
+- [ ] Open the demo URL with the code. Click "Talk to LiveKit" once and allow the microphone ("Allow while visiting the site").
 - [ ] 5 minutes before: a 30-second test call (say "show me what you know about this page"), then End.
 - [ ] Wired network or strong Wi-Fi; headphones or a speaker away from the mic (echo makes Kai interrupt himself).
 - [ ] Have the backup video open in another tab, paused at 0:00.
@@ -20,7 +21,7 @@ embed Wind Creek's web team would add. ~8 minutes.
 
 | # | You say | Kai does on the page | Kai says (gist) | Talking point | If it misfires |
 |---|---|---|---|---|---|
-| 0 | Click **Talk to Kai** (one click starts the call) | Joins | "Hi, I'm Kai, Wind Creek's AI concierge. I can see the page you're on, not your account…" | AI disclosure and consent are built in, first sentence. | Click the launcher to end, then again to start. |
+| 0 | Click **Talk to LiveKit** (one click starts the call) | Joins | "Hi, I'm LiveKit, Wind Creek's AI concierge. I can see the page you're on, not your account…" | AI disclosure and consent are built in, first sentence. | Click the launcher to end, then again to start. |
 | 1 | "Show me what you know about this page." | Nothing (reads) | Which page, its sections, what's in view; reads structure, not screenshots, never your account | Kai reads the page's structure (headings, sections, links) as data. That same channel can carry your own structured context (property, tier, offers) later. | "What page am I on?" |
 | 2 | "I'm going to Bethlehem this weekend. What's going on?" | Opens Bethlehem Promotions, highlights the weekend's promotions | Choose Your Ride Sweepstakes Sunday 5–9 PM; free Players Learning Games Saturday noon–4 | Multi-page site: Kai navigates and keeps the conversation across page loads. Promotions discovery without a search box. | "Take me to the Bethlehem promotions page." |
 | 3 | "Where can I get a good steak?" | Opens Bethlehem Dining, highlights Chop House | Chop House at Wind Creek: style, a signature cut and price, hours, reservations recommended | Answers come from your own published content, cited on screen. | "Show me Chop House." |

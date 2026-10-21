@@ -174,7 +174,7 @@
       const i = roomByName(room);
       if (i < 0) throw new Error(`No room matches "${room}". Rooms: ${matches().map((r) => r.name).join('; ')}`);
       st.room = i; show('confirm');
-      return `Confirm step open for ${B.rooms[i].name}. Kai stops here: the guest completes the reservation themselves.`;
+      return `Confirm step open for ${B.rooms[i].name}. Stop here: the guest completes the reservation themselves.`;
     }, 'Booking rooms: press Select on one room (opens the Confirm step for review). Args: {"room": "<room name>"}. Never completes the booking.');
   }
   register();

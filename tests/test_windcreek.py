@@ -80,7 +80,7 @@ def test_session_summary_has_intents_and_no_personal_data():
     ins.user_said("I'm going to Bethlehem this weekend, what's going on?")
     ins.agent_said("The Choose Your Ride Sweepstakes is Sunday.")
     ins.user_said("My name is Dana, call me at 610 555 1234 about the spa menu prices for seniors")
-    ins.agent_said("I don't see senior prices on the site; call 877-726-3777.")
+    ins.agent_said("I don't see that on the site; call 877-726-3777.")
     ins.action("navigate", {"to": "/bethlehem/promotions"}, True, 85)
     ins.latency(1200)
     s = ins.summary([{"path": "/bethlehem/promotions", "title": "Promotions", "t": ins.t0 + 3}])

@@ -1,27 +1,181 @@
 {
   "intents": {
-    "promotions_events": ["promotion", "promo", "going on", "happening", "event", "sweepstakes", "drawing", "giveaway", "this weekend", "show", "concert"],
-    "dining": ["steak", "eat", "dinner", "lunch", "breakfast", "restaurant", "food", "dining", "buffet", "brunch", "drink", "bar"],
-    "rewards_tiers": ["tier", "points", "rewards", "delight", "escape", "fantasy", "play tier", "prime", "perk", "express offer", "birthday bonus"],
-    "hotel_booking": ["room", "book", "hotel", "stay", "suite", "night", "reservation", "package", "check-in", "check in"],
-    "spa_amenities": ["spa", "pool", "fitness", "massage", "facial"],
-    "family": ["kids", "children", "child", "family", "arcade"],
-    "getting_here": ["parking", "get there", "getting here", "directions", "bus", "drive", "valet", "address"],
-    "page_awareness": ["know about this page", "what can you see", "this page"],
-    "governance": ["can't you do", "cannot do", "can you not", "my data", "privacy", "my account"],
-    "responsible_gaming": ["lost a lot", "losing", "win it back", "chase", "can't stop", "cannot stop", "borrow", "gambling problem", "addicted"]
+    "promotions_events": [
+      "promotion",
+      "promo",
+      "going on",
+      "happening",
+      "event",
+      "sweepstakes",
+      "drawing",
+      "giveaway",
+      "this weekend",
+      "show",
+      "concert"
+    ],
+    "dining": [
+      "steak",
+      "eat",
+      "dinner",
+      "lunch",
+      "breakfast",
+      "restaurant",
+      "food",
+      "dining",
+      "buffet",
+      "brunch",
+      "drink",
+      "bar"
+    ],
+    "rewards_tiers": [
+      "tier",
+      "points",
+      "rewards",
+      "delight",
+      "escape",
+      "fantasy",
+      "play tier",
+      "prime",
+      "perk",
+      "express offer",
+      "birthday bonus"
+    ],
+    "hotel_booking": [
+      "room",
+      "book",
+      "hotel",
+      "stay",
+      "suite",
+      "night",
+      "reservation",
+      "package",
+      "check-in",
+      "check in"
+    ],
+    "spa_amenities": [
+      "spa",
+      "pool",
+      "fitness",
+      "massage",
+      "facial"
+    ],
+    "family": [
+      "kids",
+      "children",
+      "child",
+      "family",
+      "arcade"
+    ],
+    "getting_here": [
+      "parking",
+      "get there",
+      "getting here",
+      "directions",
+      "bus",
+      "drive",
+      "valet",
+      "address"
+    ],
+    "page_awareness": [
+      "know about this page",
+      "what can you see",
+      "this page"
+    ],
+    "governance": [
+      "can't you do",
+      "cannot do",
+      "can you not",
+      "my data",
+      "privacy",
+      "my account"
+    ],
+    "responsible_gaming": [
+      "lost a lot",
+      "losing",
+      "win it back",
+      "chase",
+      "can't stop",
+      "cannot stop",
+      "borrow",
+      "gambling problem",
+      "addicted"
+    ]
   },
   "entities": {
-    "properties": {"bethlehem": "Bethlehem", "atmore": "Atmore", "wetumpka": "Wetumpka", "montgomery": "Montgomery", "chicago": "Chicago Southland", "aruba": "Aruba", "curacao": "Curaçao", "curaçao": "Curaçao"},
-    "tiers": {"play tier": "Play", "escape": "Escape", "delight": "Delight", "fantasy": "Fantasy"},
-    "venues": {"chop house": "Chop House at Wind Creek", "urban table": "Urban Table", "chopstick": "Chopstick", "steelworks": "Steelworks Buffet and Grill", "twisted tees": "Twisted Tees", "sweet revenge": "Sweet Revenge", "event center": "Wind Creek Event Center", "molten": "Molten Lounge", "kids quest": "Kids Quest", "spa": "Spa at Wind Creek"},
-    "promotions": {"choose your ride": "$255,000 Choose Your Ride Sweepstakes", "players learning": "Players Learning Games", "learning games": "Players Learning Games", "monster mash": "Monster Mash Bash", "claim the crown": "Claim the Crown", "new player": "New Player Rewards"}
+    "properties": {
+      "bethlehem": "Bethlehem",
+      "atmore": "Atmore",
+      "wetumpka": "Wetumpka",
+      "montgomery": "Montgomery",
+      "chicago": "Chicago Southland",
+      "aruba": "Aruba",
+      "curacao": "Curaçao",
+      "curaçao": "Curaçao"
+    },
+    "tiers": {
+      "play tier": "Play",
+      "escape": "Escape",
+      "delight": "Delight",
+      "fantasy": "Fantasy"
+    },
+    "venues": {
+      "chop house": "Chop House at Wind Creek",
+      "urban table": "Urban Table",
+      "chopstick": "Chopstick",
+      "steelworks": "Steelworks Buffet and Grill",
+      "twisted tees": "Twisted Tees",
+      "sweet revenge": "Sweet Revenge",
+      "event center": "Wind Creek Event Center",
+      "molten": "Molten Lounge",
+      "kids quest": "Kids Quest",
+      "spa": "Spa at Wind Creek"
+    },
+    "promotions": {
+      "choose your ride": "$255,000 Choose Your Ride Sweepstakes",
+      "players learning": "Players Learning Games",
+      "learning games": "Players Learning Games",
+      "monster mash": "Monster Mash Bash",
+      "claim the crown": "Claim the Crown",
+      "new player": "New Player Rewards"
+    }
   },
-  "unanswered": ["i don't see", "i don't have", "i don't know", "isn't on the site", "not on the site", "isn't listed", "not listed", "i'm not sure", "i can't find", "no information"],
+  "unanswered": [
+    "don't see that on the site",
+    "don't see it on the site",
+    "isn't on the site",
+    "not on the site",
+    "isn't listed",
+    "not listed on",
+    "i don't know",
+    "i'm not sure",
+    "i couldn't find",
+    "i can't find",
+    "no information about",
+    "don't have that information",
+    "don't have information"
+  ],
   "handoffs": {
-    "phone_property": ["877-726-3777", "eight seven seven", "877"],
-    "player_services": ["player services"],
-    "booking_finish_yourself": ["finish it yourself", "finish the reservation", "complete the reservation", "you'll finish", "you can finish", "can't make the reservation", "can't book"],
-    "responsible_gaming_helpline": ["1-800-gambler", "800 gambler", "gambler"]
+    "phone_property": [
+      "877-726-3777",
+      "eight seven seven",
+      "877"
+    ],
+    "player_services": [
+      "player services"
+    ],
+    "booking_finish_yourself": [
+      "finish it yourself",
+      "finish the reservation",
+      "complete the reservation",
+      "you'll finish",
+      "you can finish",
+      "can't make the reservation",
+      "can't book"
+    ],
+    "responsible_gaming_helpline": [
+      "1-800-gambler",
+      "800 gambler",
+      "gambler"
+    ]
   }
 }

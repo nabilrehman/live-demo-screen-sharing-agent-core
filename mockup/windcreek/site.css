@@ -2,7 +2,7 @@
 :root { --red: #a3162e; --red-dark: #7d0f22; --ink: #2b2b2b; --muted: #5d5d5d; --ground: #f7f7f8; --line: #e1e1e3; --white: #fff; }
 * { box-sizing: border-box; }
 html { scroll-padding-top: 60px; }
-body { margin: 0; background: var(--ground); color: var(--ink); font: 400 17px/1.55 "Figtree", "Proxima Nova", system-ui, sans-serif; }
+body { margin: 0; overflow-x: hidden; background: var(--ground); color: var(--ink); font: 400 17px/1.55 "Figtree", "Proxima Nova", system-ui, sans-serif; }
 img { max-width: 100%; display: block; }
 a { color: var(--red); }
 h1, h2, h3, .page-title { font-family: "Oswald", "Knockout", Impact, sans-serif; text-transform: uppercase; color: var(--red); line-height: 1.08; margin: 0 0 .4em; font-weight: 600; letter-spacing: .005em; }
@@ -76,12 +76,14 @@ nav { flex: 1; display: flex; align-items: center; justify-content: space-betwee
 .loc-label strong { font-family: "Oswald", sans-serif; text-transform: uppercase; font-size: 1.5rem; color: var(--red); font-weight: 600; }
 .rewards-band { background-size: cover; color: #fff; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 56px max(24px, calc((100vw - 1160px) / 2)); }
 .rewards-band h2 { color: #fff; }
-.card-fan { position: relative; min-height: 240px; }
-.card-fan img { position: absolute; width: 58%; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
+.card-fan { position: relative; height: 330px; max-width: 520px; width: 100%; margin: 0 auto; }
+.card-fan img { position: absolute; width: 38%; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
+.rewards-band, .hero-rewards { overflow: hidden; }
 .card-fan img:nth-child(1) { left: 0; top: 30px; transform: rotate(-12deg); }
-.card-fan img:nth-child(2) { left: 14%; top: 12px; transform: rotate(-4deg); }
-.card-fan img:nth-child(3) { left: 28%; top: 6px; transform: rotate(4deg); }
-.card-fan img:nth-child(4) { left: 42%; top: 18px; transform: rotate(12deg); }
+.card-fan img:nth-child(1) { left: 6%; }
+.card-fan img:nth-child(2) { left: 22%; top: 12px; transform: rotate(-4deg); }
+.card-fan img:nth-child(3) { left: 38%; top: 6px; transform: rotate(4deg); }
+.card-fan img:nth-child(4) { left: 54%; top: 18px; transform: rotate(12deg); }
 .carousel, .promo-list { display: grid; gap: 22px; }
 .promo { display: grid; grid-template-columns: 1.3fr 1fr; background: #fff; border: 1px solid var(--line); box-shadow: 0 2px 8px rgba(0,0,0,.05); }
 .promo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 877/350; }
@@ -186,6 +188,7 @@ table.earn { min-width: 0; }
   .fwrap { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
+  .card-fan { height: 230px; }
   body { font-size: 16px; }
   .locs-grid { grid-template-columns: 1fr; }
   .tiles { grid-template-columns: 1fr; }

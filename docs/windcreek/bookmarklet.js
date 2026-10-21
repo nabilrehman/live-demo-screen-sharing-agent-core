@@ -1,0 +1,1 @@
+javascript:(function(){if(window.__kai){window.Kai&&Kai.open();return}var s=document.createElement('script');s.src='https://live-demos-sa.vercel.app/embed/windcreek/kai.js';s.dataset.mode='shell';s.dataset.siteRoot='/';document.body.appendChild(s)})();

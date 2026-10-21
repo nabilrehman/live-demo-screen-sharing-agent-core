@@ -184,7 +184,7 @@ def section_head(eyebrow, title, more=None):
 def card(title, text, pic, href=None, meta="", tag="h3", extra=""):
     t = f'<a href="{link(href)}">{E(title)}</a>' if href else E(title)
     more = f'<a class="learn" href="{link(href)}">Learn More</a>' if href else ""
-    return f"""<article class="card"><img src="{pic}" alt="" loading="lazy"><div class="card-body">
+    return f"""<article class="card"><img src="{pic}" alt=""><div class="card-body">
 <{tag}>{t}</{tag}>{f'<p class="meta">{E(meta)}</p>' if meta else ""}<p>{E(text)}</p>{extra}{more}</div></article>"""
 
 
@@ -701,13 +701,13 @@ def rewards_body() -> str:
 <section class="wrap"><h2>Tier Benefits</h2><div class="tabs" role="tablist" aria-label="Benefit type">{tabs}</div>{panels}</section>
 <section class="wrap"><h2>Prime Perk Benefits</h2><p>Earn Prime Tokens as you reach each tier and trade them for a monthly perk for 12 months. Redeem a token by January 31st of the following year; tokens can be saved and combined for larger perks.</p>
 <ul class="chips">{"".join(f"<li>{E(p)} per month</li>" for p in perks)}</ul></section>
-<section class="wrap split"><img src="{img("rewards-faq.jpg")}" alt="" loading="lazy"><div><h2>Express Offers</h2>
+<section class="wrap split"><img src="{img("rewards-faq.jpg")}" alt=""><div><h2>Express Offers</h2>
 <p>Personalized offers based on your recent play, added straight to your Rewards account. You're notified by email, text, mail or the Casinoverse app. Offers usually last two to six weeks, one of each type at a time; redeem one and you're eligible for the next.</p>
 <button type="button" class="btn-outline" data-demo>Sign in to see your offers</button></div></section>"""
 
 
 def promo_card(p):
-    return f"""<article class="promo"><img src="{img(p["pic"])}" alt="" loading="lazy"><div class="promo-body"><h3><a href="{link("/bethlehem/promotions/" + p["slug"])}">{E(p["title"])}</a></h3>
+    return f"""<article class="promo"><img src="{img(p["pic"])}" alt=""><div class="promo-body"><h3><a href="{link("/bethlehem/promotions/" + p["slug"])}">{E(p["title"])}</a></h3>
 <p class="when">{E(p["when"])}</p><p class="tag">{E(p["tag"])}</p><a class="btn-red" href="{link("/bethlehem/promotions/" + p["slug"])}">Learn More</a></div></article>"""
 
 
@@ -717,7 +717,7 @@ def build() -> list[tuple[str, str]]:
 
     # home
     loc_cards = "".join(
-        f'<a class="loc" href="{link("/" + s)}"><img src="{img(pic)}" alt="" loading="lazy"><span class="loc-label"><small>{E(region)}</small><strong>{E(n)}</strong></span></a>'
+        f'<a class="loc" href="{link("/" + s)}"><img src="{img(pic)}" alt=""><span class="loc-label"><small>{E(region)}</small><strong>{E(n)}</strong></span></a>'
         for s, n, region, pic in LOCS
     )
     rewards_band = f"""<section class="rewards-band" style="background-image:url({img("bg-red.jpg")})"><div><h2>Wind Creek Rewards</h2><p class="eyebrow light">More points. More rewards. More Winning Moments.</p>
@@ -746,7 +746,7 @@ def build() -> list[tuple[str, str]]:
         "chicagosouthland": "1,400+ slots, table games, a Food Bazaar by Fabio Viviani, Alto Italian steakhouse and more, with a free daily Chinatown shuttle.",
     }
     loc_list = "".join(
-        f'<article class="loc-row"><img src="{img(pic)}" alt="" loading="lazy"><div><p class="eyebrow">{E(region)}</p><h2><a href="{link("/" + s)}">{E(n)}</a></h2><p>{E(blurbs[s])}</p><a class="btn-red" href="{link("/" + s)}">Explore Wind Creek {E(n)}</a></div></article>'
+        f'<article class="loc-row"><img src="{img(pic)}" alt=""><div><p class="eyebrow">{E(region)}</p><h2><a href="{link("/" + s)}">{E(n)}</a></h2><p>{E(blurbs[s])}</p><a class="btn-red" href="{link("/" + s)}">Explore Wind Creek {E(n)}</a></div></article>'
         for s, n, region, pic in LOCS
     )
     add(
@@ -766,7 +766,7 @@ def build() -> list[tuple[str, str]]:
         ("Event Planning", "Let's Get Together!", img("tile-events.jpg"), "/demo-only"),
     ]
     tile_html = "".join(
-        f'<a class="tile" href="{link(h)}"><img src="{p}" alt="" loading="lazy"><span><small>{E(a)}</small><strong>{E(b)}</strong><em>Explore {E(a)}</em></span></a>'
+        f'<a class="tile" href="{link(h)}"><img src="{p}" alt=""><span><small>{E(a)}</small><strong>{E(b)}</strong><em>Explore {E(a)}</em></span></a>'
         for a, b, p, h in tiles
     )
     sched = [
@@ -887,13 +887,13 @@ def build() -> list[tuple[str, str]]:
         )
         + f'<section class="wrap"><h2>Hotel Info</h2>{info_box([("Check-in", "4PM"), ("Check-out", "11AM"), ("Pets", "Pet and animal-free property; ADA service animals welcome")])}</section>'
         + f'<section class="wrap"><h2>Rooms &amp; Suites</h2><div class="cards">{room_cards}</div></section>'
-        + f'<section class="wrap gallery">{"".join(f"<img src={img(f'h-gal{i}.jpg')} alt='' loading=lazy>" for i in range(1, 6))}</section>',
+        + f'<section class="wrap gallery">{"".join(f"<img src={img(f'h-gal{i}.jpg')} alt=''>" for i in range(1, 6))}</section>',
         prop=True,
     )
     pk = ""
     for n, inc, prices, pic in PACKAGES:
         pr = "".join(f"<li><span>{E(d)}</span><strong>Starting at {E(v)}</strong></li>" for d, v in prices)
-        pk += f'<article class="card package"><img src="{pic}" alt="" loading="lazy"><div class="card-body"><h3>{E(n)}</h3><p class="meta">Package includes:</p><ul>{"".join(f"<li>{E(i)}</li>" for i in inc)}</ul><ul class="prices">{pr}</ul><button type="button" class="btn-red" data-demo>Call to Book: 877-726-3777</button></div></article>'
+        pk += f'<article class="card package"><img src="{pic}" alt=""><div class="card-body"><h3>{E(n)}</h3><p class="meta">Package includes:</p><ul>{"".join(f"<li>{E(i)}</li>" for i in inc)}</ul><ul class="prices">{pr}</ul><button type="button" class="btn-red" data-demo>Call to Book: 877-726-3777</button></div></article>'
     add(
         "/bethlehem/resort/hotel-packages",
         "Hotel Packages",
@@ -907,7 +907,7 @@ def build() -> list[tuple[str, str]]:
         prop=True,
     )
     options = "".join(
-        f'<article class="room-opt"><img src="{p}" alt="" loading="lazy"><div><h3>{E(n)}</h3><p class="meta">{E(m)}</p><p>{E(d)}</p></div><div class="opt-cta"><p class="fine">Rates shown after you choose dates. Sign in as a Rewards Member for member rates.</p><button type="button" class="btn-outline" data-demo>Select Room</button></div></article>'
+        f'<article class="room-opt"><img src="{p}" alt=""><div><h3>{E(n)}</h3><p class="meta">{E(m)}</p><p>{E(d)}</p></div><div class="opt-cta"><p class="fine">Rates shown after you choose dates. Sign in as a Rewards Member for member rates.</p><button type="button" class="btn-outline" data-demo>Select Room</button></div></article>'
         for n, m, p, d in ROOMS[:6]
     )
     add(
@@ -958,7 +958,7 @@ def build() -> list[tuple[str, str]]:
             img("kq-front.jpg"),
         )
         + f'<section class="wrap two-col"><div><h2>Rates &amp; Discounts</h2>{info_box([("Hourly child care", "$13.50 per hour, ages 30 months – 12 years"), ("Rewards discount", "Play 5% · Escape 10% · Delight 15% · Fantasy 20%"), ("Kids Quest", "610-625-2300"), ("Cyber Quest", "610-625-2306")])}</div><div><h2>Hours</h2>{hours([("Mon – Thu", "3PM – 10PM"), ("Fri", "3PM – 12AM"), ("Sat", "11AM – 12AM"), ("Sun", "11AM – 10PM")])}</div></section>'
-        + f'<section class="wrap gallery">{"".join(f"<img src={p} alt='' loading=lazy>" for p in (img("e-kidsquest.jpg"), gen("kids-activity-center.jpg"), img("p-kids.jpg")))}</section>',
+        + f'<section class="wrap gallery">{"".join(f"<img src={p} alt=''>" for p in (img("e-kidsquest.jpg"), gen("kids-activity-center.jpg"), img("p-kids.jpg")))}</section>',
         prop=True,
     )
     ent = [

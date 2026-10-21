@@ -3,9 +3,10 @@ the Kai embed, speaks each beat through a fake microphone (WAV clips played into
 loads), waits for Kai to finish, and checks where the page went, what was highlighted and what Kai said.
 
 Needs: the site (mockup + /api/token) at BASE_URL, and a worker for the brain's agent name (see the token endpoint).
-  uv run tests/windcreek_flow.py <brain: wc-gemini|wc-grok> <run label> [--video DIR] [--shell]
+  uv run tests/windcreek_flow.py <brain: wc-gemini|wc-grok> <run label> [--video DIR] [--shell] [--record]
 Env: BASE_URL (default http://localhost:8790), WAV_DIR (beat clips b1.wav..), OUT_DIR (screenshots + JSON results).
 --shell: load the page the way the presenter bookmarklet does (no tag on the page; kai.js in shell mode).
+--record (with --video and --shell): also record the guest's and Kai's voices and mux them onto the video (ffmpeg).
 """
 
 import asyncio
@@ -13,6 +14,7 @@ import base64
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 
@@ -72,9 +74,32 @@ FAKE_MIC = """
     ensure(); await ctx.resume();
     const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
     const buf = await ctx.decodeAudioData(bytes.buffer);
-    const src = ctx.createBufferSource(); src.buffer = buf; src.connect(dest); src.start();
+    const src = ctx.createBufferSource(); src.buffer = buf; src.connect(dest); if (recDest) src.connect(recDest); src.start();
     return buf.duration;
   };
+  // --record: mix the guest's clips and Kai's voice into one audio file (single-document runs: --shell)
+  let rec, recDest, chunks = [];
+  const seen = new WeakSet();
+  window.__recStart = () => {
+    ensure(); recDest = ctx.createMediaStreamDestination();
+    rec = new MediaRecorder(recDest.stream, { mimeType: 'audio/webm;codecs=opus' });
+    rec.ondataavailable = (e) => chunks.push(e.data); rec.start(1000); window.__recT0 = performance.now();
+    setInterval(() => {
+      const r = document.getElementById('kai-root');
+      (r && r.shadowRoot ? r.shadowRoot.querySelectorAll('audio') : []).forEach((el) => {
+        if (!seen.has(el) && el.srcObject) { seen.add(el); try { ctx.createMediaStreamSource(el.srcObject).connect(recDest); } catch (e) {} }
+      });
+    }, 200);
+    return window.__recT0;
+  };
+  window.__recStop = () => new Promise((res) => {
+    rec.onstop = async () => {
+      const buf = new Uint8Array(await new Blob(chunks, { type: 'audio/webm' }).arrayBuffer());
+      let out = ''; for (let i = 0; i < buf.length; i += 0x8000) out += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
+      res(btoa(out));
+    };
+    rec.stop();
+  });
 })();
 """
 
@@ -95,6 +120,7 @@ async def main():
     brain, label = sys.argv[1], sys.argv[2]
     video = sys.argv[sys.argv.index("--video") + 1] if "--video" in sys.argv else None
     shell = "--shell" in sys.argv
+    record = "--record" in sys.argv and video and shell  # audio is mixed in one document, so shell mode only
     clips = [
         base64.b64encode(open(os.path.join(WAVS, f"b{i + 1}.wav"), "rb").read()).decode() for i in range(len(BEATS))
     ]
@@ -132,6 +158,7 @@ async def main():
         await pg.locator("#launch").click() if not shell else None
         await pg.locator(f"input[name=brain][value={brain}]").check(force=True)
         t_start = time.perf_counter()
+        rec_t0 = await pg.evaluate("window.__recStart()") if record else None
         await pg.locator("#start").click()
 
         async def probe():
@@ -209,11 +236,42 @@ async def main():
                 f"[{label}] b{i + 1} {'PASS' if ok else 'FAIL'} {r['latency_ms']}ms path={s['path']} hl={hl_text[:60]!r} fails={[k for k, v in checks.items() if not v]}\n    you: {heard[:100]}\n    kai: {said[:260]}"
             )
         s = await probe()
+        audio = await pg.evaluate("window.__recStop()") if record else None
         await pg.locator("#end").click()
         await pg.wait_for_timeout(1500)
         data_href = await pg.locator("#data").get_attribute("href")
+        vpath = await pg.video.path() if video else None
         await ctx.close()
         await b.close()
+    if audio:  # put the mixed audio on the page video, starting where the recorder started
+        a = os.path.join(OUT, f"{label}_audio.webm")
+        open(a, "wb").write(base64.b64decode(audio))
+        out_v = os.path.join(OUT, f"{label}_demo.webm")
+        subprocess.run(
+            [
+                "ffmpeg",
+                "-y",
+                "-loglevel",
+                "error",
+                "-i",
+                vpath,
+                "-itsoffset",
+                f"{rec_t0 / 1000:.3f}",
+                "-i",
+                a,
+                "-map",
+                "0:v",
+                "-map",
+                "1:a",
+                "-c:v",
+                "copy",
+                "-c:a",
+                "libopus",
+                out_v,
+            ],
+            check=True,
+        )
+        print(f"[{label}] video with audio: {out_v}")
     out = {
         "brain": brain,
         "label": label,

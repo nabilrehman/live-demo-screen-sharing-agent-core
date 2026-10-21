@@ -39,7 +39,8 @@ log = logging.getLogger("site")
 AWAY_S = float(os.getenv("AWAY_S", 30))  # how long the session waits for the visitor to come back from a page load
 NAV_WAIT_S = 15.0  # how long navigate waits for the new page's first snapshot
 VISITOR_WAIT_S = 10.0
-SETTLE_S = 0.6  # after a new page's first snapshot, a moment for its scripts to register site actions  # how long an action waits for the visitor to rejoin (they may be mid page load)
+SETTLE_S = 0.6
+QUIET_AFTER_TOOLS_S = 3.0  # Kai silent this long after its last page action: ask for the answer  # after a new page's first snapshot, a moment for its scripts to register site actions  # how long an action waits for the visitor to rejoin (they may be mid page load)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -166,7 +167,7 @@ class SiteKai(PageAgent):
 
 def track(session, kai: SiteKai, ins: Insights):
     """Feed the session summary: what the guest and Kai said, and how long Kai took to start answering."""
-    state = {"user_end": None}
+    state = {"user_end": None, "nudge": None}
 
     @session.on("user_input_transcribed")
     def _user(ev):
@@ -188,9 +189,31 @@ def track(session, kai: SiteKai, ins: Insights):
 
     @session.on("agent_state_changed")
     def _astate(ev):
-        if ev.new_state == "speaking" and state["user_end"] is not None:
-            ins.latency((time.perf_counter() - state["user_end"]) * 1000)
-            state["user_end"] = None
+        if ev.new_state == "speaking":
+            if state["nudge"]:
+                state["nudge"].cancel()
+                state["nudge"] = None
+            if state["user_end"] is not None:
+                ins.latency((time.perf_counter() - state["user_end"]) * 1000)
+                state["user_end"] = None
+
+    async def nudge():
+        """A realtime model sometimes ends its turn after a chain of page actions without saying anything. If Kai
+        is still quiet a few seconds after its last action, ask for the answer once."""
+        await asyncio.sleep(QUIET_AFTER_TOOLS_S)
+        state["nudge"] = None
+        if session.agent_state != "speaking" and session.current_speech is None:
+            log.info("quiet after page actions; asking for the answer")
+            session.generate_reply(
+                instructions="Answer the guest now in one to three sentences from what their screen shows after your "
+                "actions. Don't repeat the actions."
+            )
+
+    @session.on("function_tools_executed")
+    def _tools(_ev):
+        if state["nudge"]:
+            state["nudge"].cancel()
+        state["nudge"] = asyncio.create_task(nudge())
 
 
 server = AgentServer(port=int(os.getenv("WORKER_PORT", 8099)))

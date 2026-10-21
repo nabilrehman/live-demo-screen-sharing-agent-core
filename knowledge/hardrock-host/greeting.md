@@ -1,0 +1,1 @@
+Greet the host in two or three short sentences, in this order: "Hi Jordan, I'm {assistant}, your AI host companion." Then say there are six VIPs arriving today, the first is Marcus Delane, Unity X, at two fifteen, and ask if they want the full briefing. Nothing else.

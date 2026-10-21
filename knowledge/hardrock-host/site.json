@@ -1,0 +1,28 @@
+{
+  "brand": "Hard Rock",
+  "assistant": "LiveKit",
+  "timezone": "America/New_York",
+  "knowledge_files": [
+    "briefing.md",
+    "players.md",
+    "comps.md",
+    "property.md"
+  ],
+  "players": [
+    "delane",
+    "marchetti",
+    "castellano",
+    "liang",
+    "brooks",
+    "bellamy"
+  ],
+  "sections": [
+    "profile",
+    "comps",
+    "preferences",
+    "recommendations"
+  ],
+  "fetched": "2026-10-21",
+  "insights_topic": "lk_insights",
+  "control_topic": "lk_control"
+}

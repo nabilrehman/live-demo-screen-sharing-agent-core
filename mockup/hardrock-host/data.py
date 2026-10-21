@@ -1,0 +1,440 @@
+"""The Hard Rock Host Companion's sample data: today's VIP arrivals at Seminole Hard Rock Hotel & Casino Hollywood, each
+player's gaming profile, the comps the host may offer, preferences and tonight's picks. Every player is FICTIONAL (made-up
+names, IDs like UNITY-DEMO-0042, no real accounts or PII). Venues, tiers and the Hard Rock Live dates are real public
+facts (knowledge/hardrock-host/SOURCES.md).
+
+One source for both sides, so the page and the agent always agree:
+  python3 mockup/hardrock-host/data.py            writes knowledge/hardrock-host/{players.json,briefing.md,players.md}
+  build.py imports PLAYERS / VENUES / POLICY and writes the page's data.js from them.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+KNOW = os.path.join(HERE, "..", "..", "knowledge", "hardrock-host")
+
+PROPERTY = "Seminole Hard Rock Hotel & Casino Hollywood"
+BRIEFING_DATE = "2026-10-21"  # the sample briefing's day (a Wednesday)
+BRIEFING_DAY = "Wednesday, October 21, 2026"
+HOST = {"name": "Jordan Ellis", "first": "Jordan", "role": "Executive Casino Host", "id": "HOST-DEMO-07"}
+APPROVER = "the Casino Marketing shift manager"
+
+# Real venues at Seminole Hard Rock Hollywood (seminolehardrockhollywood.com, fetched 2026-10-21). Descriptions are ours.
+VENUES = {
+    "council-oak": {"name": "Council Oak Steaks & Seafood", "kind": "Fine dining", "what": "Prime steaks and seafood, award-winning wine list", "img": "gen/steak-plate.jpg"},
+    "kuro": {"name": "Kuro", "kind": "Fine dining", "what": "Japanese cuisine: sushi, robata and omakase-style tasting", "img": "gen/sushi.jpg"},
+    "abiaka": {"name": "Abiaka Wood Fire Grill", "kind": "Fine dining", "what": "Wood-fire grill; Skuna Bay cedar salmon is a signature", "img": "gen/steakhouse-room.jpg"},
+    "cipresso": {"name": "Cipresso", "kind": "Fine dining", "what": "Italian fine dining", "img": "gen/steakhouse-room.jpg"},
+    "markys": {"name": "Marky's Caviar Lounge", "kind": "Lounge", "what": "Caviar, champagne and seafood lounge", "img": "gen/champagne.jpg"},
+    "bae": {"name": "Bae Korean Grill", "kind": "Dining", "what": "Korean barbecue grilled at the table", "img": "gen/seafood-tower.jpg"},
+    "bol": {"name": "The BŌL", "kind": "Casual dining", "what": "Asian fusion: pho, noodles and dumplings, right off the casino floor", "img": "gen/sushi.jpg"},
+    "hard-rock-live": {"name": "Hard Rock Live", "kind": "Live venue", "what": "7,000-seat concert venue", "img": "real/hard-rock-live.jpg"},
+    "light-show": {"name": "The Guitar Hotel Light Show", "kind": "Free show", "what": "Free light-and-music show on the 450-foot Guitar Hotel (confirm showtimes)", "img": "real/guitar-hotel.jpg"},
+    "daer": {"name": "DAER Nightclub", "kind": "Nightlife", "what": "Nightclub with headline DJs; VIP tables bookable", "img": "real/daer.jpg"},
+    "oculus-bar": {"name": "Oculus Bar", "kind": "Bar", "what": "Cocktail bar under The Oculus in the Guitar Hotel lobby", "img": "gen/cocktail.jpg"},
+    "council-oak-bar": {"name": "Council Oak Bar & Lounge", "kind": "Bar", "what": "Bourbon, whisky and cocktails next to the steakhouse", "img": "gen/cocktail.jpg"},
+    "davidoff": {"name": "Davidoff Cigar Lounge", "kind": "Lounge", "what": "Cigar lounge with a walk-in humidor", "img": "gen/lounge-bar.jpg"},
+    "rooftop-live": {"name": "Rooftop Live", "kind": "Nightlife", "what": "Open-air rooftop bar with live music", "img": "gen/pool-night.jpg"},
+    "rock-spa": {"name": "Rock Spa® & Salon", "kind": "Spa", "what": "Full-service spa and salon", "img": "real/spa.jpg"},
+    "poker-room": {"name": "The Poker Room", "kind": "Casino", "what": "45-table poker room", "img": "gen/poker-room.jpg"},
+    "high-limit-slots": {"name": "High Limit Slots", "kind": "Casino", "what": "Private slot room, $1 to $1,000 bets", "img": "gen/slots-high-limit.jpg"},
+    "zona": {"name": "Zona de Fuego", "kind": "Casino", "what": "Latin-themed gaming area with live DJs and table games", "img": "gen/floor-aisle.jpg"},
+}
+
+# Real Hard Rock Live dates (seminolehardrockhollywood.com/entertainment, fetched 2026-10-21). No show tonight.
+SHOWS = [
+    {"id": "blake-shelton", "name": "Blake Shelton", "when": "Saturday, October 24, 8:00 PM", "date": "2026-10-24", "venue": "Hard Rock Live", "genre": "country"},
+    {"id": "brand-new", "name": "Brand New", "when": "Sunday, October 25, 8:00 PM", "date": "2026-10-25", "venue": "Hard Rock Live", "genre": "rock"},
+    {"id": "ed-sheeran", "name": "Ed Sheeran", "when": "Thursday, October 29 and Friday, October 30, 8:00 PM", "date": "2026-10-29", "venue": "Hard Rock Live", "genre": "pop"},
+    {"id": "grupo-niche", "name": "Grupo Niche", "when": "Saturday, October 31, 8:00 PM", "date": "2026-10-31", "venue": "Hard Rock Live", "genre": "salsa"},
+]
+
+TIERS = {  # Unity by Hard Rock tiers (unitybyhardrock.com/benefits, fetched 2026-10-21)
+    "Star": "0–3,999 Tier Credits",
+    "Legend": "4,000–14,999 Tier Credits",
+    "Icon": "15,000+ Tier Credits",
+    "X": "Invite only",
+}
+
+POLICY = {
+    "reinvestment": "A trip's comp budget is a share of the player's trip theoretical (ADT x days): 40% for X, 35% for Icon, 30% for Legend. The host may offer each item up to its limit and the whole trip up to the budget.",
+    "approval": f"Anything above an item's limit, above the trip budget, or not on the player's list needs approval from {APPROVER}. The host asks; the agent never promises it.",
+    "free_play": "Free play is never offered to a player with a responsible-gaming note or a voluntary play limit on file.",
+    "tickets": "Show tickets come from the host allocation for Hard Rock Live; the limit is per trip.",
+}
+
+# Fictional players. money in USD. win_loss is the PLAYER's result (negative = the player lost).
+PLAYERS = [
+    {
+        "id": "UNITY-DEMO-0042",
+        "name": "Marcus Delane",
+        "salutation": "Mr. Delane",
+        "pronoun": "he",
+        "tier": "X",
+        "since": 2014,
+        "arrival": {"time": "2:15 PM", "how": "Private aviation into FLL; host limo pickup", "stay": "Oct 21 – Oct 24 (3 nights)", "nights": 3},
+        "room": "The Guitar Hotel, Deluxe King (booked); suite upgrade on hold",
+        "party": "With his wife, Celeste",
+        "games": [("Baccarat", "primary, High Limit salon"), ("Blackjack", "late night, $1,000 to $2,500 hands")],
+        "avg_bet": 2500,
+        "adt": 18500,
+        "trip_hours": "5 to 6 hours a day",
+        "trips_per_year": 9,
+        "last_visit": "August 28, 2026 (4 nights)",
+        "last_trip_wl": -38400,
+        "wl_12m": -212000,
+        "theo_12m": 497000,
+        "credit_line": 500000,
+        "front_money": 100000,
+        "comps": [
+            {"item": "Suite upgrade", "limit": "Up to a Guitar Hotel One-Bedroom Suite, all 3 nights", "value": 2400, "kind": "room"},
+            {"item": "Dining", "limit": "Up to $1,500 a night, any fine-dining venue", "value": 4500, "kind": "dining"},
+            {"item": "Show tickets", "limit": "Up to 4 premium seats per trip (Hard Rock Live)", "value": 1600, "kind": "tickets"},
+            {"item": "Limo / airport transfer", "limit": "Round trip FLL, host limo", "value": 450, "kind": "transfer"},
+            {"item": "Free play", "limit": "Up to $5,000 for the trip", "value": 5000, "kind": "free_play"},
+            {"item": "Resort credit", "limit": "Up to $1,000 (spa, retail)", "value": 1000, "kind": "resort"},
+        ],
+        "budget": 22000,
+        "used": 450,
+        "needs_approval": ["A Rock Star or Presidential suite", "Free play above $5,000", "More than 4 show tickets", "Airfare reimbursement"],
+        "prefs": {
+            "games": "High Limit baccarat salon, the same table near the back when it's open; likes a quiet table",
+            "drinks": "Macallan 18, neat; Celeste drinks Whispering Angel rosé",
+            "dining": "Council Oak, bone-in ribeye medium rare, booth seating; Celeste prefers Kuro",
+            "entertainment": "Country and classic rock; has seen Hard Rock Live shows from premium seats",
+            "celebrations": "None this trip (Celeste's birthday is in March)",
+            "dislikes": "Crowds and waiting; being called 'Marc'",
+        },
+        "notes": "Long-time X Card guest. Loyal to Seminole Hard Rock but was quoted a competitor's suite offer in Las Vegas last month. A personal greeting from the host on arrival matters to him.",
+        "tonight": ["council-oak", "light-show", "council-oak-bar"],
+        "show": "blake-shelton",
+        "approach": "Greet him by name at the salon with a Macallan 18 on the way; confirm the One-Bedroom Suite upgrade and offer Blake Shelton seats for Saturday and a Council Oak booth tonight. Don't interrupt a hand.",
+    },
+    {
+        "id": "UNITY-DEMO-0117",
+        "name": "Elena Marchetti",
+        "salutation": "Mrs. Marchetti",
+        "pronoun": "she",
+        "tier": "Icon",
+        "since": 2018,
+        "arrival": {"time": "4:00 PM", "how": "Driving from Naples; valet", "stay": "Oct 21 – Oct 25 (4 nights)", "nights": 4},
+        "room": "Oasis Tower, Pool View King (booked)",
+        "party": "With her husband, David. Their 10th wedding anniversary is Thursday, October 22",
+        "games": [("High Limit Slots", "$25 to $100 denominations"), ("Roulette", "$200 average")],
+        "avg_bet": 100,
+        "adt": 3800,
+        "trip_hours": "4 hours a day",
+        "trips_per_year": 6,
+        "last_visit": "July 12, 2026 (3 nights)",
+        "last_trip_wl": -6200,
+        "wl_12m": -41500,
+        "theo_12m": 68000,
+        "credit_line": 50000,
+        "front_money": 10000,
+        "comps": [
+            {"item": "Room upgrade", "limit": "Up to an Oasis Tower swim-up suite, all 4 nights", "value": 1800, "kind": "room"},
+            {"item": "Dining", "limit": "Up to $600 a night", "value": 2400, "kind": "dining"},
+            {"item": "Anniversary amenity", "limit": "Champagne, roses and a cake in the room", "value": 250, "kind": "celebration"},
+            {"item": "Spa", "limit": "Up to $400 at Rock Spa (couples massage fits)", "value": 400, "kind": "spa"},
+            {"item": "Show tickets", "limit": "Up to 2 seats per trip (Hard Rock Live)", "value": 500, "kind": "tickets"},
+            {"item": "Free play", "limit": "Up to $750 for the trip", "value": 750, "kind": "free_play"},
+        ],
+        "budget": 5300,
+        "used": 0,
+        "needs_approval": ["A Guitar Hotel suite", "Dining above $600 a night", "Free play above $750", "Limo or airport transfer"],
+        "prefs": {
+            "games": "High Limit Slots room; roulette when David plays with her",
+            "drinks": "Veuve Clicquot rosé; David drinks espresso martinis",
+            "dining": "Kuro (sat at the sushi bar last trip); loves caviar",
+            "entertainment": "Pop and Latin music; enjoyed the Guitar Hotel Light Show",
+            "celebrations": "10th wedding anniversary on Thursday, October 22",
+            "dislikes": "Smoky areas (use the non-smoking High Limit Slots area)",
+        },
+        "notes": "Celebrating ten years married. David booked the trip; Elena is the rated player. Asked last time about the swim-up suites.",
+        "tonight": ["kuro", "markys", "light-show"],
+        "show": "",
+        "approach": "Congratulate them on the anniversary, offer the swim-up suite upgrade and the anniversary amenity, and book Kuro for Thursday night. A couples massage at Rock Spa fits her spa limit.",
+    },
+    {
+        "id": "UNITY-DEMO-0239",
+        "name": "Raymond Castellano",
+        "salutation": "Mr. Castellano",
+        "pronoun": "he",
+        "tier": "Icon",
+        "since": 2016,
+        "arrival": {"time": "5:30 PM", "how": "Drives in from Boca Raton; self-park, Winners Way Garage", "stay": "Oct 21 – Oct 22 (1 night)", "nights": 1},
+        "room": "Hard Rock Hotel, Deluxe King (booked)",
+        "party": "With two friends, Sal and Vince (both unrated)",
+        "games": [("Craps", "$500 pass line with odds"), ("Sports betting", "Hard Rock Bet Sportsbook")],
+        "avg_bet": 500,
+        "adt": 6200,
+        "trip_hours": "6 hours",
+        "trips_per_year": 22,
+        "last_visit": "October 10, 2026 (1 night)",
+        "last_trip_wl": 9800,
+        "wl_12m": -58000,
+        "theo_12m": 136000,
+        "credit_line": 75000,
+        "front_money": 0,
+        "comps": [
+            {"item": "Rooms for his friends", "limit": "1 extra Deluxe King tonight", "value": 320, "kind": "room"},
+            {"item": "Dining", "limit": "Up to $450 tonight", "value": 450, "kind": "dining"},
+            {"item": "Cigar lounge", "limit": "Up to $200 at Davidoff Cigar Lounge", "value": 200, "kind": "resort"},
+            {"item": "Free play", "limit": "Up to $1,000", "value": 1000, "kind": "free_play"},
+        ],
+        "budget": 2170,
+        "used": 0,
+        "needs_approval": ["A suite", "More than one extra room", "Show tickets", "Free play above $1,000"],
+        "prefs": {
+            "games": "Craps, likes the end of the table on the stick's left; watches the game in the Sportsbook between sessions",
+            "drinks": "Johnnie Walker Blue on the rocks",
+            "dining": "Abiaka, or a quick bowl at The BŌL",
+            "entertainment": "Sports; Wednesday night games in the Sportsbook",
+            "celebrations": "None",
+            "dislikes": "Being rushed; long dinners when the dice are hot",
+        },
+        "notes": "Regular, about twice a month. Won $9,800 last visit. Brings friends who play small; a room for the friends earns a lot of goodwill.",
+        "tonight": ["davidoff", "abiaka", "bol"],
+        "show": "",
+        "approach": "Meet them at the craps pit, offer the extra room for Sal and Vince and a Davidoff Cigar Lounge credit for after the session.",
+    },
+    {
+        "id": "UNITY-DEMO-0308",
+        "name": "Grace Liang",
+        "salutation": "Ms. Liang",
+        "pronoun": "she",
+        "tier": "Legend",
+        "since": 2021,
+        "arrival": {"time": "6:10 PM", "how": "Brightline train from Miami (Unity members get a $25 resort credit with a same-day ticket)", "stay": "Oct 21 – Oct 23 (2 nights)", "nights": 2},
+        "room": "The Guitar Hotel, Deluxe Queen (booked)",
+        "party": "Traveling alone",
+        "games": [("Poker", "No-limit hold'em cash games, $5/$10"), ("Blackjack", "$100 to $300 hands")],
+        "avg_bet": 200,
+        "adt": 1400,
+        "trip_hours": "8 hours a day",
+        "trips_per_year": 10,
+        "last_visit": "September 19, 2026 (2 nights)",
+        "last_trip_wl": 2300,
+        "wl_12m": -7800,
+        "theo_12m": 23000,
+        "credit_line": 0,
+        "front_money": 5000,
+        "comps": [
+            {"item": "Room", "limit": "Both nights at the booked room, comped", "value": 560, "kind": "room"},
+            {"item": "Dining", "limit": "Up to $150 a day", "value": 300, "kind": "dining"},
+            {"item": "Free play", "limit": "Up to $250", "value": 250, "kind": "free_play"},
+        ],
+        "budget": 840,
+        "used": 0,
+        "needs_approval": ["Any room upgrade", "Show tickets", "Free play above $250"],
+        "prefs": {
+            "games": "The Poker Room's $5/$10 no-limit game; plays blackjack after the poker session",
+            "drinks": "Green tea at the table; an Aperol spritz after",
+            "dining": "Bae Korean Grill, The BŌL",
+            "entertainment": "Rock (Brand New is a favorite band)",
+            "celebrations": "None",
+            "dislikes": "Being interrupted mid-hand",
+        },
+        "notes": "About 900 Tier Credits short of Icon. Rising player: a good trip makes her Icon this year.",
+        "tonight": ["bae", "poker-room", "rooftop-live"],
+        "show": "brand-new",
+        "approach": "Tell her how close she is to Icon, comp the room, and point out that Brand New plays Hard Rock Live on Sunday; tickets would need manager approval.",
+    },
+    {
+        "id": "UNITY-DEMO-0451",
+        "name": "Theodore Brooks",
+        "salutation": "Mr. Brooks",
+        "pronoun": "he",
+        "tier": "Icon",
+        "since": 2019,
+        "arrival": {"time": "7:45 PM", "how": "Flight into MIA; car service", "stay": "Oct 21 – Oct 24 (3 nights)", "nights": 3},
+        "room": "The Guitar Hotel, Corner King (booked)",
+        "party": "With three friends; his 40th birthday is Friday, October 23",
+        "games": [("Blackjack", "$500 to $1,000 hands"), ("Roulette", "occasional")],
+        "avg_bet": 750,
+        "adt": 5600,
+        "trip_hours": "4 to 5 hours a day",
+        "trips_per_year": 4,
+        "last_visit": "May 2, 2026 (3 nights)",
+        "last_trip_wl": -14000,
+        "wl_12m": -36000,
+        "theo_12m": 67000,
+        "credit_line": 100000,
+        "front_money": 25000,
+        "comps": [
+            {"item": "DAER Nightclub table", "limit": "One VIP table Friday, up to $1,500 minimum spend", "value": 1500, "kind": "nightlife"},
+            {"item": "Birthday dinner", "limit": "Up to $1,200 for a party of four", "value": 1200, "kind": "dining"},
+            {"item": "Birthday amenity", "limit": "Cake and champagne in the suite", "value": 200, "kind": "celebration"},
+            {"item": "Show tickets", "limit": "Up to 4 seats (Hard Rock Live)", "value": 1200, "kind": "tickets"},
+            {"item": "Free play", "limit": "Up to $1,500", "value": 1500, "kind": "free_play"},
+        ],
+        "budget": 5880,
+        "used": 0,
+        "needs_approval": ["A suite upgrade", "A second nightclub table", "Free play above $1,500"],
+        "prefs": {
+            "games": "Blackjack, a $500 table in the main pit; likes a lively table",
+            "drinks": "Casamigos reposado; his friends drink tequila too",
+            "dining": "Council Oak for big dinners; Hard Rock Cafe for lunch",
+            "entertainment": "Country and nightlife; DAER on Fridays",
+            "celebrations": "40th birthday on Friday, October 23",
+            "dislikes": "Quiet rooms; slow service",
+        },
+        "notes": "Turning 40 this trip with three friends. Booked a DAER table himself last time; offer it before he does.",
+        "tonight": ["council-oak", "daer", "oculus-bar"],
+        "show": "blake-shelton",
+        "approach": "Lead with the birthday: a DAER table on Friday, a Council Oak dinner for four and Blake Shelton tickets on Saturday.",
+    },
+    {
+        "id": "UNITY-DEMO-0563",
+        "name": "Sofia Bellamy",
+        "salutation": "Ms. Bellamy",
+        "pronoun": "she",
+        "tier": "Legend",
+        "since": 2017,
+        "arrival": {"time": "9:00 PM", "how": "Rideshare from Fort Lauderdale", "stay": "Oct 21 – Oct 22 (1 night)", "nights": 1},
+        "room": "Oasis Tower, King (booked)",
+        "party": "With her sister, Ana",
+        "games": [("Mini-baccarat", "$100 to $200 hands, Zona de Fuego"), ("Slots", "$5 denominations")],
+        "avg_bet": 150,
+        "adt": 2150,
+        "trip_hours": "3 hours",
+        "trips_per_year": 1,
+        "last_visit": "August 9, 2025 (first visit in 14 months)",
+        "last_trip_wl": -3100,
+        "wl_12m": 0,
+        "theo_12m": 0,
+        "credit_line": 0,
+        "front_money": 0,
+        "comps": [
+            {"item": "Room", "limit": "Tonight's room, comped", "value": 290, "kind": "room"},
+            {"item": "Dining", "limit": "Up to $200 (dinner for two)", "value": 200, "kind": "dining"},
+            {"item": "Spa", "limit": "Up to $150 at Rock Spa", "value": 150, "kind": "spa"},
+        ],
+        "budget": 640,
+        "used": 0,
+        "needs_approval": ["Any free play (not offered: play limit on file)", "Any room upgrade"],
+        "responsible_gaming": "She set a voluntary play limit on her account last year. Welcome her and offer dining, spa and entertainment only; no free play or gaming offers.",
+        "prefs": {
+            "games": "Mini-baccarat in Zona de Fuego",
+            "drinks": "Mojitos",
+            "dining": "Hard Rock Cafe; The BŌL",
+            "entertainment": "Salsa and Latin pop (Grupo Niche on October 31 is after her stay)",
+            "celebrations": "None",
+            "dislikes": "Waiting for valet (complained on her last visit)",
+        },
+        "notes": "First visit in 14 months. Her last visit had a valet wait complaint. Voluntary play limit on file: no gaming offers.",
+        "tonight": ["bol", "light-show", "rock-spa"],
+        "show": "",
+        "approach": "A warm welcome back and an apology for the valet wait last time; offer dinner for two and the spa credit. No gaming offers.",
+    },
+]
+
+
+# Why each of tonight's picks fits the player (same order as their "tonight" list).
+WHY = {
+    "delane": ["His usual: bone-in ribeye, medium rare, in a booth", "Free, and Celeste enjoys it; a quiet way to start the evening", "Macallan 18 before or after dinner, away from the crowds"],
+    "marchetti": ["She sat at the sushi bar last trip; book Thursday for the anniversary", "She loves caviar; Veuve Clicquot rosé to toast ten years", "She enjoyed it last visit; a romantic stop on the walk back"],
+    "castellano": ["A cigar after the craps session; his credit covers it", "A relaxed dinner that won't keep him from a hot table", "A quick bowl between sessions"],
+    "liang": ["Her favorite: Korean barbecue after the poker session", "The $5/$10 no-limit game she plays", "An Aperol spritz with live music to wind down"],
+    "brooks": ["Big dinner for the four of them; plan the birthday dinner here Friday", "DAER on Friday is his thing; offer the VIP table before he books it", "Tequila with his friends tonight, steps from the casino"],
+    "bellamy": ["Casual and quick; she likes it", "Free and fun with her sister on her first night back", "Her spa credit covers a treatment tomorrow morning"],
+}
+
+
+def money(n: int) -> str:
+    s = f"${abs(n):,}"
+    return ("−" + s) if n < 0 else s
+
+
+def wl(n: int) -> str:
+    """A player's result as a host says it."""
+    return "no rated play" if n == 0 else (f"down ${abs(n):,}" if n < 0 else f"up ${n:,}")
+
+
+def slug(p: dict) -> str:
+    return p["name"].split()[-1].lower()
+
+
+def player_view(p: dict) -> dict:
+    """The player with derived numbers (trip theo, budget left) as the page and the agent show them."""
+    trip_theo = p["adt"] * p["arrival"]["nights"]
+    return {
+        **p,
+        "slug": slug(p),
+        "games": [{"game": g, "detail": d} for g, d in p["games"]],
+        "trip_theo": trip_theo,
+        "remaining": p["budget"] - p["used"],
+        "tier_range": TIERS[p["tier"]],
+        "show": next((s for s in SHOWS if s["id"] == p["show"]), None),
+        "tonight": [{"id": v, **VENUES[v], "why": WHY[slug(p)][i]} for i, v in enumerate(p["tonight"])],
+    }
+
+
+def players() -> list[dict]:
+    return [player_view(p) for p in PLAYERS]
+
+
+def briefing_md() -> str:
+    out = [f"# Today's VIP arrivals: {BRIEFING_DAY} ({PROPERTY})", "", f"Host: {HOST['name']}, {HOST['role']}. {len(PLAYERS)} arrivals, in order:", ""]
+    for i, p in enumerate(players(), 1):
+        flag = []
+        if "anniversary" in p["prefs"]["celebrations"].lower():
+            flag.append("anniversary")
+        if "birthday" in p["prefs"]["celebrations"].lower() and "march" not in p["prefs"]["celebrations"].lower():
+            flag.append("birthday")
+        if p.get("responsible_gaming"):
+            flag.append("play limit on file")
+        out.append(
+            f"{i}. {p['arrival']['time']}: {p['name']} ({p['id']}), Unity {p['tier']}. {p['arrival']['how']}. {p['room']}. {p['party']}."
+            + (f" Flags: {', '.join(flag)}." if flag else "")
+        )
+    return "\n".join(out) + "\n"
+
+
+def player_md(p: dict) -> str:
+    g = "; ".join(f"{x['game']} ({x['detail']})" for x in p["games"])
+    comps = "\n".join(f"  - {c['item']}: {c['limit']} (about {money(c['value'])})" for c in p["comps"])
+    pr = p["prefs"]
+    tonight = "; ".join(f"{v['name']} ({v['what']}; why: {v['why']})" for v in p["tonight"])
+    show = f"{p['show']['name']} at Hard Rock Live, {p['show']['when']}" if p["show"] else "none during the stay that fits"
+    rg = f"\n- RESPONSIBLE GAMING: {p['responsible_gaming']}" if p.get("responsible_gaming") else ""
+    return f"""## {p['name']} ({p['id']}), page id "{p['slug']}"
+- Unity {p['tier']} ({p['tier_range']}), member since {p['since']}. Refer to them as {p['salutation']} ({p['pronoun']}).
+- Arrives {p['arrival']['time']}: {p['arrival']['how']}. Stay {p['arrival']['stay']}. {p['room']}. {p['party']}.
+- Games: {g}. Average bet {money(p['avg_bet'])}. Plays {p['trip_hours']}.
+- ADT (average daily theoretical) {money(p['adt'])}; trip theo {money(p['trip_theo'])}. 12-month theo {money(p['theo_12m'])}.
+- Win/loss (player's result): last trip {wl(p['last_trip_wl'])}; last 12 months {wl(p['wl_12m'])}. Trips a year: {p['trips_per_year']}. Last visit {p['last_visit']}.
+- Credit line {money(p['credit_line'])}; front money {money(p['front_money'])}.
+- Authorized comps (the host may offer each up to its limit):
+{comps}
+- Trip comp budget {money(p['budget'])}; used so far {money(p['used'])}; remaining {money(p['remaining'])}.
+- Needs manager approval: {'; '.join(p['needs_approval'])}.{rg}
+- Preferences: games: {pr['games']}. Drinks: {pr['drinks']}. Dining: {pr['dining']}. Entertainment: {pr['entertainment']}. Celebrations: {pr['celebrations']}. Dislikes: {pr['dislikes']}.
+- Host notes: {p['notes']}
+- Tonight's picks: {tonight}. Show this stay: {show}.
+- Suggested approach: {p['approach']}
+"""
+
+
+def players_md() -> str:
+    return "# Player profiles (sample data, fictional players)\n\n" + "\n".join(player_md(p) for p in players())
+
+
+def write_knowledge():
+    os.makedirs(KNOW, exist_ok=True)
+    data = {"property": PROPERTY, "date": BRIEFING_DATE, "day": BRIEFING_DAY, "host": HOST, "players": players(), "shows": SHOWS, "venues": VENUES, "tiers": TIERS, "policy": POLICY}
+    with open(os.path.join(KNOW, "players.json"), "w") as f:
+        json.dump(data, f, indent=1, ensure_ascii=False)
+    with open(os.path.join(KNOW, "briefing.md"), "w") as f:
+        f.write(briefing_md())
+    with open(os.path.join(KNOW, "players.md"), "w") as f:
+        f.write(players_md())
+    return data
+
+
+if __name__ == "__main__":
+    d = write_knowledge()
+    print(f"wrote {len(d['players'])} players to {os.path.normpath(KNOW)}")

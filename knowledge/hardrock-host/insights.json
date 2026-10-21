@@ -1,0 +1,36 @@
+{
+  "intents": {
+    "briefing": ["briefing", "arrivals", "arriving", "who's coming", "who is coming", "today", "back to the", "list"],
+    "player_profile": ["pull up", "profile", "who is", "tell me about", "theo", "adt", "average bet", "win loss", "win/loss", "how much", "last visit", "next"],
+    "comps": ["comp", "comps", "authorized", "authority", "free play", "freeplay", "upgrade", "suite", "limo", "tickets", "budget", "credit", "can i give", "offer"],
+    "preferences": ["prefer", "preference", "likes", "like", "drink", "favorite", "dislike", "celebrat", "birthday", "anniversary"],
+    "recommendations": ["tonight", "enjoy", "show", "dinner", "restaurant", "recommend", "what should", "where should", "nightclub", "concert"],
+    "floor_approach": ["sat down", "just sat", "at the table", "greet", "approach", "walk up", "what do i say", "what should i say"],
+    "responsible_gaming": ["upset", "chasing", "can't stop", "lost too much", "problem", "limit", "distress"]
+  },
+  "entities": {
+    "players": {
+      "delane": "Marcus Delane", "marcus": "Marcus Delane",
+      "marchetti": "Elena Marchetti", "elena": "Elena Marchetti",
+      "castellano": "Raymond Castellano", "raymond": "Raymond Castellano", "ray ": "Raymond Castellano",
+      "liang": "Grace Liang", "grace": "Grace Liang",
+      "brooks": "Theodore Brooks", "theodore": "Theodore Brooks", "teddy": "Theodore Brooks",
+      "bellamy": "Sofia Bellamy", "sofia": "Sofia Bellamy"
+    },
+    "venues": {
+      "council oak": "Council Oak Steaks & Seafood", "kuro": "Kuro", "abiaka": "Abiaka Wood Fire Grill",
+      "marky": "Marky's Caviar Lounge", "bae": "Bae Korean Grill", "daer": "DAER Nightclub", "hard rock live": "Hard Rock Live",
+      "light show": "The Guitar Hotel Light Show", "davidoff": "Davidoff Cigar Lounge", "rock spa": "Rock Spa & Salon",
+      "oculus": "Oculus Bar", "rooftop": "Rooftop Live", "poker room": "The Poker Room"
+    },
+    "comps": {
+      "suite": "suite upgrade", "upgrade": "room upgrade", "free play": "free play", "freeplay": "free play",
+      "ticket": "show tickets", "limo": "limo / transfer", "dinner": "dining", "dining": "dining", "spa": "spa", "amenity": "celebration amenity"
+    }
+  },
+  "unanswered": ["i don't see that", "don't have that", "not in the profile", "isn't in the profile", "i don't know", "i'm not sure", "i couldn't find", "no information about"],
+  "handoffs": {
+    "manager_approval": ["manager approval", "needs approval", "shift manager", "need approval", "ask your manager"],
+    "responsible_gaming_helpline": ["playwise", "1-833", "1-800-gambler", "gambler"]
+  }
+}

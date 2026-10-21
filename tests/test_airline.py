@@ -48,6 +48,7 @@ def test_note_shows_results_totals_and_per_adult():
     assert "1. [AU702] AU702, departs 01:20" in n and "per adult" in n
     assert "Fare comparison open for flight 1 [AU702], economy: Economy Convenience" in n
     assert "Date strip" in n
+    assert "Summary: 6 flights. Cheapest economy: #4 AU7712 + AU12" in n and "3 non-stop: #1 AU702 at 01:20 1,583 USD" in n
 
 
 def test_note_shows_passengers():

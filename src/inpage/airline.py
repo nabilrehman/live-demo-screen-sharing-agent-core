@@ -35,6 +35,30 @@ def money(n: float | None) -> str:
     return f"{n:,.2f} USD" if round(n, 2) != int(n) else f"{int(n):,} USD"
 
 
+def dollars(n: float | None) -> str:
+    """Whole dollars, the way the page's price boxes show them."""
+    return "-" if n is None else f"{round(n):,} USD"
+
+
+def summary(flights: list[dict]) -> str:
+    """The facts Kai says first after a search, worked out here so it doesn't misread the list."""
+    if not flights:
+        return "Summary: no flights shown."
+    cheap = min(flights, key=lambda f: f["economy_total"])
+    nonstop = [f for f in flights if f["stops"] == "non-stop"]
+    ns = (
+        f"{len(nonstop)} non-stop: "
+        + "; ".join(f"#{f['n']} {f['flights']} at {f['depart']} {dollars(f['economy_total'])}" for f in nonstop)
+        if nonstop
+        else "no non-stop flights"
+    )
+    return (
+        f"Summary: {len(flights)} flight{'s' if len(flights) != 1 else ''}. Cheapest economy: #{cheap['n']} "
+        f"{cheap['flights']} at {cheap['depart']}, {cheap['stops']}, {dollars(cheap['economy_total'])} total "
+        f"({dollars(cheap['economy_per_adult'])} per adult). {ns}."
+    )
+
+
 def network_text() -> str:
     hub = DATA["hub"]
     lines = []
@@ -199,15 +223,16 @@ class AirlinePage:
                 lines.append(
                     f"{f['n']}. [{f['id']}] {f['flights']}, departs {f['depart']}, arrives {f['arrive']}, {f['duration']}, "
                     f"{f['stops']}{', ' + f['connection'] + ' connection' if f.get('connection') else ''}; {f['aircraft']}"
-                    f"{'; Aurora Suite' if f.get('suite') else ''}. Economy from {money(f['economy_total'])} total "
-                    f"({money(f['economy_per_adult'])} per adult); Business from {money(f['business_total'])} total "
-                    f"({money(f['business_per_adult'])} per adult)."
+                    f"{'; Aurora Suite' if f.get('suite') else ''}. Economy from {dollars(f['economy_total'])} total "
+                    f"({dollars(f['economy_per_adult'])} per adult); Business from {dollars(f['business_total'])} "
+                    f"total ({dollars(f['business_per_adult'])} per adult)."
                 )
+            lines.append(summary(r.get("flights") or []))
             if r.get("date_strip"):
                 lines.append("Date strip (lowest total per day): " + "; ".join(r["date_strip"]) + ".")
         if fo := c.get("fares_open"):
             fares = "; ".join(
-                f"{f['name']} {money(f['total'])} total ({money(f['per_adult'])} per adult), {f['seats_left']} seats "
+                f"{f['name']} {dollars(f['total'])} total ({dollars(f['per_adult'])} per adult), {f['seats_left']} seats "
                 f"left, earns {f['earn_aurels']:,} Aurels"
                 for f in fo["fares"]
             )
@@ -219,7 +244,7 @@ class AirlinePage:
         for leg, x in (c.get("selected") or {}).items():
             lines.append(
                 f"Selected {leg}: {x['flights']} on {x['date']}, {x['depart']} to {x['arrive']}, {x['fare']}, "
-                f"{money(x['total'])} total."
+                f"{dollars(x['total'])} total."
             )
         if pax := c.get("passengers"):
             lines.append(

@@ -36,6 +36,11 @@ def load(name: str) -> str:
 
 
 SITE: dict = json.loads(load("site.json"))
+# the persona prompt: livekit_prompt.md for packs that name the assistant LiveKit, else the older kai_prompt.md
+PROMPT_FILE = "livekit_prompt.md" if os.path.exists(os.path.join(KNOWLEDGE, "livekit_prompt.md")) else "kai_prompt.md"
+# text-stream topics shared with the embed widget (the Wind Creek widget uses the kai_* names)
+INSIGHTS_TOPIC = SITE.get("insights_topic", "kai_insights")
+CONTROL_TOPIC = SITE.get("control_topic", "kai_control")
 
 
 def today(now: dt.datetime | None = None) -> str:
@@ -51,7 +56,7 @@ def today(now: dt.datetime | None = None) -> str:
 
 def prompt(now: dt.datetime | None = None) -> str:
     facts = "\n\n".join(load(n) for n in SITE["knowledge_files"])
-    out = load("kai_prompt.md")
+    out = load(PROMPT_FILE)
     for k, v in (("{brand}", SITE["brand"]), ("{assistant}", SITE["assistant"]), ("{today}", today(now))):
         out = out.replace(k, v)
     return out.replace("{knowledge}", facts)

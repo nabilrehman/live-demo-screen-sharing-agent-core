@@ -1,0 +1,265 @@
+{
+  "intents": {
+    "destinations_trip": [
+      "going to",
+      "trip",
+      "travel",
+      "visit",
+      "destination",
+      "city",
+      "where",
+      "beach",
+      "resort",
+      "vacation",
+      "getaway",
+      "next weekend",
+      "this weekend"
+    ],
+    "rooms": [
+      "room",
+      "suite",
+      "king",
+      "queen",
+      "balcony",
+      "penthouse",
+      "rock star suite",
+      "studio",
+      "view",
+      "sleeps",
+      "bed"
+    ],
+    "offers_deals": [
+      "deal",
+      "offer",
+      "discount",
+      "promo",
+      "package",
+      "special",
+      "save",
+      "cheaper",
+      "fall for new york",
+      "pinktober"
+    ],
+    "unity_rewards": [
+      "unity",
+      "rewards",
+      "points",
+      "member",
+      "loyalty",
+      "member rate",
+      "sign up"
+    ],
+    "hotel_booking": [
+      "book",
+      "reserve",
+      "reservation",
+      "availability",
+      "price",
+      "rate",
+      "how much",
+      "night",
+      "check-in",
+      "check in",
+      "check out",
+      "dates"
+    ],
+    "dining": [
+      "eat",
+      "dinner",
+      "lunch",
+      "breakfast",
+      "restaurant",
+      "food",
+      "drink",
+      "bar",
+      "rooftop",
+      "cocktail",
+      "sessions",
+      "rt60",
+      "brunch"
+    ],
+    "amenities_music": [
+      "gym",
+      "fitness",
+      "yoga",
+      "guitar",
+      "vinyl",
+      "record",
+      "music",
+      "playlist",
+      "sound of your stay",
+      "pool",
+      "spa",
+      "amenit"
+    ],
+    "pets": [
+      "dog",
+      "pet",
+      "cat",
+      "puppy",
+      "unleashed"
+    ],
+    "policies": [
+      "parking",
+      "valet",
+      "fee",
+      "destination fee",
+      "cancel",
+      "refund",
+      "smoking",
+      "age",
+      "deposit",
+      "policy",
+      "wifi",
+      "wi-fi"
+    ],
+    "getting_here_area": [
+      "address",
+      "directions",
+      "near",
+      "nearby",
+      "times square",
+      "broadway",
+      "rockefeller",
+      "central park",
+      "universal",
+      "theme park"
+    ],
+    "page_awareness": [
+      "know about this page",
+      "what can you see",
+      "this page"
+    ],
+    "governance": [
+      "can't you do",
+      "cannot do",
+      "can you not",
+      "my data",
+      "privacy",
+      "my account",
+      "my booking"
+    ],
+    "responsible_gaming": [
+      "lost a lot",
+      "win it back",
+      "chase",
+      "can't stop",
+      "cannot stop",
+      "borrow",
+      "gambling problem",
+      "addicted"
+    ]
+  },
+  "entities": {
+    "hotels": {
+      "new york": "Hard Rock Hotel New York",
+      "nyc": "Hard Rock Hotel New York",
+      "manhattan": "Hard Rock Hotel New York",
+      "times square": "Hard Rock Hotel New York",
+      "orlando": "Hard Rock Hotel Orlando",
+      "universal": "Hard Rock Hotel Orlando",
+      "cancun": "Hard Rock Hotel Cancun",
+      "punta cana": "Hard Rock Hotel & Casino Punta Cana",
+      "los cabos": "Hard Rock Hotel Los Cabos",
+      "riviera maya": "Hard Rock Hotel Riviera Maya",
+      "vallarta": "Hard Rock Hotel Vallarta",
+      "daytona": "Hard Rock Hotel Daytona Beach",
+      "san diego": "Hard Rock Hotel San Diego",
+      "hollywood": "Seminole Hard Rock Hotel & Casino Hollywood",
+      "atlantic city": "Hard Rock Hotel & Casino Atlantic City",
+      "malta": "Hard Rock Hotel Malta",
+      "madrid": "Hard Rock Hotel Madrid",
+      "marbella": "Hard Rock Hotel Marbella",
+      "tenerife": "Hard Rock Hotel Tenerife",
+      "davos": "Hard Rock Hotel Davos",
+      "bali": "Hard Rock Hotel Bali",
+      "maldives": "Hard Rock Hotel Maldives"
+    },
+    "rooms": {
+      "classic king": "Classic King",
+      "deluxe queen": "Deluxe Queens",
+      "superior king": "Superior King",
+      "deluxe king": "Deluxe King",
+      "studio": "Studio",
+      "platinum": "Platinum Suite",
+      "superior balcony": "Superior Balcony",
+      "studio balcony": "Studio Balcony",
+      "rock star suite": "Rock Star Suite",
+      "penthouse": "Rock Star Suite",
+      "accessible": "Accessible Rooms",
+      "graceland": "Graceland Suite",
+      "future rock star": "Future Rock Star Suite",
+      "pool view": "Pool View Rooms",
+      "garden view": "Garden View Rooms"
+    },
+    "venues": {
+      "sessions": "Sessions Restaurant & Bar",
+      "rt60": "RT60 Rooftop Bar & Lounge",
+      "rooftop": "RT60 Rooftop Bar & Lounge",
+      "body rock": "Body Rock",
+      "rock om": "Rock Om",
+      "the kitchen": "The Kitchen",
+      "palm": "The Palm",
+      "velvet": "Velvet Bar",
+      "beachclub": "Beachclub",
+      "emack": "Emack & Bolio's Marketplace"
+    },
+    "offers": {
+      "fall for new york": "Fall for New York",
+      "stay for a cause": "Stay for a Cause Room Package",
+      "pinktober": "Stay for a Cause Room Package",
+      "unity member": "Unity Member Rate",
+      "member rate": "Unity Member Rate",
+      "high life": "Live The High Life",
+      "toast": "Toast & Jam",
+      "romance": "Romance Package",
+      "5+ night": "Save 15% off a 5+ Night Stay",
+      "five night": "Save 15% off a 5+ Night Stay",
+      "flight": "Epic Flight and Stay Bundles",
+      "kids stay free": "Kids Stay Free"
+    }
+  },
+  "unanswered": [
+    "don't see that on the site",
+    "don't see it on the site",
+    "isn't on the site",
+    "not on the site",
+    "isn't listed",
+    "not listed on",
+    "i don't know",
+    "i'm not sure",
+    "i couldn't find",
+    "i can't find",
+    "no information about",
+    "don't have that information",
+    "don't have information"
+  ],
+  "handoffs": {
+    "phone_hotel": [
+      "212-970-1200",
+      "two one two",
+      "407-503-2000",
+      "888-832-7155"
+    ],
+    "customer_care": [
+      "customer care",
+      "888-519-6683"
+    ],
+    "booking_finish_yourself": [
+      "finish it yourself",
+      "guest details",
+      "enter your details",
+      "complete the reservation",
+      "you'll finish",
+      "you can finish",
+      "yours to enter",
+      "can't make the reservation",
+      "can't book"
+    ],
+    "responsible_gaming_helpline": [
+      "1-800-gambler",
+      "800 gambler",
+      "gambler"
+    ]
+  }
+}

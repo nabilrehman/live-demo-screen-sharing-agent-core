@@ -1,0 +1,18 @@
+{
+  "brand": "Hard Rock Hotels",
+  "assistant": "LiveKit",
+  "timezone": "America/New_York",
+  "knowledge_files": [
+    "brand.md",
+    "offers.md",
+    "new-york.md",
+    "orlando.md"
+  ],
+  "hotels": [
+    "new-york",
+    "orlando"
+  ],
+  "fetched": "2026-10-21",
+  "insights_topic": "lk_insights",
+  "control_topic": "lk_control"
+}

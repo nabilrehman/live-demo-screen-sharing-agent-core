@@ -1,0 +1,454 @@
+{
+ "fetched": "2026-10-21",
+ "note": "Room and rate data for the /book replica. 'published' prices were read from the public booking engines on 2026-10-21 (New York: Tue 2026-11-10 = weekday, Sat 2026-11-07 = weekend, 1 night, 2 adults, Best Flexible Rate; Orlando: Universal engine 'from' prices, no dates chosen). Anything marked 'illustrative' is our estimate for the mockup, not a real rate. Rates multiply the room's nightly price.",
+ "hotels": {
+  "new-york": {
+   "name": "Hard Rock Hotel New York",
+   "address": "159 West 48th Street, New York, NY 10036",
+   "phone": "212-970-1200",
+   "source": "https://reservations.hardrockhotels.com/?Hotel=35650&Chain=13924",
+   "url_pattern": "https://reservations.hardrockhotels.com/?Hotel=35650&Chain=13924&arrive=YYYY-MM-DD&nights=N&adult=2&promo=CODE",
+   "currency": "USD",
+   "fees_per_night": 45.9,
+   "fees_note": "$40 destination fee plus tax, per night (includes a $20 daily F&B credit)",
+   "taxes_note": "NYC hotel taxes extra",
+   "check_in": "15:00",
+   "check_out": "11:00",
+   "steps": [
+    "Dates",
+    "Rooms",
+    "Rates",
+    "Guest details"
+   ],
+   "rooms": [
+    {
+     "name": "Classic King",
+     "type": "King",
+     "bed": "1 King",
+     "size_sqft": 265,
+     "view": "City view",
+     "max_guests": 2,
+     "desc": "The classics never go out of style: a built-in banquette for work or dining and floor-to-ceiling windows on the city.",
+     "from_weekday": 595,
+     "from_weekend": 725,
+     "price_basis": "published"
+    },
+    {
+     "name": "Deluxe Queens",
+     "type": "Queen",
+     "bed": "2 Queens",
+     "size_sqft": 317,
+     "view": "City view",
+     "max_guests": 4,
+     "desc": "Two custom queen beds and extra space for friends and families.",
+     "from_weekday": 605,
+     "from_weekend": 755,
+     "price_basis": "published"
+    },
+    {
+     "name": "Superior King",
+     "type": "King",
+     "bed": "1 King",
+     "size_sqft": 265,
+     "view": "City view",
+     "max_guests": 2,
+     "desc": "The Classic layout and perks plus a privacy divider.",
+     "from_weekday": 655,
+     "from_weekend": 765,
+     "price_basis": "published"
+    },
+    {
+     "name": "Deluxe King",
+     "type": "King",
+     "bed": "1 King",
+     "size_sqft": "341-389",
+     "view": "City view",
+     "max_guests": 2,
+     "desc": "A bigger king room with a soaking tub.",
+     "from_weekday": 699,
+     "from_weekend": 829,
+     "price_basis": "illustrative"
+    },
+    {
+     "name": "Studio",
+     "type": "Suite",
+     "bed": "1 King + sofa bed",
+     "size_sqft": "365-394",
+     "view": "City view",
+     "max_guests": 3,
+     "desc": "Room for the band with a sofa bed, or a roomy solo stay.",
+     "from_weekday": 845,
+     "from_weekend": 975,
+     "price_basis": "weekday published, weekend illustrative"
+    },
+    {
+     "name": "Superior Balcony",
+     "type": "King",
+     "bed": "1 King",
+     "size_sqft": 280,
+     "view": "City view, 100 sq ft balcony",
+     "max_guests": 2,
+     "desc": "The Superior stay with a 100 sq ft outdoor balcony in Midtown.",
+     "from_weekday": 705,
+     "from_weekend": 845,
+     "price_basis": "illustrative",
+     "balcony": true
+    },
+    {
+     "name": "Studio Balcony",
+     "type": "Suite",
+     "bed": "1 King",
+     "size_sqft": "313-389",
+     "view": "City view, ~200 sq ft balcony",
+     "max_guests": 2,
+     "desc": "Studio layout and perks with a balcony of nearly 200 sq ft.",
+     "from_weekday": 895,
+     "from_weekend": 1045,
+     "price_basis": "illustrative",
+     "balcony": true
+    },
+    {
+     "name": "Platinum Suite",
+     "type": "Suite",
+     "bed": "1 King + sofa bed",
+     "size_sqft": 758,
+     "view": "City view",
+     "max_guests": 3,
+     "desc": "Separate living area with sofa bed and half bath, deep soaking tub; booking direct adds turndown, a welcome amenity and two cocktails.",
+     "from_weekday": 1095,
+     "from_weekend": 1250,
+     "price_basis": "weekday published, weekend illustrative"
+    },
+    {
+     "name": "Platinum Suite Balcony",
+     "type": "Suite",
+     "bed": "1 King + sofa bed",
+     "size_sqft": 526,
+     "view": "City view, 370 sq ft outdoor space",
+     "max_guests": 3,
+     "desc": "A rare Times Square suite with 370 sq ft of outdoor space and a separate living area.",
+     "from_weekday": 1195,
+     "from_weekend": 1395,
+     "price_basis": "illustrative",
+     "balcony": true
+    },
+    {
+     "name": "Rock Star Suite",
+     "type": "Suite",
+     "bed": "1 King",
+     "size_sqft": 3765,
+     "view": "Skyline, 1,800 sq ft terrace",
+     "max_guests": 3,
+     "desc": "Two-level penthouse with double-height windows, bar and butler pantry, private VIP access to RT60 and original music memorabilia.",
+     "from_weekday": 20046,
+     "from_weekend": 20046,
+     "price_basis": "published",
+     "deposit_required": true
+    },
+    {
+     "name": "Accessible Classic King",
+     "type": "King",
+     "bed": "1 King",
+     "size_sqft": 265,
+     "view": "City view",
+     "max_guests": 2,
+     "desc": "Accessible room with wide doorways, roll-in shower, grab bars, lowered fixtures and visual smoke detectors.",
+     "from_weekday": 595,
+     "from_weekend": 725,
+     "price_basis": "same as Classic King (illustrative)",
+     "accessible": true
+    }
+   ],
+   "rates": [
+    {
+     "name": "Best Flexible Rate",
+     "code": "BAR",
+     "multiplier": 1.0,
+     "min_nights": 1,
+     "refundable": true,
+     "cancellation": "Free cancellation until 4:00 PM one day before arrival; guaranteed with a credit card.",
+     "perks": [],
+     "basis": "published"
+    },
+    {
+     "name": "Unity - Best Flexible Rate",
+     "code": "UNIBAR",
+     "multiplier": 0.906,
+     "min_nights": 1,
+     "refundable": true,
+     "members_only": true,
+     "cancellation": "Free cancellation until 4:00 PM one day before arrival; guaranteed with a credit card.",
+     "perks": [
+      "Up to 10% off the Best Flexible Rate",
+      "Earn Unity points",
+      "Member amenity at check-in"
+     ],
+     "basis": "published"
+    },
+    {
+     "name": "Fall for New York",
+     "code": "PROFALL",
+     "multiplier": 0.81,
+     "min_nights": 2,
+     "refundable": false,
+     "book_by": "2026-10-31",
+     "stay_through": "2027-03-31",
+     "cancellation": "Non-cancelable and non-refundable; deposit required at booking.",
+     "perks": [
+      "Up to 20% off the Best Available Rate",
+      "$50 food and beverage credit per stay",
+      "Early check-in, late checkout and room upgrade based on availability"
+     ],
+     "basis": "published"
+    },
+    {
+     "name": "Unity - Advance Purchase",
+     "code": "UNIAP",
+     "multiplier": 0.815,
+     "min_nights": 1,
+     "refundable": false,
+     "members_only": true,
+     "cancellation": "Deposit required at booking; prepaid and non-refundable (illustrative: the engine shows 'Deposit Required').",
+     "perks": [
+      "Extra Unity discount off the Advance Purchase rate",
+      "Earn Unity points"
+     ],
+     "basis": "published price ratio, cancellation illustrative"
+    },
+    {
+     "name": "Stay for a Cause Room Package",
+     "code": "PKGPINK",
+     "multiplier": 1.0,
+     "min_nights": 2,
+     "refundable": false,
+     "stay_through": "2026-10-31",
+     "advance_days": 3,
+     "cancellation": "Non-cancelable and non-refundable.",
+     "perks": [
+      "Pink Chef amenity",
+      "Two Pinktober mocktails at Sessions",
+      "Custom embroidered take-home robe",
+      "Priority access to a Pinktober Wax vinyl collection",
+      "Donation to Memorial Sloan Kettering"
+     ],
+     "basis": "published"
+    },
+    {
+     "name": "Breakfast Included (Best Flexible Rate)",
+     "code": "BARBKF",
+     "add_per_night": 80,
+     "min_nights": 1,
+     "refundable": true,
+     "cancellation": "Free cancellation until 4:00 PM one day before arrival.",
+     "perks": [
+      "Breakfast at Sessions"
+     ],
+     "basis": "published (+$80 a night vs room only)"
+    }
+   ]
+  },
+  "orlando": {
+   "name": "Hard Rock Hotel Orlando",
+   "address": "5800 Universal Blvd, Orlando, FL 32819",
+   "phone": "888-832-7155",
+   "source": "https://reservations.universalorlando.com/ibe/index.aspx?dt1=UEHRH&hgID=706&hotelID=14842",
+   "currency": "USD",
+   "fees_per_night": 0,
+   "taxes_note": "12.5% tax extra",
+   "check_in": "16:00",
+   "check_out": "11:00",
+   "extra_adult_per_night": 55,
+   "steps": [
+    "Dates",
+    "Rooms",
+    "Rates",
+    "Guest details"
+   ],
+   "rooms": [
+    {
+     "name": "Standard Rooms",
+     "type": "Queen",
+     "bed": "2 Queens",
+     "size_sqft": 375,
+     "view": "Resort view",
+     "max_guests": 5,
+     "desc": "Two queen beds, work station and seating area; sleeps five with a rollaway (fee).",
+     "from_weekday": 549,
+     "from_weekend": 627,
+     "price_basis": "weekend = published from-price, weekday illustrative"
+    },
+    {
+     "name": "Garden View Rooms",
+     "type": "Queen",
+     "bed": "2 Queens",
+     "size_sqft": 375,
+     "view": "Garden view",
+     "max_guests": 5,
+     "desc": "Two queens with a garden view; the pet-friendly room type; sleeps five with a rollaway (fee).",
+     "from_weekday": 659,
+     "from_weekend": 754,
+     "price_basis": "weekend = published from-price, weekday illustrative"
+    },
+    {
+     "name": "Pool View Rooms",
+     "type": "Queen",
+     "bed": "2 Queens",
+     "size_sqft": 375,
+     "view": "Pool view",
+     "max_guests": 5,
+     "desc": "Two queens overlooking the pool; sleeps five with a rollaway (fee).",
+     "from_weekday": 699,
+     "from_weekend": 791,
+     "price_basis": "weekend = published from-price, weekday illustrative"
+    },
+    {
+     "name": "Deluxe King Rooms",
+     "type": "King",
+     "bed": "1 King",
+     "size_sqft": 400,
+     "view": "Resort view",
+     "max_guests": 3,
+     "desc": "A spacious king with a lounge area and work station; sleeps three with a rollaway.",
+     "from_weekday": 629,
+     "from_weekend": 719,
+     "price_basis": "illustrative"
+    },
+    {
+     "name": "Deluxe Queen Rooms",
+     "type": "Queen",
+     "bed": "2 Queens",
+     "size_sqft": 500,
+     "view": "Resort view",
+     "max_guests": 5,
+     "desc": "Extra-roomy with two queens, a lounge area and a desk.",
+     "from_weekday": 729,
+     "from_weekend": 829,
+     "price_basis": "illustrative"
+    },
+    {
+     "name": "Rock Royalty Club 2 Queens",
+     "type": "Queen",
+     "bed": "2 Queens",
+     "size_sqft": 375,
+     "view": "Resort view",
+     "max_guests": 5,
+     "desc": "Club level with Rock Royalty lounge access, complimentary drinks and snacks.",
+     "from_weekday": 949,
+     "from_weekend": 1061,
+     "price_basis": "weekend = published from-price, weekday illustrative"
+    },
+    {
+     "name": "Future Rock Star Suite",
+     "type": "Suite",
+     "bed": "1 King + 2 Twins",
+     "size_sqft": 800,
+     "view": "Resort view",
+     "max_guests": 5,
+     "desc": "King bed for parents and a kids' room with twin beds and a color-changing stage.",
+     "from_weekday": 1099,
+     "from_weekend": 1249,
+     "price_basis": "illustrative"
+    },
+    {
+     "name": "King Suites",
+     "type": "Suite",
+     "bed": "1 King",
+     "size_sqft": 650,
+     "view": "Resort view",
+     "max_guests": 3,
+     "desc": "King bed, entertainment area and dining table.",
+     "from_weekday": 1149,
+     "from_weekend": 1299,
+     "price_basis": "illustrative"
+    },
+    {
+     "name": "Hospitality Suites",
+     "type": "Suite",
+     "bed": "1 King + queen sofa bed",
+     "size_sqft": 1250,
+     "view": "Resort view",
+     "max_guests": 4,
+     "desc": "King bed, sofa bed, dining room and kitchen.",
+     "from_weekday": 1799,
+     "from_weekend": 1999,
+     "price_basis": "illustrative"
+    },
+    {
+     "name": "Graceland Suite",
+     "type": "Suite",
+     "bed": "1 King",
+     "size_sqft": 2000,
+     "view": "Resort view",
+     "max_guests": 2,
+     "desc": "Baby grand piano, fireplace and whirlpool tub, exclusive to Hard Rock Hotel Orlando.",
+     "from_weekday": 3500,
+     "from_weekend": 3900,
+     "price_basis": "illustrative"
+    }
+   ],
+   "rates": [
+    {
+     "name": "Flexible Rate",
+     "code": "FLEX",
+     "multiplier": 1.0,
+     "min_nights": 1,
+     "refundable": true,
+     "cancellation": "Deposit of one night plus tax. Full refund 6+ days before arrival; within 5 days, one night plus tax is charged.",
+     "perks": [
+      "Universal Express Unlimited",
+      "Early Park Admission"
+     ],
+     "basis": "published"
+    },
+    {
+     "name": "Save 15% off a 5+ Night Stay",
+     "code": "5NIGHT",
+     "multiplier": 0.85,
+     "min_nights": 5,
+     "refundable": true,
+     "travel_windows": [
+      "2026-09-08/2026-12-25",
+      "2027-01-03/2027-03-15"
+     ],
+     "cancellation": "Standard policy (deposit one night; full refund 6+ days out).",
+     "perks": [
+      "15% (up to 30%) off the Flexible Rate"
+     ],
+     "basis": "published"
+    },
+    {
+     "name": "Toast & Jam",
+     "code": "TOAST",
+     "multiplier": 1.0,
+     "min_nights": 1,
+     "refundable": true,
+     "room_types": [
+      "Garden View Rooms"
+     ],
+     "days": "most Sunday-Thursday nights",
+     "cancellation": "Standard policy; book 24 hours ahead.",
+     "perks": [
+      "Daily breakfast for two at The Kitchen"
+     ],
+     "basis": "published terms, price illustrative"
+    },
+    {
+     "name": "Romance Package",
+     "code": "ROMANCE",
+     "add_per_night": 95,
+     "min_nights": 2,
+     "refundable": true,
+     "cancellation": "Standard policy; book 24 hours ahead.",
+     "perks": [
+      "Welcome amenity for two",
+      "$55 late-night food and beverage credit",
+      "Breakfast in bed for two one morning",
+      "Turndown snack",
+      "Late checkout based on availability"
+     ],
+     "basis": "published terms, price illustrative"
+    }
+   ]
+  }
+ }
+}

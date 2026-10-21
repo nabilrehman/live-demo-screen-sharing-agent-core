@@ -30,7 +30,7 @@ from livekit.agents import AgentServer, JobContext, ToolError, cli, function_too
 from demo_agent.brain import BRAIN, IS_GEMINI, MODEL, make_session
 from inpage.insights import Insights
 from inpage.live import PageAgent
-from inpage.site import SITE, SitePage, allowed_path, greeting, prompt
+from inpage.site import CONTROL_TOPIC, INSIGHTS_TOPIC, SITE, SitePage, allowed_path, greeting, prompt
 
 if IS_GEMINI:  # a slow import (PIL): do it when the job process starts, not on the call's first second
     from google.genai import types as _genai_types  # noqa: F401
@@ -235,7 +235,7 @@ async def entrypoint(ctx: JobContext):
         if dest:
             try:
                 await ctx.room.local_participant.send_text(
-                    json.dumps(ins.summary(page.visited)), topic="kai_insights", destination_identities=[dest]
+                    json.dumps(ins.summary(page.visited)), topic=INSIGHTS_TOPIC, destination_identities=[dest]
                 )
             except Exception as e:
                 log.debug("insights push: %s", e)
@@ -260,7 +260,7 @@ async def entrypoint(ctx: JobContext):
 
         asyncio.create_task(read())
 
-    ctx.room.register_text_stream_handler("kai_control", on_control)
+    ctx.room.register_text_stream_handler(CONTROL_TOPIC, on_control)
 
     async def wait_return():
         await asyncio.sleep(AWAY_S)

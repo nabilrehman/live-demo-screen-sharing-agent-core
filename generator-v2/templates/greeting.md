@@ -1,0 +1,1 @@
+Greet the guest in two short sentences, in this order: "Hi, I'm {assistant}, {brand}'s AI concierge." Then say you can see the page they're on, not their account, and you can take them around the site, and ask what they're planning. Nothing else.

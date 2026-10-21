@@ -18,7 +18,7 @@ import os, subprocess, sys, json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PY = sys.executable
-S = "/private/tmp/claude-501/-Users-nabilrehman-Downloads-livekit-demo-agent/3cb0ded0-74a9-4dff-b0b7-bb53c4643301/scratchpad"
+S = os.environ.get("GEN_SCRATCH", "/private/tmp/claude-501/-Users-nabilrehman-Downloads-livekit-demo-agent/3cb0ded0-74a9-4dff-b0b7-bb53c4643301/scratchpad")  # host/ sandbox sets GEN_SCRATCH
 GEN = os.path.join(S, "imggen", "gen.py")
 
 
@@ -75,7 +75,7 @@ def main():
     elif os.path.exists(cfile):
         os.remove(cfile)  # a previous run's use case: this run has none
     if mode == "claude":
-        prompt = open(os.path.join(HERE, "templates", "claude_prompt.md")).read()
+        prompt = open(os.environ.get("GEN_CLAUDE_TEMPLATE", os.path.join(HERE, "templates", "claude_prompt.md"))).read()
         if concept:
             prompt = prompt.replace("{concept}", CLAUDE_CONCEPT.strip("\n").replace("{text}", concept))
         else:
@@ -84,10 +84,14 @@ def main():
             prompt = prompt.replace(k, v)
         open(os.path.join(work, "PROMPT.md"), "w").write(prompt)
         log = open(os.path.join(work, "claude.log"), "w")
+        extra = [d for d in os.environ.get("GEN_CLAUDE_ADD_DIRS", "").split(":") if d]
         p = subprocess.Popen(["claude", "-p", prompt, "--dangerously-skip-permissions", "--output-format", "stream-json", "--verbose",
-                              "--add-dir", S, "--add-dir", os.path.dirname(HERE)], cwd=os.path.expanduser("~/Downloads/livekit-demo-agent"),
+                              "--add-dir", S, "--add-dir", os.path.dirname(HERE), *sum((["--add-dir", d] for d in extra), [])],
+                             cwd=os.path.expanduser(os.environ.get("GEN_CLAUDE_CWD", "~/Downloads/livekit-demo-agent")),
                              stdout=log, stderr=subprocess.STDOUT)
-        print(f"claude build started pid {p.pid}; log {log.name}")
+        print(f"claude build started pid {p.pid}; log {log.name}", flush=True)
+        if "--wait" in sys.argv:  # host/: the job runner waits so its status reflects the build
+            sys.exit(p.wait())
         return
     if "capture" not in skip:
         run(PY, os.path.join(HERE, "capture.py"), url, work, "--pages", arg("--pages", "8"))

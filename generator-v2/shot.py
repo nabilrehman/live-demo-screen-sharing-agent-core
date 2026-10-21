@@ -7,7 +7,7 @@ code = open(os.path.join(work, "site", "index.html")).read().split("var C=")[1].
 async def main():
     out = os.path.join(work, "verify"); os.makedirs(out, exist_ok=True)
     async with async_playwright() as p:
-        b = await p.chromium.launch(channel="chrome")
+        b = await p.chromium.launch(channel=os.getenv("PW_CHANNEL", "chrome") or None)
         for w, tag in ((1440, "desk"), (390, "phone")):
             pg = await b.new_page(viewport={"width": w, "height": 900})
             for i, pgm in enumerate(model["pages"]):

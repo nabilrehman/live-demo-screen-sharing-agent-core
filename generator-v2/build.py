@@ -248,7 +248,7 @@ def main():
     code = arg("--code", slug.upper() + "-DEMO")
     base = arg("--base", f"/v2/{slug}").rstrip("/")
     brain = arg("--brain", f"{slug}-grok")
-    widget_src = arg("--widget", "/private/tmp/claude-501/-Users-nabilrehman-Downloads-livekit-demo-agent/3cb0ded0-74a9-4dff-b0b7-bb53c4643301/scratchpad/vflights/public/embed/windcreek")
+    widget_src = arg("--widget", os.getenv("GEN_WIDGET") or "/private/tmp/claude-501/-Users-nabilrehman-Downloads-livekit-demo-agent/3cb0ded0-74a9-4dff-b0b7-bb53c4643301/scratchpad/vflights/public/embed/windcreek")
     ref = os.path.join(work, "ref")
     model, tok = json.load(open(os.path.join(ref, "site.json"))), json.load(open(os.path.join(ref, "tokens.json")))
     site = os.path.join(work, "site"); os.makedirs(site, exist_ok=True)

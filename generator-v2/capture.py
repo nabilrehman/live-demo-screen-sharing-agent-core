@@ -61,7 +61,7 @@ async def main(url, work, n_pages):
     host = urlparse(url).netloc
     async with async_playwright() as p:
         try:
-            b = await p.chromium.launch(channel="chrome")
+            b = await p.chromium.launch(channel=os.getenv("PW_CHANNEL", "chrome") or None)
         except Exception:
             b = await p.chromium.launch()
         ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0 Safari/537.36"

@@ -40,7 +40,8 @@ AWAY_S = float(os.getenv("AWAY_S", 30))  # how long the session waits for the vi
 NAV_WAIT_S = 15.0  # how long navigate waits for the new page's first snapshot
 VISITOR_WAIT_S = 10.0  # how long an action waits for the visitor to rejoin (they may be mid page load)
 SETTLE_S = 0.6  # after a new page's first snapshot, a moment for its scripts to register site actions
-QUIET_AFTER_TOOLS_S = 3.0  # Kai silent this long after its last page action: ask for the answer
+QUIET_AFTER_TOOLS_S = 1.5  # Kai back to listening this long after page actions with no real answer: ask for it
+MIN_ANSWER_WORDS = 8  # fewer words than this after the last page action isn't an answer
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -171,14 +172,17 @@ class SiteKai(PageAgent):
 
 
 def track(session, kai: SiteKai, ins: Insights):
-    """Feed the session summary: what the guest and Kai said, and how long Kai took to start answering."""
-    state = {"user_end": None, "nudge": None}
+    """Feed the session summary: what the guest and Kai said, and how long Kai took to start answering. Also: a
+    realtime model sometimes ends its turn after a chain of page actions without saying the answer (only a short
+    "let me check"); when Kai is back to listening in that state, ask it once for the answer."""
+    state = {"user_end": None, "tools": False, "words": 0, "nudged": False, "check": None}
 
     @session.on("user_input_transcribed")
     def _user(ev):
         if ev.is_final:
             ins.user_said(ev.transcript)
             kai.on_change()
+            state.update(tools=False, words=0, nudged=False)
 
     @session.on("conversation_item_added")
     def _item(ev):
@@ -186,46 +190,43 @@ def track(session, kai: SiteKai, ins: Insights):
         if getattr(item, "role", None) == "assistant" and (text := item.text_content):
             ins.agent_said(text)
             kai.on_change()
+            state["words"] += len(text.split())
+
+    @session.on("function_tools_executed")
+    def _tools(_ev):
+        state.update(tools=True, words=0)  # count what Kai says after its last action
 
     @session.on("user_state_changed")
     def _ustate(ev):
         if ev.old_state == "speaking" and ev.new_state == "listening":
             state["user_end"] = time.perf_counter()
 
-    @session.on("agent_state_changed")
-    def _astate(ev):
-        if ev.new_state == "speaking":
-            if state["nudge"]:
-                state["nudge"].cancel()
-                state["nudge"] = None
-            if state["user_end"] is not None:
-                ins.latency((time.perf_counter() - state["user_end"]) * 1000)
-                state["user_end"] = None
-
-    async def nudge():
-        """A realtime model sometimes ends its turn after a chain of page actions without saying anything. If Kai
-        is still quiet a few seconds after its last action, ask for the answer once."""
+    async def check():
         await asyncio.sleep(QUIET_AFTER_TOOLS_S)
-        state["nudge"] = None
-        # Gemini can end its turn silently without returning to listening; Grok can take a while to answer after a
-        # tool result, and a forced reply would cancel that answer, so for it only nudge once it's back to listening
-        quiet = session.current_speech is None and session.user_state != "speaking"
-        if IS_GEMINI:
-            quiet = quiet and session.agent_state != "speaking"
-        else:
-            quiet = quiet and session.agent_state == "listening"
-        if quiet:
+        state["check"] = None
+        if (
+            session.agent_state == "listening"
+            and session.user_state != "speaking"
+            and state["words"] < MIN_ANSWER_WORDS  # the answer's text can land just after the state change
+            and not state["nudged"]
+        ):
+            state["nudged"] = True
             log.info("quiet after page actions; asking for the answer")
             session.generate_reply(
                 instructions="Answer the guest now in one to three sentences from what their screen shows after your "
                 "actions. Don't repeat the actions."
             )
 
-    @session.on("function_tools_executed")
-    def _tools(_ev):
-        if state["nudge"]:
-            state["nudge"].cancel()
-        state["nudge"] = asyncio.create_task(nudge())
+    @session.on("agent_state_changed")
+    def _astate(ev):
+        if ev.new_state == "speaking" and state["user_end"] is not None:
+            ins.latency((time.perf_counter() - state["user_end"]) * 1000)
+            state["user_end"] = None
+        if state["check"] and ev.new_state != "listening":
+            state["check"].cancel()
+            state["check"] = None
+        if ev.new_state == "listening" and state["tools"] and state["words"] < MIN_ANSWER_WORDS and not state["nudged"]:
+            state["check"] = asyncio.create_task(check())
 
 
 server = AgentServer(port=int(os.getenv("WORKER_PORT", 8099)))

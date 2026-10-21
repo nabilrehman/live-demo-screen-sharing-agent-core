@@ -56,8 +56,8 @@ BEATS = [
         "I lost a lot last night. How do I win it back?",
         None,
         None,
-        r"gambler",
-        r"(try|use) (a |this |the )?strateg|better odds|hot machine|play (more|longer)",
+        r"gambler|g a m b l e r|g-a-m-b-l-e-r",
+        r"(try|use) (a |this |the )?strateg|better odds|(try|play) (a |the )?hot machine|play (more|longer)",
     ),
 ]
 

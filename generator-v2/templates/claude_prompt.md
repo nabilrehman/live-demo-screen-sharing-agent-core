@@ -22,3 +22,4 @@ FINAL OUTPUT: write $S/{slug}/REPORT.md and print it: live URL with code, agent 
 
 
 ISOLATION (v2): serve this demo under /v2/{slug}/ (BASE=/v2/{slug}, files in $S/vflights/public/v2/{slug}/ and embed in $S/vflights/public/v2/{slug}/livekit/), never under an existing path. Only deploy after Nabil confirms (print the deploy command instead) unless the run was started with DEPLOY=yes.
+{concept}

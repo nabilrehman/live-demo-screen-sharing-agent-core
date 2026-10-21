@@ -2,7 +2,12 @@
 ISOLATED from the live demos: writes only under work/<slug>/; deploy (opt-in) only ADDS public/v2/<slug>/.
 
   python generate_demo.py <url> <slug> --brand "Hard Rock Hotels" [--code X] [--pages 8] [--mode quick|claude]
-         [--skip capture,design,images] [--deploy]
+         [--skip capture,design,scenario,images] [--deploy] [--concept "use case text" | --concept-file use_case.txt]
+
+--concept (optional): a free-text agent use case / scenario, e.g. "Casino hosts walk the floor managing high rollers; give
+         each host an AI agent on their phone that briefs them on arriving VIPs". With it, the agent's persona, prompt,
+         greeting and knowledge (synthetic sample data) are built around that scenario, plus a scenario screen in quick
+         mode; without it, the generator behaves exactly as before (generic site-clone copilot).
 
 quick  : capture (Playwright) -> Gemini spec/tokens/site model -> Gemini gap images -> generic builder -> knowledge pack.
 claude : runs Claude Code headless with the demo-design skill and a filled-in version of templates/claude_prompt.md
@@ -21,12 +26,40 @@ def arg(n, d=None):
     return sys.argv[sys.argv.index(n) + 1] if n in sys.argv else d
 
 
+CLAUDE_CONCEPT = """
+USE CASE (required; written by the LiveKit sales engineer, it shapes the agent more than the site clone does):
+<<<
+{text}
+>>>
+- Build the voice agent around this scenario, not as a generic website concierge: write knowledge/{slug}/livekit_prompt.md and
+  greeting.md for that role (who the user is, what the agent does for them, how it should talk), and add realistic SYNTHETIC
+  sample data the scenario needs (clearly fictional people/accounts, consistent numbers and limits, tied to {brand}'s real
+  venues, offers and properties) as knowledge/{slug}/scenario.md, listed first in site.json "knowledge_files".
+- If the scenario implies a bespoke app view rather than a public-site page (a staff dashboard, daily briefing, console, phone
+  companion, ...), build that screen too: a page under /v2/{slug}/<name>/ in {brand}'s design tokens, phone-first at 390,
+  linked first in the nav, gated like the rest, showing the same records as scenario.md, and make it what the agent opens
+  first. Keep the site replica as supporting context where it helps (e.g. venues to recommend).
+- Adapt the scripted spoken-flow test so most of the ~12 checks exercise this scenario (ask for the core task, drill into
+  one record, a policy/limit question, a recommendation), and list the scenario in REPORT.md.
+"""
+
+
+def concept_text():
+    """--concept-file wins over --concept; empty string means no use case (old behaviour)."""
+    f = arg("--concept-file")
+    if f and os.path.exists(f):
+        return open(f).read().strip()
+    return (arg("--concept") or "").strip()
+
+
 def run(*cmd):
     print("$", " ".join(cmd), flush=True)
     subprocess.run(cmd, check=True)
 
 
 def main():
+    if len(sys.argv) < 3 or sys.argv[1] in ("-h", "--help"):
+        print(__doc__); sys.exit(0 if len(sys.argv) > 1 else 2)
     url, slug = sys.argv[1], sys.argv[2]
     brand = arg("--brand", slug.title())
     code = arg("--code", slug.upper() + "-DEMO")
@@ -34,8 +67,19 @@ def main():
     skip = set((arg("--skip", "") or "").split(","))
     work = os.path.join(HERE, "work", slug)
     os.makedirs(work, exist_ok=True)
+    concept = concept_text()
+    cfile = os.path.join(work, "concept.txt")
+    if concept:
+        open(cfile, "w").write(concept + "\n")
+        print(f"use case: {concept[:160]}{'...' if len(concept) > 160 else ''}", flush=True)
+    elif os.path.exists(cfile):
+        os.remove(cfile)  # a previous run's use case: this run has none
     if mode == "claude":
         prompt = open(os.path.join(HERE, "templates", "claude_prompt.md")).read()
+        if concept:
+            prompt = prompt.replace("{concept}", CLAUDE_CONCEPT.strip("\n").replace("{text}", concept))
+        else:
+            prompt = prompt.replace("{concept}\n", "").replace("{concept}", "")
         for k, v in {"{url}": url, "{slug}": slug, "{brand}": brand, "{code}": code, "{S}": S}.items():
             prompt = prompt.replace(k, v)
         open(os.path.join(work, "PROMPT.md"), "w").write(prompt)
@@ -49,11 +93,14 @@ def main():
         run(PY, os.path.join(HERE, "capture.py"), url, work, "--pages", arg("--pages", "8"))
     if "design" not in skip:
         run(PY, os.path.join(HERE, "design.py"), work, "--brand", brand)
+    if concept and "scenario" not in skip:
+        run(PY, os.path.join(HERE, "design.py"), work, "--brand", brand, "--scenario-only", "--concept-file", cfile)
     if "images" not in skip and os.path.exists(GEN):
         jobs = json.load(open(os.path.join(work, "ref", "images.json")))
         if jobs.get("jobs"):
             run(PY, GEN, os.path.join(work, "ref", "images.json"))
-    run(PY, os.path.join(HERE, "build.py"), work, "--slug", slug, "--brand", brand, "--code", code, "--base", f"/v2/{slug}")
+    run(PY, os.path.join(HERE, "build.py"), work, "--slug", slug, "--brand", brand, "--code", code, "--base", f"/v2/{slug}",
+        *(["--concept-file", cfile] if concept else []))
     print(f"\nPreview: {PY} {os.path.join(HERE, 'preview.py')} {slug}   -> http://localhost:8795/v2/{slug}/?code={code}")
     if "--deploy" in sys.argv:
         run(PY, os.path.join(HERE, "deploy.py"), slug)

@@ -3,6 +3,10 @@ with the LiveKit banner, inert "Demo only" buttons and the LiveKit in-page voice
 Also writes the agent's knowledge pack (knowledge/<slug>/) for src/windcreek_agent.py via SITE_KNOWLEDGE.
 
   python build.py <workdir> --slug hardrock --brand "Hard Rock Hotels" --code HARDROCK-DEMO [--base /v2/hardrock]
+                  [--concept-file <workdir>/concept.txt]
+With --concept-file and ref/scenario.json (design.py --scenario-only), the agent is built around that use case: role
+prompt (templates/livekit_prompt_scenario.md), greeting (templates/greeting_scenario.md), knowledge/scenario.md with the
+synthetic sample data, and a scenario screen page (nav first when the use case is an app view). Without it: unchanged.
 Output: <workdir>/site/  (serve at --base)   <workdir>/knowledge/
 """
 import html, json, os, re, shutil, sys
@@ -59,7 +63,68 @@ def section(s, base):
     if t == "faq":
         qs = "".join(f'<details><summary>{E(i.get("q",""))}</summary><p>{E(i.get("a",""))}</p></details>' for i in s.get("items") or [])
         return f'<section class="faq wrap"><h2>{h}</h2>{qs}</section>'
+    if t == "scenario":
+        return scenario_section(s)
     return f'<section class="text wrap"><h2>{h}</h2><p>{body}</p></section>'
+
+
+def scenario_section(s):
+    """The use-case screen (e.g. a host's daily VIP briefing): title, try-asking chips, one card per sample record."""
+    asks = "".join(f'<span class="sc-ask">&ldquo;{E(q)}&rdquo;</span>' for q in s.get("sample_questions") or [])
+    cards = []
+    for i, it in enumerate(s.get("items") or []):
+        badges = "".join(f'<span class="sc-badge">{E(str(b))}</span>' for b in it.get("badges") or [])
+        fields = "".join(f'<dt>{E(str(f.get("label", "")))}</dt><dd>{E(str(f.get("value", "")))}</dd>' for f in it.get("fields") or [] if isinstance(f, dict))
+        note = f'<p class="sc-note">{E(it["note"])}</p>' if it.get("note") else ""
+        cards.append(f'<article class="sc-card" id="record-{i + 1}"><h3>{E(it.get("title") or "")}</h3>'
+                     f'<p class="sc-sub">{E(it.get("subtitle") or "")}</p><div>{badges}</div><dl>{fields}</dl>{note}</article>')
+    return (f'<section class="scenario wrap"><p class="sc-kicker">Demo scenario &middot; sample data</p><h1>{E(s.get("heading") or "")}</h1>'
+            f'<p class="sc-subtitle">{E(s.get("body") or "")}</p>' + (f'<div class="sc-asks"><b>Try asking:</b> {asks}</div>' if asks else "") +
+            f'<div class="sc-grid">{"".join(cards)}</div></section>')
+
+
+SCENARIO_CSS = """.scenario h1{font-size:clamp(28px,4vw,44px);margin:6px 0}.sc-kicker{text-transform:uppercase;font-size:12px;letter-spacing:.08em;color:var(--muted);margin:0}
+.sc-subtitle{color:var(--muted);margin:0 0 18px}.sc-asks{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 22px;font-size:14px}
+.sc-ask{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 12px}
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.sc-card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border-top:4px solid var(--primary)}
+.sc-card h3{margin:0 0 4px;font-size:20px}.sc-sub{margin:0 0 10px;color:var(--muted);font-size:14px}
+.sc-badge{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:3px;padding:3px 7px;margin:0 6px 6px 0}
+.sc-card dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:10px 0;font-size:14px}.sc-card dt{color:var(--muted)}.sc-card dd{margin:0;font-weight:600}
+.sc-note{margin:8px 0 0;font-size:14px;border-left:3px solid var(--accent);padding-left:10px}
+@media(max-width:760px){.sc-grid{grid-template-columns:1fr}}
+"""
+
+
+def load_scenario(work):
+    """ref/scenario.json, only when the build was given a use case (--concept-file). None = the old generic copilot."""
+    cf, sp = arg("--concept-file"), os.path.join(work, "ref", "scenario.json")
+    if not cf or not os.path.exists(cf) or not open(cf).read().strip() or not os.path.exists(sp):
+        return None
+    sc = json.load(open(sp))
+    sc["concept"] = open(cf).read().strip()
+    return sc
+
+
+def add_scenario_page(model, sc):
+    """Add the scenario screen to the site model (nav first for an app-style use case) and return its path."""
+    pn = sc.get("panel") or {}
+    if not pn.get("items"):
+        return None
+    taken = {(p.get("path") or "/").strip("/") for p in model.get("pages") or []}
+    slug = re.sub(r"[^a-z0-9-]+", "-", (pn.get("path") or "").lower()).strip("-") or "briefing"
+    if DENY.search(slug):
+        slug = "briefing"
+    while slug in taken:
+        slug += "-demo"
+    path = "/" + slug
+    model.setdefault("pages", []).append({"path": path, "title": pn.get("title") or "Briefing", "sections": [
+        {"type": "scenario", "heading": pn.get("title") or "", "body": pn.get("subtitle") or "", "items": pn.get("items") or [],
+         "sample_questions": sc.get("sample_questions") or []}]})
+    item = {"label": pn.get("nav") or pn.get("title") or "Briefing", "path": path}
+    nav = model.setdefault("nav", [])
+    nav.insert(0, item) if sc.get("view") == "app" else nav.append(item)
+    return path
 
 
 def css(tok):
@@ -138,7 +203,29 @@ def rebrand_widget(src_dir, out_dir):
             shutil.copy(s, os.path.join(out_dir, fn))
 
 
-def knowledge(model, out, slug, brand, url):
+def scenario_knowledge(model, out, brand, url, sc, panel_path):
+    """Knowledge pack for a use case: role prompt + greeting filled now; {assistant} {brand} {today} {knowledge} stay for site.py."""
+    tpl = os.path.join(HERE, "templates")
+    files = ["scenario.md", "facts.md", "sitemap.md"]
+    json.dump({"brand": brand, "assistant": "LiveKit", "timezone": "America/New_York", "knowledge_files": files, "properties": [], "source": url,
+               "concept": sc["concept"], "view": sc.get("view", "site"), "scenario_path": panel_path},
+              open(os.path.join(out, "site.json"), "w"), indent=1)
+    where = f"\n\nThe scenario screen is at {panel_path} (open it with navigate; each record is a card you can highlight by name)." if panel_path else ""
+    open(os.path.join(out, "scenario.md"), "w").write(f"# Scenario: {sc.get('user') or 'the user'}\n\n{sc.get('role') or ''}{where}\n\n" + (sc.get("data_md") or ""))
+    rules = "\n".join("- " + str(r).strip().lstrip("- ") for r in sc.get("instructions") or [] if str(r).strip())
+    if sc.get("view") == "app" and panel_path:
+        rules = f"- Start on the scenario screen ({panel_path}): open it when the conversation starts or when they ask for the overview.\n" + rules
+    fill = {"{role}": sc.get("role") or "", "{user}": sc.get("user") or "the user", "{concept}": sc["concept"], "{instructions}": rules,
+            "{intro}": sc.get("intro") or f"{brand}'s AI assistant", "{followup}": sc.get("greeting_followup") or "ask how you can help."}
+    for src, dst in (("livekit_prompt_scenario.md", "livekit_prompt.md"), ("greeting_scenario.md", "greeting.md")):
+        t = open(os.path.join(tpl, src)).read()
+        for k, v in fill.items():
+            t = t.replace(k, v)
+        open(os.path.join(out, dst), "w").write(t)
+    shutil.copy(os.path.join(out, "livekit_prompt.md"), os.path.join(out, "kai_prompt.md"))  # site.py loads kai_prompt.md
+
+
+def knowledge(model, out, slug, brand, url, sc=None, panel_path=None):
     os.makedirs(out, exist_ok=True)
     tpl = os.path.join(HERE, "templates")
     json.dump({"brand": brand, "assistant": "LiveKit", "timezone": "America/New_York", "knowledge_files": ["facts.md", "sitemap.md"], "properties": [], "source": url},
@@ -150,6 +237,9 @@ def knowledge(model, out, slug, brand, url):
     shutil.copy(os.path.join(tpl, "livekit_prompt.md"), os.path.join(out, "livekit_prompt.md"))
     shutil.copy(os.path.join(tpl, "greeting.md"), os.path.join(out, "greeting.md"))
     open(os.path.join(out, "SOURCES.md"), "w").write(f"# Sources\n\nCaptured read-only from {url} by generator-v2.\n")
+    if sc:
+        scenario_knowledge(model, out, brand, url, sc, panel_path)
+        open(os.path.join(out, "SOURCES.md"), "a").write("scenario.md is synthetic sample data generated for the demo use case (all fictional).\n")
 
 
 def main():
@@ -162,14 +252,17 @@ def main():
     ref = os.path.join(work, "ref")
     model, tok = json.load(open(os.path.join(ref, "site.json"))), json.load(open(os.path.join(ref, "tokens.json")))
     site = os.path.join(work, "site"); os.makedirs(site, exist_ok=True)
-    open(os.path.join(site, "site.css"), "w").write(css(tok))
+    sc = load_scenario(work)
+    panel_path = add_scenario_page(model, sc) if sc else None
+    open(os.path.join(site, "site.css"), "w").write(css(tok) + (SCENARIO_CSS if panel_path else ""))
     for p in model.get("pages") or []:
         d = os.path.join(site, (p.get("path") or "/").strip("/"))
         os.makedirs(d, exist_ok=True)
         open(os.path.join(d, "index.html"), "w").write(render(model, tok, p, base, slug, brand, code, brain))
     rebrand_widget(widget_src, os.path.join(site, "livekit"))
-    knowledge(model, os.path.join(work, "knowledge"), slug, brand, model.get("url", ""))
-    print(f"built {len(model.get('pages') or [])} pages -> {site} (base {base}, code {code}, brain {brain})")
+    knowledge(model, os.path.join(work, "knowledge"), slug, brand, model.get("url", ""), sc, panel_path)
+    print(f"built {len(model.get('pages') or [])} pages -> {site} (base {base}, code {code}, brain {brain})"
+          + (f"; use case: {sc.get('user')!r}, view={sc.get('view')}, screen {panel_path}" if sc else ""))
 
 
 if __name__ == "__main__":

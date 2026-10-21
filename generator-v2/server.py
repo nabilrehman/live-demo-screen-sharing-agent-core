@@ -6,10 +6,12 @@ import html, os, re, subprocess, sys
 from aiohttp import web
 HERE = os.path.dirname(os.path.abspath(__file__)); JOBS = {}
 FORM = """<!doctype html><meta charset=utf-8><title>LiveKit demo generator v2</title>
-<style>body{font:16px system-ui;max-width:760px;margin:40px auto;padding:0 16px}input,select{padding:10px;width:100%;margin:6px 0 14px}button{padding:12px 22px;background:#000;color:#fff;border:0;border-radius:6px}pre{background:#111;color:#ddd;padding:14px;white-space:pre-wrap;max-height:60vh;overflow:auto}</style>
+<style>body{font:16px system-ui;max-width:760px;margin:40px auto;padding:0 16px}input,select,textarea{padding:10px;width:100%;margin:6px 0 14px;font:inherit;box-sizing:border-box}textarea{min-height:110px}small.hint{color:#666;display:block;margin-top:-10px;margin-bottom:14px}button{padding:12px 22px;background:#000;color:#fff;border:0;border-radius:6px}pre{background:#111;color:#ddd;padding:14px;white-space:pre-wrap;max-height:60vh;overflow:auto}</style>
 <h1>LiveKit demo generator <small>v2 draft</small></h1><p>Paste a website; get a gated mockup with the LiveKit voice copilot (Wind Creek pipeline).</p>
 <form method=post action=/run><label>Website URL<input name=url required placeholder="https://hotel.hardrock.com/"></label>
 <label>Brand name<input name=brand required placeholder="Hard Rock Hotels"></label><label>Slug<input name=slug required pattern="[a-z0-9-]+" placeholder="hardrock"></label>
+<label>Agent use case <i>(optional)</i>: what should the agent do?<textarea name=concept rows=5 placeholder="Casino hosts walk the floor managing high rollers; give each host an AI agent on their phone that briefs them on arriving VIPs: gambling profile, authorized comps, preferences, and entertainment recommendations."></textarea></label>
+<small class=hint>Leave empty for the standard site-clone voice concierge. With a use case, the agent's role, greeting, prompt and synthetic sample data are built around it, plus a scenario screen (quick mode) or a custom screen (claude mode).</small>
 <label>Mode<select name=mode><option value=quick>quick (generic builder, ~10 min)</option><option value=claude>claude (Claude Code + demo-design skill, 1-3 h)</option></select></label>
 <label><input type=checkbox name=images style="width:auto"> generate Gemini gap images</label><br><button>Generate</button></form>{jobs}"""
 
@@ -22,6 +24,13 @@ async def run(req):
     cmd = [sys.executable, os.path.join(HERE, "generate_demo.py"), f["url"], slug, "--brand", f["brand"], "--mode", f.get("mode", "quick")]
     if not f.get("images"): cmd += ["--skip", "images"]
     os.makedirs(os.path.join(HERE, "work", slug), exist_ok=True)
+    concept = (f.get("concept") or "").strip()
+    if concept:  # via a file: multi-line text, no argv quoting issues
+        cf = os.path.join(HERE, "work", slug, "concept.txt")
+        open(cf, "w").write(concept + "\n")
+        cmd += ["--concept-file", cf]
+    elif os.path.exists(os.path.join(HERE, "work", slug, "concept.txt")):
+        os.remove(os.path.join(HERE, "work", slug, "concept.txt"))  # a previous run's use case, not this one's
     JOBS[slug] = subprocess.Popen(cmd, stdout=open(os.path.join(HERE, "work", slug, "job.log"), "w"), stderr=subprocess.STDOUT)
     raise web.HTTPFound(f"/job/{slug}")
 
@@ -31,8 +40,10 @@ async def job(req):
     p = JOBS.get(slug); done = p is not None and p.poll() is not None
     code = slug.upper() + "-DEMO"
     link = f'<p><a href="/v2/{slug}/?code={code}">Open the preview</a> (code {code})</p>' if os.path.exists(os.path.join(HERE, "work", slug, "site", "index.html")) else ""
+    cf = os.path.join(HERE, "work", slug, "concept.txt")
+    concept = f"<p><b>Use case:</b> {html.escape(open(cf).read().strip())}</p>" if os.path.exists(cf) else ""
     refresh = "" if done else '<meta http-equiv=refresh content=5>'
-    return web.Response(text=f"<!doctype html>{refresh}<body style='font:15px system-ui;max-width:900px;margin:30px auto'><a href=/>&larr; back</a><h2>{slug}</h2>{link}<pre style='background:#111;color:#ddd;padding:12px;white-space:pre-wrap'>{html.escape(txt)}</pre>", content_type="text/html")
+    return web.Response(text=f"<!doctype html>{refresh}<body style='font:15px system-ui;max-width:900px;margin:30px auto'><a href=/>&larr; back</a><h2>{slug}</h2>{concept}{link}<pre style='background:#111;color:#ddd;padding:12px;white-space:pre-wrap'>{html.escape(txt)}</pre>", content_type="text/html")
 
 async def static(req):
     slug, rel = req.match_info["slug"], req.match_info["tail"]

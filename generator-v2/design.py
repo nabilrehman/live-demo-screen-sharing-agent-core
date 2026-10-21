@@ -4,7 +4,11 @@
   ref/site.json    the site model the builder renders (pages -> sections), from the captured real content
   ref/images.json  image jobs for gaps (fed to $S/imggen/gen.py)
 
+  ref/scenario.json  (only with --scenario-only --concept-file F) the agent's role, greeting, rules, synthetic sample
+                    data and a scenario screen, built around a free-text use case
+
   python design.py <workdir> --brand "Hard Rock Hotels"
+  python design.py <workdir> --brand "Hard Rock Hotels" --scenario-only --concept-file <workdir>/concept.txt
 """
 import json, os, sys
 import gemini
@@ -35,6 +39,51 @@ Below is the real text, headings, links and image URLs captured from {n} pages. 
 Rules: use the REAL names, places, offers and numbers from the captured text; summarize in your own words (no long copied paragraphs). Keep 4-10 pages, the ones a guest would visit in a booking journey (home, destinations/hotels listing, one hotel detail, rooms, offers, booking). Paths must be unique. Prefer real image URLs from the capture; use "gen:<file>.jpg" only where there is no suitable real image, and add a matching image_jobs entry (max 24). Never include sign-in, account or payment pages.
 CAPTURE:
 """
+
+
+SCENARIO_PROMPT = """You are designing the AI voice agent for a private LiveKit sales demo to {brand} ({url}).
+The LiveKit sales engineer described the use case this demo must show:
+<<<
+{concept}
+>>>
+Design the agent around THIS use case (not a generic website concierge), grounded in {brand}'s real properties, venues,
+offers and brand voice (from the website summary below) wherever they fit. Output JSON only:
+{{"user":"who talks to the agent, short (e.g. 'a Hard Rock casino host')",
+ "role":"one or two sentences, second person: who the agent is and what it does for that user (e.g. 'You are the host companion on the casino host's phone: ...')",
+ "intro":"what the agent calls itself after 'Hi, I'm LiveKit, ' (e.g. \"{brand}'s host companion\")",
+ "greeting_followup":"one instruction for the rest of the greeting, e.g. 'offer to run through today's arriving VIPs, starting with the top one.'",
+ "view":"app or site",
+ "instructions":["5-9 short behaviour rules specific to this role: what to lead with, how to prioritise, limits it must respect (e.g. never offer comps above the host's authority), when to recommend what"],
+ "data_md":"markdown: realistic SYNTHETIC sample data the agent needs for this use case (e.g. today's records with profiles, preferences, history, limits/policies), 6-12 records, clearly fictional names, consistent numbers, tied to real {brand} venues/offers/shows where relevant",
+ "panel":{{"path":"/<short-slug>","nav":"short nav label","title":"screen title","subtitle":"one line",
+   "items":[{{"title":"record name","subtitle":"one line","badges":["short tag"],"fields":[{{"label":"...","value":"..."}}],"note":"one line suggestion"}}]}},
+ "sample_questions":["4-6 short things the user might say to the agent"]}}
+Rules: view is "app" when the use case is a staff/internal tool or a bespoke screen (dashboard, briefing, console, phone
+companion) rather than a customer browsing {brand}'s public site, otherwise "site". panel.items show the same records as
+data_md (max 12, 3-6 fields each). Everyone is fictional: no real customer data, no real staff names. No URLs, no markdown
+in instructions. The panel path must not be a sign-in, account, checkout or payment page.
+WEBSITE SUMMARY:
+"""
+
+
+def scenario(work, brand, concept):
+    """The use-case step: one Gemini call -> ref/scenario.json (site model facts give it the real venues/offers)."""
+    ref = os.path.join(work, "ref")
+    ctx, url = {}, ""
+    cp = os.path.join(ref, "capture.json")
+    if os.path.exists(cp):
+        url = json.load(open(cp)).get("url", "")
+    sp = os.path.join(ref, "site.json")
+    if os.path.exists(sp):
+        m = json.load(open(sp))
+        ctx = {"facts": m.get("facts"), "pages": [{"path": p.get("path"), "title": p.get("title")} for p in m.get("pages") or []]}
+    if not ctx and os.path.exists(cp):
+        ctx = {n: (p.get("text") or "")[:4000] for n, p in json.load(open(cp))["pages"].items()}
+    print("gemini: scenario", flush=True)
+    sc = gemini.generate([{"text": SCENARIO_PROMPT.format(brand=brand, url=url, concept=concept) + json.dumps(ctx)[:120000]}], json_out=True)
+    sc["concept"] = concept
+    json.dump(sc, open(os.path.join(ref, "scenario.json"), "w"), indent=1)
+    print(f"scenario: view={sc.get('view')} user={sc.get('user')!r} {len((sc.get('panel') or {}).get('items') or [])} records")
 
 
 def main(work, brand):
@@ -70,4 +119,8 @@ def main(work, brand):
 
 if __name__ == "__main__":
     brand = sys.argv[sys.argv.index("--brand") + 1] if "--brand" in sys.argv else "the company"
-    main(sys.argv[1], brand)
+    if "--scenario-only" in sys.argv:
+        cf = sys.argv[sys.argv.index("--concept-file") + 1]
+        scenario(sys.argv[1], brand, open(cf).read().strip())
+    else:
+        main(sys.argv[1], brand)

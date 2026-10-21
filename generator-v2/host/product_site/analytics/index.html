@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Analytics · LiveKit demo generator</title>
+<link rel="icon" href="/lk/livekit-wordmark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lk/lk-ui.css">
+<link rel="stylesheet" href="/lk/rrweb-player.min.css">
+<style>
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:22px 0 26px}
+  .kpi{padding:16px 18px}.kpi .n{font-size:26px;font-weight:650;letter-spacing:-.02em;color:#fff}.kpi .l{font:500 11px/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .kpi .n small{font-size:13px;color:var(--muted);font-weight:500;margin-left:4px}
+  .tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}.tabs button{height:34px;padding:0 14px;border-radius:999px;border:1px solid #23252a;background:#0e0f11;color:#c9ccd2;font:500 13px Inter,sans-serif;cursor:pointer}
+  .tabs button.on{background:var(--accent-dim);border-color:rgba(31,213,249,.5);color:var(--accent)}.tabs .cnt{color:var(--muted);margin-left:6px;font-size:12px}
+  .bar{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+  .sel{height:34px;border-radius:999px;border:1px solid #23252a;background:#0e0f11;color:#c9ccd2;padding:0 12px;font:13px Inter,sans-serif}
+  .scroll{overflow-x:auto}
+  .watch{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;border:1px solid rgba(31,213,249,.45);background:var(--accent-dim);color:var(--accent);font:600 12px Inter,sans-serif;cursor:pointer}
+  .watch:hover{background:rgba(31,213,249,.24)}
+  .vbar{height:6px;border-radius:3px;background:#1b1d21;min-width:70px;overflow:hidden}.vbar i{display:block;height:100%;background:linear-gradient(90deg,#1fd5f9,#a46bff)}
+  #player{margin-bottom:22px}#player .hd{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+  #player .bd{padding:16px;display:flex;justify-content:center;background:#0a0b0c;border-radius:0 0 16px 16px;min-height:200px}
+  .rr-player{background:#0a0b0c!important;box-shadow:none!important}.rr-controller{background:#111214!important;border-radius:0 0 10px 10px}
+  .rr-controller__btns button{color:#e8e9eb!important}.rr-timeline__time{color:#c9ccd2!important}.rr-progress{background:#23252a!important;border:0!important}.rr-progress__step{background:#1fd5f9!important}.rr-progress__handler{background:#1fd5f9!important}
+  .switch input:checked+label:before{background:#1fd5f9!important}
+  .rr-controller__btns button.active{background:#1fd5f9!important;color:#031317!important}
+  .gate{max-width:440px;margin:12vh auto;padding:32px}.gate h1{font-size:24px}
+  .thumb{width:64px;height:40px;border-radius:6px;background:#0c0d0f center/cover;border:1px solid var(--line);flex:none}
+  .src{display:flex;gap:16px;flex-wrap:wrap;margin-top:28px;color:var(--muted);font-size:12px}
+  @media (max-width:900px){.kpis{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="brand" href="/"><img src="/lk/livekit-wordmark.svg" alt="LiveKit"><span>Demo analytics</span></a>
+  <div class="nav"><a href="/">Live demos</a><a href="/account/">My demos</a><a href="/analytics/" class="on">Analytics</a></div>
+</div>
+<div id="gate" class="card gate" hidden>
+  <h1>Analytics is for admins</h1>
+  <p class="muted" id="gmsg">Sign in with your LiveKit Google account, or enter the analytics code.</p>
+  <div style="display:grid;gap:10px;margin-top:18px">
+    <a class="btn primary" href="/account/?next=/analytics/">Sign in</a>
+    <form id="cf" style="display:grid;gap:10px"><input class="f" name="code" placeholder="Analytics code" autocomplete="off"><button class="btn" type="submit">Open with code</button></form>
+    <div class="err" id="cerr"></div>
+  </div>
+</div>
+<div class="wrap" id="app" hidden>
+  <div class="bar"><div><h1>Who's building and running demos</h1><div class="muted" id="upd"></div></div>
+    <div style="display:flex;gap:8px;align-items:center"><select class="sel" id="fdemo"><option value="">All demos</option></select><select class="sel" id="fwho"><option value="">Everyone</option></select><button class="btn sm" id="refresh">Refresh</button></div></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="card" id="player" hidden><div class="hd"><div><b id="ptitle">Replay</b><div class="muted" id="psub" style="font-size:12px"></div></div><button class="btn sm" id="pclose">Close</button></div><div class="bd" id="pbody"></div></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="card scroll" id="panel"></div>
+  <div class="src">
+    <span>Source: the build host's event store (Google sign-ins, builds, tracker on every generated demo) + rrweb DOM replays (inputs masked; voice audio is not recorded).</span>
+    <span id="phlink"></span>
+  </div>
+</div>
+<script src="/lk/rrweb-player.min.js"></script>
+<script>
+const API = window.LK_GEN_API || 'https://sb-mgs5l8pw3lep.vercel.run';
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const post = (p, b) => fetch(API + p, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(b)}).then(async r => ({ok:r.ok, status:r.status, ...(await r.json().catch(()=>({})))}));
+const when = t => t ? new Date(t*1000).toLocaleString([], {month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZoneName:'short'}) : '-';
+const ago = t => { if(!t) return '-'; const s = Date.now()/1000 - t; return s < 90 ? 'just now' : s < 3600 ? Math.round(s/60)+' min ago' : s < 86400 ? Math.round(s/3600)+' h ago' : Math.round(s/86400)+' d ago'; };
+const dur = s => !s ? '<span class="muted">-</span>' : s < 60 ? s+'s' : s < 3600 ? Math.floor(s/60)+'m '+(s%60)+'s' : Math.floor(s/3600)+'h '+Math.floor(s%3600/60)+'m';
+const av = (name, email, pic) => `<div class="who"><div class="av">${pic?`<img alt="" src="${esc(pic)}" referrerpolicy="no-referrer">`:esc((name||email||'?')[0].toUpperCase())}</div><div><div>${esc(name||email)}</div><div class="muted" style="font-size:12px">${esc(email)}</div></div></div>`;
+const who = (uid, name, verified) => uid && uid.includes('@') ? `${av(name, uid)}${verified?'':''}` : `<span class="muted">Anonymous visitor</span>`;
+let AUTH = {}, D = null, TAB = 'sessions';
+function auth(){ const s = localStorage.getItem('lk.session'); const c = sessionStorage.getItem('lk.acode'); return s ? {session:s, ...(c?{code:c}:{})} : c ? {code:c} : null; }
+async function load(){
+  const a = auth(); if (!a) return gate();
+  const d = await post('/api/p/analytics', a);
+  if (!d.ok) return gate(d.status === 403 ? null : 'The build host is unreachable right now.');
+  D = d; $('gate').hidden = true; $('app').hidden = false; render();
+}
+function gate(msg){ $('app').hidden = true; $('gate').hidden = false; if (msg) $('gmsg').textContent = msg; }
+$('cf').onsubmit = async e => { e.preventDefault(); const c = new FormData(e.target).get('code').trim();
+  const d = await post('/api/p/analytics', {code:c}); if (d.ok) { sessionStorage.setItem('lk.acode', c); D = d; $('gate').hidden = true; $('app').hidden = false; render(); } else $('cerr').textContent = d.error || 'wrong code'; };
+$('refresh').onclick = load; $('fdemo').onchange = render; $('fwho').onchange = render;
+function opts(sel, vals, label){ const cur = sel.value; sel.innerHTML = `<option value="">${label}</option>` + vals.map(v => `<option value="${esc(v[0])}">${esc(v[1])}</option>`).join(''); sel.value = cur; }
+function render(){
+  const d = D, fd = $('fdemo').value, fw = $('fwho').value, k = d.kpi;
+  $('upd').textContent = 'Updated ' + when(d.generated_at);
+  opts($('fdemo'), d.demos.map(x => [x.slug, x.brand + ' (' + x.slug + ')']), 'All demos');
+  opts($('fwho'), d.people.map(p => [p.email, p.name || p.email]), 'Everyone');
+  $('kpis').innerHTML = [['People signed in', k.people], ['Logins (7 days)', k.logins_7d], ['Demos built', k.builds_done + '<small>/ ' + k.builds + '</small>'], ['Demo sessions', k.sessions], ['Time in demos', k.demo_min + '<small>min</small>'], ['Voice time', k.voice_min + '<small>min</small>']]
+    .map(x => `<div class="card kpi"><div class="l">${x[0]}</div><div class="n">${x[1]}</div></div>`).join('');
+  const S = d.sessions.filter(s => (!fd || s.slug === fd) && (!fw || s.uid === fw));
+  const B = d.demos.filter(x => (!fd || x.slug === fd) && (!fw || (x.owner && x.owner.email === fw)));
+  const P = d.people.filter(p => !fw || p.email === fw);
+  const L = d.logins.filter(l => !fw || l.uid === fw);
+  const tabs = [['sessions', 'Demo sessions', S.length], ['people', 'People', P.length], ['builds', 'Builds', B.length], ['logins', 'Logins', L.length], ['gallery', 'Main-page demos', d.gallery.length]];
+  $('tabs').innerHTML = tabs.map(t => `<button data-t="${t[0]}" class="${TAB===t[0]?'on':''}">${t[1]}<span class="cnt">${t[2]}</span></button>`).join('');
+  $('tabs').querySelectorAll('button').forEach(b => b.onclick = () => { TAB = b.dataset.t; render(); });
+  const maxV = Math.max(1, ...S.map(s => s.duration_s));
+  const brand = slug => (d.demos.find(x => x.slug === slug) || {}).brand || slug;
+  const thumb = slug => (d.demos.find(x => x.slug === slug) || {}).thumb || '';
+  let h = '';
+  if (TAB === 'sessions') h = S.length ? `<table class="t"><tr><th>Who</th><th>Demo</th><th>Started</th><th>Time in demo</th><th>Voice</th><th>Pages</th><th>Replay</th></tr>` + S.map(s => `<tr>
+      <td>${who(s.uid, s.name, s.verified)}</td><td><div class="who"><div class="thumb" style="background-image:url('${esc(thumb(s.slug))}')"></div><b>${esc(brand(s.slug))}</b></div></td>
+      <td title="${esc(when(s.start))}">${ago(s.start)}</td><td><div style="display:flex;gap:10px;align-items:center">${dur(s.duration_s)}<div class="vbar"><i style="width:${Math.round(100*s.duration_s/maxV)}%"></i></div></div></td>
+      <td>${s.voice_s ? dur(s.voice_s) + (s.voice_calls>1?` <span class="muted">(${s.voice_calls} calls)</span>`:'') : '<span class="muted">no call</span>'}</td><td title="${esc(s.pages.join('  '))}">${s.pages.length}</td>
+      <td>${s.replay ? `<button class="watch" data-sid="${esc(s.sid)}">&#9654; Watch</button>` : '<span class="muted">-</span>'}</td></tr>`).join('') + '</table>'
+      : '<div class="empty">No demo sessions yet. They appear here as soon as someone opens a generated demo.</div>';
+  if (TAB === 'people') h = P.length ? `<table class="t"><tr><th>Person</th><th>Sign-in</th><th>Last login</th><th>Logins</th><th>Built</th><th>Ran</th><th>Time in demos</th><th>Voice</th></tr>` + P.map(p => `<tr>
+      <td>${av(p.name, p.email, p.picture)}</td><td>${p.verified?'<span class="pill v">Google</span>':'<span class="pill u">email</span>'}</td><td title="${esc(when(p.last_login))}">${ago(p.last_login)}</td><td>${p.logins}</td>
+      <td>${p.built.map(esc).join(', ') || '<span class="muted">-</span>'}</td><td>${Object.entries(p.ran).map(([k,v]) => esc(k) + (v>1?` <span class="muted">&times;${v}</span>`:'')).join(', ') || '<span class="muted">-</span>'}</td>
+      <td>${dur(p.time_s)}</td><td>${dur(p.voice_s)}</td></tr>`).join('') + '</table>' : '<div class="empty">Nobody has signed in yet.</div>';
+  if (TAB === 'builds') h = B.length ? `<table class="t"><tr><th>Demo</th><th>Built by</th><th>Source</th><th>Mode</th><th>Status</th><th>Started</th><th>Build time</th><th>Sessions</th><th></th></tr>` + B.map(x => `<tr>
+      <td><div class="who"><div class="thumb" style="background-image:url('${esc(x.thumb||'')}')"></div><b>${esc(x.brand)}</b></div></td><td>${x.owner ? av(x.owner.name, x.owner.email) : '<span class="muted">not signed in</span>'}</td>
+      <td class="muted">${esc((x.url||'').replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))}</td><td>${x.mode==='claude'?'Claude Code':'Quick'}</td>
+      <td><span class="pill ${esc(x.status)}">${esc(x.status)}</span></td><td title="${esc(when(x.created))}">${ago(x.created)}</td><td>${dur(x.elapsed_s)}</td><td>${x.sessions}${x.voice_s?` <span class="muted">&middot; ${dur(x.voice_s)} voice</span>`:''}</td>
+      <td>${x.preview?`<a class="btn sm" target="_blank" href="${esc(x.preview)}">Open</a>`:''}</td></tr>`).join('') + '</table>' : '<div class="empty">No builds yet.</div>';
+  if (TAB === 'logins') h = L.length ? `<table class="t"><tr><th>Who</th><th>When</th><th>Method</th></tr>` + L.map(l => `<tr><td>${av(l.name, l.uid)}</td><td>${esc(when(l.ts))} <span class="muted">(${ago(l.ts)})</span></td><td>${l.method==='google'?'<span class="pill v">Google</span>':'<span class="pill u">email (unverified)</span>'}</td></tr>`).join('') + '</table>' : '<div class="empty">No logins yet.</div>';
+  if (TAB === 'gallery') h = d.gallery.length ? `<table class="t"><tr><th>Demo on the main page</th><th>Opens / talk clicks</th><th>People</th><th>Last</th></tr>` + d.gallery.map(g => `<tr><td><b>${esc(g.demo)}</b></td><td>${g.opens}</td><td>${g.people}</td><td>${ago(g.last)}</td></tr>`).join('') + '</table><div class="muted" style="padding:12px 14px;font-size:12px">Main-page demos (Hotel, Flights, ...) are counted from tab and Talk clicks on the main page; per-session duration and replay are recorded for generated demos.</div>' : '<div class="empty">No main-page demo opens yet.</div>';
+  $('panel').innerHTML = h;
+  $('panel').querySelectorAll('.watch').forEach(b => b.onclick = () => watch(b.dataset.sid));
+}
+let PL = null;
+async function watch(sid){
+  const s = D.sessions.find(x => x.sid === sid) || {};
+  $('player').hidden = false; $('ptitle').textContent = 'Replay: ' + ((D.demos.find(x => x.slug === s.slug) || {}).brand || s.slug);
+  $('psub').textContent = (s.name || s.uid || '') + ' · ' + when(s.start) + ' · ' + Math.round((s.duration_s||0)/60) + ' min';
+  $('pbody').innerHTML = '<div class="muted">Loading replay…</div>'; $('player').scrollIntoView({behavior:'smooth', block:'start'});
+  const r = await post('/api/p/replay-get/' + sid, auth() || {});
+  if (!r.ok || !r.events || r.events.length < 2) { $('pbody').innerHTML = '<div class="muted">This replay has no recorded frames yet.</div>'; return; }
+  $('pbody').innerHTML = ''; const w = Math.min(1100, $('pbody').clientWidth - 32);
+  const P = window.rrwebPlayer && (window.rrwebPlayer.default || window.rrwebPlayer.Player || window.rrwebPlayer);
+  try { PL = new P({ target: $('pbody'), props: { events: r.events, width: w, height: Math.round(w * 0.56), autoPlay: true, skipInactive: true, showController: true, speedOption: [1, 2, 4, 8], mouseTail: { strokeStyle: '#1fd5f9' } } }); }
+  catch (e) { $('pbody').innerHTML = '<div class="muted">Could not play this replay (' + esc(e.message) + ').</div>'; }
+}
+$('pclose').onclick = () => { try { PL && PL.$destroy && PL.$destroy(); } catch (e) {} $('pbody').innerHTML = ''; $('player').hidden = true; };
+load(); setInterval(() => { if (!$('app').hidden && $('player').hidden) load(); }, 60000);
+</script>
+</body>
+</html>

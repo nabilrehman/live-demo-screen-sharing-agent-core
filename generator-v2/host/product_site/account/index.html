@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>My demos · LiveKit demo generator</title>
+<link rel="icon" href="/lk/livekit-wordmark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lk/lk-ui.css">
+<style>
+  .login{min-height:100vh;display:grid;place-items:center;padding:24px;position:relative;overflow:hidden}
+  .login:before{content:"";position:absolute;inset:-30%;background:radial-gradient(40% 35% at 50% 40%,rgba(31,213,249,.16),transparent 70%),radial-gradient(30% 30% at 70% 70%,rgba(164,107,255,.10),transparent 70%);pointer-events:none}
+  .lcard{position:relative;width:100%;max-width:420px;padding:36px 32px 28px;border-radius:22px;background:linear-gradient(180deg,#121316,#0e0f11);border:1px solid #24272c;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+  .lcard:after{content:"";position:absolute;left:24px;right:24px;top:-1px;height:1px;background:linear-gradient(90deg,transparent,#1fd5f9,#a46bff,transparent)}
+  .lcard .logo{height:26px;display:block;margin-bottom:28px}
+  .lcard h1{font-size:26px}.lcard p{margin:0 0 24px;color:#a3a8b1}
+  .gbtn{display:flex;justify-content:center;min-height:44px}
+  .or{display:flex;align-items:center;gap:12px;margin:20px 0;color:#5d626b;font-size:12px;text-transform:uppercase;letter-spacing:.12em}.or:before,.or:after{content:"";flex:1;height:1px;background:#23252a}
+  .stack{display:grid;gap:10px}
+  .note{margin-top:18px;font-size:12px;color:#6b7079;line-height:1.5}
+  .cfg{padding:12px 14px;border-radius:12px;border:1px dashed #33363d;color:#a3a8b1;font-size:13px;margin-bottom:4px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+  .dc{overflow:hidden;display:flex;flex-direction:column}.dc .th{aspect-ratio:16/10;background:#0c0d0f center/cover no-repeat;border-bottom:1px solid var(--line);position:relative}
+  .dc .th .pill{position:absolute;top:10px;left:10px;backdrop-filter:blur(6px)}
+  .dc .bd{padding:14px 16px 16px;display:grid;gap:8px}.dc .bd b{font-size:15px}.dc .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .hello{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+  .me{display:flex;align-items:center;gap:14px}.me .av{width:46px;height:46px;font-size:18px}
+  .sec{margin-top:34px}
+  .new{border:1px dashed #2f333a;display:grid;place-items:center;min-height:240px;text-align:center;color:var(--muted);border-radius:16px;text-decoration:none!important;transition:border-color .15s}
+  .new:hover{border-color:var(--accent);color:#fff}.new .plus{font-size:30px;color:var(--accent);line-height:1;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div id="login" class="login" hidden>
+  <div class="lcard">
+    <a href="/"><img class="logo" src="/lk/livekit-wordmark.svg" alt="LiveKit"></a>
+    <h1>Sign in to your demo space</h1>
+    <p>Generate voice demos from any website, get an email when each one is ready, and keep them all in one place.</p>
+    <div class="stack">
+      <div id="gcfg" class="cfg" hidden>Google sign-in is being set up. Use your email below for now.</div>
+      <div class="gbtn" id="gbtn"></div>
+    </div>
+    <div id="emailbox" hidden>
+      <div class="or" id="or">or</div>
+      <form id="ef" class="stack">
+        <input class="f" name="name" placeholder="Your name" autocomplete="name">
+        <input class="f" name="email" type="email" placeholder="you@company.com" autocomplete="email" required>
+        <button class="btn" type="submit">Continue with email</button>
+        <div class="err" id="eerr"></div>
+      </form>
+    </div>
+    <div class="note">Internal LiveKit tool. We store your name and email to show who built and ran each demo. <a href="/">Back to the live demos</a></div>
+  </div>
+</div>
+
+<div id="app" hidden>
+  <div class="top">
+    <a class="brand" href="/"><img src="/lk/livekit-wordmark.svg" alt="LiveKit"><span>Demo generator</span></a>
+    <div class="nav"><a href="/">Live demos</a><a href="/account/" class="on">My demos</a><a href="/analytics/" id="nav-an" hidden>Analytics</a><a href="#" id="out">Sign out</a></div>
+  </div>
+  <div class="wrap">
+    <div class="hello">
+      <div class="me"><div class="av" id="av"></div><div><h1 id="hi">My demos</h1><div class="muted" id="sub"></div></div></div>
+      <a class="btn primary" href="/?generate=1">&#10022;&nbsp; Generate a demo</a>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="sec"><h2>Your recent demo sessions</h2><div class="card"><div id="sess"></div></div></div>
+  </div>
+</div>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+const API = window.LK_GEN_API || 'https://sb-mgs5l8pw3lep.vercel.run';
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const post = (p, b) => fetch(API + p, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(b)}).then(async r => ({ok:r.ok, ...(await r.json().catch(()=>({})))}));
+const ago = t => { const s = Date.now()/1000 - t; return s < 90 ? 'just now' : s < 3600 ? Math.round(s/60)+' min ago' : s < 86400 ? Math.round(s/3600)+' h ago' : Math.round(s/86400)+' d ago'; };
+const dur = s => s < 60 ? s+'s' : Math.floor(s/60)+'m '+(s%60)+'s';
+function saveSession(d){ localStorage.setItem('lk.session', d.session); localStorage.setItem('lk.view', d.view); localStorage.setItem('lk.user', JSON.stringify(d.user)); }
+function signOut(){ ['lk.session','lk.view','lk.user'].forEach(k => localStorage.removeItem(k)); try{ google.accounts.id.disableAutoSelect(); }catch(e){} location.reload(); }
+$('out').onclick = e => { e.preventDefault(); signOut(); };
+const avatar = u => u.picture ? `<img alt="" src="${esc(u.picture)}" referrerpolicy="no-referrer">` : esc((u.name||u.email||'?')[0].toUpperCase());
+
+async function showLogin(){
+  $('login').hidden = false; $('app').hidden = true;
+  const cfg = await fetch(API + '/api/p/config').then(r => r.json()).catch(() => ({}));
+  if (cfg.google_client_id) {
+    const go = () => {
+      if (!window.google?.accounts?.id) return setTimeout(go, 150);
+      google.accounts.id.initialize({ client_id: cfg.google_client_id, callback: async r => {
+        const d = await post('/api/p/auth/google', {credential: r.credential});
+        if (d.ok) { saveSession(d); next(); } else { $('eerr').textContent = d.error || 'sign-in failed'; $('emailbox').hidden = false; }
+      }, ux_mode: 'popup', auto_select: true, itp_support: true });
+      google.accounts.id.renderButton($('gbtn'), { theme:'filled_black', size:'large', shape:'pill', text:'continue_with', logo_alignment:'left', width: 320 });
+      google.accounts.id.prompt();
+    }; go();
+  } else { $('gcfg').hidden = false; $('gbtn').hidden = true; $('or').hidden = true; }
+  $('emailbox').hidden = cfg.email_login === false;
+  $('ef').onsubmit = async e => { e.preventDefault(); const f = new FormData(e.target);
+    const d = await post('/api/p/auth/email', {email: f.get('email'), name: f.get('name')});
+    if (d.ok) { saveSession(d); next(); } else $('eerr').textContent = d.error || 'try again'; };
+}
+function next(){ const r = new URLSearchParams(location.search).get('next'); if (r && r.startsWith('/')) location.href = r; else load(); }
+
+async function load(){
+  const s = localStorage.getItem('lk.session'); if (!s) return showLogin();
+  const d = await post('/api/p/me', {session: s});
+  if (!d.ok) { if (d.error === 'signed out') { ['lk.session','lk.view','lk.user'].forEach(k => localStorage.removeItem(k)); return showLogin(); }
+               $('login').hidden = true; $('app').hidden = false; $('grid').innerHTML = '<div class="empty">The build host is unreachable right now. Try again in a minute.</div>'; return; }
+  localStorage.setItem('lk.user', JSON.stringify(d.user)); if (d.view) localStorage.setItem('lk.view', d.view);
+  $('login').hidden = true; $('app').hidden = false;
+  const u = d.user; $('av').innerHTML = avatar(u); $('hi').textContent = 'Hi ' + (u.name || '').split(' ')[0] + ', here are your demos';
+  $('sub').innerHTML = esc(u.email) + ' &middot; ' + (u.verified ? '<span class="pill v">Google</span>' : '<span class="pill u">email (unverified)</span>');
+  $('nav-an').hidden = !u.admin;
+  const lk = encodeURIComponent(d.view || '');
+  $('grid').innerHTML = d.demos.map(x => `
+    <div class="card dc"><div class="th" style="background-image:url('${esc(x.thumb||'')}')"><span class="pill ${esc(x.status)}">${x.status==='done'?'Ready':x.status==='running'?'Building':'Failed'}</span></div>
+      <div class="bd"><div class="row"><b>${esc(x.brand)}</b><span class="muted" style="font-size:12px">${x.mode==='claude'?'Claude Code':'Quick'}</span></div>
+      <div class="muted" style="font-size:12px">${esc((x.url||'').replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))} &middot; ${ago(x.created)}${x.status==='running'?' &middot; '+Math.round(x.elapsed_s/60)+' min so far':''}</div>
+      <div class="row">${x.preview?`<a class="btn primary sm" target="_blank" href="${esc(x.preview)}&lk_u=${lk}">Open demo</a><span class="mono muted" style="font-size:12px">${esc(x.code)}</span>`:x.status==='running'?'<span class="muted" style="font-size:13px">We\'ll email you when it\'s ready.</span>':'<a class="btn sm" href="/?generate=1">Try again</a>'}</div></div></div>`).join('')
+    + `<a class="new" href="/?generate=1"><div><div class="plus">&#10022;</div><b style="color:#e8e9eb">Generate a new demo</b><div style="font-size:13px;margin-top:4px">Paste any website URL</div></div></a>`;
+  $('sess').innerHTML = d.sessions.length ? `<table class="t"><tr><th>Demo</th><th>When</th><th>Time in demo</th><th>Voice</th><th class="hide-sm">Pages</th></tr>` +
+    d.sessions.map(x => `<tr><td><b>${esc(x.slug)}</b></td><td>${ago(x.start)}</td><td>${dur(x.duration_s)}</td><td>${x.voice_s?dur(x.voice_s):'<span class="muted">-</span>'}</td><td class="hide-sm muted">${x.pages.length}</td></tr>`).join('') + '</table>'
+    : '<div class="empty">No demo sessions yet. Open one of your demos and click <b>Talk to LiveKit</b>.</div>';
+  if (d.demos.some(x => x.status === 'running')) setTimeout(load, 20000);
+}
+load();
+</script>
+</body>
+</html>

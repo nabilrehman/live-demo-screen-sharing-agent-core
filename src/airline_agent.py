@@ -29,6 +29,8 @@ log = logging.getLogger("airline")
 Sort = Literal["recommended", "cheapest", "earliest", "fastest"]
 Window = Literal["any", "morning", "afternoon", "evening", "night"]
 Fare = Literal["economy-convenience", "economy-comfort", "business-comfort", "business-elite"]
+PaxField = Literal["date_of_birth", "title", "nationality", "circle_number"]
+ContactField = Literal["email", "country_code", "phone", "sms_updates"]
 
 
 class AirlineKai(PageAgent):
@@ -153,7 +155,7 @@ class AirlineKai(PageAgent):
     @function_tool
     async def fill_passenger_name(self, passenger: str, full_name: str) -> str:
         """Fill a passenger's title, first and last name, ONLY with what the traveller said out loud for that
-        passenger. Never guess or invent names; never fill dates of birth or loyalty numbers.
+        passenger. Never guess or invent names. A title alone works too (full_name "Mr").
 
         Args:
             passenger: "1", "adult 2", "child 1".
@@ -163,6 +165,44 @@ class AirlineKai(PageAgent):
             raise ToolError("Say the name to fill.")
         note = await self.rpc("fill_passenger_name", passenger=passenger, full_name=full_name)
         return "Done; the name is filled in.\n" + note
+
+    @function_tool
+    async def fill_passenger_field(self, passenger: str, field: PaxField, value: str) -> str:
+        """Fill one more passenger detail, ONLY with what the traveller said out loud: date_of_birth (as said, e.g.
+        "July 6 1986" or "6th of July 86"; the page works out the date), title (Mr, Ms, Mrs, Mx, Dr, Miss, Mstr, or
+        "male"/"female"), nationality, or circle_number. Never passport or payment details.
+
+        Args:
+            passenger: "1", "adult 2", "child 1".
+            field: date_of_birth, title, nationality or circle_number.
+            value: Exactly what the traveller said.
+        """
+        note = await self.rpc("fill_passenger_field", passenger=passenger, field=field, value=value)
+        return "Done; it's filled in. Read it back briefly.\n" + note
+
+    @function_tool
+    async def fill_contact_field(self, field: ContactField, value: str) -> str:
+        """Fill a contact detail on the Contact details step, ONLY with what the traveller said: email (as spoken,
+        e.g. "nabeel rehman 8 at gmail dot com"; the page turns "at", "dot", "underscore", "dash" into symbols),
+        country_code ("plus forty-four", "UK", "+1"), phone (digits as spoken; "double two", "triple five" work) or
+        sms_updates ("on" or "off"). Call once per field.
+
+        Args:
+            field: email, country_code, phone or sms_updates.
+            value: Exactly what the traveller said.
+        """
+        note = await self.rpc("fill_contact_field", field=field, value=value)
+        return "Done; it's filled in. Read it back as the page shows it.\n" + note
+
+    @function_tool
+    async def scroll_page(self, where: str) -> str:
+        """Scroll the traveller's page: "down", "up", "top", "bottom", or to a section: "fares", "dates", "flight 2",
+        "passenger 2", "trip", "contact", "seats", "extras", "payment", "destinations", "footer".
+
+        Args:
+            where: A direction or a section name.
+        """
+        return "Done; scrolled.\n" + await self.rpc("scroll_page", where=where)
 
     @function_tool
     async def continue_booking(self) -> str:

@@ -212,7 +212,7 @@ class AirlinePage:
 
     def signature(self) -> str:
         """What the model should hear about again when it changes (not timings or sequence numbers)."""
-        c = {k: v for k, v in self.ctx.items() if k not in ("seq", "last_interaction")}
+        c = {k: v for k, v in self.ctx.items() if k not in ("seq", "last_interaction", "scroll")}
         li = self.ctx.get("last_interaction")
         return json.dumps([c, li and li["id"]], sort_keys=True)
 
@@ -296,6 +296,9 @@ class AirlinePage:
                         " ".join(x for x in (p.get("title"), p.get("first_name"), p.get("last_name")) if x)
                         or "no details yet"
                     )
+                    + (f", born {p['date_of_birth']}" if p.get("date_of_birth") else "")
+                    + (f", nationality {p['nationality']}" if p.get("nationality") else "")
+                    + (", Circle number entered" if p.get("circle_number_entered") else "")
                     + (" (complete)" if p.get("complete") else " (incomplete)")
                     + (" (form open)" if p.get("form_open") else "")
                     for p in pax
@@ -309,8 +312,8 @@ class AirlinePage:
             )
         if co := c.get("contact"):
             lines.append(
-                f"Contact form: email {'entered' if co['email_entered'] else 'empty'}, phone "
-                f"{'entered' if co['phone_entered'] else 'empty'} (the traveller types these)."
+                f"Contact form: email {co.get('email') or 'empty'}; phone {co.get('country_code')} "
+                f"{co.get('phone') or '(empty)'}; text-message updates {'on' if co.get('sms_updates') else 'off'}."
             )
         if c.get("seat_flights"):
             lines.append(
@@ -329,6 +332,8 @@ class AirlinePage:
             lines.append(f"Payment form (demo): {p['fields_filled_by_traveller']} filled by the traveller. {p['note']}")
         if cf := c.get("confirmation"):
             lines.append(f"Demo confirmation shown: reference {cf['reference']} ({cf['note']}).")
+        if c.get("scroll"):
+            lines.append(f"Scroll: {c['scroll']}.")
         if c.get("open_dialog"):
             lines.append(f"Open: the {c['open_dialog']}.")
         if hl := c.get("highlighted"):

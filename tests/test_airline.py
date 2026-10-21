@@ -99,3 +99,22 @@ def test_spoken_dollars():
         spoken(1356) == "thirteen fifty-six" and spoken(678) == "six seventy-eight" and spoken(2000) == "two thousand"
     )
     assert spoken(1905) == "nineteen oh five" and spoken(1100) == "eleven hundred" and spoken(12450) == "12,450"
+
+
+def test_note_shows_contact_and_passenger_fields():
+    p = AirlinePage()
+    snap = {**SNAP["passengers"], "seq": 90, "step": "contact", "scroll": "at the top"}
+    snap["passengers"] = [{**snap["passengers"][0], "date_of_birth": "1986-07-06", "nationality": "American"}]
+    snap["contact"] = {
+        "email": "nabeelrehman8@gmail.com",
+        "country_code": "+1",
+        "phone": "2222222222",
+        "sms_updates": True,
+    }
+    p.update(snap)
+    n = p.note()
+    assert "born 1986-07-06, nationality American" in n
+    assert "email nabeelrehman8@gmail.com; phone +1 2222222222; text-message updates on" in n
+    sig = p.signature()
+    p.update({**snap, "seq": 91, "scroll": "40% down"})
+    assert p.signature() == sig  # scrolling alone doesn't re-post the page to the model

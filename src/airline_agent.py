@@ -1,4 +1,4 @@
-"""Kai, a voice booking assistant on an airline website (the fictional Aurelian Airways demo). No shared browser: the
+"""Kai (called "LiveKit" to the traveller), a voice booking assistant on an airline website (the fictional Aurelian Airways demo). No shared browser: the
 page sends its state up as a page_context text stream and registers RPC methods that Kai's tools call to act on it.
 Kai never touches payment: there is no tool for it, and the page never reports card details. Flights and fares come
 from the page (generated deterministically from knowledge/airline/), the persona, policies and greeting from

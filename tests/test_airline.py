@@ -32,7 +32,8 @@ def test_prompt_and_greeting_complete():
     assert "Economy Comfort [economy-comfort]" in p and "TOTALS FOR ALL PASSENGERS" in p
     assert "never press Pay" in p
     g = greeting()
-    assert "Kai" in g and "Aurelian Airways" in g and "{" not in g
+    assert "LiveKit, Aurelian's voice assistant" in g and "{" not in g
+    assert "You are LiveKit, Aurelian's voice assistant" in p
 
 
 def test_calendar_has_a_line_per_week():

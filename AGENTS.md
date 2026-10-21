@@ -14,6 +14,11 @@ A LiveKit Agents project (Python, `uv`). See README.md for what it does.
   actions down; no browser). Its prompt and catalog are in `knowledge/shop/`; deploy it from `shop.Dockerfile`.
 - `src/bank_agent.py` + `src/inpage/live.py`, `src/inpage/bank.py`: Kai inside a bank account page, same in-page pattern.
   The bank, persona, greeting, account data and fee rules are in `knowledge/bank/`; deploy it from `bank.Dockerfile`.
+- `src/windcreek_agent.py` + `src/inpage/site.py`, `src/inpage/insights.py`: Kai embedded in a multi-page website (the
+  Wind Creek demo): generic page snapshots up, navigate/scroll_to/highlight/read_section RPCs down, rejoin across page
+  loads, a per-session summary (insights). Facts and prompt in `knowledge/windcreek/`; the embed widget is
+  `embed/windcreek/kai.js` on the demo site; the site mockup is built by `mockup/windcreek/build.py`; demo script and
+  integration guide in `docs/windcreek/`; deploy it from `windcreek.Dockerfile`. Spoken test: `tests/windcreek_flow.py`.
 
 ## Run and test
 

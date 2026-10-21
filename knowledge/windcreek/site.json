@@ -1,0 +1,8 @@
+{
+  "brand": "Wind Creek",
+  "assistant": "Kai",
+  "timezone": "America/New_York",
+  "knowledge_files": ["promotions.md", "rewards.md", "bethlehem.md", "properties.md"],
+  "properties": ["bethlehem", "atmore", "wetumpka", "montgomery", "chicagosouthland", "aruba", "curacao"],
+  "fetched": "2026-10-20"
+}

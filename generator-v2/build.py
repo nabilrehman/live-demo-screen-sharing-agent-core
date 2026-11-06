@@ -203,15 +203,35 @@ def rebrand_widget(src_dir, out_dir):
             shutil.copy(s, os.path.join(out_dir, fn))
 
 
-def scenario_knowledge(model, out, brand, url, sc, panel_path):
+def persona(work, sc=None):
+    """The agent's name and voice: ref/persona.json (set in the form or by an edit) wins, then what the use case implies."""
+    try:
+        p = json.load(open(os.path.join(work, "ref", "persona.json")))
+    except (OSError, ValueError):
+        p = {}
+    sc = sc or {}
+    name = (p.get("assistant") or sc.get("agent_name") or "").strip() or "LiveKit"
+    voice = (p.get("voice") or sc.get("voice") or "").strip().lower() or None
+    return name, voice
+
+
+def site_json(out, data, voice):
+    if voice:
+        data["voice"] = voice  # read by src/windcreek_agent.py -> brain.make_session
+    json.dump(data, open(os.path.join(out, "site.json"), "w"), indent=1)
+
+
+def scenario_knowledge(model, out, brand, url, sc, panel_path, assistant="LiveKit", voice=None):
     """Knowledge pack for a use case: role prompt + greeting filled now; {assistant} {brand} {today} {knowledge} stay for site.py."""
     tpl = os.path.join(HERE, "templates")
     files = ["scenario.md", "facts.md", "sitemap.md"]
-    json.dump({"brand": brand, "assistant": "LiveKit", "timezone": "America/New_York", "knowledge_files": files, "properties": [], "source": url,
-               "concept": sc["concept"], "view": sc.get("view", "site"), "scenario_path": panel_path},
-              open(os.path.join(out, "site.json"), "w"), indent=1)
+    site_json(out, {"brand": brand, "assistant": assistant, "timezone": "America/New_York", "knowledge_files": files, "properties": [], "source": url,
+                    "concept": sc["concept"], "view": sc.get("view", "site"), "scenario_path": panel_path}, voice)
     where = f"\n\nThe scenario screen is at {panel_path} (open it with navigate; each record is a card you can highlight by name)." if panel_path else ""
-    open(os.path.join(out, "scenario.md"), "w").write(f"# Scenario: {sc.get('user') or 'the user'}\n\n{sc.get('role') or ''}{where}\n\n" + (sc.get("data_md") or ""))
+    flows = "".join(f"\n- {f.get('name')}" + (f" (details to confirm: {', '.join(f.get('asks_for'))})" if f.get("asks_for") else "")
+                    for f in sc.get("flows") or [] if f.get("name"))
+    flows = f"\n\n## Tasks this demo walks through{flows}" if flows else ""
+    open(os.path.join(out, "scenario.md"), "w").write(f"# Scenario: {sc.get('user') or 'the user'}\n\n{sc.get('role') or ''}{where}{flows}\n\n" + (sc.get("data_md") or ""))
     rules = "\n".join("- " + str(r).strip().lstrip("- ") for r in sc.get("instructions") or [] if str(r).strip())
     if sc.get("view") == "app" and panel_path:
         rules = f"- Start on the scenario screen ({panel_path}): open it when the conversation starts or when they ask for the overview.\n" + rules
@@ -242,11 +262,11 @@ GENERIC_INSIGHTS = {
 }
 
 
-def knowledge(model, out, slug, brand, url, sc=None, panel_path=None):
+def knowledge(model, out, slug, brand, url, sc=None, panel_path=None, assistant="LiveKit", voice=None):
     os.makedirs(out, exist_ok=True)
     tpl = os.path.join(HERE, "templates")
-    json.dump({"brand": brand, "assistant": "LiveKit", "timezone": "America/New_York", "knowledge_files": ["facts.md", "sitemap.md"], "properties": [], "source": url},
-              open(os.path.join(out, "site.json"), "w"), indent=1)
+    site_json(out, {"brand": brand, "assistant": assistant, "timezone": "America/New_York", "knowledge_files": ["facts.md", "sitemap.md"], "properties": [], "source": url},
+              voice)
     open(os.path.join(out, "facts.md"), "w").write("# Facts\n\n" + (model.get("facts") or ""))
     sm = "\n".join(f"- {p.get('path')}: {p.get('title')}" for p in model.get("pages") or [])
     open(os.path.join(out, "sitemap.md"), "w").write("# Site map (paths you can open with navigate)\n\n" + sm)
@@ -257,7 +277,7 @@ def knowledge(model, out, slug, brand, url, sc=None, panel_path=None):
     if not os.path.exists(os.path.join(out, "insights.json")):  # src/inpage/insights.py needs it; generic vocab
         json.dump(GENERIC_INSIGHTS, open(os.path.join(out, "insights.json"), "w"), indent=1)
     if sc:
-        scenario_knowledge(model, out, brand, url, sc, panel_path)
+        scenario_knowledge(model, out, brand, url, sc, panel_path, assistant, voice)
         open(os.path.join(out, "SOURCES.md"), "a").write("scenario.md is synthetic sample data generated for the demo use case (all fictional).\n")
 
 
@@ -279,8 +299,9 @@ def main():
         os.makedirs(d, exist_ok=True)
         open(os.path.join(d, "index.html"), "w").write(render(model, tok, p, base, slug, brand, code, brain))
     rebrand_widget(widget_src, os.path.join(site, "livekit"))
-    knowledge(model, os.path.join(work, "knowledge"), slug, brand, model.get("url", ""), sc, panel_path)
-    print(f"built {len(model.get('pages') or [])} pages -> {site} (base {base}, code {code}, brain {brain})"
+    assistant, voice = persona(work, sc)
+    knowledge(model, os.path.join(work, "knowledge"), slug, brand, model.get("url", ""), sc, panel_path, assistant, voice)
+    print(f"built {len(model.get('pages') or [])} pages -> {site} (base {base}, code {code}, brain {brain}, agent {assistant}, voice {voice or 'default'})"
           + (f"; use case: {sc.get('user')!r}, view={sc.get('view')}, screen {panel_path}" if sc else ""))
 
 

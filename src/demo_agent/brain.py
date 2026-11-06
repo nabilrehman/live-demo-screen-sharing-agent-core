@@ -24,14 +24,29 @@ MODEL = (
 )
 
 
-def make_session() -> AgentSession:
+# A demo can ask for a voice by gender ("female"/"male") or by the model's own voice name; env overrides still win.
+VOICES = {
+    "gemini": {"female": "Aoede", "male": "Puck"},
+    "openai/": {"female": "marin", "male": "cedar"},
+    "xai/": {"female": "eve", "male": "rex"},
+}
+
+
+def pick_voice(family: str, want: str | None, default: str) -> str:
+    if not want:
+        return default
+    return VOICES[family].get(want.strip().lower(), want.strip())
+
+
+def make_session(voice: str | None = None) -> AgentSession:
+    """voice: "female", "male" or a voice name for the current model; None keeps the default (male, to match the avatar)."""
     if IS_GEMINI:  # ScreenVideoInput paces the frames, so the session's own video sampler is off
-        return AgentSession(llm=gemini_live(), vad=silero.VAD.load(), video_sampler=None)
+        return AgentSession(llm=gemini_live(voice), vad=silero.VAD.load(), video_sampler=None)
     stall_watchdog()
-    return AgentSession(llm=inference_realtime(), vad=silero.VAD.load())
+    return AgentSession(llm=inference_realtime(voice), vad=silero.VAD.load())
 
 
-def gemini_live():
+def gemini_live(voice: str | None = None):
     from google.genai import types as gt
     from livekit.plugins import google
 
@@ -46,7 +61,7 @@ def gemini_live():
         }
     return google.realtime.RealtimeModel(
         model=MODEL,
-        voice=os.getenv("GEMINI_VOICE", "Puck"),  # male, to match the avatar
+        voice=os.getenv("GEMINI_VOICE") or pick_voice("gemini", voice, "Puck"),
         context_window_compression=gt.ContextWindowCompressionConfig(sliding_window=gt.SlidingWindow()),
         realtime_input_config=gt.RealtimeInputConfig(
             automatic_activity_detection=gt.AutomaticActivityDetection(
@@ -62,7 +77,7 @@ def gemini_live():
     )
 
 
-def inference_realtime():
+def inference_realtime(voice: str | None = None):
     kw = {}
     if MODEL.startswith(("google/", "openai/")):
         from openai.types.realtime.realtime_audio_input_turn_detection import ServerVad
@@ -73,9 +88,9 @@ def inference_realtime():
     if os.getenv("MIN_RT_VOICE"):
         kw["voice"] = os.environ["MIN_RT_VOICE"]
     elif MODEL.startswith("openai/"):
-        kw["voice"] = "marin"
+        kw["voice"] = pick_voice("openai/", voice, "marin")
     elif MODEL.startswith("xai/"):
-        kw["voice"] = "rex"  # male, to match the avatar
+        kw["voice"] = pick_voice("xai/", voice, "rex")  # male by default, to match the avatar
     return inference.RealtimeModel(model=MODEL, **kw)
 
 

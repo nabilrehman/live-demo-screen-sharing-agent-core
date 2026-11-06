@@ -221,7 +221,7 @@ server = AgentServer(port=int(os.getenv("WORKER_PORT", 8099)))
 
 @server.rtc_session(agent_name=os.getenv("AGENT_NAME", "live-demo-windcreek"))
 async def entrypoint(ctx: JobContext):
-    session = make_session()
+    session = make_session(SITE.get("voice"))  # the demo's knowledge pack can ask for "female"/"male"
     page = SitePage()
     ins = Insights(ctx.room.name, BRAIN, MODEL)
     kai = SiteKai(ctx.room, page, prompt(), ins)

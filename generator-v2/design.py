@@ -10,7 +10,7 @@
   python design.py <workdir> --brand "Hard Rock Hotels"
   python design.py <workdir> --brand "Hard Rock Hotels" --scenario-only --concept-file <workdir>/concept.txt
 """
-import json, os, sys
+import datetime, json, os, sys
 import gemini
 
 SPEC_PROMPT = """You are a senior front-end designer. These are full-page screenshots (desktop 1440 and phone 390) of {brand}'s website, plus computed CSS styles as JSON.
@@ -46,24 +46,81 @@ The LiveKit sales engineer described the use case this demo must show:
 <<<
 {concept}
 >>>
+Today is {today}: any dates in the sample data (bookings, appointments, claims, renewals) are around today, mostly upcoming.
 Design the agent around THIS use case (not a generic website concierge), grounded in {brand}'s real properties, venues,
 offers and brand voice (from the website summary below) wherever they fit. Output JSON only:
 {{"user":"who talks to the agent, short (e.g. 'a Hard Rock casino host')",
  "role":"one or two sentences, second person: who the agent is and what it does for that user (e.g. 'You are the host companion on the casino host's phone: ...')",
- "intro":"what the agent calls itself after 'Hi, I'm LiveKit, ' (e.g. \"{brand}'s host companion\")",
+ "agent_name":"the agent's name if the use case gives one (e.g. 'Allie'), else empty",
+ "voice":"female or male: match the agent's name if it has one, else whichever suits the role",
+ "intro":"what the agent calls itself after 'Hi, I'm <agent name>, ' (e.g. \"{brand}'s host companion\")",
  "greeting_followup":"one instruction for the rest of the greeting, e.g. 'offer to run through today's arriving VIPs, starting with the top one.'",
  "view":"app or site",
  "instructions":["5-9 short behaviour rules specific to this role: what to lead with, how to prioritise, limits it must respect (e.g. never offer comps above the host's authority), when to recommend what"],
  "data_md":"markdown: realistic SYNTHETIC sample data the agent needs for this use case (e.g. today's records with profiles, preferences, history, limits/policies), 6-12 records, clearly fictional names, consistent numbers, tied to real {brand} venues/offers/shows where relevant",
  "panel":{{"path":"/<short-slug>","nav":"short nav label","title":"screen title","subtitle":"one line",
    "items":[{{"title":"record name","subtitle":"one line","badges":["short tag"],"fields":[{{"label":"...","value":"..."}}],"note":"one line suggestion"}}]}},
+ "flows":[{{"name":"one task the user walks through with the agent, e.g. 'File a claim for a fender bender'",
+   "asks_for":["every detail the agent asks the user for, or checks, during this task, as a field label exactly as used in the records, e.g. 'Date of birth', 'Policy number'"]}}],
  "sample_questions":["4-6 short things the user might say to the agent"]}}
-Rules: view is "app" when the use case is a staff/internal tool or a bespoke screen (dashboard, briefing, console, phone
+Rules: 2-4 flows covering the use case. Every label in any flow's asks_for MUST be a field, with a value, in EVERY panel item
+and in every record of data_md (an identity check the data can't answer makes the agent ask again and again). view is "app" when the use case is a staff/internal tool or a bespoke screen (dashboard, briefing, console, phone
 companion) rather than a customer browsing {brand}'s public site, otherwise "site". panel.items show the same records as
 data_md (max 12, 3-6 fields each). Everyone is fictional: no real customer data, no real staff names. No URLs, no markdown
 in instructions. The panel path must not be a sign-in, account, checkout or payment page.
 WEBSITE SUMMARY:
 """
+
+
+SYNONYMS = {"dob": "birthday", "dateofbirth": "birthday", "birthdate": "birthday", "zipcode": "zip", "postalcode": "zip", "postcode": "zip"}
+
+
+def norm(label):
+    k = "".join(c for c in str(label).lower() if c.isalnum())
+    return SYNONYMS.get(k, k)
+
+
+def missing_details(sc):
+    """Details a flow asks for that some record lacks: [(detail, [record titles])]; an empty list = only missing in data_md."""
+    want = {norm(a): a for f in sc.get("flows") or [] for a in f.get("asks_for") or [] if norm(a)}
+    items = (sc.get("panel") or {}).get("items") or []
+    md = norm(sc.get("data_md") or "")
+    has = lambda labels, k: any(lab and (k in lab or lab in k) for lab in labels)  # noqa: E731
+    out = []
+    for k, label in want.items():
+        lacking = [it.get("title") or "?" for it in items
+                   if not has([norm(f.get("label")) for f in it.get("fields") or [] if str(f.get("value") or "").strip()], k)]
+        in_md = k in md or any(a in md for a, b in SYNONYMS.items() if b == k)
+        if lacking or not in_md:
+            out.append((label, lacking))
+    return out
+
+
+REPAIR_PROMPT = """This JSON describes sample data for a voice agent demo. The agent's flows ask the user for details that some
+records don't have, so the agent would ask for them forever. Add each missing detail, with a realistic fictional value, to
+EVERY panel item (as a field with exactly that label) and to every record in data_md. Change nothing else. Return the full
+JSON only.
+MISSING: {missing}
+JSON:
+"""
+
+
+def complete_records(sc, tries=2):
+    """Make sure every detail the flows ask for exists in every record (the 'agent asks for the birthday forever' bug)."""
+    for _ in range(tries):
+        miss = missing_details(sc)
+        if not miss:
+            print(f"scenario check: {len(sc.get('flows') or [])} flows, every asked-for detail is in every record", flush=True)
+            return sc
+        desc = "; ".join(f"{d} (missing in: {', '.join(r) if r else 'data_md'})" for d, r in miss)
+        print(f"scenario check: fixing missing details: {desc}", flush=True)
+        fixed = gemini.generate([{"text": REPAIR_PROMPT.format(missing=desc) + json.dumps(sc)}], json_out=True)
+        if isinstance(fixed, dict) and fixed.get("panel"):
+            sc = fixed
+    miss = missing_details(sc)
+    if miss:
+        print(f"scenario check: WARNING still missing {miss}; the agent's demo rules will accept what the user says", flush=True)
+    return sc
 
 
 def scenario(work, brand, concept):
@@ -80,7 +137,8 @@ def scenario(work, brand, concept):
     if not ctx and os.path.exists(cp):
         ctx = {n: (p.get("text") or "")[:4000] for n, p in json.load(open(cp))["pages"].items()}
     print("gemini: scenario", flush=True)
-    sc = gemini.generate([{"text": SCENARIO_PROMPT.format(brand=brand, url=url, concept=concept) + json.dumps(ctx)[:120000]}], json_out=True)
+    sc = gemini.generate([{"text": SCENARIO_PROMPT.format(brand=brand, url=url, concept=concept, today=datetime.date.today().strftime("%B %d, %Y")) + json.dumps(ctx)[:120000]}], json_out=True)
+    sc = complete_records(sc)
     sc["concept"] = concept
     json.dump(sc, open(os.path.join(ref, "scenario.json"), "w"), indent=1)
     print(f"scenario: view={sc.get('view')} user={sc.get('user')!r} {len((sc.get('panel') or {}).get('items') or [])} records")

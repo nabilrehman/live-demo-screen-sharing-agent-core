@@ -2,6 +2,8 @@
 
   POST /api/generate   {url, brand, slug, concept?, mode: quick|claude, images: bool, build_code}  -> starts a build job
   GET  /api/jobs/<slug>                                    -> status + readable log tail (poll every few s)
+  POST /api/demos/<slug>/edit {build_code, assistant?, voice?, change?} -> edits a finished demo, restarts its worker
+  POST /api/demos/<slug>/delete {build_code}             -> stops its worker, moves it to work/.deleted/ (recoverable)
   GET  /api/demos                                          -> every demo built here (gallery feed for the main page)
   GET  /v2/<slug>/...                                      -> the generated, access-code-gated demo (static)
   GET  /api/token?brain=<slug>-grok                        -> LiveKit token, dispatches agent gen-<slug> (worker runs here)
@@ -66,7 +68,7 @@ def save(slug, j):
 def worker_running(slug):
     """True if a voice worker with AGENT_NAME=gen-<slug> is alive (started by us or by Claude's own test)."""
     want = f"AGENT_NAME=gen-{slug}".encode()
-    for pid in os.listdir("/proc"):
+    for pid in os.listdir("/proc") if os.path.isdir("/proc") else []:  # no /proc off Linux (local testing)
         if pid.isdigit():
             try:
                 if want in open(f"/proc/{pid}/environ", "rb").read().split(b"\0"):
@@ -81,6 +83,22 @@ def start_worker(slug):
         return
     port = 8100 + (sum(map(ord, slug)) % 800)
     subprocess.Popen(["bash", os.path.join(GEN, "host", "run_voice.sh"), slug, str(port)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def stop_worker(slug):
+    """SIGTERM the demo's own voice worker processes (found by their AGENT_NAME), so the next call loads the edit."""
+    want = f"AGENT_NAME=gen-{slug}".encode()
+    for pid in os.listdir("/proc") if os.path.isdir("/proc") else []:
+        if pid.isdigit():
+            try:
+                if want in open(f"/proc/{pid}/environ", "rb").read().split(b"\0"):
+                    os.kill(int(pid), 15)
+            except OSError:
+                pass
+    for _ in range(20):
+        if not worker_running(slug):
+            return
+        time.sleep(0.5)
 
 
 def refresh(slug, j):
@@ -141,11 +159,21 @@ def public_base(req):
 def view(req, slug, j):
     j = refresh(slug, j)
     base = public_base(req)
-    out = {k: j.get(k) for k in ("slug", "brand", "url", "mode", "status", "code", "concept", "created", "finished", "images")}
+    out = {k: j.get(k) for k in ("slug", "brand", "url", "mode", "status", "code", "concept", "created", "finished", "images", "edits")}
+    out["persona"] = persona(slug)
     out["preview"] = f"{base}/v2/{slug}/?code={urllib.parse.quote(j['code'])}" if j.get("status") == "done" else None
     out["elapsed_s"] = int((j.get("finished") or time.time()) - j.get("created", time.time()))
     out["thumb"] = f"{base}/thumb/{slug}" if thumb_src(slug) else None
     return out
+
+
+def persona(slug):
+    """The agent's current name and voice, from the knowledge pack the worker loads."""
+    try:
+        s = json.load(open(os.path.join(WORK, slug, "knowledge", "site.json")))
+        return {"assistant": s.get("assistant"), "voice": s.get("voice")}
+    except (OSError, ValueError):
+        return None
 
 
 def thumb_src(slug):
@@ -214,6 +242,10 @@ async def generate(req):
         return jerr(400, "pick another slug")
     mode = "claude" if f.get("mode") == "claude" else "quick"
     concept = (f.get("concept") or "").strip()[:4000]
+    assistant = re.sub(r"[^\w .'-]", "", (f.get("assistant") or "").strip())[:40]
+    voice = (f.get("voice") or "").strip().lower()
+    if voice not in ("", "female", "male"):
+        return jerr(400, "voice is female or male")
     old = load(slug)
     if old and refresh(slug, old).get("status") == "running":
         return jerr(409, f"{slug} is already building")
@@ -228,6 +260,13 @@ async def generate(req):
     cmd = [PY, os.path.join(GEN, "generate_demo.py"), url, slug, "--brand", brand, "--code", code, "--mode", mode, "--wait"]
     if not f.get("images"):
         cmd += ["--skip", "images"]
+    if assistant:
+        cmd += ["--assistant", assistant]
+    if voice:
+        cmd += ["--voice", voice]
+    pj = os.path.join(work, "ref", "persona.json")
+    if not (assistant or voice) and os.path.exists(pj):
+        os.remove(pj)  # a previous build's persona: this build has none
     cf = os.path.join(work, "concept.txt")
     if concept:
         open(cf, "w").write(concept + "\n"); cmd += ["--concept-file", cf]
@@ -240,6 +279,75 @@ async def generate(req):
          "status": "running", "created": int(time.time()), "pid": p.pid}
     save(slug, j)
     return cors(web.json_response(view(req, slug, j)))
+
+
+async def edit(req):
+    """Change a finished demo in about a minute instead of rebuilding it (generator-v2/edit_demo.py does the work)."""
+    import asyncio
+    slug = req.match_info["slug"]
+    try:
+        f = await req.json()
+    except Exception:
+        return jerr(400, "send JSON")
+    need = build_code()
+    if need and (f.get("build_code") or "").strip() != need:
+        return jerr(403, "wrong builder code")
+    j = load(slug)
+    if not j or refresh(slug, j).get("status") != "done":
+        return jerr(409, "only a finished demo can be edited")
+    if j.get("editing") and time.time() - j["editing"] < 600:
+        return jerr(409, "an edit is already running")
+    assistant = re.sub(r"[^\w .'-]", "", (f.get("assistant") or "").strip())[:40]
+    voice = (f.get("voice") or "").strip().lower()
+    change = (f.get("change") or "").strip()[:2000]
+    if voice not in ("", "female", "male"):
+        return jerr(400, "voice is female or male")
+    if not (assistant or voice or change):
+        return jerr(400, "nothing to change")
+    cmd = [PY, os.path.join(GEN, "edit_demo.py"), slug, "--brand", j["brand"], "--code", j["code"]]
+    for k, v in (("--assistant", assistant), ("--voice", voice), ("--change", change)):
+        if v:
+            cmd += [k, v]
+    j["editing"] = int(time.time()); save(slug, j)
+    try:
+        p = await asyncio.to_thread(subprocess.run, cmd, cwd=GEN, env={**os.environ, **BUILD_ENV}, capture_output=True, text=True, timeout=540)
+    finally:
+        j = load(slug); j.pop("editing", None); save(slug, j)
+    open(os.path.join(WORK, slug, "edit.log"), "a").write(p.stderr[-20000:] + p.stdout)
+    try:
+        res = json.loads(p.stdout.strip().splitlines()[-1])
+    except (ValueError, IndexError):
+        return jerr(500, "the edit failed: " + scrub(p.stderr.strip().splitlines()[-1] if p.stderr.strip() else "no output")[:300])
+    await asyncio.to_thread(stop_worker, slug)
+    start_worker(slug)
+    j = load(slug)
+    j.setdefault("edits", []).append({"at": int(time.time()), "assistant": assistant, "voice": voice, "change": change, "summary": res.get("summary")})
+    save(slug, j)
+    return cors(web.json_response({**view(req, slug, j), "summary": res.get("summary"), "changed": res.get("changed")}))
+
+
+async def delete(req):
+    """Take a demo down: stop its voice worker and move its folder to work/.deleted/<slug>-<time> (restore = move it back)."""
+    import asyncio, shutil
+    slug = req.match_info["slug"]
+    try:
+        f = await req.json()
+    except Exception:
+        return jerr(400, "send JSON")
+    need = build_code()
+    if need and (f.get("build_code") or "").strip() != need:
+        return jerr(403, "wrong builder code")
+    j = load(slug)
+    if not j or not re.match(r"^[a-z0-9-]+$", slug):
+        return jerr(404, "no such demo")
+    if refresh(slug, j).get("status") == "running" or j.get("editing"):
+        return jerr(409, "it is still building or being edited; try again when it's done")
+    await asyncio.to_thread(stop_worker, slug)
+    dst = os.path.join(WORK, ".deleted", f"{slug}-{time.strftime('%Y%m%d-%H%M%S')}")
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.move(os.path.join(WORK, slug), dst)
+    PROCS.pop(slug, None)
+    return cors(web.json_response({"deleted": slug}))
 
 
 async def job(req):
@@ -333,6 +441,7 @@ async def on_start(app):
 app = web.Application()
 app.on_startup.append(on_start)
 app.add_routes([web.get("/", index), web.get("/api/demos", demos), web.post("/api/generate", generate), web.get("/api/jobs/{slug}", job),
+                web.post("/api/demos/{slug}/edit", edit), web.post("/api/demos/{slug}/delete", delete),
                 web.get("/thumb/{slug}", thumb), web.get("/api/token", token), web.route("OPTIONS", "/api/{tail:.*}", options),
                 web.route("*", "/v2/{tail:.*}", static)])
 if __name__ == "__main__":

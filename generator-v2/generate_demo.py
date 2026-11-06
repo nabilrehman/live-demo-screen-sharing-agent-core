@@ -3,6 +3,9 @@ ISOLATED from the live demos: writes only under work/<slug>/; deploy (opt-in) on
 
   python generate_demo.py <url> <slug> --brand "Hard Rock Hotels" [--code X] [--pages 8] [--mode quick|claude]
          [--skip capture,design,scenario,images] [--deploy] [--concept "use case text" | --concept-file use_case.txt]
+         [--assistant Allie] [--voice female|male]
+
+--assistant / --voice (optional): the agent's name and voice; otherwise the use case decides (quick mode), else "LiveKit".
 
 --concept (optional): a free-text agent use case / scenario, e.g. "Casino hosts walk the floor managing high rollers; give
          each host an AI agent on their phone that briefs them on arriving VIPs". With it, the agent's persona, prompt,
@@ -39,8 +42,18 @@ USE CASE (required; written by the LiveKit sales engineer, it shapes the agent m
   companion, ...), build that screen too: a page under /v2/{slug}/<name>/ in {brand}'s design tokens, phone-first at 390,
   linked first in the nav, gated like the rest, showing the same records as scenario.md, and make it what the agent opens
   first. Keep the site replica as supporting context where it helps (e.g. venues to recommend).
+- Pick the 2-4 tasks the user will walk through with the agent. For each, list every detail the agent asks for or checks
+  (date of birth, policy or account number, ZIP...). Every record in scenario.md, and on the app screen, MUST have every one
+  of those details with a value; check this before testing. A missing detail makes the agent ask for it again and again.
 - Adapt the scripted spoken-flow test so most of the ~12 checks exercise this scenario (ask for the core task, drill into
-  one record, a policy/limit question, a recommendation), and list the scenario in REPORT.md.
+  one record, a policy/limit question, a recommendation), run each task end to end including any identity check, and fail
+  the check if the agent asks for the same detail twice. List the scenario and its tasks in REPORT.md.
+"""
+
+PERSONA = """
+AGENT PERSONA (set by the sales engineer; it overrides the defaults): {text}. Put it in knowledge/{slug}/site.json as
+"assistant" (the name) and "voice" ("female" or "male"; the worker picks the matching voice), and use the name in the
+prompt and greeting instead of "LiveKit".
 """
 
 
@@ -74,12 +87,17 @@ def main():
         print(f"use case: {concept[:160]}{'...' if len(concept) > 160 else ''}", flush=True)
     elif os.path.exists(cfile):
         os.remove(cfile)  # a previous run's use case: this run has none
+    assistant, voice = (arg("--assistant") or "").strip(), (arg("--voice") or "").strip().lower()
+    if assistant or voice:  # build.py reads it; an edit later rewrites it
+        os.makedirs(os.path.join(work, "ref"), exist_ok=True)
+        json.dump({"assistant": assistant, "voice": voice}, open(os.path.join(work, "ref", "persona.json"), "w"))
     if mode == "claude":
         prompt = open(os.environ.get("GEN_CLAUDE_TEMPLATE", os.path.join(HERE, "templates", "claude_prompt.md"))).read()
-        if concept:
-            prompt = prompt.replace("{concept}", CLAUDE_CONCEPT.strip("\n").replace("{text}", concept))
-        else:
-            prompt = prompt.replace("{concept}\n", "").replace("{concept}", "")
+        extra = CLAUDE_CONCEPT.strip("\n").replace("{text}", concept) if concept else ""
+        if assistant or voice:
+            who = ", ".join(x for x in (f"name {assistant}" if assistant else "", f"{voice} voice" if voice else "") if x)
+            extra = (extra + "\n" + PERSONA.strip("\n").replace("{text}", who)).strip("\n")
+        prompt = prompt.replace("{concept}", extra) if extra else prompt.replace("{concept}\n", "").replace("{concept}", "")
         for k, v in {"{url}": url, "{slug}": slug, "{brand}": brand, "{code}": code, "{S}": S}.items():
             prompt = prompt.replace(k, v)
         open(os.path.join(work, "PROMPT.md"), "w").write(prompt)

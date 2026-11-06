@@ -35,6 +35,27 @@ What changes with a use case (works for any scenario, not just casinos):
 - Limits: the quick-mode screen is one generic card-grid layout in the brand's tokens (no charts, filters or live data);
   richer bespoke UIs need claude mode. All scenario people/data are fictional.
 
+## Agent name and voice (optional `--assistant`, `--voice`)
+`--assistant Allie --voice female` (form: "Agent name", "Agent voice") is saved to `ref/persona.json` and written to the
+knowledge pack's `site.json` (`assistant`, `voice`); `src/windcreek_agent.py` passes `voice` to `brain.make_session`
+(female/male -> the model's voice: Grok eve/rex, Gemini Aoede/Puck, OpenAI marin/cedar). Without them, quick mode takes the
+name and voice the use case implies (`agent_name`, `voice` in `ref/scenario.json`), else "LiveKit" with the default male voice.
+
+## Sample data the flows need
+With a use case, `ref/scenario.json` also lists 2-4 `flows`, each with `asks_for`: every detail the agent asks the user for
+or checks (date of birth, policy number...). `design.complete_records` checks every panel item and `data_md` has each of
+them and, if not, asks Gemini to fill the gaps (up to twice) before the build continues. The tasks go into
+`knowledge/scenario.md`. Separately, `src/inpage/site.py` appends demo rules to every prompt: never ask for the same detail
+more than twice; if it isn't in the data or doesn't match, accept it for the demo and carry on.
+
+## Edit a finished demo (no rebuild, about a minute)
+    $PY edit_demo.py hoxton --voice female --assistant Allie --change "Add a date of birth to every guest; the agent verifies it."
+Quick-mode demos with a use case: the change is applied to `ref/scenario.json` and `build.py` re-renders the scenario
+screen and knowledge pack from it. Other demos (claude mode): the change is applied to the knowledge pack's text files
+(`livekit_prompt.md`, `greeting.md`, `scenario.md`); pages stay as they are. Backups in `work/<slug>/history/<time>/`.
+Hosted: the **Edit** button on each finished demo in the modal -> `POST /api/demos/<slug>/edit`, which also restarts the
+demo's voice worker so the next call uses the change.
+
 ## Steps (quick mode)
 1. `capture.py` — Playwright (channel chrome), home + N same-origin nav pages, full-page 1440/390 PNGs, text, images, nav, computed styles → `ref/capture.json`.
 2. `design.py` — Gemini (`gemini-3.1-pro-preview`): `ref/spec.md`, `ref/tokens.json`, `ref/site.json` (site model from the real content + facts), `ref/images.json`.

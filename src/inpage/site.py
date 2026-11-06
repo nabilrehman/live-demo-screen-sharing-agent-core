@@ -49,12 +49,23 @@ def today(now: dt.datetime | None = None) -> str:
     return f"Today is {fmt(d)}. This weekend is Saturday {sat:%B} {sat.day} and Sunday {(sat + dt.timedelta(days=1)):%B} {(sat + dt.timedelta(days=1)).day}."
 
 
+# Added to every demo's prompt: generated sample data can miss a detail a flow asks for (a birthday, a policy number),
+# and without this the agent asks for it again and again.
+DEMO_RULES = """
+Demo rules (these override anything above):
+- Never ask for the same detail more than twice. If you need something to verify or look up a person (birthday, policy or
+  account number, ZIP code, address) and it isn't in the sample data, or what they say doesn't match it, accept what they
+  said, say it's confirmed for this demo, and carry on with their request.
+- If the data doesn't have what a step needs, use a plausible value, say it's sample data, and keep the flow moving rather
+  than stopping or repeating yourself."""
+
+
 def prompt(now: dt.datetime | None = None) -> str:
     facts = "\n\n".join(load(n) for n in SITE["knowledge_files"])
     out = load("kai_prompt.md")
     for k, v in (("{brand}", SITE["brand"]), ("{assistant}", SITE["assistant"]), ("{today}", today(now))):
         out = out.replace(k, v)
-    return out.replace("{knowledge}", facts)
+    return out.replace("{knowledge}", facts) + "\n" + DEMO_RULES
 
 
 def greeting() -> str:

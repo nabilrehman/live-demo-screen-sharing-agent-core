@@ -89,6 +89,18 @@
   .aig-card .aig-m { padding: 8px 10px 10px; display: grid; gap: 2px; }
   .aig-card b { font-size: 13.5px; } .aig-card span { font-size: 11.5px; color: #8a8f98; } .aig-card code { font-size: 11px; color: #1fd5f9; }
   .aig-empty { color: #6f747c; font-size: 13px; }
+  .aig-cw { position: relative; display: grid; }
+  .aig-ed { position: absolute; top: 8px; right: 8px; padding: 5px 10px; border-radius: 999px; border: 1px solid #3a3d46; background: rgba(7,8,10,.86); color: #e8e9eb; font: 600 11.5px/1 inherit; cursor: pointer; }
+  .aig-ed:hover { border-color: #8f7cf0; color: #fff; }
+  .aig-edit { border: 1px solid #6d5fd6; border-radius: 16px; padding: 14px 16px; background: #08090c; display: none; margin-bottom: 16px; gap: 10px; }
+  .aig-edit.show { display: grid; }
+  .aig-edit .aig-st { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+  .aig-edit .aig-ok { color: #9fe3bf; font-size: 13px; min-height: 1em; }
+  .aig-edit .aig-row { display: flex; gap: 8px; align-items: center; }
+  .aig-edit .aig-row button { padding: 10px 16px; border-radius: 10px; border: 0; background: #1fd5f9; color: #001018; font: 600 14px inherit; cursor: pointer; }
+  .aig-edit .aig-row button:disabled { opacity: .6; cursor: progress; }
+  .aig-edit .aig-row .aig-cancel { background: transparent; color: #8a8f98; border: 1px solid #262930; }
+  .aig-edit .aig-row .aig-del { margin-left: auto; color: #f0566a; border-color: #4a2229; }
   .aig-foot { padding: 14px 30px 20px; color: #5f646b; font-size: 12px; border-top: 1px solid #1a1c21; position: relative; z-index: 1; }
 </style>
 <div class="aig-modal" id="aig-modal" role="dialog" aria-modal="true" aria-labelledby="aig-title">
@@ -108,6 +120,10 @@
         <label><span>Agent use case <span class="aig-hint">(optional: what should the agent do?)</span></span>
           <textarea name="concept" placeholder="e.g. Casino hosts walk the floor managing high rollers; give each host an AI agent on their phone that briefs them on arriving VIPs: gambling profile, authorized comps, preferences, entertainment picks."></textarea></label>
         <div class="aig-2">
+          <label><span>Agent name <span class="aig-hint">(optional)</span></span><input name="assistant" maxlength="40" placeholder="e.g. Allie (default: LiveKit)"></label>
+          <label>Agent voice<select name="voice"><option value="">Let the use case decide</option><option value="female">Female</option><option value="male">Male</option></select></label>
+        </div>
+        <div class="aig-2">
           <label>Mode<select name="mode"><option value="claude">Claude Code · full quality · 1-3 h</option><option value="quick">Quick · ~10 min</option></select></label>
           <label><span>Builder code <span class="aig-hint">(ask Nabil)</span></span><input name="build_code" type="password" required placeholder="••••••"></label>
         </div>
@@ -122,6 +138,18 @@
           <div id="aig-st-link"></div>
           <pre class="aig-log" id="aig-log"></pre>
         </div>
+        <form class="aig-form aig-edit" id="aig-edit" autocomplete="off">
+          <div class="aig-st"><span id="aig-ed-t">Edit demo</span></div>
+          <div class="aig-2">
+            <label>Agent name<input name="assistant" maxlength="40" placeholder="LiveKit"></label>
+            <label>Voice<select name="voice"><option value="">Keep as is</option><option value="female">Female</option><option value="male">Male</option></select></label>
+          </div>
+          <label><span>What should change? <span class="aig-hint">(plain English; about a minute, no rebuild)</span></span>
+            <textarea name="change" placeholder="e.g. Add a date of birth to every customer so the agent can verify them. Make the first customer's claim a hail-damage claim."></textarea></label>
+          <label class="aig-ed-code"><span>Builder code</span><input name="build_code" type="password" placeholder="••••••"></label>
+          <div class="aig-row"><button type="submit">Save changes</button><button type="button" class="aig-cancel" id="aig-ed-x">Cancel</button><button type="button" class="aig-cancel aig-del" id="aig-ed-del">Delete demo</button></div>
+          <div class="aig-err" id="aig-ed-err" role="alert"></div><div class="aig-ok" id="aig-ed-ok"></div>
+        </form>
         <h3>AI-generated demos</h3>
         <div class="aig-grid" id="aig-grid"><div class="aig-empty">Loading…</div></div>
       </div>
@@ -140,7 +168,7 @@
   const modal = $('aig-modal'), form = $('aig-form');
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = (s) => s < 90 ? s + 's' : s < 5400 ? Math.round(s / 60) + ' min' : (s / 3600).toFixed(1) + ' h';
-  let watching = null, timer = null;
+  let watching = null, timer = null, demosBy = {}, editing = null;
   const open = () => { modal.classList.add('show'); loadDemos(); };
   const close = () => modal.classList.remove('show');
   document.addEventListener('click', (e) => { if (e.target.closest('[data-aig-open]')) { e.preventDefault(); open(); } });
@@ -155,8 +183,10 @@
     const live = d.status === 'done', href = live ? d.preview : '#';
     const th = d.thumb ? `style="background-image:url('${esc(d.thumb)}')"` : '';
     const st = live ? `<code>code ${esc(d.code)}</code>` : `<span>${d.status === 'running' ? 'building… ' + fmt(d.elapsed_s) : esc(d.status)}</span>`;
-    return `<a class="aig-card" ${live ? `href="${esc(href)}" target="_blank" rel="noopener"` : `data-watch="${esc(d.slug)}"`}><div class="aig-th" ${th}>${d.thumb ? '' : esc(d.brand)}</div>
-      <div class="aig-m"><b>${esc(d.brand)}</b><span>/v2/${esc(d.slug)}/ · ${esc(d.mode)}${d.concept ? ' · use case' : ''}</span>${st}</div></a>`;
+    const who = d.persona && (d.persona.assistant || d.persona.voice) ? ` · ${esc(d.persona.assistant || 'LiveKit')}${d.persona.voice ? ' (' + esc(d.persona.voice) + ')' : ''}` : '';
+    const a = `<a class="aig-card" ${live ? `href="${esc(href)}" target="_blank" rel="noopener"` : `data-watch="${esc(d.slug)}"`}><div class="aig-th" ${th}>${d.thumb ? '' : esc(d.brand)}</div>
+      <div class="aig-m"><b>${esc(d.brand)}</b><span>/v2/${esc(d.slug)}/ · ${esc(d.mode)}${d.concept ? ' · use case' : ''}${who}</span>${st}</div></a>`;
+    return live ? `<div class="aig-cw">${a}<button class="aig-ed" data-edit="${esc(d.slug)}">Edit</button></div>` : a;
   }
   function chip(d) {
     const live = d.status === 'done';
@@ -167,6 +197,7 @@
     try {
       const r = await fetch(API + '/api/demos', { cache: 'no-store' }); const j = await r.json();
       const list = (j.demos || []).filter((d) => d.status !== 'failed' || d.slug === watching);
+      demosBy = Object.fromEntries(list.map((d) => [d.slug, d]));
       $('aig-grid').innerHTML = list.length ? list.map(card).join('') : '<div class="aig-empty">No generated demos yet. Paste a website to make the first one.</div>';
       $('aig-chips').innerHTML = list.filter((d) => d.status !== 'failed').map(chip).join('');
       if (!watching) { const run = list.find((d) => d.status === 'running'); if (run && modal.classList.contains('show')) watch(run.slug); }
@@ -202,6 +233,49 @@
       if (!r.ok) { $('aig-err').textContent = j.error || 'Could not start the build'; return; }
       watch(j.slug); loadDemos();
     } catch (err) { $('aig-err').textContent = 'The build host is unreachable right now.'; }
+  });
+  const ed = $('aig-edit');
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-edit]'); if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    const d = demosBy[b.dataset.edit]; if (!d) return;
+    editing = d.slug; ed.reset(); $('aig-ed-err').textContent = ''; $('aig-ed-ok').textContent = '';
+    $('aig-ed-t').textContent = `Edit ${d.brand}`;
+    ed.assistant.value = (d.persona && d.persona.assistant) || ''; ed.voice.value = (d.persona && d.persona.voice) || '';
+    let code = ''; try { code = sessionStorage.getItem('aig.code') || ''; } catch (err) {}
+    ed.build_code.value = code; ed.querySelector('.aig-ed-code').style.display = code ? 'none' : '';
+    ed.classList.add('show'); ed.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); ed.change.focus();
+  }, true);
+  $('aig-ed-x').onclick = () => { ed.classList.remove('show'); editing = null; };
+  $('aig-ed-del').onclick = async () => {
+    const d = demosBy[editing]; if (!d) return;
+    if (!confirm(`Delete the ${d.brand} demo? Its link (/v2/${d.slug}/) stops working for everyone.`)) return;
+    $('aig-ed-err').textContent = ''; $('aig-ed-ok').textContent = '';
+    const code = ed.build_code.value; try { sessionStorage.setItem('aig.code', code); } catch (err) {}
+    try {
+      const r = await fetch(API + '/api/demos/' + encodeURIComponent(d.slug) + '/delete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ build_code: code }) });
+      const j = await r.json();
+      if (!r.ok) { ed.querySelector('.aig-ed-code').style.display = ''; $('aig-ed-err').textContent = j.error || 'Could not delete it'; return; }
+      ed.classList.remove('show'); editing = null; loadDemos();
+    } catch (err) { $('aig-ed-err').textContent = 'The build host is unreachable right now.'; }
+  };
+  ed.addEventListener('submit', async (e) => {
+    e.preventDefault(); if (!editing) return;
+    const go = ed.querySelector('button[type=submit]'); $('aig-ed-err').textContent = ''; $('aig-ed-ok').textContent = '';
+    const d = demosBy[editing] || {}, p = d.persona || {}, f = Object.fromEntries(new FormData(ed));
+    if ((f.assistant || '') === (p.assistant || '')) delete f.assistant;
+    if (!f.voice || f.voice === (p.voice || '')) delete f.voice;
+    if (!f.assistant && !f.voice && !f.change.trim()) { $('aig-ed-err').textContent = 'Nothing to change yet.'; return; }
+    try { sessionStorage.setItem('aig.code', f.build_code); } catch (err) {}
+    go.disabled = true; go.textContent = 'Saving… (about a minute)';
+    try {
+      const r = await fetch(API + '/api/demos/' + encodeURIComponent(editing) + '/edit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(f) });
+      const j = await r.json();
+      if (!r.ok) { $('aig-ed-err').textContent = j.error || 'Could not save the change'; return; }
+      $('aig-ed-ok').textContent = `✓ ${String(j.summary || 'Saved').replace(/\.+$/, '')}. Start a new call to hear it (same link, same code).`;
+      ed.change.value = ''; loadDemos();
+    } catch (err) { $('aig-ed-err').textContent = 'The build host is unreachable right now.'; }
+    finally { go.disabled = false; go.textContent = 'Save changes'; }
   });
   loadDemos(); setInterval(() => { if (document.visibilityState === 'visible') loadDemos(); }, 30000);
 })();

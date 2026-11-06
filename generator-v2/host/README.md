@@ -7,6 +7,11 @@ demo-design skill, `templates/claude_prompt_sandbox.md`) -> the modal polls `/ap
 demo is served at `https://<sandbox>.vercel.run/v2/<slug>/?code=<SLUG>-DEMO` with its own voice worker, and shows up as a
 card in the modal + a chip under the demo tabs on the main page (`/api/demos`).
 
+**Edit:** each finished demo's card has an **Edit** button (agent name, voice, "what should change?") -> `POST
+/api/demos/<slug>/edit` -> `edit_demo.py` (about a minute) -> the demo's worker is restarted; same link, same code.
+**Delete:** "Delete demo" in the same panel -> `POST /api/demos/<slug>/delete` stops the worker and moves `work/<slug>` to
+`work/.deleted/<slug>-<time>/`; the link 404s. To restore, move the folder back to `work/<slug>` and restart the host.
+
 ## Pieces
 - `server.py` - the controller (aiohttp, :8080, public via the sandbox's exposed port). Jobs are detached subprocesses;
   state is on disk (`work/<slug>/job.json`) so a new session picks up finished demos and restarts their voice workers.

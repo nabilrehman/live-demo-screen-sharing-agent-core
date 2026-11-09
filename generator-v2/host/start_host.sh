@@ -5,7 +5,7 @@
 # Kill ONLY the controller process. Anchored on the start of the command line: a bare "generator-v2/host/server.py"
 # pattern also matches running `claude -p` builds (their prompt text mentions that path) and kills them.
 pkill -f '^/vercel/venv/bin/python host/(server|product_main)\.py$' 2>/dev/null; sleep 1
-set -a; . /vercel/gen/.lk.env; set +a
+set -a; . /vercel/gen/.lk.env; [ -f /vercel/gen/.blob.env ] && . /vercel/gen/.blob.env; set +a   # LiveKit + Blob (publish.py)
 cd /vercel/gen/generator-v2
 ENTRY=host/server.py; [ -f host/product_main.py ] && [ -f host/product.py ] && ENTRY=host/product_main.py
 setsid nohup /vercel/venv/bin/python $ENTRY > /vercel/gen/host-server.log 2>&1 < /dev/null &

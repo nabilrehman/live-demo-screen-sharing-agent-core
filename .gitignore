@@ -16,3 +16,4 @@ e2e_*
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
+generator-v2/host/blob/node_modules/

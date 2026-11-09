@@ -189,7 +189,7 @@
   const modal = $('aig-modal'), form = $('aig-form');
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = (s) => s < 90 ? s + 's' : s < 5400 ? Math.round(s / 60) + ' min' : (s / 3600).toFixed(1) + ' h';
-  let watching = null, timer = null, demosBy = {}, editing = null;
+  let watching = null, timer = null, demosBy = {}, editing = null, hostUp = true;
   const open = () => { modal.classList.add('show'); loadDemos(); setTimeout(() => { if (!form.url.value) form.url.focus(); }, 30); };
   const close = () => modal.classList.remove('show');
   document.addEventListener('click', (e) => { if (e.target.closest('[data-aig-open]')) { e.preventDefault(); open(); } });
@@ -227,7 +227,7 @@
     const who = d.persona && (d.persona.assistant || d.persona.voice) ? ` · ${esc(d.persona.assistant || 'LiveKit')}${d.persona.voice ? ' (' + esc(d.persona.voice) + ')' : ''}` : '';
     const a = `<a class="aig-card" ${live ? `href="${esc(href)}" target="_blank" rel="noopener"` : `data-watch="${esc(d.slug)}"`}><div class="aig-th" ${th}>${d.thumb ? '' : esc(d.brand)}</div>
       <div class="aig-m"><b>${esc(d.brand)}</b><span>/v2/${esc(d.slug)}/ · ${esc(d.mode)}${d.concept ? ' · use case' : ''}${who}</span>${st}</div></a>`;
-    return live ? `<div class="aig-cw">${a}<button class="aig-ed" data-edit="${esc(d.slug)}">Edit</button></div>` : a;
+    return live && hostUp ? `<div class="aig-cw">${a}<button class="aig-ed" data-edit="${esc(d.slug)}">Edit</button></div>` : a;
   }
   function chip(d) {
     const live = d.status === 'done';
@@ -236,11 +236,15 @@
   }
   async function loadDemos() {
     try {
-      const r = await fetch(API + '/api/demos', { cache: 'no-store' }); const j = await r.json();
+      let j;
+      // the build host (Vercel Sandbox) sleeps between sessions; finished demos are hosted copies, listed in /v2-demos.json
+      try { const r = await fetch(API + '/api/demos', { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); j = await r.json(); hostUp = true; }
+      catch (err) { hostUp = false; j = await (await fetch('/v2-demos.json', { cache: 'no-store' })).json(); }
       const list = (j.demos || []).filter((d) => d.status !== 'failed' || d.slug === watching);
       demosBy = Object.fromEntries(list.map((d) => [d.slug, d]));
       known = new Set((j.demos || []).map((d) => d.slug)); plan();
-      $('aig-grid').innerHTML = list.length ? list.map(card).join('') : '<div class="aig-empty">No generated demos yet. Paste a website to make the first one.</div>';
+      $('aig-grid').innerHTML = (hostUp ? '' : '<div class="aig-empty" style="grid-column:1/-1">The build host is asleep: every demo below still works, but generating and editing are paused until it is back.</div>')
+        + (list.length ? list.map(card).join('') : '<div class="aig-empty">No generated demos yet. Paste a website to make the first one.</div>');
       if (window.__lkxRender) window.__lkxRender(list.filter((d) => d.status !== 'failed'));
       if (!watching) { const run = list.find((d) => d.status === 'running'); if (run && modal.classList.contains('show')) watch(run.slug); }
     } catch (e) { $('aig-grid').innerHTML = '<div class="aig-empty">The build host is offline right now.</div>'; }

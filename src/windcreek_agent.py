@@ -32,6 +32,7 @@ from inpage.insights import Insights
 from inpage.live import PageAgent
 from inpage.site import SITE, SitePage, allowed_path, greeting, prompt
 import voice_rec  # call audio for the demo replays (see voice_rec.py)
+import gen_pack  # generated demos on one shared hosted agent: picks this call's demo (see gen_pack.py)
 
 if IS_GEMINI:  # a slow import (PIL): do it when the job process starts, not on the call's first second
     from google.genai import types as _genai_types  # noqa: F401
@@ -222,6 +223,7 @@ server = AgentServer(port=int(os.getenv("WORKER_PORT", 8099)))
 
 @server.rtc_session(agent_name=os.getenv("AGENT_NAME", "live-demo-windcreek"))
 async def entrypoint(ctx: JobContext):
+    demo = await gen_pack.select(ctx)  # None unless this is the shared demo-gen agent
     session = make_session(SITE.get("voice"))  # the demo's knowledge pack can ask for "female"/"male"
     page = SitePage()
     ins = Insights(ctx.room.name, BRAIN, MODEL)
@@ -311,7 +313,7 @@ async def entrypoint(ctx: JobContext):
                 json.dump(summary, f, indent=2)
         except OSError as e:
             log.warning("summary not written: %s", e)
-        slug = os.getenv("AGENT_NAME", "").removeprefix("gen-")
+        slug = demo or os.getenv("AGENT_NAME", "").removeprefix("gen-")
         await voice_rec.upload(ctx, session, slug, keep_dir=os.path.join(ROOT, "sessions", ctx.room.name))
 
     ctx.add_shutdown_callback(finish)

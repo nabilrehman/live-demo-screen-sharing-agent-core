@@ -1,0 +1,29 @@
+{
+  "_comment": "Merged into live-demos-sa vercel.json (project nabil-flights-demo): serves published generated demos from Vercel Blob",
+  "rewrites": [
+    {
+      "source": "/v2-demos.json",
+      "destination": "https://88ev414hvkdji1jn.public.blob.vercel-storage.com/gen/demos.json"
+    },
+    {
+      "source": "/v2/:slug([a-z0-9-]+)/:path(.*\\.html?)",
+      "destination": "/api/gen-page?slug=:slug&path=:path"
+    },
+    {
+      "source": "/v2/:slug([a-z0-9-]+)/:path(.*\\.[A-Za-z0-9]{1,8})",
+      "destination": "https://88ev414hvkdji1jn.public.blob.vercel-storage.com/gen/:slug/site/:path"
+    },
+    {
+      "source": "/v2/:slug([a-z0-9-]+)/:path(.+)",
+      "destination": "/api/gen-page?slug=:slug&path=:path"
+    },
+    {
+      "source": "/v2/:slug([a-z0-9-]+)/",
+      "destination": "/api/gen-page?slug=:slug"
+    },
+    {
+      "source": "/v2/:slug([a-z0-9-]+)",
+      "destination": "/api/gen-page?slug=:slug"
+    }
+  ]
+}

@@ -2,11 +2,12 @@
 
   POST /api/generate   {url, brand, slug, concept?, mode: quick|claude, images: bool, build_code}  -> starts a build job
   GET  /api/jobs/<slug>                                    -> status + readable log tail (poll every few s)
-  POST /api/demos/<slug>/edit {build_code, assistant?, voice?, change?} -> edits a finished demo, restarts its worker
-  POST /api/demos/<slug>/delete {build_code}             -> stops its worker, moves it to work/.deleted/ (recoverable)
+  POST /api/demos/<slug>/edit {build_code, assistant?, voice?, change?} -> edits a finished demo, republishes its pack
+  POST /api/demos/<slug>/delete {build_code}             -> takes it off Blob, moves it to work/.deleted/ (recoverable)
   GET  /api/demos                                          -> every demo built here (gallery feed for the main page)
   GET  /v2/<slug>/...                                      -> the generated, access-code-gated demo (static)
-  GET  /api/token?brain=<slug>-grok                        -> LiveKit token, dispatches agent gen-<slug> (worker runs here)
+  GET  /api/token?brain=<slug>-grok                        -> LiveKit token for agent gen-<slug> (a sandbox worker: builds and
+                                                              unpublished demos; published ones redirect to live-demos-sa)
   GET  /                                                   -> tiny status page
 
 Builds are long (quick ~5-15 min, claude 1-3 h), so each one is a detached subprocess of generate_demo.py; this
@@ -18,8 +19,10 @@ key file, gen/.lk.env). TODO(per-user): replace `sandbox_for(request)` + the see
 "demo-gen-<username>" in which that person ran `claude login` (device-code flow) themselves; see host/README.md.
 Nothing here ever reads or prints the contents of those credential files.
 """
-import datetime, html, json, os, re, secrets, subprocess, sys, time, urllib.parse
+import datetime, html, json, os, re, secrets, subprocess, sys, threading, time, urllib.parse
 from aiohttp import web
+
+import publish  # finished demos -> Vercel Blob + the shared LiveKit Cloud agent (host/publish.py)
 
 ROOT = os.environ.get("GEN_HOME", "/vercel/gen")
 GEN = os.path.join(ROOT, "generator-v2")                 # this repo folder, copied into the sandbox
@@ -128,8 +131,30 @@ def refresh(slug, j):
     j["finished"] = int(time.time()); j["exit"] = rc
     save(slug, j)
     if j["status"] == "done":
-        start_worker(slug)
+        publish_bg(slug)
     return j
+
+
+def hosted(slug):
+    """Published demos run off the sandbox: pages on live-demos-sa, calls on the LiveKit Cloud agent demo-gen."""
+    return publish.enabled() and bool((load(slug) or {}).get("published", {}).get("url"))
+
+
+def publish_bg(slug, pages=True):
+    """Publish in the background (a few seconds to a minute). Without Blob credentials the demo keeps its sandbox worker."""
+    if not publish.enabled():
+        start_worker(slug)
+        return
+
+    def run():
+        try:
+            publish.publish(slug, pages=pages)
+        except Exception as e:  # noqa: BLE001 - recorded on the job; the sandbox copy keeps working meanwhile
+            j = load(slug)
+            if j:
+                j["publish_error"] = scrub(str(e))[:300]; save(slug, j)
+            start_worker(slug)
+    threading.Thread(target=run, daemon=True).start()
 
 
 def readable_claude(path, n=40):
@@ -172,6 +197,11 @@ def view(req, slug, j):
     out = {k: j.get(k) for k in ("slug", "brand", "url", "mode", "status", "code", "concept", "created", "finished", "images", "edits")}
     out["persona"] = persona(slug)
     out["preview"] = f"{base}/v2/{slug}/?code={urllib.parse.quote(j['code'])}" if j.get("status") == "done" else None
+    pub = j.get("published") or {}
+    out["hosted"] = bool(pub.get("url")) and publish.enabled()
+    if out["hosted"]:
+        out["preview"] = pub["url"]  # the persistent copy: works while this sandbox is stopped
+    out["publish_error"] = j.get("publish_error")
     out["elapsed_s"] = int((j.get("finished") or time.time()) - j.get("created", time.time()))
     out["thumb"] = f"{base}/thumb/{slug}" if thumb_src(slug) else None
     return out
@@ -186,17 +216,7 @@ def persona(slug):
         return None
 
 
-def thumb_src(slug):
-    d = os.path.join(WORK, slug)
-    for sub in ("verify", "ref"):
-        try:
-            names = sorted(os.listdir(os.path.join(d, sub)))
-        except OSError:
-            continue
-        for n in names:
-            if n.endswith(".png") and n.startswith("home") and ("desk" in n or "1440" in n):
-                return os.path.join(d, sub, n)
-    return None
+thumb_src = publish.thumb_src
 
 
 def cors(resp):
@@ -328,8 +348,14 @@ async def edit(req):
         res = json.loads(p.stdout.strip().splitlines()[-1])
     except (ValueError, IndexError):
         return jerr(500, "the edit failed: " + scrub(p.stderr.strip().splitlines()[-1] if p.stderr.strip() else "no output")[:300])
-    await asyncio.to_thread(stop_worker, slug)
-    start_worker(slug)
+    if hosted(slug):  # the hosted agent picks the new pack up on the next call; pages too if the edit rebuilt them
+        try:
+            await asyncio.to_thread(publish.publish, slug, any(c.startswith("site") for c in res.get("changed") or []))
+        except Exception as e:  # noqa: BLE001
+            return jerr(502, "edited, but publishing it failed: " + scrub(str(e))[:200])
+    else:
+        await asyncio.to_thread(stop_worker, slug)
+        start_worker(slug)
     j = load(slug)
     j.setdefault("edits", []).append({"at": int(time.time()), "assistant": assistant, "voice": voice, "change": change, "summary": res.get("summary")})
     save(slug, j)
@@ -352,11 +378,18 @@ async def delete(req):
         return jerr(404, "no such demo")
     if refresh(slug, j).get("status") == "running" or j.get("editing"):
         return jerr(409, "it is still building or being edited; try again when it's done")
+    if (j.get("published") or {}) and publish.enabled():
+        try:
+            await asyncio.to_thread(publish.node, "delete", slug)
+        except Exception as e:  # noqa: BLE001
+            return jerr(502, "could not take it off the hosted copy: " + scrub(str(e))[:200])
     await asyncio.to_thread(stop_worker, slug)
     dst = os.path.join(WORK, ".deleted", f"{slug}-{time.strftime('%Y%m%d-%H%M%S')}")
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     shutil.move(os.path.join(WORK, slug), dst)
     PROCS.pop(slug, None)
+    if publish.enabled():
+        await asyncio.to_thread(publish.index)
     return cors(web.json_response({"deleted": slug}))
 
 
@@ -380,15 +413,9 @@ async def thumb(req):
     slug = req.match_info["slug"]
     if not re.match(r"^[a-z0-9-]+$", slug):
         raise web.HTTPNotFound()
-    src = thumb_src(slug)
-    if not src:
+    out = publish.make_thumb(slug)
+    if not out:
         raise web.HTTPNotFound()
-    out = os.path.join(WORK, slug, "thumb.jpg")
-    if not os.path.isfile(out) or os.path.getmtime(out) < os.path.getmtime(src):
-        from PIL import Image
-        im = Image.open(src).convert("RGB")
-        w = im.width; im = im.crop((0, 0, w, min(im.height, int(w * 0.62))))
-        im.thumbnail((720, 720)); im.save(out, "JPEG", quality=78)
     return web.FileResponse(out, headers={"Cache-Control": "max-age=120", "Access-Control-Allow-Origin": "*"})
 
 
@@ -414,6 +441,9 @@ async def static(req):
     if not m:
         raise web.HTTPNotFound()
     slug, rel = m.group(1), (m.group(2) or "/")
+    if hosted(slug) and req.host.split(":")[0] not in ("localhost", "127.0.0.1"):  # builds/verify use localhost
+        q = ("?" + req.query_string) if req.query_string else ""
+        raise web.HTTPFound(f"{publish.PUBLIC}/v2/{slug}{rel}{q}")
     if rel == "/" and not req.path.endswith("/"):
         raise web.HTTPFound(req.path + "/" + (("?" + req.query_string) if req.query_string else ""))
     site = os.path.join(WORK, slug, "site")
@@ -444,8 +474,8 @@ async def on_start(app):
     os.makedirs(WORK, exist_ok=True)
     for slug in os.listdir(WORK):  # new session: bring the voice workers of finished demos back
         j = load(slug)
-        if j and refresh(slug, j).get("status") == "done":
-            start_worker(slug)
+        if j and refresh(slug, j).get("status") == "done" and not hosted(slug):
+            publish_bg(slug)  # publishes it (or, without Blob credentials, starts its sandbox worker as before)
 
 
 app = web.Application()

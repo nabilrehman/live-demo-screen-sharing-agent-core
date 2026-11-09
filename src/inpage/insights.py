@@ -13,6 +13,16 @@ import time
 from .site import load
 
 CFG: dict = json.loads(load("insights.json"))
+
+
+def reload() -> None:
+    """Re-read the vocabularies after site.use_knowledge() switched packs (in place: Insights reads CFG at call time)."""
+    try:
+        new = json.loads(load("insights.json"))
+    except (OSError, ValueError):
+        return  # a pack without its own insights.json keeps the default vocabularies
+    CFG.clear()
+    CFG.update(new)
 SCRUB = [
     (re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "[email]"),
     (re.compile(r"\d[\d\s().-]{3,}\d"), "[number]"),

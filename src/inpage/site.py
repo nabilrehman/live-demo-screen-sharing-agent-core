@@ -38,6 +38,15 @@ def load(name: str) -> str:
 SITE: dict = json.loads(load("site.json"))
 
 
+def use_knowledge(path: str) -> None:
+    """Point this job's process at another knowledge pack (the shared hosted agent for generated demos loads each call's
+    demo at job start). SITE is updated in place: other modules hold a reference to it."""
+    global KNOWLEDGE
+    KNOWLEDGE = path
+    SITE.clear()
+    SITE.update(json.loads(load("site.json")))
+
+
 def today(now: dt.datetime | None = None) -> str:
     """Today in the site's time zone, with the weekday and the coming weekend's dates (for "this weekend")."""
     now = now or dt.datetime.now(ZoneInfo(SITE.get("timezone", "America/New_York")))

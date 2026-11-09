@@ -73,3 +73,22 @@ the redeploy: `/vercel/gen/backup-20261109-163201/`.
 `~/Downloads/livekit-ops/demo-gen-keepalive.sh` from crontab every 10 min: when `/api/demos` stops answering it resumes
 the sandbox and runs `start_host.sh` (about 10 s; finished demos and their workers come back, in-flight builds don't).
 It only works while the laptop is awake. Log: `~/Downloads/livekit-ops/demo-gen-keepalive.log`.
+
+## Hosted demos (since 11/09/2026): LiveKit Cloud + Vercel Blob, no sandbox needed to view or call
+Finished demos no longer run on the sandbox. `host/publish.py` (called by server.py when a build finishes, after every
+Edit, and on Delete; `blob/publish.mjs` does the Blob calls) copies each demo to the Vercel Blob store **demo-gen**
+(team livekit-b9da233b, linked to project `nabil-flights-demo`):
+- pages -> `gen/<slug>/site/`, served at **https://live-demos-sa.vercel.app/v2/<slug>/?code=<CODE>**. HTML goes through
+  `api/gen-page.js` (Blob serves .html as a download); other files are proxied by `vercel.json` rewrites. The widget's
+  token URL is rewritten at publish time to `/api/gen-token` (`/api/token` there serves the classic demos).
+- knowledge pack -> `<GEN_PACK_PREFIX>/<slug>/<version>/` (a new version per Edit; the last 3 are kept).
+- gallery feed -> `gen/demos.json` (`/v2-demos.json`): the main page lists demos from it while the host is off.
+Calls: `api/gen-token.js` finds the newest pack version and dispatches the shared LiveKit Cloud agent **demo-gen**
+(project **nabil-demo**, `CA_n8cceeJXVQtt`, us-east) with `{slug, v}`; `src/gen_pack.py` downloads that pack and swaps
+it in before the session starts. Edit = new pack (next call uses it); Delete = blobs removed (link 404s in about a minute).
+- Page-project copies: `landing/vercel/` (gen-token.js, gen-page.js, rewrites.json). Page source folder:
+  `~/Downloads/live-demos-deploy-20261109` (env: LIVEKIT_*, BLOB_READ_WRITE_TOKEN, GEN_PACK_PREFIX).
+- Agent code changes only: `host/deploy_agent.sh` (gen.Dockerfile, build folder `~/Downloads/demo-gen-agent`).
+- Credentials: `/vercel/gen/.blob.env` in the sandbox, `~/Downloads/livekit-ops/demo-gen-blob.env` on Nabil's laptop.
+- Old sandbox links (`sb-mgs5l8pw3lep.vercel.run/v2/<slug>/`) redirect to the hosted copy while the sandbox is up.
+- Still on the sandbox: Generate (builds), Edit and Delete. The keep-alive below only matters for those now.

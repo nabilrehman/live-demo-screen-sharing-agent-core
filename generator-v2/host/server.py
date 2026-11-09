@@ -48,6 +48,16 @@ def build_code():
         return ""
 
 
+def login_gated(req):
+    """True when the product layer's sign-in middleware is installed on this app and requires a signed-in
+    @ALLOWED_DOMAIN session for POST /api/generate: then the shared builder code is redundant (2026-10-22)."""
+    prod = sys.modules.get("product")
+    try:
+        return bool(prod and prod.require_login() and any(getattr(m, "__module__", "") == "product" for m in req.app.middlewares))
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def jpath(slug):
     return os.path.join(WORK, slug, "job.json")
 
@@ -228,7 +238,7 @@ async def generate(req):
     except Exception:
         return jerr(400, "send JSON")
     need = build_code()
-    if need and (f.get("build_code") or "").strip() != need:
+    if need and not login_gated(req) and (f.get("build_code") or "").strip() != need:
         return jerr(403, "wrong builder code")
     url = (f.get("url") or "").strip()
     if not re.match(r"^https?://[^\s/$.?#][^\s]*$", url):

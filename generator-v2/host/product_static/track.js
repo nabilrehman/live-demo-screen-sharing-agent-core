@@ -2,6 +2,9 @@
  * Who: lk_u=<scoped token> from the main site link (kept in localStorage), else an anonymous id.
  * What: open/page, heartbeat every 15 s (active + voice seconds, cumulative per tab session), voice start/end,
  *       and an rrweb DOM recording (inputs masked) streamed to /api/p/replay/<sid> for the analytics page player.
+ * Voice replay: the call's room rides on voice events, an rrweb custom event 'lk-voice' {room, clock_offset_ms}
+ *       lets the player line the agent's call recording up with the DOM, and a small 'calls are recorded' notice
+ *       is added to the LiveKit widget.
  * Never blocks the demo: everything is wrapped, failures are silent. */
 (function () {
   try {
@@ -23,15 +26,33 @@
     }
     send([{ t: fresh ? 'open' : 'page', title: document.title }]);
     // active + voice time: tick every second while the tab is visible / while a call is live
-    function live() { var r = document.getElementById('lk-root') || document.getElementById('kai-root'); return !!(r && r.classList.contains('live')); }
+    function live() { var r = document.getElementById('lk-root') || document.getElementById('kai-root'); if (!r) return false; if (r.classList.contains('live')) return true; var k = r.shadowRoot && r.shadowRoot.querySelector('.kai'); return !!(k && k.classList.contains('live')); }
+    function callRoom() { try { var c = JSON.parse(ss.getItem('lk.session.v1') || 'null'); return c && c.room ? String(c.room) : null; } catch (e) { return null; } }
+    var skew = null, marked = {};
+    (function () { var t1 = Date.now(); fetch(API + '/api/p/config').then(function (r) { return r.json(); }).then(function (c) {
+      var t2 = Date.now(); if (typeof c.now === 'number' && t2 - t1 < 3000) skew = Math.round((t1 + t2) / 2 - c.now * 1000); }).catch(function () {}); })();
+    function markVoice() { var room = callRoom(); if (!room || marked[room] || skew == null) return; var R = window.rrwebRecord && (window.rrwebRecord.record || window.rrwebRecord.default);
+      var add = (R && R.addCustomEvent) || (window.rrwebRecord && window.rrwebRecord.addCustomEvent); if (!add) return;
+      try { add('lk-voice', { room: room, clock_offset_ms: skew }); marked[room] = 1; } catch (e) {} }
+    // recording notice next to the widget's launcher (before a call starts) and in its panel
+    (function notice(tries) { var r = document.getElementById('lk-root'), sh = r && r.shadowRoot, l = sh && sh.getElementById('launch');
+      if (!l) { if (tries < 40) setTimeout(function () { notice(tries + 1); }, 250); return; }
+      if (sh.getElementById('lk-rec-note')) return;
+      var n = document.createElement('div'); n.id = 'lk-rec-note'; n.textContent = 'Calls are recorded';
+      n.style.cssText = 'font:500 11px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:rgba(255,255,255,.92);background:rgba(17,18,20,.62);padding:3px 8px;border-radius:999px;margin:0 4px 6px auto;width:max-content;pointer-events:none;letter-spacing:.01em;';
+      l.parentNode.insertBefore(n, l); l.setAttribute('title', 'Talk to LiveKit. Calls are recorded for this demo\'s replay.');
+      var d = sh.querySelector('.disclose'); if (d && d.textContent.indexOf('recorded') < 0) d.textContent = d.textContent.replace(/\s*$/, '') + ' This call is recorded.';
+      setInterval(function () { var k = sh.querySelector('.kai'); n.style.display = k && k.classList.contains('live') ? 'none' : ''; }, 1000);
+    })(0);
     var wasLive = false, n = 0;
     setInterval(function () {
       var vis = document.visibilityState === 'visible', l = live();
       if (vis) st.active++; if (l) st.voice++;
-      if (l && !wasLive) send([{ t: 'voice_start' }]);
+      if (l && !wasLive) send([{ t: 'voice_start', room: callRoom() || undefined, skew_ms: skew == null ? undefined : skew }]);
+      if (l) markVoice();
       if (!l && wasLive) send([{ t: 'voice_end', voice_s: st.voice }]);
       wasLive = l; save();
-      if (++n % 15 === 0) send([{ t: 'hb', active_s: st.active, voice_s: st.voice }]);
+      if (++n % 15 === 0) send([{ t: 'hb', active_s: st.active, voice_s: st.voice, room: (l && callRoom()) || undefined }]);
     }, 1000);
     addEventListener('pagehide', function () { send([{ t: 'unload', active_s: st.active, voice_s: st.voice }], true); flush(true); });
     // optional PostHog (only if configured on the host)

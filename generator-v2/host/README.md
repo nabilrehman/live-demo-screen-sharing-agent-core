@@ -62,3 +62,14 @@ Deployed onto the existing main page (project `nabil-flights-demo`, alias live-d
 The source page is `scratchpad/vflights/public/index.html` (snippet inlined); the pre-change copy is
 `~/Downloads/live-demos-index.before-aigen.html`. Rollback: `vercel rollback` / promote the previous production
 deployment `nabil-flights-demo-h3hvu5lpu-livekit-b9da233b.vercel.app`.
+
+Redeployed 11/09/2026: the sandbox's own patches (Clerk sign-in, call recording via `src/voice_rec.py`) and the live
+page's snippet redesign are now in git, merged with name/voice/edit/delete. Current page source:
+`~/Downloads/live-demos-deploy-20261109/public/index.html` (deploy: `vercel deploy --prod --scope livekit-b9da233b`
+from that folder); the previous source is `~/Downloads/live-demos-deploy-20261022`. Sandbox code backups from before
+the redeploy: `/vercel/gen/backup-20261109-163201/`.
+
+**Keep-alive:** a session can't run past 24 h (the API refuses longer timeouts or extensions). Nabil's laptop runs
+`~/Downloads/livekit-ops/demo-gen-keepalive.sh` from crontab every 10 min: when `/api/demos` stops answering it resumes
+the sandbox and runs `start_host.sh` (about 10 s; finished demos and their workers come back, in-flight builds don't).
+It only works while the laptop is awake. Log: `~/Downloads/livekit-ops/demo-gen-keepalive.log`.

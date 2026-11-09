@@ -31,6 +31,7 @@ from demo_agent.brain import BRAIN, IS_GEMINI, MODEL, make_session
 from inpage.insights import Insights
 from inpage.live import PageAgent
 from inpage.site import SITE, SitePage, allowed_path, greeting, prompt
+import voice_rec  # call audio for the demo replays (see voice_rec.py)
 
 if IS_GEMINI:  # a slow import (PIL): do it when the job process starts, not on the call's first second
     from google.genai import types as _genai_types  # noqa: F401
@@ -283,7 +284,10 @@ async def entrypoint(ctx: JobContext):
     await ctx.connect()
     await ctx.wait_for_participant()
     log.info("call %s: brain %s (%s)", ctx.room.name, BRAIN, MODEL)
-    await session.start(agent=kai, room=ctx.room, room_options=room_io.RoomOptions(close_on_disconnect=False))
+    await session.start(
+        agent=kai, room=ctx.room, room_options=room_io.RoomOptions(close_on_disconnect=False),
+        record=voice_rec.record_options(ctx),
+    )
     track(session, kai, ins)
     hello = greeting()
     try:  # the page's state before the greeting, in case its first snapshot came before we listened
@@ -307,6 +311,8 @@ async def entrypoint(ctx: JobContext):
                 json.dump(summary, f, indent=2)
         except OSError as e:
             log.warning("summary not written: %s", e)
+        slug = os.getenv("AGENT_NAME", "").removeprefix("gen-")
+        await voice_rec.upload(ctx, session, slug, keep_dir=os.path.join(ROOT, "sessions", ctx.room.name))
 
     ctx.add_shutdown_callback(finish)
     await done.wait()
